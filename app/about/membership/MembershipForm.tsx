@@ -52,28 +52,23 @@ const MembershipForm: React.FC = () => {
       : null;
   }
 
-  
-
- function validate(vals: Partial<typeof form> = form) {
+function validate(vals: Partial<typeof form> = form) {
   const tmp = { ...errors };
-//name
+
+  // Name
   if ("name" in vals) {
-  if (!vals.name?.trim()) {
-    tmp.name = "Name is required";
-  } 
-  else if (!reName.test(vals.name)) {
-    tmp.name = "Name allows only letters";
-  } 
-  else if (vals.name.trim().length < 3) {
-    tmp.name = "Name must be at least 3 characters";
-  } 
-  else if (vals.name.trim().length > 15) {
-    tmp.name = "Name cannot exceed 15 characters";
-  } 
-  else {
-    tmp.name = "";
+    if (!vals.name?.trim()) {
+      tmp.name = "Name is required";
+    } else if (!reName.test(vals.name)) {
+      tmp.name = "Name allows only letters";
+    } else if (vals.name.trim().length < 3) {
+      tmp.name = "Name must be at least 3 characters";
+    } else if (vals.name.trim().length > 15) {
+      tmp.name = "Name cannot exceed 15 characters";
+    } else {
+      tmp.name = "";
+    }
   }
-}
 
   // DOB
   if ("dob" in vals) {
@@ -104,19 +99,14 @@ const MembershipForm: React.FC = () => {
 
   // Mobile
   if ("mobile" in vals) {
-  if (!vals.mobile) {
-    tmp.mobile = "Mobile number is required";
-  } 
-  else if (!/^[6-9]\d{9}$/.test(vals.mobile)) {
-    tmp.mobile = "Mobile must start with 6,7,8 or 9 and be 10 digits";
-  } 
-  else if (/^(\d)\1+$/.test(vals.mobile)) {
-    tmp.mobile = "Mobile number cannot contain repeated digits";
-  } 
-  else {
-    tmp.mobile = "";
+    if (!vals.mobile) {
+      tmp.mobile = "Mobile number is required";
+    } else if (!/^[6-9]\d{9}$/.test(vals.mobile)) {
+      tmp.mobile = "Mobile must start with 6,7,8 or 9 and be 10 digits";
+    } else {
+      tmp.mobile = "";
+    }
   }
-}
 
   // Address
   if ("address" in vals) {
@@ -145,7 +135,7 @@ const MembershipForm: React.FC = () => {
     if (!vals.pincode) {
       tmp.pincode = "Pincode is required";
     } else if (!rePincode.test(vals.pincode)) {
-      tmp.pincode = "Pincode must be 6 digits and cannot start with 0";
+      tmp.pincode = "Invalid Pincode";
     } else {
       tmp.pincode = "";
     }
@@ -154,6 +144,27 @@ const MembershipForm: React.FC = () => {
   // State
   if ("state" in vals) {
     tmp.state = vals.state ? "" : "Please select a state";
+  }
+
+  // Membership Type
+  if ("membershipType" in vals) {
+    tmp.membershipType = vals.membershipType
+      ? ""
+      : "Please select a Membership Type";
+  }
+
+  // Area of Interest
+  if ("interest" in vals) {
+    tmp.interest = vals.interest
+      ? ""
+      : "Please select an Area of Interest";
+  }
+
+  // Membership Fee
+  if ("fee" in vals) {
+    tmp.fee = vals.fee
+      ? ""
+      : "Please select a Membership Fee";
   }
 
   setErrors(tmp);
@@ -216,6 +227,13 @@ const MembershipForm: React.FC = () => {
   //   return Object.values(tmp).every((x) => x === "");
   // }
     
+const handleCheckboxChange = (name: keyof typeof form, value: string) => {
+  setForm((prev) => ({
+    ...prev,
+    [name]: prev[name] === value ? "" : value,
+  }));
+};
+
 
 
   function handleChange(
@@ -245,27 +263,25 @@ const MembershipForm: React.FC = () => {
 async function handleSubmit(e: React.FormEvent) {
   e.preventDefault();
 
-  // Initialize error object
-  const errors: { [key: string]: string } = {};
+  const isValid = validate();
+  const newErrors: Record<string, string> = {};
 
-  // Checkbox validation
+  // Mandatory checkbox validations
   if (!form.membershipType) {
-    errors.membershipType = "Please select at least one Membership Type";
+    newErrors.membershipType = "Please select a Membership Type";
   }
 
   if (!form.interest) {
-    errors.interest = "Please select at least one Area of Interest";
+    newErrors.interest = "Please select an Area of Interest";
   }
 
-  // General field validation
-  if (!validate()) {
-    toast.error("Please fix the errors before submitting.");
-    return;
+  if (!form.fee) {
+    newErrors.fee = "Please select a Membership Fee";
   }
 
-  // If checkbox errors exist, show toast & stop submission
-  if (Object.keys(errors).length > 0) {
-    setErrors(errors); // show errors under checkboxes
+  // If errors exist
+  if (!isValid || Object.keys(newErrors).length > 0) {
+    setErrors((prev) => ({ ...prev, ...newErrors }));
     toast.error("Please fix the errors before submitting.");
     return;
   }
@@ -278,7 +294,7 @@ async function handleSubmit(e: React.FormEvent) {
       },
       body: JSON.stringify({
         ...form,
-        dob: convertDOB(form.dob), // convert date of birth
+        dob: convertDOB(form.dob),
       }),
     });
 
@@ -287,7 +303,6 @@ async function handleSubmit(e: React.FormEvent) {
     if (data.success) {
       toast.success("Form submitted successfully!");
 
-      // Reset form
       setForm({
         name: "",
         dob: "",
@@ -303,7 +318,6 @@ async function handleSubmit(e: React.FormEvent) {
         fee: "",
       });
 
-      // Clear any previous errors
       setErrors({});
     } else {
       toast.error("Something went wrong.");
@@ -313,13 +327,6 @@ async function handleSubmit(e: React.FormEvent) {
     toast.error("Server error");
   }
 }
-  const handleCheckboxChange = (name: keyof typeof form, value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      [name]: prev[name] === value ? "" : value, 
-    }));
-  };
-
   return (
     <div>
       {/* Hidden native picker */}
@@ -582,11 +589,11 @@ async function handleSubmit(e: React.FormEvent) {
 </div>
           <fieldset className="pt-1">
   <legend className="text-base font-medium text-gray-900 text-[16px]">
-    Membership Type<span className="text-red-500">&#42;</span>
+    Membership Type<span className="text-red-500"> &#42;</span>
   </legend>
   <div className="mt-4 space-y-3">
     {membershipTypes.map((label) => (
-      <div key={label} className="flex items-center">
+  <div key={label} className="flex items-center">
         <input
           type="checkbox"
           name="membershipType"
@@ -602,15 +609,19 @@ async function handleSubmit(e: React.FormEvent) {
           {label}
         </label>
       </div>
+      
     ))}
   </div>
+  {errors.membershipType && (
+  <p className="mt-1 text-sm text-red-600">{errors.membershipType}</p>
+)}
 </fieldset>
 
           <hr className="border-t border-gray-200 my-8" />
 
           <fieldset className="pt-1 ">
             <legend className="text-base font-medium text-gray-900 text-[16px]">
-              Area Of Interest<span className="text-red-500">&#42;</span>
+              Area Of Interest<span className="text-red-500"> &#42;</span>
             </legend>
             <div className="mt-4 space-y-3">
               {[
@@ -639,6 +650,9 @@ async function handleSubmit(e: React.FormEvent) {
                 </div>
               ))}
             </div>
+            {errors.interest && (
+  <p className="mt-1 text-sm text-red-600">{errors.interest}</p>
+)}
           </fieldset>
           <hr className="border-t border-gray-200 my-8" />
 
@@ -669,6 +683,9 @@ async function handleSubmit(e: React.FormEvent) {
                 </div>
               ))}
             </div>
+            {errors.fee && (
+  <p className="mt-1 text-sm text-red-600">{errors.fee}</p>
+)}
           </fieldset>
 
           {/* Donation + Submit */}

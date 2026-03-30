@@ -138,7 +138,7 @@ const fetchPrograms = async () => {
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  let newErrors: any = {};
+  const newErrors: { programs?: string } = {};
 
   // validation
   if (!formData.programs.trim()) {

@@ -92,20 +92,24 @@ const formatDateIST = (date: string | Date | null) => {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-[#1a4d2e] text-white">
-              <tr>
-                <th className="p-4 font-bold w-16 uppercase text-xs tracking-wider">S.No</th>
-                <th className="p-4 font-bold uppercase text-xs tracking-wider">Event Title</th>
-                <th className="p-4 font-bold uppercase text-xs tracking-wider">Program</th>
-                <th className="p-4 font-bold uppercase text-xs tracking-wider">Status</th>
-                <th className="p-4 font-bold uppercase text-xs tracking-wider">Start Date</th>
-                 <th className="p-4 font-bold uppercase text-xs tracking-wider">End Date</th>
-                <th className="p-4 font-bold uppercase text-xs tracking-wider">Location</th>
-                <th className="p-4 font-bold text-center w-32 uppercase text-xs tracking-wider">Actions</th>
-              </tr>
-            </thead>
+
+  {/* Horizontal Scroll */}
+  <div className="w-full overflow-x-auto">
+
+    <table className="min-w-[1300px] w-full border-collapse">
+
+      <thead className="bg-[#1a4d2e] text-white">
+        <tr>
+          <th className="p-4 whitespace-nowrap">S.No</th>
+          <th className="p-4 whitespace-nowrap">Event Title</th>
+          <th className="p-4 whitespace-nowrap">Program</th>
+          <th className="p-4 whitespace-nowrap">Status</th>
+          <th className="p-4 whitespace-nowrap">Start Date</th>
+          <th className="p-4 whitespace-nowrap">End Date</th>
+          <th className="p-4 whitespace-nowrap">Location</th>
+          <th className="p-4 whitespace-nowrap text-center">Actions</th>
+        </tr>
+      </thead>
             <tbody>
               {isLoading ? (
                 <tr>

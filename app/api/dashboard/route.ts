@@ -19,6 +19,7 @@ export async function GET() {
     });
     
   } catch (error) {
+    console.error("Failed to fetch dashboard counts:", error);
     return NextResponse.json({ error: "Failed to fetch dashboard counts" }, { status: 500 });
   }
 }

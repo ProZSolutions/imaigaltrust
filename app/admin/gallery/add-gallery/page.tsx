@@ -87,6 +87,84 @@ const paginatedData = filtered.slice(startIndex, startIndex + perPage);
 const [showDeleteModal, setShowDeleteModal] = useState(false);
 const [selectedId, setSelectedId] = useState<number | null>(null);
 
+//form validation 
+const [errors, setErrors] = useState({
+  programId: "",
+  categoryId: "",
+  year: "",
+  month: "",
+  title: "",
+  description: "",
+  file: "",
+  videoUrl: ""
+});
+
+const validateForm = () => {
+  const newErrors = {
+    programId: "",
+    categoryId: "",
+    year: "",
+    month: "",
+    title: "",
+    description: "",
+    file: "",
+    videoUrl: ""
+  };
+
+  if (!formData.programId) {
+    newErrors.programId = "Program is required";
+  }
+
+  if (!formData.categoryId) {
+    newErrors.categoryId = "Category is required";
+  }
+
+  if (!formData.year) {
+    newErrors.year = "Year is required";
+  }
+
+  if (!formData.month) {
+    newErrors.month = "Month is required";
+  }
+
+  if (!formData.title.trim()) {
+    newErrors.title = "Title is required";
+  }
+
+  if (!formData.description.trim()) {
+    newErrors.description = "Description is required";
+  }
+
+  if (formData.mediaType === "image" && !selectedFile && !editItem?.file_path) {
+    newErrors.file = "Image file is required";
+  }
+
+  if (formData.mediaType === "video" && !formData.videoUrl.trim()) {
+    newErrors.videoUrl = "Video URL is required";
+  }
+
+  setErrors(newErrors);
+
+  return !Object.values(newErrors).some((error) => error !== "");
+};
+
+const openEditForm = (item: GalleryItem) => {
+  setEditItem(item);
+
+  setFormData({
+    programId: item.program_id.toString(),
+    categoryId: item.category_id.toString(),
+    year: item.year?.toString() || "",
+    month: item.month || "",
+    title: item.title,
+    mediaType: item.media_type,
+    description: item.description || "",
+    videoUrl: item.video_url || "",
+  });
+
+  setSelectedFile(null);
+  setShowForm(true);
+};
 useEffect(() => {
   setCurrentPage(1);
 }, [search]);
@@ -132,21 +210,7 @@ useEffect(() => {
     setShowForm(true);
   };
 
-  const openEditForm = (item: GalleryItem) => {
-    setEditItem(item);
-    setFormData({
-      programId: item.program_id.toString(),
-      categoryId: item.category_id.toString(),
-      year: item.year,
-      month: item.month || "",
-      title: item.title,
-      mediaType: item.media_type,
-      description: item.description || "",
-      videoUrl: item.video_url || "",
-    });
-    setSelectedFile(null);
-    setShowForm(true);
-  };
+  
 
   const closeForm = () => {
     setShowForm(false);
@@ -161,8 +225,12 @@ useEffect(() => {
     }
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
+  
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+
+  if (!validateForm()) return;
+
   setLoading(true);
 
   const toastId = toast.loading(
@@ -228,7 +296,7 @@ const handleDelete = async () => {
     } else {
       toast.error("Delete failed");
     }
-  } catch (error) {
+  } catch {
     toast.error("Something went wrong");
   }
 };
@@ -410,18 +478,28 @@ const handleDelete = async () => {
                 <div className="space-y-2.5">
                   <label className="block text-sm font-bold text-gray-700 ml-1">Program</label>
                   <div className="relative">
-                    <select
-                      required
-                      suppressHydrationWarning
-                      value={formData.programId}
-                      onChange={(e) => setFormData({ ...formData, programId: e.target.value })}
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm"
-                    >
-                      <option value="">Select Program</option>
-                      {programs.map((p) => (
-                        <option key={p.id} value={p.id}>{p.programs}</option>
-                      ))}
-                    </select>
+                  <select
+  suppressHydrationWarning
+  value={formData.programId}
+  onChange={(e) =>
+    setFormData({ ...formData, programId: e.target.value })
+  }
+  className={`w-full px-5 py-3.5 border rounded-2xl ${
+    errors.programId ? "border-red-500" : "border-gray-200"
+  } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm`}
+>
+  <option value="">Select Program</option>
+  {programs.map((p) => (
+    <option key={p.id} value={p.id}>
+      {p.programs}
+    </option>
+  ))}
+</select>
+{errors.programId && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.programId}
+  </p>
+)}
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                       <ChevronDown size={18} />
                     </div>
@@ -432,18 +510,27 @@ const handleDelete = async () => {
                 <div className="space-y-2.5">
                   <label className="block text-sm font-bold text-gray-700 ml-1">Category</label>
                   <div className="relative">
-                    <select
-                      required
-                      suppressHydrationWarning
-                      value={formData.categoryId}
-                      onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm"
-                    >
-                      <option value="">Select Category</option>
-                      {categories.map((c) => (
-                        <option key={c.id} value={c.id}>{c.category}</option>
-                      ))}
-                    </select>
+                   <select
+  value={formData.categoryId}
+  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+  className={`w-full px-5 py-3.5 border rounded-2xl ${
+    errors.categoryId ? "border-red-500" : "border-gray-200"
+  } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm`}
+>
+  <option value="">Select Category</option>
+
+  {categories.map((c) => (
+    <option key={c.id} value={c.id}>
+      {c.category}
+    </option>
+  ))}
+</select>
+
+{errors.categoryId && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.categoryId}
+  </p>
+)}
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                       <ChevronDown size={18} />
                     </div>
@@ -451,35 +538,56 @@ const handleDelete = async () => {
                 </div>
 
                 {/* Year */}
-                <div className="space-y-2.5">
-                  <label className="block text-sm font-bold text-gray-700 ml-1">Year</label>
-                  <input
-                    type="number"
-                    required
-                    suppressHydrationWarning
-                    min="2000"
-                    max="2100"
-                    value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                    className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm"
-                  />
-                </div>
+               <div className="space-y-2.5">
+  <label className="block text-sm font-bold text-gray-700 ml-1">
+    Year
+  </label>
 
+  <input
+    type="number"
+    min="2000"
+    max="2100"
+    value={formData.year || ""}
+    onChange={(e) => {
+      setFormData({ ...formData, year: e.target.value });
+      setErrors({ ...errors, year: "" });
+    }}
+    className={`w-full px-5 py-3.5 border rounded-2xl ${
+      errors.year ? "border-red-500" : "border-gray-200"
+    } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm`}
+  />
+
+  {errors.year && (
+    <p className="text-red-500 text-sm mt-1 ml-1">
+      {errors.year}
+    </p>
+  )}
+</div>
                 {/* Month */}
                 <div className="space-y-2.5">
                   <label className="block text-sm font-bold text-gray-700 ml-1">Month (Optional)</label>
                   <div className="relative">
                     <select
-                      suppressHydrationWarning
-                      value={formData.month}
-                      onChange={(e) => setFormData({ ...formData, month: e.target.value })}
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm"
-                    >
+  suppressHydrationWarning
+  value={formData.month}
+  onChange={(e) => {
+    setFormData({ ...formData, month: e.target.value });
+    setErrors({ ...errors, month: "" });
+  }}
+  className={`w-full px-5 py-3.5 border rounded-2xl ${
+    errors.month ? "border-red-500" : "border-gray-200"
+  } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm`}
+>
                       <option value="">Select Month</option>
                       {MONTHS.map((m) => (
                         <option key={m} value={m.toLowerCase()}>{m}</option>
                       ))}
                     </select>
+                    {errors.month && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.month}
+  </p>
+)}
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                       <ChevronDown size={18} />
                     </div>
@@ -491,14 +599,22 @@ const handleDelete = async () => {
               <div className="space-y-2.5">
                 <label className="block text-sm font-bold text-gray-700 ml-1">Title</label>
                 <input
-                  type="text"
-                  required
-                  suppressHydrationWarning
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="e.g. Workshop Highlights"
-                  className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm"
-                />
+  type="text"
+  value={formData.title}
+  onChange={(e) => {
+    setFormData({ ...formData, title: e.target.value });
+    setErrors({ ...errors, title: "" });
+  }}
+  placeholder="e.g. Workshop Highlights"
+  className={`w-full px-5 py-3.5 border rounded-2xl ${
+    errors.title ? "border-red-500" : "border-gray-200"
+  } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm`}
+/>
+                {errors.title && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.title}
+  </p>
+)}
               </div>
 
               {/* Media Type */}
@@ -530,19 +646,33 @@ const handleDelete = async () => {
                     <span className="text-sm font-semibold text-gray-600 group-hover:text-gray-800">Video Link</span>
                   </label>
                 </div>
+                {errors.videoUrl && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.videoUrl}
+  </p>
+)}
               </div>
 
               {/* Description */}
               <div className="space-y-2.5">
                 <label className="block text-sm font-bold text-gray-700 ml-1">Description</label>
                 <textarea
-                  rows={3}
-                  suppressHydrationWarning
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Enter details..."
-                  className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm resize-none shadow-sm"
-                />
+  rows={3}
+  value={formData.description}
+  onChange={(e) => {
+    setFormData({ ...formData, description: e.target.value });
+    setErrors({ ...errors, description: "" });
+  }}
+  placeholder="Enter details..."
+  className={`w-full px-5 py-3.5 border rounded-2xl ${
+    errors.description ? "border-red-500" : "border-gray-200"
+  } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm resize-none shadow-sm`}
+/>
+{errors.description && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.description}
+  </p>
+)}
               </div>
 
               {/* File / Video */}
@@ -553,8 +683,13 @@ const handleDelete = async () => {
                 {formData.mediaType === "image" ? (
                   <div
                     onClick={() => document.getElementById("fileInput")?.click()}
-                    className={`border-2 border-dashed rounded-[2rem] p-10 text-center transition-all cursor-pointer group ${selectedFile ? "border-[#096412] bg-green-50/50 shadow-inner" : "border-gray-200 hover:border-[#096412] hover:bg-green-50/10"
-                      }`}
+                   className={`border-2 border-dashed rounded-[2rem] p-10 text-center transition-all cursor-pointer group ${
+  errors.file
+    ? "border-red-500"
+    : selectedFile
+    ? "border-[#096412] bg-green-50/50 shadow-inner"
+    : "border-gray-200 hover:border-[#096412]"
+}`}
                   >
                     <input id="fileInput" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                     <Upload className={`mx-auto mb-3 w-8 h-8 ${selectedFile ? "text-[#096412]" : "text-gray-300 group-hover:text-[#096412]"}`} />
@@ -570,13 +705,17 @@ const handleDelete = async () => {
                   <input
                     type="url"
                     suppressHydrationWarning
-                    required={formData.mediaType === "video"}
                     value={formData.videoUrl}
                     onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
                     placeholder="https://youtube.com/..."
                     className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm"
                   />
                 )}
+                {errors.file && (
+  <p className="text-red-500 text-sm mt-2 ml-1">
+    {errors.file}
+  </p>
+)}
               </div>
 
               {/* Buttons */}

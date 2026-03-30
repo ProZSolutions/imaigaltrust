@@ -28,17 +28,37 @@ export default function LoginPage() {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [otp, setOtp] = useState("");
-
+  
+  const [forgotEmailError, setForgotEmailError] = useState("");
+  const [generatedOtp, setGeneratedOtp] = useState("");
 
 const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
-const [newPassword, setNewPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
  const [showResetModal, setShowResetModal] = useState(false);
+const [otpTimer, setOtpTimer] = useState(300); // 5 minutes in seconds
+
+useEffect(() => {
+  let timer: NodeJS.Timeout;
+
+  if (showOtpModal && otpTimer > 0) {
+    timer = setInterval(() => {
+      setOtpTimer((prev) => prev - 1);
+    }, 1000);
+  }
+
+  if (!showOtpModal) {
+    setOtpTimer(300); 
+  }
+
+  return () => clearInterval(timer);
+}, [showOtpModal, otpTimer]);
+
 
 //OTP hide state
   const [showNewPassword, setShowNewPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -68,59 +88,78 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     }
   };
 
+
+  
   //  Send OTP
-  const sendOtp = async () => {
-if (!forgotEmail) return toast.error("Enter your email");
-    try {
-      const res = await fetch("/api/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: forgotEmail }),
-      });
-      const data = await res.json();
-      if (!res.ok) return alert(data.message || "Failed to send OTP");
+ const sendOtp = async () => {
+  const email = forgotEmail.trim();
+  if (!email) return setForgotEmailError("Email is required");
 
-      toast.success(data.message || "OTP sent to your email!");
-      setShowForgotModal(false);
-      setShowOtpModal(true);
-    } catch (err) {
-      console.error(err);
-      alert("Server error, try again later");
-    }
-  };
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) return setForgotEmailError("Invalid email format");
 
-  // Submit OTP
- const submitOtp = () => {
-if (!otp) return toast.error("Enter OTP");
-toast.success("OTP verified successfully!");
-  setShowOtpModal(false);
-  setShowResetModal(true); 
+  setForgotEmailError("");
+
+  // Generate OTP (for demo; backend can send real OTP)
+  const otpValue = Math.floor(100000 + Math.random() * 900000).toString();
+  setGeneratedOtp(otpValue);
+
+  try {
+    const res = await fetch("/api/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp: otpValue }),
+    });
+    const data = await res.json();
+    if (!res.ok) return toast.error(data.message || "Failed to send OTP");
+
+    toast.success("OTP sent successfully!");
+    setShowForgotModal(false);
+    setShowOtpModal(true);
+    setOtp(""); // reset input
+    setOtpTimer(300); // reset timer
+  } catch (err) {
+    console.error(err);
+    toast.error("Server error, try again later");
+  }
 };
 
-const resetPassword = async () => {
+// Submit OTP
+const submitOtp = () => {
+  if (!otp) return toast.error("Enter OTP");
+
+  // Check against generated OTP
+  if (otp !== generatedOtp) return toast.error("Invalid OTP");
+
+  toast.success("OTP verified successfully!");
+  setShowOtpModal(false);
+  setShowResetModal(true);
+};
+ 
+  const resetPassword = async () => {
   if (!newPassword || !confirmPassword) return alert("Enter all fields");
   if (newPassword !== confirmPassword) return alert("Passwords do not match");
 
-  try {
-    const res = await fetch("/api/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: forgotEmail, newPassword }),
-    });
+    try {
+      const res = await fetch("/api/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotEmail, newPassword }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
     if (!res.ok) return alert(data.message || "Failed to reset password");
 
     alert(data.message); 
     setShowResetPasswordModal(false);
-    setNewPassword("");
-    setConfirmPassword("");
-  } catch (err) {
-    console.error(err);
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      console.error(err);
     alert("Server error, try again later");
-  }
-};
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F0FDF4] flex items-center justify-center p-6 poppins-font">
@@ -203,9 +242,10 @@ const resetPassword = async () => {
         </div>
       </div>
 
+    
       {/* Forgot Password Modal */}
-      {showForgotModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
+{showForgotModal && (
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-md">
     <div className="relative w-full max-w-md mx-4 bg-white rounded-3xl shadow-2xl p-8">
 
       {/* Close Button */}
@@ -229,30 +269,40 @@ const resetPassword = async () => {
         <label className="block text-sm font-medium text-gray-600 mb-2">
           Email Address
         </label>
-        <input
-          type="email"
-          placeholder="name@example.com"
-          value={forgotEmail}
-          onChange={(e) => setForgotEmail(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2  outline-none transition"
-        />
+        <div>
+          <input
+            type="email"
+            placeholder="name@example.com"
+            value={forgotEmail}
+            onChange={(e) => {
+              setForgotEmail(e.target.value);
+             
+              if (forgotEmailError) setForgotEmailError("");
+            }}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 outline-none transition ${
+              forgotEmailError ? "border-red-500" : "border-gray-300"
+            }`}
+          />
+          {forgotEmailError && (
+            <p className="text-red-500 text-sm mt-1">{forgotEmailError}</p>
+          )}
+        </div>
       </div>
 
-      {/* Button */}
+      {/* Send OTP Button */}
       <button
-        onClick={sendOtp}
-        className="w-full py-3 bg-gradient-to-r from-green-900 to-green-900 text-white font-semibold rounded-lg  transition"
+        onClick={sendOtp} 
+        className="w-full py-3 bg-gradient-to-r from-green-900 to-green-900 text-white font-semibold rounded-lg transition"
       >
         Send OTP
       </button>
-
     </div>
   </div>
 )}
-
-      {/* OTP Modal */}
-      {showOtpModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md transition">
+      
+     {/* OTP Modal */}
+{showOtpModal && (
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-md transition">
     <div className="bg-white p-8 rounded-3xl max-w-md w-full relative shadow-2xl border border-gray-100">
 
       <button
@@ -266,103 +316,106 @@ const resetPassword = async () => {
         Enter OTP
       </h2>
 
-      <div className="flex justify-center gap-3 mb-5">
-  {[0,1,2,3,4,5].map((i) => (
-    <input
-      key={i}
-      type="text"
-      maxLength={1}
-      value={otp[i] || ""}
-      onChange={(e) => {
-        const value = e.target.value;
-        const newOtp = otp.split("");
-        newOtp[i] = value;
-        setOtp(newOtp.join(""));
+      <div className="flex justify-center gap-3 mb-2">
+        {[0,1,2,3,4,5].map((i) => (
+          <input
+            key={i}
+            type="text"
+            maxLength={1}
+            value={otp[i] || ""}
+            onChange={(e) => {
+  const value = e.target.value.replace(/\D/, ""); 
+  const newOtp = otp.split("");
+  newOtp[i] = value;
+  setOtp(newOtp.join(""));
+  const next = e.currentTarget.nextElementSibling as HTMLInputElement | null;
+  if (value && next) next.focus();
+}}
+            onKeyDown={(e) => {
+              const prev = e.currentTarget.previousElementSibling as HTMLInputElement | null;
+              if (e.key === "Backspace" && !otp[i] && prev) prev.focus();
+            }}
+            className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
+          />
+        ))}
+      </div>
 
-        const next = e.currentTarget.nextElementSibling as HTMLInputElement | null;
-        if (value && next) {
-          next.focus();
-        }
-      }}
-      onKeyDown={(e) => {
-        const prev = e.currentTarget.previousElementSibling as HTMLInputElement | null;
-        if (e.key === "Backspace" && !otp[i] && prev) {
-          prev.focus();
-        }
-      }}
-      className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
-    />
-  ))}
-</div>
+      {/* OTP expiry countdown */}
+      <p className="text-center text-sm text-gray-500 mb-5">
+  OTP valid for {Math.floor(otpTimer / 60)
+    .toString()
+    .padStart(2, "0")}:
+  {(otpTimer % 60).toString().padStart(2, "0")}
+</p>
 
       <button
-        onClick={submitOtp}
-        className="w-full bg-[#166534] hover:bg-[#14532d] text-white py-3 rounded-xl font-medium shadow-md transition duration-200"
-      >
-        Submit OTP
-      </button>
-
+  onClick={submitOtp}
+  disabled={otpTimer === 0}
+  className={`w-full py-3 rounded-xl font-medium shadow-md transition duration-200 text-white ${
+    otpTimer === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-[#166534] hover:bg-[#14532d]"
+  }`}
+>
+  Submit OTP
+</button>
     </div>
   </div>
 )}
-
-
-{/* Reset Password Modal */}
+      {/* Reset Password Modal */}
       {showResetModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
-    <div className="bg-white p-8 rounded-3xl max-w-md w-full relative shadow-2xl border border-gray-100">
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-md">
+          <div className="bg-white p-8 rounded-3xl max-w-md w-full relative shadow-2xl border border-gray-100">
 
-      <button
-        onClick={() => setShowResetModal(false)}
-        className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
-      >
-        ✕
-      </button>
+            <button
+              onClick={() => setShowResetModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+            >
+              ✕
+            </button>
 
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">Reset Password</h2>
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-semibold text-gray-800">Reset Password</h2>
         <p className="text-sm text-gray-500 mt-1">
           Create a new secure password for your account
         </p>
-      </div>
+            </div>
 
-     <div className="relative mb-4">
-  <input
-    type={showNewPassword ? "text" : "password"}
-    placeholder="New Password"
-    value={newPassword}
-    onChange={(e) => setNewPassword(e.target.value)}
-    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
-  />
+            <div className="relative mb-4">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
+              />
 
-  <button
-    type="button"
-    onClick={() => setShowNewPassword(!showNewPassword)}
-    className="absolute right-4 top-3 text-gray-400 hover:text-gray-700"
-  >
-    {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-  </button>
-</div>
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                className="absolute right-4 top-3 text-gray-400 hover:text-gray-700"
+              >
+                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
 
-<div className="relative mb-6">
-  <input
-    type={showConfirmPassword ? "text" : "password"}
-    placeholder="Confirm Password"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
-  />
+            <div className="relative mb-6">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/30 transition"
+              />
 
-  <button
-    type="button"
-    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-    className="absolute right-4 top-3 text-gray-400 hover:text-gray-700"
-  >
-    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-  </button>
-</div>
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-4 top-3 text-gray-400 hover:text-gray-700"
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
 
-      <button
+            <button
         onClick={async () => {
           if (!newPassword || !confirmPassword)
            return toast.error("Fill all fields");
@@ -391,18 +444,18 @@ const resetPassword = async () => {
             toast.error("Server error, try again later");
           }
         }}
-        className="w-full bg-gradient-to-r from-[#166534] to-[#14532D] hover:opacity-90 text-white font-semibold py-3 rounded-xl shadow-md transition"
-      >
-        Reset Password
-      </button>
+              className="w-full bg-gradient-to-r from-[#166534] to-[#14532D] hover:opacity-90 text-white font-semibold py-3 rounded-xl shadow-md transition"
+            >
+              Reset Password
+            </button>
 
-    </div>
-  </div>
-)}
+          </div>
+        </div>
+      )}
 
 {/* New Password Modal */}
 {showResetPasswordModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm">
     <div className="bg-white p-8 rounded-2xl max-w-md w-full relative">
       <button
         onClick={() => setShowResetPasswordModal(false)}
@@ -438,7 +491,7 @@ const resetPassword = async () => {
     </div>
   </div>
 )}
-    <Toaster />
+      <Toaster />
     </div>
   );
 }
