@@ -45,10 +45,10 @@ export default function ProgramAgriculture() {
   </div>
 
 </section>
-      <section className="py-10 px-4 md:px-10">
+      <section className="py-1 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto">
 <h3 className="sfurti-heading text-center">Cluster Development Goals</h3>
-    <div className=" p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-8">
+    <div className=" p-3 md:p-5 flex flex-col md:flex-row md:items-center gap-5">
       
       {/* Left: Image */}
       <div className="w-full md:w-1/2 flex justify-center">
@@ -116,7 +116,7 @@ export default function ProgramAgriculture() {
     </div>
   </div>
 </section>
-      <section className="pt-16 pb-10 px-4 md:px-10">
+      <section className="pt-4 pb-5 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
     
     {/* Centered Heading */}
@@ -184,12 +184,12 @@ export default function ProgramAgriculture() {
 </section>
 
 
-      <section className="py-10 px-4 md:px-10">
-  <div className="max-w-[1700px] mx-auto">
-    <h3 className="sfurti-heading text-center">
+      <section className="py-6 px-4 md:px-10">
+  <div className="max-w-[1700px] mx-auto ">
+    <h3 className="sfurti-heading  mt-10 text-center">
           Benefits
         </h3>
-    <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
+    <div className="p-3 md:p-5 flex flex-col md:flex-row items-center gap-8">
       
       {/* Left: Image */}
       <div className="w-full md:w-1/2">

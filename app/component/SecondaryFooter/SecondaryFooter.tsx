@@ -6,7 +6,7 @@ import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 export default function SecondaryFooter() {
   return (
-    <div className="bg-secondary-50 py-20">
+    <div className="bg-secondary-50 py-10">
       {/* Center Container */}
       <div className="max-w-[1550px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
 

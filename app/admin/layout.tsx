@@ -35,17 +35,22 @@ export default function AdminLayout({
   }, []);
 
   const navItems = [
-    {
-      label: "Membership",
-      href: "/admin/memberships",
-      icon: Users,
-    },
-    {
-      label: "Annual Report",
-      href: "/admin/annual-report",
-      icon: FileText,
-    },
-  ];
+  {
+    label: "Dashboard",
+    href: "/admin",
+    icon: LayoutGrid,
+  },
+  {
+    label: "Membership",
+    href: "/admin/memberships",
+    icon: Users,
+  },
+  {
+    label: "Annual Report",
+    href: "/admin/annual-report",
+    icon: FileText,
+  },
+];
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
@@ -214,13 +219,15 @@ export default function AdminLayout({
       // Special breadcrumb names
       let displayName = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
 
-      if (href === "/admin") {
-        href = "/admin/memberships"; // dashboard link
-        displayName = "Dashboard";    // custom name
-      } else if (href === "/admin/gallery") {
+     if (href === "/admin") {
+  href = "/admin"; 
+  displayName = "Dashboard";
+}
+ else if (href === "/admin/gallery") {
         href = "/admin/gallery/program";
         displayName = "Gallery";
-      } else if (href === "/admin/events") {
+      } 
+      else if (href === "/admin/events") {
         href = "/admin/events";
         displayName = "Events";
       }
@@ -232,13 +239,13 @@ export default function AdminLayout({
           {index > 0 && <ChevronRight size={14} className="text-gray-300" />}
 
           {isLast ? (
-            <span className="text-sm font-bold text-[#096412] tracking-wide">
+            <span className="text-[20px] font-bold text-[#096412] tracking-wide">
               {displayName}
             </span>
           ) : (
             <Link
               href={href}
-              className="text-[20px] text-gray-600 hover:text-green-900 transition-colors font-medium"
+              className="text-[16px] text-gray-600 hover:text-green-900 transition-colors font-medium"
             >
               {displayName}
             </Link>

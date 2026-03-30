@@ -87,46 +87,58 @@ export default function EDPTrainings() {
               </p>
             </div>
           </div>
+          
           <div className="lg:col-span-5 order-1 lg:order-2">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="relative h-64 w-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-500">
-                  <Image
-                    src={`/assets/images/programs/edp(1).jpeg`}
-                    alt="EDP Training session 1"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative h-48 w-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform hover:translate-x-2 transition-transform duration-500">
-                  <Image
-                    src={`/assets/images/programs/edp(2).jpeg`}
-                    alt="EDP Training session 2"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-              <div className="space-y-4 pt-12">
-                <div className="relative h-48 w-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform hover:-translate-x-2 transition-transform duration-500">
-                  <Image
-                    src={`/assets/images/programs/edp(3).jpeg`}
-                    alt="EDP Training session 3"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative h-64 w-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform hover:translate-y-2 transition-transform duration-500">
-                  <Image
-                    src={`/assets/images/programs/edp(4).jpeg`}
-                    alt="EDP Training session 4"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+    {/* Left column */}
+    <div className="space-y-4">
+
+      <div className="relative w-full aspect-[4/3] rounded-[6rem] overflow-hidden border-4 border-white hover:-translate-y-2 transition-transform duration-500">
+        <Image
+          src="/assets/images/programs/edp(1).jpeg"
+          alt="EDP Training session 1"
+          fill
+          className="object-contain"
+        />
+      </div>
+
+      <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border-4 border-white hover:translate-x-2 transition-transform duration-500">
+        <Image
+          src="/assets/images/programs/edp(2).jpeg"
+          alt="EDP Training session 2"
+          fill
+          className="object-contain"
+        />
+      </div>
+
+    </div>
+
+    {/* Right column */}
+    <div className="space-y-4 sm:pt-6 lg:pt-12">
+
+      <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border-4 border-white hover:-translate-x-2 transition-transform duration-500">
+        <Image
+          src="/assets/images/programs/edp(3).jpeg"
+          alt="EDP Training session 3"
+          fill
+          className="object-contain"
+        />
+      </div>
+
+      <div className="relative w-full aspect-[4/3]  rounded-[6rem] overflow-hidden border-4 border-white hover:translate-y-2 transition-transform duration-500">
+        <Image
+          src="/assets/images/programs/edp(4).jpeg"
+          alt="EDP Training session 4"
+          fill
+          className="object-contain"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</div>
         </div>
 
         {/* Objectives Section */}
@@ -196,60 +208,75 @@ export default function EDPTrainings() {
         </div>
 
         {/* Beneficiaries & Why Section - Balanced & Integrated */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-2">
-          <div className="bg-secondary-50 p-10 rounded-3xl border border-gray-100 flex flex-col justify-center">
-            <div className="flex items-center space-x-4 mb-8">
-              <div className="w-12 h-12 bg-primary text-white rounded-2xl flex items-center justify-center text-xl shadow-lg">
-                <FaUsers />
-              </div>
-              <h3 className="josefin-font text-2xl font-bold secondary-text-900 uppercase">
-                Beneficiaries
-              </h3>
-            </div>
-            <div className="grid gap-4">
-              {[
-                "Rural youth seeking self-employment",
-                "Aspiring women entrepreneurs",
-                "Farmers interested in agri-business",
-                "Small-scale business enthusiasts",
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center space-x-3 text-gray-700 inter-font bg-white/80 p-4 rounded-2xl border border-white shadow-sm"
-                >
-                  {/* <FaArrowRight className="text-primary text-xs shrink-0" /> */}
-                  <span className="h-[20px] mb-2 flex items-center text-green-600 text-[25px] leading-[24px]">
-                    &raquo;
-                  </span>
-                  <span className="text-base font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+<div className="grid lg:grid-cols-2 gap-8 mb-2 w-full">
 
-          <div className="relative rounded-3xl overflow-hidden bg-primary p-10 md:p-14 text-white flex flex-col justify-center shadow-xl">
-            <div className="relative z-10 space-y-6">
-              <h2 className="josefin-font text-3xl font-bold uppercase tracking-tight border-b border-white/20 pb-4">
-                Empowering Rural Livelihoods
-              </h2>
-              <p className="inter-font text-xl leading-relaxed font-light italic opacity-95">
-                &quot;Our Entrepreneurship Development Programme is designed not
-                just to teach business, but to ignite the spirit of innovation
-                in rural India, creating sustainable wealth within the
-                community.&quot;
-              </p>
-              <div className="flex items-center space-x-2 pt-4">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <FaChartPie className="text-sm" />
-                </div>
-                <span className="text-sm font-medium uppercase tracking-widest text-white/70">
-                  Imaigal Trust Mission
-                </span>
-              </div>
-            </div>
-            {/* Simple pattern */}
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-          </div>
+  {/* Beneficiaries */}
+  <div className="bg-secondary-50 p-6 md:p-10 rounded-3xl border border-gray-100 flex flex-col justify-center w-full min-w-0">
+    
+    <div className="flex items-center space-x-4 mb-8">
+      <div className="w-12 h-12 bg-primary text-white rounded-2xl flex items-center justify-center text-xl shadow-lg shrink-0">
+        <FaUsers />
+      </div>
+
+      <h3 className="josefin-font text-xl font-bold secondary-text-900 uppercase break-words">
+        Beneficiaries
+      </h3>
+    </div>
+
+    <div className="grid gap-4">
+      {[
+        "Rural youth seeking self-employment",
+        "Aspiring women entrepreneurs",
+        "Farmers interested in agri-business",
+        "Small-scale business enthusiasts",
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="flex items-start space-x-3 text-gray-700 inter-font bg-white/80 p-4 rounded-2xl border border-white shadow-sm w-full min-w-0"
+        >
+          <span className="text-green-600 text-[22px] leading-[22px] shrink-0">
+            &raquo;
+          </span>
+
+          <span className="text-base font-medium break-words">
+            {item}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Empowering Section */}
+  <div className="relative rounded-3xl overflow-hidden bg-primary p-6 md:p-14 text-white flex flex-col justify-center shadow-xl w-full min-w-0">
+
+    <div className="relative z-10 space-y-6">
+      <h2 className="josefin-font text-2xl md:text-3xl font-bold uppercase tracking-tight border-b border-white/20 pb-4 break-words">
+        Empowering Rural Livelihoods
+      </h2>
+
+      <p className="inter-font text-lg md:text-xl leading-relaxed font-light italic opacity-95 break-words">
+        &quot;Our Entrepreneurship Development Programme is designed not
+        just to teach business, but to ignite the spirit of innovation
+        in rural India, creating sustainable wealth within the
+        community.&quot;
+      </p>
+
+      <div className="flex items-center space-x-2 pt-4">
+        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+          <FaChartPie className="text-sm" />
+        </div>
+
+        <span className="text-sm font-medium uppercase tracking-widest text-white/70 break-words">
+          Imaigal Trust Mission
+        </span>
+      </div>
+    </div>
+
+    {/* Simple pattern */}
+    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+  </div>
+
         </div>
       </div>
     </div>

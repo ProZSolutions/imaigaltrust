@@ -53,9 +53,9 @@ export default function ClimateProofing() {
         ]}
       />
 
-      <div className=" max-w-[1700px] mx-auto px-6 py-10 lg:px-16">
+      <div className=" max-w-[1800px] mx-auto px-6 py-10 lg:px-16">
         {/* Main Content Section */}
-        <section className="py-10 max-w-[1700px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8 mb-20">
+        <section className="py-10 max-w-[1700px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8 mb-10">
 
   {/* Left Side - Text */}
   <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center">
@@ -107,27 +107,27 @@ export default function ClimateProofing() {
 
 </section>
 
-        {/* Objectives Section */}
-        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
-          <h2 className="josefin-font text-3xl font-bold secondary-text-900 uppercase text-center mb-12">
-            Objectives
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {objectives.map((obj, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center space-y-4 px-6"
-              >
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-green-700 text-2xl shadow-md border border-primary/10">
-                  {obj.icon}
-                </div>
-                <p className="inter-font font-medium text-gray-800 text-sm leading-snug">
-                  {obj.text}
-                </p>
-              </div>
-            ))}
-          </div>
+       {/* Objectives Section */}
+<div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+  <h2 className="josefin-font text-3xl font-bold secondary-text-900 uppercase text-center mb-12">
+    Objectives
+  </h2>
+  <div className="grid md:grid-cols-3 gap-8">
+    {objectives.map((obj, index) => (
+      <div
+        key={index}
+        className="flex flex-col items-center text-center space-y-4 px-6"
+      >
+        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-green-700 text-2xl shadow-md border border-primary/10">
+          {obj.icon}
         </div>
+        <p className="inter-font font-medium text-gray-800 text-sm leading-snug">
+          {obj.text}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* Key Activities Grid */}
         <div className="mb-20">

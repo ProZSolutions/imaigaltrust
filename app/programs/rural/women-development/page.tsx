@@ -18,7 +18,7 @@ export default function ProgramAgriculture() {
       />
 
       {/* SECTION 1 */}
-      <section className="py-8 sm:py-10 md:py-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
+      <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
         {/* TEXT */}
         <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-6 justify-center">
           <h2 className="text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] leading-[32px] sm:leading-[38px] md:leading-[44px] lg:leading-[48px] font-medium text-[#1B2F7C] font-poppins">
@@ -47,8 +47,8 @@ export default function ProgramAgriculture() {
       </section>
 
       {/* SECTION 2 */}
-      <section className="pt-10 sm:pt-12 md:pt-16 pb-8 sm:pb-10 md:pb-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
-        <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
+<section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
+          <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
           <h2 className="font-poppins font-medium text-[22px] sm:text-[28px] md:text-[34px] lg:text-[36px] leading-[32px] md:leading-[44px] text-[#101010] text-center">
             Core Empowerment
@@ -114,8 +114,8 @@ export default function ProgramAgriculture() {
       </section>
 
       {/* SECTION 3 */}
-      <section className="pt-10 sm:pt-12 md:pt-16 pb-8 sm:pb-10 md:pb-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
-        <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
+<section className="pt-8 sm:pt-10 md:pt-12 pb-2 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
+          <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
           <h2 className="font-poppins font-medium text-[22px] sm:text-[28px] md:text-[34px] lg:text-[36px] leading-[32px] md:leading-[44px] text-[#101010] text-center">
             Impact & Achievements

@@ -54,7 +54,7 @@ export default function ProgramAgriculture() {
   </div>
 </section>
 
-      <section className="py-10 px-4 md:px-10">
+      <section className="py-2 px-4 md:px-10">
         
         <div className=" max-w-[1600px] mx-auto">
            <h3 className="sfurti-heading text-center">
@@ -130,7 +130,7 @@ export default function ProgramAgriculture() {
         </div>
       </section>
 
-     <section className="pt-16 pb-10 px-4 md:px-10">
+     <section className="pt-8 pb-5 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto flex flex-col gap-10">
 
     {/* Centered Heading */}

@@ -10,7 +10,8 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({ title, className }) => 
     <div className={`flex items-center justify-center gap-4 my-10 ${className}`}>
       
       {/* Left Line */}
-      <div className="flex-1 h-[5px] bg-green-800 max-w-[1000px] shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"></div>
+      <div className="flex-1 h-[12px] bg-green-800 max-w-[1000px] border border-white rounded shadow-[0_0_12px_rgba(144,238,144,0.8)]">
+</div>
 
       {/* Heading */}
        <h2 className=" poppins-font text-2xl md:text-3xl font-semibold uppercase text-center <div class=" >
@@ -18,7 +19,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({ title, className }) => 
       </h2>
 
       {/* Right Line */}
-      <div className="flex-1 h-[5px] bg-green-800 max-w-[1000px] shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"></div>
+      <div className="flex-1 h-[12px] bg-green-800 max-w-[1000px] border border-white rounded shadow-[0_0_12px_rgba(144,238,144,0.8)]"></div>
 
     </div>
   );

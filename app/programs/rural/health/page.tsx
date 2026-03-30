@@ -37,7 +37,7 @@ export default function ProgramHealthcare() {
   {/* IMAGE RIGHT */}
   <div className="w-full md:w-1/2 flex justify-center">
     <Image
-      src="/assets/images/health/RuralHealth.png"
+      src="/assets/images/health/RuralHealth1.png"
       width={565}
       height={374}
       alt="RuralHealth"
@@ -47,7 +47,7 @@ export default function ProgramHealthcare() {
 </section>
 
       {/* SECTION 2 */}
-      <section className="pt-16 pb-10 px-4 md:px-10 max-w-[1600px] mx-auto">
+      <section className="pt-12 pb-7 px-4 md:px-10 max-w-[1600px] mx-auto">
         <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
           {/* Centered Heading */}
           <h2 className="font-poppins font-medium text-[36px] leading-[46px] text-[#101010] text-center">

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast from "react-hot-toast";
+import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 
 interface Category {
   id: number;
@@ -28,6 +29,11 @@ export default function AdminCategoryPage() {
   // PAGINATION STATE
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(25);
+
+
+  //delete model
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -54,51 +60,32 @@ export default function AdminCategoryPage() {
     setIsModalOpen(true);
   };
 
- const handleDelete = (id: number) => {
-  toast((t) => (
-    <div className="flex flex-col gap-3">
-      <p className="font-semibold text-sm">
-        Delete this category?
-      </p>
+ const handleDelete = async () => {
+  if (!deleteId) return;
 
-      <div className="flex justify-end gap-2">
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="px-3 py-1 text-sm bg-black rounded"
-        >
-          Cancel
-        </button>
+  const toastId = toast.loading("Deleting category...");
 
-        <button
-          onClick={async () => {
-            toast.dismiss(t.id);
-            const toastId = toast.loading("Deleting category...");
+  try {
+    const res = await fetch(`/api/gallery/category/${deleteId}`, {
+      method: "DELETE",
+    });
 
-            try {
-              const res = await fetch(`/api/gallery/category/${id}`, {
-                method: "DELETE",
-              });
-
-              if (res.ok) {
-                toast.success("Category deleted successfully ", { id: toastId });
-                fetchCategories();
-              } else {
-                toast.error("Failed to delete category ", { id: toastId });
-              }
-            } catch (error) {
-              console.error(error);
-              toast.error("Something went wrong ", { id: toastId });
-            }
-          }}
-          className="px-3 py-1 text-sm bg-red-600 text-white rounded"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  ));
+    if (res.ok) {
+      toast.success("Category deleted successfully", { id: toastId });
+      fetchCategories();
+    } else {
+      toast.error("Failed to delete category", { id: toastId });
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong", { id: toastId });
+  } finally {
+    setDeleteModalOpen(false);
+    setDeleteId(null);
+  }
 };
-  const handleSubmit = async (e: React.FormEvent) => {
+
+ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
 
@@ -244,7 +231,10 @@ export default function AdminCategoryPage() {
                         <Edit size={18} />
                       </button>
                       <button
-                        onClick={() => handleDelete(cat.id)}
+                        onClick={() => {
+                        setDeleteId(cat.id);
+                        setDeleteModalOpen(true);
+              }}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
                         title="Delete"
                       >
@@ -359,6 +349,13 @@ export default function AdminCategoryPage() {
           </div>
         </div>
       )}
+      <ConfirmDeleteModal
+  isOpen={deleteModalOpen}
+  onClose={() => setDeleteModalOpen(false)}
+  onConfirm={handleDelete}
+  title="Confirm Delete"
+  message="Are you sure you want to delete this category?"
+/>
     </div>
   );
 }

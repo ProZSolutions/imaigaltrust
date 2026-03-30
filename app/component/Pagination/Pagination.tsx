@@ -19,28 +19,27 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const [perPage, setPerPage] = useState(defaultPerPage);
 
-  const totalPages = perPage === totalItems ? 1 : Math.ceil(totalItems / perPage);
+  const totalPages = Math.ceil(totalItems / perPage);
 
-  const startItem = (currentPage - 1) * perPage + 1;
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * perPage + 1;
   const endItem = Math.min(currentPage * perPage, totalItems);
 
   const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value === "all" ? totalItems : parseInt(e.target.value);
+    const value = parseInt(e.target.value);
     setPerPage(value);
     if (onPerPageChange) onPerPageChange(value);
-    onPageChange(1); // reset to first page
+    onPageChange(1);
   };
 
-  if (totalItems <= 0) return null;
-
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 p-2 rounded">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 p-2">
 
       {/* Items per page */}
       <div className="flex items-center gap-2">
         <span className="text-sm">Items per page:</span>
+
         <select
-          value={perPage === totalItems ? "all" : perPage}
+          value={perPage}
           onChange={handlePerPageChange}
           className="border px-2 py-1 rounded text-sm"
         >
@@ -49,31 +48,34 @@ const Pagination: React.FC<PaginationProps> = ({
               {count}
             </option>
           ))}
-          {/* <option value="all">All</option> */}
         </select>
       </div>
 
-      {/* Previous / Next */}
-      <div className="flex items-center gap-2">
+      {/* Prev / Next */}
+      <div className="flex items-center gap-3">
+
         <button
-          onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-          disabled={currentPage === 1 || totalPages <= 1} 
-          className="px-3 py-1 rounded flex items-center gap-1"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded flex items-center gap-1 
+          ${currentPage === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"}`}
         >
           <FaArrowLeft /> Prev
         </button>
 
-        <span className="text-sm">
+        <span className="text-sm font-medium">
           {startItem}-{endItem} of {totalItems}
         </span>
 
         <button
-          onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-          disabled={currentPage === totalPages || totalPages <= 1} 
-          className="px-3 py-1 rounded flex items-center gap-1"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+          className={`px-3 py-1 rounded flex items-center gap-1 
+          ${currentPage === totalPages || totalPages === 0 ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"}`}
         >
           Next <FaArrowRight />
         </button>
+
       </div>
     </div>
   );

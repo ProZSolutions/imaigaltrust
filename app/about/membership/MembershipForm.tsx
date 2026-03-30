@@ -67,8 +67,8 @@ const MembershipForm: React.FC = () => {
   else if (vals.name.trim().length < 3) {
     tmp.name = "Name must be at least 3 characters";
   } 
-  else if (vals.name.trim().length > 50) {
-    tmp.name = "Name cannot exceed 50 characters";
+  else if (vals.name.trim().length > 15) {
+    tmp.name = "Name cannot exceed 15 characters";
   } 
   else {
     tmp.name = "";

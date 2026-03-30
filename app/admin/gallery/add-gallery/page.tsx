@@ -5,6 +5,7 @@ import { Plus, Search, X, Upload, ChevronDown, Edit, Trash2 } from "lucide-react
 import Image from "next/image";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast from "react-hot-toast";
+import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 
 interface Program {
   id: number;
@@ -82,7 +83,9 @@ const filtered = galleryItems.filter(
 // pagination count
 const startIndex = (currentPage - 1) * perPage;
 const paginatedData = filtered.slice(startIndex, startIndex + perPage);
-
+//model delete 
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [selectedId, setSelectedId] = useState<number | null>(null);
 
 useEffect(() => {
   setCurrentPage(1);
@@ -158,7 +161,7 @@ useEffect(() => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
 
@@ -211,58 +214,24 @@ useEffect(() => {
   }
 };
 
- const handleDelete = async (id: number) => {
-  toast((t) => (
-    <div className="flex flex-col gap-3">
-      <span className="font-semibold">
-        Delete this gallery item?
-      </span>
+const handleDelete = async () => {
+  if (!selectedId) return;
 
-      <div className="flex gap-2 justify-end">
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="px-3 py-1 text-sm bg-black rounded"
-        >
-          Cancel
-        </button>
+  try {
+    const res = await fetch(`/api/gallery/${selectedId}`, {
+      method: "DELETE",
+    });
 
-        <button
-          onClick={async () => {
-            toast.dismiss(t.id);
-
-            const toastId = toast.loading("Deleting gallery...");
-
-            try {
-              const res = await fetch(`/api/gallery/${id}`, {
-                method: "DELETE",
-              });
-
-              if (res.ok) {
-                toast.success("Gallery deleted successfully", {
-                  id: toastId,
-                });
-                fetchGalleryItems();
-              } else {
-                toast.error("Failed to delete item", {
-                  id: toastId,
-                });
-              }
-            } catch (error) {
-              console.error("Error deleting item:", error);
-              toast.error("Something went wrong", {
-                id: toastId,
-              });
-            }
-          }}
-          className="px-3 py-1 text-sm bg-red-500 text-white rounded"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  ));
+    if (res.ok) {
+      toast.success("Deleted successfully");
+      fetchGalleryItems(); // refresh list
+    } else {
+      toast.error("Delete failed");
+    }
+  } catch (error) {
+    toast.error("Something went wrong");
+  }
 };
-  
 
   return (
     <div className="space-y-6">
@@ -304,7 +273,7 @@ useEffect(() => {
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Year</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Month</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Type</th>
-              <th className="px-8 py-4 font-bold uppercase text-xs tracking-wider text-right">Actions</th>
+              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -342,7 +311,7 @@ useEffect(() => {
                      View
                     </a>
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-7 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEditForm(item)}
@@ -352,12 +321,14 @@ useEffect(() => {
                         <Edit size={16} />
                       </button>
                       <button
-                        onClick={() => handleDelete(item.id)}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                        title="Delete"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                       onClick={() => {
+                       setSelectedId(item.id);
+                       setShowDeleteModal(true);
+              }}
+               className="text-red-500"
+>
+  <Trash2 size={16} />
+</button>
                     </div>
                   </td>
                 </tr>
@@ -635,6 +606,13 @@ useEffect(() => {
           </div>
         </div>
       )}
+      <ConfirmDeleteModal
+  isOpen={showDeleteModal}
+  onClose={() => setShowDeleteModal(false)}
+  onConfirm={handleDelete}
+  title="Delete Gallery"
+  message="Are you sure you want to delete this gallery item?"
+/>
     </div>
   );
 }

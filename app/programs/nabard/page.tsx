@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 export default function NabardProjects() {
     return (
-        <div className="bg-white min-h-screen">
-            <PageBanner
+<div className="bg-white">
+                <PageBanner
                 title="NABARD Projects"
                 list={[
                     { id: 1, name: "Programs", link: "/programs" },
@@ -15,9 +15,8 @@ export default function NabardProjects() {
             />
 
             {/* CRT-Style Container */}
-            <section className="py-4 sm:py-6 md:py-8 max-w-[1800px] mx-auto px-2 sm:px-3 md:px-5 flex flex-col gap-10">
-                <div className="max-w-[1600px] mx-auto p-6 md:p-8 bg-gray-100 rounded-lg flex flex-col gap-8">
-                    {/* Section Heading */}
+<section className="pt-4 sm:pt-5 md:pt-6 pb-7 max-w-[1800px] mx-auto px-0 sm:px-1 md:px-2 flex flex-col gap-6">
+<div className="max-w-[1600px] mx-auto p-4 md:p-5 bg-gray-100 rounded-lg flex flex-col gap-6">                    {/* Section Heading */}
                     <h2 className="josefin-font text-3xl font-bold text-[#1B2F7C] uppercase text-center">
                         NABARD Supported Projects
                     </h2>

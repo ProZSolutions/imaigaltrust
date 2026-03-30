@@ -58,7 +58,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      if (res.ok) router.push("/admin/memberships");
+      if (res.ok) router.push("/admin");
       else alert(result.message || "Login failed");
     } catch (err) {
       console.error(err);

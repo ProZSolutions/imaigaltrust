@@ -65,7 +65,7 @@ export default function ContactUs() {
   ) => {
     const { name, value } = e.target;
 
-    // Full Name validation (only alphabets and spaces, max 50 chars)
+    // Full Name validation (only alphabets and spaces, max 15 chars)
     if (name === "fullName") {
       const nameRegex = /^[A-Za-z\s]*$/;
 
@@ -73,10 +73,10 @@ export default function ContactUs() {
         return;
       }
 
-      if (value.length > 50) {
+      if (value.length > 15) {
         setErrors((prev) => ({
           ...prev,
-          fullName: "Name cannot exceed 50 characters",
+          fullName: "Name cannot exceed 15 characters",
         }));
         return;
       } else {

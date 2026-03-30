@@ -64,8 +64,8 @@ export default function AddEventPage() {
 
   if (!formData.startDate) newErrors.startDate = "Start date is required";
   if (!formData.startTime) newErrors.startTime = "Start time is required";
-  if (!formData.endDate) newErrors.endDate = "Start date is required";
-  if (!formData.endTime) newErrors.endTime = "Start time is required";
+  if (!formData.endDate) newErrors.endDate = "End date is required";
+  if (!formData.endTime) newErrors.endTime = "End time is required";
   if (!formData.location.trim()) newErrors.location = "Location is required";
   
 
@@ -75,8 +75,27 @@ export default function AddEventPage() {
   if (!formData.fullDescription.trim())
     newErrors.fullDescription = "Full description is required";
 
-  if (!formData.contactPerson.trim()) {
+ if (!formData.contactPerson.trim()) {
   newErrors.contactPerson = "Contact person is required";
+}
+
+// Contact Email / Phone required
+if (!formData.contactEmail.trim()) {
+  newErrors.contactEmail = "Contact Email or Phone is required";
+}
+
+// Email or phone validation
+if (formData.contactEmail) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (
+    !emailRegex.test(formData.contactEmail) &&
+    !phoneRegex.test(formData.contactEmail)
+  ) {
+    newErrors.contactEmail =
+      "Enter valid email or 10-digit phone number";
+  }
 }
   // Email validation
   if (formData.contactEmail) {
@@ -143,17 +162,18 @@ if (formData.videoUrl) {
   };
 
 
-  
+  const [activeAction, setActiveAction] = useState<"draft" | "publish" | null>(null);
 
 //handleSubmit
-  const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
+  e.preventDefault();
 
-    const newErrors = validateForm();
-    setErrors(newErrors);
+  setActiveAction(isDraft ? "draft" : "publish");
 
+  const newErrors = validateForm();
+  setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) {
+  if (Object.keys(newErrors).length > 0) {
     const firstError = Object.values(newErrors)[0] as string;
 
     toast.error(firstError, {
@@ -161,19 +181,20 @@ if (formData.videoUrl) {
       position: "top-right",
     });
 
-      return;
-    }
+    setActiveAction(null); // reset action
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const data = new FormData();
+  try {
+    const data = new FormData();
 
     Object.entries(formData).forEach(([key, value]) => {
-        data.append(key, value);
-      });
+      data.append(key, value);
+    });
 
-      data.append("isDraft", String(isDraft));
+    data.append("isDraft", String(isDraft));
 
     if (coverImage) {
       data.append("coverImage", coverImage);
@@ -188,24 +209,26 @@ if (formData.videoUrl) {
       body: data,
     });
 
-      const result = await response.json();
+    const result = await response.json();
 
-      if (response.ok) {
-      toast.success("Event saved successfully ");
+    if (response.ok) {
+      toast.success("Event saved successfully");
 
       setTimeout(() => {
         router.push("/admin/events");
       }, 1500);
-      } else {
-      toast.error(result.message || "Failed to save event ");
-      }
-    } catch {
-      console.error("Error saving event:");
-    toast.error("Something went wrong ");
-    } finally {
-      setLoading(false);
+    } else {
+      toast.error(result.message || "Failed to save event");
     }
-  };
+
+  } catch {
+    console.error("Error saving event:");
+    toast.error("Something went wrong");
+  } finally {
+    setLoading(false);
+    setActiveAction(null); // reset button state
+  }
+};
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
@@ -511,40 +534,26 @@ if (formData.videoUrl) {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">
-  Contact Email/Phone
-</label>
+  <label className="block text-sm font-bold text-gray-700">
+    Contact Email/Phone <span className="text-red-500">*</span>
+  </label>
 
-<input
-  type="text"
-  name="contactEmail"
-  value={formData.contactEmail}
-  onChange={(e) => {
-    const value = e.target.value;
+  <input
+    type="email"
+    name="contactEmail"
+    value={formData.contactEmail}
+    onChange={handleInputChange}
+    placeholder="Email or phone number"
+    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
+  />
 
-   
-    if (/^\d*$/.test(value)) {
-      if (value.length <= 10) {
-        handleInputChange(e);
-      }
-      return;
-    }
-
-    
-    if (/^[A-Za-z0-9@._-]*$/.test(value)) {
-      handleInputChange(e);
-    }
-  }}
-  placeholder="Email or phone number"
-  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
-/>
-
-{errors.contactEmail && (
-  <p className="text-red-500 text-sm">
-    {errors.contactEmail}
-  </p>
-)}
-              </div>
+  {errors.contactEmail && (
+    <p className="text-red-500 text-sm">
+      {errors.contactEmail}
+    </p>
+  )}
+</div>
+            
             </div>
           </div>
         </section>
@@ -800,27 +809,31 @@ if (formData.videoUrl) {
 
         {/* ACTIONS */}
         <div className="pt-6 border-t border-gray-200 flex justify-end gap-4">
-          <button
-            type="button"
-            onClick={(e) => handleSubmit(e, true)}
-            disabled={loading}
-            className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
-          >
-            Save as Draft
-          </button>
-          <button
-            type="button"
-            onClick={(e) => handleSubmit(e, false)}
-            disabled={loading}
-            className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
-          >
-            {loading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            ) : null}
-            Publish Event
-          </button>
+
+  <button
+    type="button"
+    onClick={(e) => handleSubmit(e, true)}
+    disabled={loading && activeAction === "publish"}
+    className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
+  >
+    Save as Draft
+  </button>
+
+  <button
+    type="button"
+    onClick={(e) => handleSubmit(e, false)}
+    disabled={loading}
+    className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
+  >
+    {loading && activeAction === "publish" ? (
+      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+    ) : null}
+    Publish Event
+  </button>
+
+</div>
         </div>
       </div>
-    </div>
+    
   );
 }

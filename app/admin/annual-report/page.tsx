@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Trash2, X, Plus, FileText } from "lucide-react";
 import toast from "react-hot-toast";
 import Pagination from "@/app/component/Pagination/Pagination";
-
+import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Report {
   id: number;
   type: string;
@@ -31,6 +31,10 @@ export default function AnnualReportFormPage() {
   const [perPage, setPerPage] = useState(25);
   const startIndex = (currentPage - 1) * perPage;
   const paginatedReports = reports.slice(startIndex, startIndex + perPage);
+
+  // model delete
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -131,40 +135,62 @@ export default function AnnualReportFormPage() {
     }
   };
 
-  const handleDelete = (id: number) => {
-    toast((t) => (
-      <div className="flex flex-col gap-3">
-        <p className="font-semibold">Delete this report?</p>
-        <div className="flex gap-2 justify-end">
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            className="px-3 py-1 text-sm bg-black rounded"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                const res = await fetch(`/api/annual-report/${id}`, {
-                  method: "DELETE",
-                });
-                if (res.ok) {
-                  toast.success("Deleted successfully ");
-                  fetchReports();
-                } else toast.error("Delete failed ");
-              } catch {
-                toast.error("Something went wrong ");
-              }
-            }}
-            className="px-3 py-1 text-sm bg-red-600 text-white rounded"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    ));
-  };
+  // const handleDelete = (id: number) => {
+  //   toast((t) => (
+  //     <div className="flex flex-col gap-3">
+  //       <p className="font-semibold">Delete this report?</p>
+  //       <div className="flex gap-2 justify-end">
+  //         <button
+  //           onClick={() => toast.dismiss(t.id)}
+  //           className="px-3 py-1 text-sm bg-black rounded"
+  //         >
+  //           Cancel
+  //         </button>
+  //         <button
+  //           onClick={async () => {
+  //             toast.dismiss(t.id);
+  //             try {
+  //               const res = await fetch(`/api/annual-report/${id}`, {
+  //                 method: "DELETE",
+  //               });
+  //               if (res.ok) {
+  //                 toast.success("Deleted successfully ");
+  //                 fetchReports();
+  //               } else toast.error("Delete failed ");
+  //             } catch {
+  //               toast.error("Something went wrong ");
+  //             }
+  //           }}
+  //           className="px-3 py-1 text-sm bg-red-600 text-white rounded"
+  //         >
+  //           Delete
+  //         </button>
+  //       </div>
+  //     </div>
+  //   ));
+  // };
+
+  const handleDelete = async () => {
+  if (!deleteId) return;
+
+  try {
+    const res = await fetch(`/api/annual-report/${deleteId}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      toast.success("Deleted successfully");
+      fetchReports();
+    } else {
+      toast.error("Delete failed");
+    }
+  } catch {
+    toast.error("Something went wrong");
+  } finally {
+    setDeleteOpen(false);
+    setDeleteId(null);
+  }
+};
 
   const getAcceptType = () => {
     switch (formData.type) {
@@ -275,17 +301,23 @@ export default function AnnualReportFormPage() {
 
                   {/* File */}
                   <div className="space-y-2.5">
-                    <label className="block text-sm font-bold text-gray-700 ml-1">
-                      Upload Report File ({formData.type.toUpperCase()})
-                    </label>
-                    <input
-                      type="file"
-                      accept={getAcceptType()}
-                      onChange={handleFileChange}
-                      required
-                      className="w-full px-5 py-3 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#096412]/10 file:text-[#096412] hover:file:bg-[#096412]/20 transition-all font-semibold text-sm bg-gray-50/50 cursor-pointer"
-                    />
-                  </div>
+  <label className="block text-sm font-bold text-gray-700 ml-1">
+    Upload Report File ({formData.type.toUpperCase()})
+  </label>
+
+  <input
+    type="file"
+    accept={getAcceptType()}
+    onChange={handleFileChange}
+    required
+    className="w-full px-5 py-3 border border-gray-200 rounded-2xl 
+    focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none 
+    file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 
+    file:text-xs file:font-bold file:bg-[#096412]/10 file:text-[#096412] 
+    hover:file:bg-[#096412]/20 transition-all font-semibold text-sm 
+    bg-gray-50/50 cursor-pointer file:cursor-pointer"
+  />
+</div>
                 </div>
 
                 <div className="pt-8 flex gap-4">
@@ -354,7 +386,10 @@ export default function AnnualReportFormPage() {
                     </td>
                     <td className="px-8 py-4 text-right">
                       <button
-                        onClick={() => handleDelete(r.id)}
+                       onClick={() => {
+                        setDeleteId(r.id);
+                        setDeleteOpen(true);
+                      }}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         title="Delete"
                       >
@@ -365,6 +400,13 @@ export default function AnnualReportFormPage() {
                 ))}
               </tbody>
             </table>
+            <ConfirmDeleteModal
+  isOpen={deleteOpen}
+  onClose={() => setDeleteOpen(false)}
+  onConfirm={handleDelete}
+  title="Confirm Delete"
+  message="Are you sure you want to delete this report?"
+/>
           </div>
         )}
       </div>

@@ -23,8 +23,7 @@ export default function ProgramAgriculture() {
         list={breadrumbs}
       />
       {/* SECTION 1 */}
-<section className="py-12 md:py-16 lg:py-20 w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
-  {/* TEXT LEFT */}
+<section className="pt-12 md:pt-16 lg:pt-20 pb-6 md:pb-8 lg:pb-10 w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">  {/* TEXT LEFT */}
   <div className="w-full md:w-1/2 flex flex-col gap-5 sm:gap-6 md:gap-8 justify-center text-center md:text-left">
     <h2 className="text-[26px] sm:text-[30px] md:text-[34px] lg:text-[40px] leading-[34px] sm:leading-[38px] md:leading-[44px] lg:leading-[48px] font-medium text-[#1B2F7C] font-poppins">
       Fostering Equality and Inclusion
@@ -50,7 +49,7 @@ export default function ProgramAgriculture() {
   </div>
 </section>
 
-      <section className="py-10 sm:py-12 md:py-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col gap-10">
+      <section className="pt-2 sm:pt-4 md:pt-6 pb-8 sm:pb-10 md:pb-12 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col gap-10">
   {/* Centered Heading above content */}
   <h2 className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] leading-[32px] sm:leading-[38px] md:leading-[42px] lg:leading-[46px] font-medium text-[#101010] font-poppins text-center">
     Key Initiatives for Empowerment
@@ -112,14 +111,14 @@ export default function ProgramAgriculture() {
   </div>
 </section>
 
-     <section className="py-10 sm:py-12 md:py-14 max-w-[1800px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col gap-10">
+    <section className="pt-2 sm:pt-4 md:pt-6 pb-10 sm:pb-12 md:pb-14 max-w-[1800px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col gap-10">
   {/* Centered Heading */}
   <h2 className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] leading-[32px] sm:leading-[38px] md:leading-[42px] lg:leading-[46px] font-medium text-[#101010] font-poppins text-center">
     Transformative Impacts
   </h2>
 
   {/* CRT Container */}
-  <div className="flex flex-col md:flex-row-reverse items-start md:items-center justify-center w-full gap-8 md:gap-10 lg:gap-16 max-w-[1600px] mx-auto p-6 md:p-8 rounded-lg ">
+  <div className="flex flex-col md:flex-row-reverse items-start md:items-center justify-center w-full gap-8 md:gap-10 lg:gap-16 max-w-[1600px] mx-auto p-10 md:p-5 rounded-lg ">
     {/* RIGHT: IMAGE */}
     <div className="w-full md:w-1/2 flex justify-center md:justify-end">
       <Image

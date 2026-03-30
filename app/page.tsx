@@ -196,9 +196,9 @@ export default function Home() {
       <Timeline />
 
       {/* SUCCESS STORIES CONTAINER */}
-<div className="p-2 py-2 max-w-[1600px] mx-auto">
+<div className=" py-1 max-w-[1600px] mx-auto">
 
-  <div className="text-center mb-12">
+  <div className="text-center mb-1">
     <SectionHeading title="Success Story" />
   </div>
 

@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import toast from "react-hot-toast";
 import Pagination from "@/app/component/Pagination/Pagination";
+import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
+
 interface Program {
   id: number;
   programs: string;
@@ -30,7 +32,13 @@ export default function AdminProgramPage() {
   const endIndex = startIndex + perPage;
   const currentData = programs.slice(startIndex, endIndex);
 
- 
+ //model delete
+ const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+// error handling
+  const [errors, setErrors] = useState<{ programs?: string }>({});
+
   useEffect(() => {
     fetchPrograms();
   }, []);
@@ -73,52 +81,29 @@ const fetchPrograms = async () => {
   //   }
   // };
 
-  const handleDelete = (id: number) => {
-  toast((t) => (
-    <div className="flex flex-col gap-3">
-      <p className="font-semibold text-sm">
-         Delete this program?
-      </p>
+ const handleDelete = async () => {
+  if (!deleteId) return;
 
-      <div className="flex justify-end gap-2">
-        {/* Cancel */}
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="px-3 py-1 text-sm bg-black rounded"
-        >
-          Cancel
-        </button>
+  const toastId = toast.loading("Deleting program...");
 
-        {/* Confirm Delete */}
-        <button
-          onClick={async () => {
-            toast.dismiss(t.id);
+  try {
+    const res = await fetch(`/api/gallery/program/${deleteId}`, {
+      method: "DELETE",
+    });
 
-            const toastId = toast.loading("Deleting program...");
-
-            try {
-              const res = await fetch(`/api/gallery/program/${id}`, {
-                method: "DELETE",
-              });
-
-              if (res.ok) {
-                toast.success("Program deleted successfully ", { id: toastId });
-                fetchPrograms();
-              } else {
-                toast.error("Failed to delete program ", { id: toastId });
-              }
-            } catch (error) {
-              console.error(error);
-              toast.error("Something went wrong ", { id: toastId });
-            }
-          }}
-          className="px-3 py-1 text-sm bg-red-600 text-white rounded"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  ));
+    if (res.ok) {
+      toast.success("Program deleted successfully", { id: toastId });
+      fetchPrograms();
+    } else {
+      toast.error("Failed to delete program", { id: toastId });
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong", { id: toastId });
+  } finally {
+    setDeleteModalOpen(false);
+    setDeleteId(null);
+  }
 };
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
@@ -152,6 +137,21 @@ const fetchPrograms = async () => {
   
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+
+  let newErrors: any = {};
+
+  // validation
+  if (!formData.programs.trim()) {
+    newErrors.programs = "Program name is required";
+  }
+
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    toast.error("Please fix the errors before submitting.");
+    return;
+  }
+
+  setErrors({});
   setLoading(true);
 
   const toastId = toast.loading(
@@ -167,16 +167,16 @@ const fetchPrograms = async () => {
       method: editingId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-  ...formData,
-  status: Number(formData.status),
-}),
+        ...formData,
+        status: Number(formData.status),
+      }),
     });
 
     if (response.ok) {
       toast.success(
         editingId
-          ? "Program updated successfully "
-          : "Program created successfully ",
+          ? "Program updated successfully"
+          : "Program created successfully",
         { id: toastId }
       );
 
@@ -185,11 +185,11 @@ const fetchPrograms = async () => {
       setFormData({ programs: "", status: "1" });
       fetchPrograms();
     } else {
-      toast.error("Failed to save program ", { id: toastId });
+      toast.error("Failed to save program", { id: toastId });
     }
   } catch (error) {
     console.error("Error saving program:", error);
-    toast.error("Something went wrong ", { id: toastId });
+    toast.error("Something went wrong", { id: toastId });
   } finally {
     setLoading(false);
   }
@@ -292,7 +292,10 @@ const fetchPrograms = async () => {
                         <Edit size={18} />
                       </button>
                       <button
-                        onClick={() => handleDelete(prog.id)}
+                        onClick={() => {
+                          setDeleteId(prog.id);
+                          setDeleteModalOpen(true);
+                        }}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
                         title="Delete"
                       >
@@ -345,20 +348,25 @@ const fetchPrograms = async () => {
                   Program Name
                 </label>
                 <input
-                  type="text"
-                  required
-                  value={formData.programs}
-                  onChange={(e) =>
-                  setFormData({
-                  ...formData,
-                  programs: e.target.value
-                  .replace(/[^a-zA-Z\s]/g, "") 
-                  .replace(/\b\w/g, (c) => c.toUpperCase()),
+  type="text"
+  value={formData.programs}
+  onChange={(e) =>
+    setFormData({
+      ...formData,
+      programs: e.target.value
+        .replace(/[^a-zA-Z\s]/g, "")
+        .replace(/\b\w/g, (c) => c.toUpperCase()),
     })
   }
   placeholder="e.g. Tree Plantation, Blood Donation"
-  className="w-full px-5 py-4 border border-gray-200 rounded-2xl"
+  className={`w-full px-5 py-4 border rounded-2xl outline-none
+  ${errors.programs ? "border-red-500" : "border-gray-200"}`}
 />
+{errors.programs && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.programs}
+  </p>
+)}
               </div>
 
               <div className="space-y-2.5">
@@ -409,6 +417,13 @@ const fetchPrograms = async () => {
         </div>
         
       )}
+      <ConfirmDeleteModal
+  isOpen={deleteModalOpen}
+  onClose={() => setDeleteModalOpen(false)}
+  onConfirm={handleDelete}
+  title="Confirm Delete"
+  message="Are you sure you want to delete this program?"
+/>
     </div>
   );
 }
