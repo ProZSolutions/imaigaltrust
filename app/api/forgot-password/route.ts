@@ -16,34 +16,22 @@ export async function POST(req: Request) {
     const { email } = await req.json();
 
     if (!email) {
-      return NextResponse.json(
-        { message: "Email is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Email is required" }, { status: 400 });
     }
 
-    // Check if email exists in database
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
+    // Check if email exists in DB
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return NextResponse.json(
-        { message: "Email not registered" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "Email not registered" }, { status: 404 });
     }
 
     // Generate OTP
     const otp = generateOTP();
 
     // Save OTP with 5 minute expiry
-    otpStore.set(email, {
-      otp,
-      expires: Date.now() + 5 * 60 * 1000,
-    });
+    otpStore.set(email, { otp, expires: Date.now() + 2* 60 * 1000 });
 
-    // Email transporter
+    // Send OTP via nodemailer
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -54,24 +42,21 @@ export async function POST(req: Request) {
       },
     });
 
-    // Send OTP email
     await transporter.sendMail({
       from: `"Imaigal Trust" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Your OTP Code",
-      text: `Your OTP is: ${otp}`,
-      html: `<p>Your OTP is: <b>${otp}</b></p>`,
+      text: `Your OTP is: ${otp}. It is valid for 2 minutes.`,
+      html: `<p>Your OTP is: <b>${otp}</b>. It is valid for 2 minutes.</p>`,
     });
 
-    return NextResponse.json({
-      message: "OTP sent to your email!",
-    });
+    return NextResponse.json({ message: "OTP sent to your email!" });
 
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
+
+// Export otpStore so verify-OTP can access it
+export { otpStore };

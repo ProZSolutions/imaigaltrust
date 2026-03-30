@@ -37,7 +37,7 @@ const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
 
  const [showResetModal, setShowResetModal] = useState(false);
-const [otpTimer, setOtpTimer] = useState(300); // 5 minutes in seconds
+const [otpTimer, setOtpTimer] = useState(120); // 2 minutes in seconds
 
 useEffect(() => {
   let timer: NodeJS.Timeout;
@@ -49,12 +49,31 @@ useEffect(() => {
   }
 
   if (!showOtpModal) {
-    setOtpTimer(300); 
+    setOtpTimer(120); 
   }
 
   return () => clearInterval(timer);
 }, [showOtpModal, otpTimer]);
 
+useEffect(() => {
+  let timer: NodeJS.Timeout;
+
+  if (showOtpModal && otpTimer > 0) {
+    // Update every 1.5 seconds
+    timer = setInterval(() => {
+      setOtpTimer((prev) => {
+        if (prev <= 0) return 0;
+        return prev - 1; // decrease by 1 second each tick
+      });
+    }, 1500); // 1.5 seconds
+  }
+
+  if (!showOtpModal) {
+    setOtpTimer(120); // reset to 2 minutes
+  }
+
+  return () => clearInterval(timer);
+}, [showOtpModal, otpTimer]);
 
 //OTP hide state
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -90,77 +109,67 @@ useEffect(() => {
 
 
   
-  //  Send OTP
- const sendOtp = async () => {
+
+  
+  const sendOtp = async () => {
   const email = forgotEmail.trim();
+
+  // Validate empty email
   if (!email) return setForgotEmailError("Email is required");
 
+  // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) return setForgotEmailError("Invalid email format");
 
   setForgotEmailError("");
 
-  // Generate OTP (for demo; backend can send real OTP)
-  const otpValue = Math.floor(100000 + Math.random() * 900000).toString();
-  setGeneratedOtp(otpValue);
-
   try {
+    // Call backend API to generate and send OTP
     const res = await fetch("/api/forgot-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, otp: otpValue }),
+      body: JSON.stringify({ email }),
     });
+
     const data = await res.json();
+
     if (!res.ok) return toast.error(data.message || "Failed to send OTP");
 
+    // Success
     toast.success("OTP sent successfully!");
     setShowForgotModal(false);
     setShowOtpModal(true);
     setOtp(""); // reset input
-    setOtpTimer(300); // reset timer
+    setOtpTimer(120); // reset timer
   } catch (err) {
     console.error(err);
     toast.error("Server error, try again later");
   }
 };
-
 // Submit OTP
-const submitOtp = () => {
+const submitOtp = async () => {
   if (!otp) return toast.error("Enter OTP");
 
-  // Check against generated OTP
-  if (otp !== generatedOtp) return toast.error("Invalid OTP");
+  try {
+    const res = await fetch("/api/verify-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: forgotEmail, otp }),
+    });
 
-  toast.success("OTP verified successfully!");
-  setShowOtpModal(false);
-  setShowResetModal(true);
+    const data = await res.json();
+
+    if (!res.ok) return toast.error(data.message || "Invalid OTP");
+
+    // OTP verified successfully
+    toast.success(data.message || "OTP verified successfully!");
+    setShowOtpModal(false);
+    setShowResetModal(true); // show reset password modal
+  } catch (err) {
+    console.error(err);
+    toast.error("Server error, try again later");
+  }
 };
- 
-  const resetPassword = async () => {
-  if (!newPassword || !confirmPassword) return alert("Enter all fields");
-  if (newPassword !== confirmPassword) return alert("Passwords do not match");
-
-    try {
-      const res = await fetch("/api/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: forgotEmail, newPassword }),
-      });
-
-      const data = await res.json();
-
-    if (!res.ok) return alert(data.message || "Failed to reset password");
-
-    alert(data.message); 
-    setShowResetPasswordModal(false);
-      setNewPassword("");
-      setConfirmPassword("");
-    } catch (err) {
-      console.error(err);
-    alert("Server error, try again later");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#F0FDF4] flex items-center justify-center p-6 poppins-font">
       <div className="w-full max-w-[500px] relative">
@@ -482,12 +491,12 @@ const submitOtp = () => {
         className="w-full p-3 border border-gray-200 rounded-xl mb-4 outline-none focus:border-[#166534]"
       />
 
-      <button
+      {/* <button
         onClick={resetPassword}
         className="w-full bg-[#166534] text-white py-3 rounded-xl"
       >
         Reset Password
-      </button>
+      </button> */}
     </div>
   </div>
 )}
