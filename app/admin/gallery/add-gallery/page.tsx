@@ -228,7 +228,7 @@ const handleDelete = async () => {
     } else {
       toast.error("Delete failed");
     }
-  } catch (error) {
+  } catch {
     toast.error("Something went wrong");
   }
 };

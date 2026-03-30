@@ -25,7 +25,7 @@ export default function AdminCategoryPage() {
     status: "1",
   });
 
-  
+  const [errors, setErrors] = useState<{ category?: string }>({});
   // PAGINATION STATE
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(25);
@@ -85,8 +85,11 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   }
 };
 
- const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+
+  if (!validate()) return;
+
   setLoading(true);
 
   const toastId = toast.loading(
@@ -127,6 +130,18 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   }
 };
 
+
+const validate = () => {
+  const newErrors: { category?: string } = {};
+
+  if (!formData.category.trim()) {
+    newErrors.category = "Category name is required";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
   const openAddModal = () => {
     setEditingId(null);
     setFormData({ category: "", status: "1" });
@@ -142,6 +157,7 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
       ? activeCategories
       : activeCategories.slice(startIndex, startIndex + perPage);
 
+  
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
@@ -289,19 +305,31 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
                 <label className="block text-sm font-bold text-gray-700 ml-1">
                   Category Name
                 </label>
-                <input
+               <input
   type="text"
-  required
-  pattern="[A-Za-z\s]+"
-  title="Only alphabets allowed"
   value={formData.category}
   onChange={(e) => {
-    const value = e.target.value.replace(/[^A-Za-z\s]/g, "");
+    const value = e.target.value
+      .replace(/[^a-zA-Z\s]/g, "")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
     setFormData({ ...formData, category: value });
+
+    if (errors.category) {
+      setErrors({ ...errors, category: "" });
+    }
   }}
   placeholder="e.g. Health Programs, Rural Development"
-  className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all placeholder:text-gray-400 font-semibold text-sm"
+  className={`w-full px-5 py-4 border rounded-2xl outline-none ${
+    errors.category ? "border-red-500" : "border-gray-200"
+  }`}
 />
+
+{errors.category && (
+  <p className="text-red-500 text-sm mt-1 ml-1">
+    {errors.category}
+  </p>
+)}
               </div>
 
               <div className="space-y-2.5">
