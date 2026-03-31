@@ -6,7 +6,6 @@ import Image from "next/image";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
-
 interface Program {
   id: number;
   programs: string;
@@ -135,9 +134,16 @@ const validateForm = () => {
     newErrors.description = "Description is required";
   }
 
-  if (formData.mediaType === "image" && !selectedFile && !editItem?.file_path) {
+  if (formData.mediaType === "image") {
+  if (!selectedFile && !editItem?.file_path) {
     newErrors.file = "Image file is required";
+  } else if (selectedFile) {
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!allowedTypes.includes(selectedFile.type)) {
+      newErrors.file = "Only JPEG, JPG, PNG files are allowed";
+    }
   }
+}
 
   if (formData.mediaType === "video" && !formData.videoUrl.trim()) {
     newErrors.videoUrl = "Video URL is required";
@@ -219,13 +225,20 @@ useEffect(() => {
     setSelectedFile(null);
   };
 
+ 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+  if (e.target.files && e.target.files[0]) {
+    const file = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only JPEG, JPG, PNG files are allowed");
+      setSelectedFile(null);
+      return;
     }
-  };
+    setSelectedFile(file);
+  }
+};
 
-  
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -285,22 +298,31 @@ const handleSubmit = async (e: React.FormEvent) => {
 const handleDelete = async () => {
   if (!selectedId) return;
 
+  const toastId = toast.loading("Deleting gallery item...");
+
   try {
     const res = await fetch(`/api/gallery/${selectedId}`, {
       method: "DELETE",
     });
 
     if (res.ok) {
-      toast.success("Deleted successfully");
-      fetchGalleryItems(); // refresh list
+      // remove item from UI instantly
+      setGalleryItems((prev) =>
+        prev.filter((item) => item.id !== selectedId)
+      );
+
+      toast.success("Gallery item deleted successfully", { id: toastId });
     } else {
-      toast.error("Delete failed");
+      toast.error("Failed to delete gallery item", { id: toastId });
     }
-  } catch {
-    toast.error("Something went wrong");
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong", { id: toastId });
+  } finally {
+    setShowDeleteModal(false);
+    setSelectedId(null);
   }
 };
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -331,10 +353,13 @@ const handleDelete = async () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
-        <table className="w-full text-left">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+  
+  <div className="w-full overflow-x-auto">
+
+    <table className="min-w-[1400px] w-full text-left border-collapse">
           <thead className="bg-[#1a4d2e] text-white">
-            <tr>
+      <tr>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">S.No</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Program</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Category</th>
@@ -342,8 +367,8 @@ const handleDelete = async () => {
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Month</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Type</th>
               <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider text-right">Actions</th>
-            </tr>
-          </thead>
+      </tr>
+    </thead>
           <tbody className="divide-y divide-gray-50">
             {fetching ? (
               <tr>
@@ -369,16 +394,29 @@ const handleDelete = async () => {
                   <td className="px-6 py-4 text-gray-600">{item.program.programs}</td>
                   <td className="px-6 py-4 text-gray-600">{item.category.category}</td>
                   <td className="px-6 py-4 text-gray-600">{item.year}</td>
-                  <td className="px-6 py-4">
-                    <a
-                    href={item.media_type === "image" ? item.file_path ?? "" : item.video_url ?? ""}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-600 text-sm font-semibold hover:underline"
-                     >
-                     View
-                    </a>
-                  </td>
+                 <td className="px-6 py-4">
+  {item.media_type === "image" && item.file_path ? (
+    <a
+      href={item.file_path}       // image URL
+      target="_blank"             // open in new tab
+      rel="noopener noreferrer"
+      className="text-green-600 text-sm font-semibold hover:underline"
+    >
+      View
+    </a>
+  ) : item.media_type === "video" && item.video_url ? (
+    <a
+      href={item.video_url}       // video URL
+      target="_blank"             // open in new tab
+      rel="noopener noreferrer"
+      className="text-green-600 text-sm font-semibold hover:underline"
+    >
+      View
+    </a>
+  ) : (
+    <span className="text-gray-400 text-sm italic">No media</span>
+  )}
+</td>
                   <td className="px-7 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
@@ -418,9 +456,8 @@ const handleDelete = async () => {
 />
    {/* another tab view image or video  */}
 {previewItem && (
-  <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-    <div className="bg-white p-4 rounded-lg max-w-2xl w-full relative">
-      
+  <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+    <div className="bg-white p-4 rounded-lg max-w-full sm:max-w-2xl w-full relative">
       <button
         onClick={() => setPreviewItem(null)}
         className="absolute top-2 right-2 text-red-500 font-bold"
@@ -428,21 +465,20 @@ const handleDelete = async () => {
         ✕
       </button>
 
-      {previewItem.media_type === "image" ? (
+      {previewItem.media_type === "image" && previewItem.file_path ? (
         <Image
-          src={previewItem.file_path || ""}
-          alt="preview"
+          src={previewItem.file_path}
+          alt={previewItem.title}
           width={600}
           height={500}
           className="w-full max-h-[500px] object-contain"
         />
-      ) : (
-        <video
-          controls
-          className="w-full max-h-[500px]"
-        >
-          <source src={previewItem.video_url || ""} type="video/mp4" />
+      ) : previewItem.media_type === "video" && previewItem.video_url ? (
+        <video controls className="w-full max-h-[500px]">
+          <source src={previewItem.video_url} type="video/mp4" />
         </video>
+      ) : (
+        <p className="text-center text-gray-500">Media not available</p>
       )}
     </div>
   </div>
@@ -691,8 +727,13 @@ const handleDelete = async () => {
     : "border-gray-200 hover:border-[#096412]"
 }`}
                   >
-                    <input id="fileInput" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-                    <Upload className={`mx-auto mb-3 w-8 h-8 ${selectedFile ? "text-[#096412]" : "text-gray-300 group-hover:text-[#096412]"}`} />
+<input
+  id="fileInput"
+  type="file"
+  accept=".jpeg,.jpg,.png"
+  className="hidden"
+  onChange={handleFileChange}
+/>                    <Upload className={`mx-auto mb-3 w-8 h-8 ${selectedFile ? "text-[#096412]" : "text-gray-300 group-hover:text-[#096412]"}`} />
                     <p className={`text-sm font-bold transition-colors ${selectedFile ? "text-gray-800" : "text-gray-500 group-hover:text-gray-700"}`}>
                       {selectedFile
                         ? selectedFile.name
@@ -752,6 +793,7 @@ const handleDelete = async () => {
   title="Delete Gallery"
   message="Are you sure you want to delete this gallery item?"
 />
+    </div>
     </div>
   );
 }

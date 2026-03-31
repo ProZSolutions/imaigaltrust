@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Edit, Trash2, FileText } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
-
 import toast from "react-hot-toast";
 
 
@@ -56,6 +55,8 @@ const formatDateIST = (date: string | Date | null) => {
  const handleDelete = async () => {
   if (!deleteId) return;
 
+  const toastId = toast.loading("Deleting draft event...");
+
   try {
     const response = await fetch(`/api/events/${deleteId}`, {
       method: "DELETE",
@@ -64,19 +65,23 @@ const formatDateIST = (date: string | Date | null) => {
     const data = await response.json();
 
     if (response.ok) {
-      toast.success("Draft deleted successfully");
+      toast.success("Draft deleted successfully", { id: toastId });
+
+      // refresh list
       fetchDrafts();
+
+      
     } else {
-      toast.error(data.message || "Delete failed");
+      toast.error(data.message || "Delete failed", { id: toastId });
     }
-  } catch {
-    toast.error("Something went wrong");
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong", { id: toastId });
   } finally {
     setShowDeleteModal(false);
     setDeleteId(null);
   }
 };
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
@@ -100,14 +105,14 @@ const formatDateIST = (date: string | Date | null) => {
 
       <thead className="bg-[#1a4d2e] text-white">
         <tr>
-          <th className="p-4 whitespace-nowrap">S.No</th>
-          <th className="p-4 whitespace-nowrap">Event Title</th>
-          <th className="p-4 whitespace-nowrap">Program</th>
-          <th className="p-4 whitespace-nowrap">Status</th>
-          <th className="p-4 whitespace-nowrap">Start Date</th>
-          <th className="p-4 whitespace-nowrap">End Date</th>
-          <th className="p-4 whitespace-nowrap">Location</th>
-          <th className="p-4 whitespace-nowrap text-center">Actions</th>
+          <th className="p-4 font-bold w-16 uppercase text-xs">S.No</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">Event Title</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">Program</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">Status</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">Start Date</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">End Date</th>
+          <th className="p-4 font-bold text-left uppercase text-xs">Location</th>
+          <th className="p-4 font-bold text-left uppercase text-xs text-center">Actions</th>
         </tr>
       </thead>
             <tbody>
@@ -138,7 +143,7 @@ const formatDateIST = (date: string | Date | null) => {
                       className="border-b border-gray-100 hover:bg-gray-50 bg-gray-50/50"
                     >
                       <td className="p-4">{startIndex + index + 1}</td>
-                      <td className="p-4 font-medium text-gray-800">
+                      <td className="p-4 font-medium   text-gray-800">
                         {event.title}
                       </td>
                       <td className="p-4 text-gray-600">{event.program}</td>
@@ -163,8 +168,8 @@ const formatDateIST = (date: string | Date | null) => {
 </td>
 
 <td className="p-4 text-gray-600">{event.location}</td>
-                      <td className="p-4">
-                        <div className="flex justify-center gap-2">
+                      <td className="p-2  flex ">
+                        <div className="flex  gap-1">
                           <Link
                             href={`/admin/events/edit-event/${event.id}`}
                             className="p-2 text-[#096412] hover:bg-green-50 rounded-lg transition-all duration-200 border border-transparent hover:border-green-100"

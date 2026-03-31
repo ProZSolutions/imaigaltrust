@@ -454,31 +454,32 @@ const submitOtp = async () => {
       {/* Resend OTP */}
 
 <div className="text-center">
- <button
-  onClick={async () => {
-    if (!resendEnabled) return;
+  <button
+    onClick={async () => {
+      if (!resendEnabled) return;
 
-    await sendOtp();
-  }}
-  disabled={!resendEnabled}
-  className={`text-sm font-semibold ${
-    !resendEnabled
-      ? "text-gray-400 cursor-not-allowed"
-      : "text-[#166534] hover:text-[#14532d]"
-  }`}
->
-  {resendEnabled ? "Resend OTP" : `Resend OTP in ${otpTimer}s`}
-</button>
+      await sendOtp();
+    }}
+    disabled={!resendEnabled}
+    className={`text-sm font-semibold ${
+      !resendEnabled
+        ? "text-gray-400 cursor-not-allowed"
+        : "text-[#166534] hover:text-[#14532d]"
+    }`}
+  >
+    Resend OTP
+  </button>
 </div>
+
 {/* Change Email / Back */}
-{/* Change Email / Back */}
+
 <div className="text-center mt-3">
   <button
     onClick={() => {
       setShowOtpModal(false);
       setShowForgotModal(true);
     }}
-    className="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-[#166534] font-medium mx-auto"
+    className="flex items-center justify-center gap-2 text-sm text-black hover:text-[#166534] font-medium mx-auto"
   >
     <FaArrowLeft className="text-xs" />
     Change Email / Back

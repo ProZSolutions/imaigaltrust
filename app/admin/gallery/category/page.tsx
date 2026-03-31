@@ -5,7 +5,6 @@ import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
-
 interface Category {
   id: number;
   category: string;
@@ -71,8 +70,10 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     });
 
     if (res.ok) {
+      // remove deleted category from UI immediately
+      setCategories((prev) => prev.filter((cat) => cat.id !== deleteId));
+
       toast.success("Category deleted successfully", { id: toastId });
-      fetchCategories();
     } else {
       toast.error("Failed to delete category", { id: toastId });
     }
