@@ -21,7 +21,7 @@ export default function LayoutWrapper({
         <div className="secondary-header">
           <SubHeader />
         </div>
-        <Header />
+        {/* <Header /> */}
         {children}
       </div>
     );
@@ -33,7 +33,7 @@ export default function LayoutWrapper({
         <div className="secondary-header">
           <SubHeader />
         </div>
-        <Header />
+        {/* <Header /> */}
         {children}
         <SecondaryFooter />
         <Footer />

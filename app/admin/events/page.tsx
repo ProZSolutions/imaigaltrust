@@ -6,7 +6,6 @@ import { Plus, Edit, Trash2, Users } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
-
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -71,6 +70,8 @@ const formatTimeIST = (dateTime: string | Date | null) => {
   const handleDelete = async () => {
   if (!deleteId) return;
 
+  const toastId = toast.loading("Deleting event...");
+
   try {
     const response = await fetch(`/api/events/${deleteId}`, {
       method: "DELETE",
@@ -79,19 +80,21 @@ const formatTimeIST = (dateTime: string | Date | null) => {
     const data = await response.json();
 
     if (response.ok) {
-      toast.success("Event deleted successfully");
+      toast.success("Event deleted successfully", { id: toastId });
+
+      // refresh list
       fetchEvents();
     } else {
-      toast.error(data.message || "Delete failed");
+      toast.error(data.message || "Delete failed", { id: toastId });
     }
-  } catch {
-    toast.error("Something went wrong");
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong", { id: toastId });
   } finally {
     setShowDeleteModal(false);
     setDeleteId(null);
   }
 };
-
   //pagination
 
   const totalItems = events.length;
@@ -108,19 +111,19 @@ const [showDeleteModal, setShowDeleteModal] = useState(false);
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Events</h1>
+    <h1 className="text-2xl font-bold text-gray-800">Events</h1>
           <p className="text-sm text-gray-500">
             Manage charity events and community programs
           </p>
         </div>
-        <Link
-          href="/admin/events/add-event"
+    <Link
+      href="/admin/events/add-event"
           className="flex items-center gap-2 bg-[#096412] hover:bg-[#074d0e] text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-green-900/10 transition-all duration-300 active:scale-95"
-        >
-          <Plus size={20} />
-          Add Event
-        </Link>
-      </div>
+    >
+      <Plus size={20} />
+      Add Event
+    </Link>
+  </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
   

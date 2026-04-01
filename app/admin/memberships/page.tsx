@@ -82,14 +82,13 @@ export default function AdminMembershipsPage() {
 
                 <tbody>
                   {currentData.length > 0 ? (
-                    currentData.map((member) => (
-                      <tr
+currentData.map((member, index) => (                      <tr
                         key={member.id}
                         className="border-b hover:bg-gray-50 transition"
                       >
                         <td className="px-6 py-4 text-sm">
-                          {member.id}
-                        </td>
+  {startIndex + index + 1}
+</td>
 
                         <td className="px-6 py-4 text-sm font-medium">
                           {member.name}
@@ -107,7 +106,7 @@ export default function AdminMembershipsPage() {
                         </td>
 
                         <td className="px-6 py-4">
-                          <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
+                          <span className="px-2 py-1 text-xs rounded-full  text-green-800">
                             {member.membership_type}
                           </span>
                         </td>

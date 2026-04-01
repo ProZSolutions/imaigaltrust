@@ -5,7 +5,7 @@ import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import toast from "react-hot-toast";
 import Pagination from "@/app/component/Pagination/Pagination";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
-
+import { Toaster } from "react-hot-toast";
 interface Program {
   id: number;
   programs: string;
@@ -92,8 +92,8 @@ const fetchPrograms = async () => {
     });
 
     if (res.ok) {
+      setPrograms((prev) => prev.filter((p) => p.id !== deleteId));
       toast.success("Program deleted successfully", { id: toastId });
-      fetchPrograms();
     } else {
       toast.error("Failed to delete program", { id: toastId });
     }
@@ -105,6 +105,7 @@ const fetchPrograms = async () => {
     setDeleteId(null);
   }
 };
+
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
   //   setLoading(true);
@@ -204,8 +205,28 @@ const fetchPrograms = async () => {
   return (
     
     <div className="space-y-6">
-      
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+ <Toaster
+      position="top-right"
+      toastOptions={{
+        duration: 3000,
+        style: {
+          borderRadius: "10px",
+          background: "#1a4d2e",
+          color: "#fff",
+          fontWeight: "600",
+        },
+        success: {
+          style: {
+            background: "#1a4d2e",
+          },
+        },
+        error: {
+          style: {
+            background: "#dc2626",
+          },
+        },
+      }}
+    />      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Gallery Programs</h1>
           <p className="text-sm text-gray-500">
