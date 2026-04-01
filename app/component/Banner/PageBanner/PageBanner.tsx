@@ -55,11 +55,11 @@ const PageBanner: React.FC<PageBannerProps> = ({
         )}
 
         {/* Title */}
-        <Text
-          title={title}
-          size="text-sml md:text-xl"
-          className="text-start uppercase font-semibold accent-text-800 w-full ps-1 "
-        />
+       <Text
+  title={title}
+  size="text-sm md:text-xl"
+  className="text-left uppercase font-semibold accent-text-800 w-full"
+/>
 
         {/* Description */}
         {description && (

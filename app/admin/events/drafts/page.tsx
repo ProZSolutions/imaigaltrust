@@ -52,10 +52,8 @@ const formatDateIST = (date: string | Date | null) => {
 
   return `${day}-${month}-${year}`;
 };
- const handleDelete = async () => {
+const handleDelete = async () => {
   if (!deleteId) return;
-
-  const toastId = toast.loading("Deleting draft event...");
 
   try {
     const response = await fetch(`/api/events/${deleteId}`, {
@@ -65,25 +63,23 @@ const formatDateIST = (date: string | Date | null) => {
     const data = await response.json();
 
     if (response.ok) {
-      toast.success("Draft deleted successfully", { id: toastId });
+      toast.success("Draft deleted successfully");
 
       // refresh list
       fetchDrafts();
-
-      
     } else {
-      toast.error(data.message || "Delete failed", { id: toastId });
+      toast.error(data.message || "Delete failed");
     }
   } catch (error) {
     console.error(error);
-    toast.error("Something went wrong", { id: toastId });
+    toast.error("Something went wrong");
   } finally {
     setShowDeleteModal(false);
     setDeleteId(null);
   }
 };
   return (
-    <div className="space-y-6">
+<div className="space-y-6 w-full min-w-0">
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-[#096412]/10 rounded-lg text-[#096412]">
@@ -101,7 +97,7 @@ const formatDateIST = (date: string | Date | null) => {
   {/* Horizontal Scroll */}
   <div className="w-full overflow-x-auto">
 
-    <table className="min-w-[1300px] w-full border-collapse">
+    <table className="w-full min-w-[650px] table-auto text-sm">
 
       <thead className="bg-[#1a4d2e] text-white">
         <tr>
@@ -211,9 +207,7 @@ const formatDateIST = (date: string | Date | null) => {
             </tbody>
           </table>
         </div>
-        
-      </div>
-      <Pagination
+        <Pagination
   currentPage={currentPage}
   totalItems={events.length}
   defaultPerPage={perPage}
@@ -223,6 +217,8 @@ const formatDateIST = (date: string | Date | null) => {
     setCurrentPage(1);
   }}
 />
+      </div>
+      
 
 <ConfirmDeleteModal
   isOpen={showDeleteModal}

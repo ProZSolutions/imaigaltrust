@@ -49,7 +49,7 @@ export default function WatershedDevelopment() {
         ]}
       />
 
-      <div className=" max-w-[1700px] mx-auto px-6 py-10 lg:px-16">
+      <div className=" max-w-[1700px] mx-auto px-6 py-5 lg:px-16">
         {/* Watershed Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
           <div className="space-y-6 inter-font">

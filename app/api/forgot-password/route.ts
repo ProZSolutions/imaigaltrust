@@ -44,8 +44,8 @@ export async function POST(req: Request) {
       from: `"Imaigal Trust" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Your OTP Code",
-      text: `Your OTP is: ${otp}. It is valid for 2 minutes.`,
-      html: `<p>Your OTP is: <b>${otp}</b>. It is valid for 2 minutes.</p>`,
+      text: `Your OTP is: ${otp}. It is valid for 1.5 minutes.`,
+      html: `<p>Your OTP is: <b>${otp}</b>. It is valid for 1.5 minutes.</p>`,
     });
 
     return NextResponse.json({ message: "OTP sent to your email!" });

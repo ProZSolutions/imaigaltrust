@@ -19,6 +19,7 @@ const MembershipForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
   const dateRef = useRef<HTMLInputElement>(null);
   const membershipTypes = [
     "Individual Member",
@@ -170,6 +171,75 @@ function validate(vals: Partial<typeof form> = form) {
   setErrors(tmp);
   return Object.values(tmp).every((x) => x === "");
 }
+
+// Add state for Paid toggle
+const [isPaidDonation, setIsPaidDonation] = useState(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Validate voluntary donation
+ if (isPaidDonation && Number(form.voluntaryDonation) < 1000) {
+  alert("Minimum donation is ₹1000");
+  return;
+}
+
+  const isValid = validate();
+  const newErrors: Record<string, string> = {};
+
+  // Mandatory checkbox validations
+  if (!form.membershipType) newErrors.membershipType = "Please select a Membership Type";
+  if (!form.interest) newErrors.interest = "Please select an Area of Interest";
+  if (!form.fee) newErrors.fee = "Please select a Membership Fee";
+
+  // If errors exist
+  if (!isValid || Object.keys(newErrors).length > 0) {
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    toast.error("Please fix the errors before submitting.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/membership", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form,
+        donation_type: isPaidDonation ? "Paid" : "Free", // add donation type
+        voluntaryDonation: isPaidDonation ? Number(form.voluntaryDonation) : 0, // 0 if free
+        approved: false, // default approved = false
+        dob: convertDOB(form.dob), // convert DOB
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success("Form submitted successfully!");
+      setForm({
+        name: "",
+        dob: "",
+        email: "",
+        mobile: "",
+        address: "",
+        city: "",
+        pincode: "",
+        state: "",
+        voluntaryDonation: "",
+        membershipType: "",
+        interest: "",
+        fee: "",
+      });
+      setIsPaidDonation(false);
+      setErrors({});
+    } else {
+      toast.error("Something went wrong.");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Server error");
+  }
+};
   // function validate(vals: Partial<typeof form> = form) {
   //   const tmp = { ...errors };
 
@@ -236,13 +306,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
 
 
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
-    validate({ [name]: value } as Partial<typeof form>);
-  }
+  // function handleChange(
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  // ) {
+  //   const { name, value } = e.target;
+  //   setForm((f) => ({ ...f, [name]: value }));
+  //   validate({ [name]: value } as Partial<typeof form>);
+  // }
 
   function handleDatePick(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e.target.value) return;
@@ -251,6 +321,81 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
     validate({ dob: formatted });
   }
 
+  
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
+    const { name, value } = e.target;
+
+    // Convert voluntaryDonation to number
+    setForm((f) => ({
+      ...f,
+      [name]: name === "voluntaryDonation" ? Number(value) : value,
+    }));
+
+    validate({ [name]: name === "voluntaryDonation" ? Number(value) : value } as Partial<typeof form>);
+  }
+
+ 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (isPaidDonation && Number(form.voluntaryDonation) < 1000) {
+  //     toast.error("Minimum donation for Paid is ₹1000");
+  //     return;
+  //   }
+
+  //   const isValid = validate();
+  //   const newErrors: Record<string, string> = {};
+  //   if (!form.membershipType) newErrors.membershipType = "Please select a Membership Type";
+  //   if (!form.interest) newErrors.interest = "Please select an Area of Interest";
+  //   if (!form.fee) newErrors.fee = "Please select a Membership Fee";
+
+  //   if (!isValid || Object.keys(newErrors).length > 0) {
+  //     setErrors((prev) => ({ ...prev, ...newErrors }));
+  //     toast.error("Please fix the errors before submitting.");
+  //     return;
+  //   }
+
+  //   try {
+  //     const res = await fetch("/api/membership", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         ...form,
+  //         donation_type: isPaidDonation ? "Paid" : "Free",
+  //         voluntaryDonation: isPaidDonation ? form.voluntaryDonation : 0,
+  //         approved: false,
+  //         dob: convertDOB(form.dob),
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+  //     if (data.success) {
+  //       toast.success("Form submitted successfully!");
+  //       setForm({
+  //         name: "",
+  //         dob: "",
+  //         email: "",
+  //         mobile: "",
+  //         address: "",
+  //         city: "",
+  //         pincode: "",
+  //         state: "",
+  //         voluntaryDonation: 0,
+  //         membershipType: "",
+  //         interest: "",
+  //         fee: "",
+  //       });
+  //       setIsPaidDonation(false);
+  //       setErrors({});
+  //     } else toast.error("Something went wrong.");
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Server error");
+  //   }
+  // };
   // function handleSubmit(e: React.FormEvent) {
   //   e.preventDefault();
   //   if (validate()) {
@@ -260,73 +405,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   //     alert("Please fix the errors before submitting.");
   //   }
   // }
-async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
 
-  const isValid = validate();
-  const newErrors: Record<string, string> = {};
-
-  // Mandatory checkbox validations
-  if (!form.membershipType) {
-    newErrors.membershipType = "Please select a Membership Type";
-  }
-
-  if (!form.interest) {
-    newErrors.interest = "Please select an Area of Interest";
-  }
-
-  if (!form.fee) {
-    newErrors.fee = "Please select a Membership Fee";
-  }
-
-  // If errors exist
-  if (!isValid || Object.keys(newErrors).length > 0) {
-    setErrors((prev) => ({ ...prev, ...newErrors }));
-    toast.error("Please fix the errors before submitting.");
-    return;
-  }
-
-  try {
-    const res = await fetch("/api/membership", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...form,
-        dob: convertDOB(form.dob),
-      }),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      toast.success("Form submitted successfully!");
-
-      setForm({
-        name: "",
-        dob: "",
-        email: "",
-        mobile: "",
-        address: "",
-        city: "",
-        pincode: "",
-        state: "",
-        voluntaryDonation: "",
-        membershipType: "",
-        interest: "",
-        fee: "",
-      });
-
-      setErrors({});
-    } else {
-      toast.error("Something went wrong.");
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error("Server error");
-  }
-}
   return (
     <div>
       {/* Hidden native picker */}
@@ -689,27 +768,73 @@ async function handleSubmit(e: React.FormEvent) {
           </fieldset>
 
           {/* Donation + Submit */}
+         
           <div className="space-y-4 pt-6">
-            <div>
-              <label className="block text-[16px] font-medium text-gray-700">
-                Voluntary Donation
-              </label>
-              <input
-                name="voluntaryDonation"
-                type="number"
-                value={form.voluntaryDonation}
-                onChange={handleChange}
-                placeholder="₹0.00"
-                className="mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border border-gray-300 focus:outline-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full max-w-[386px] h-[56px] rounded-md bg-green-700 text-white text-[16px] font-medium uppercase transition "
-            >
-              Submit
-            </button>
-          </div>
+  <div>
+    <label className="block text-[16px] font-medium text-gray-700">
+      Voluntary Donation
+    </label>
+
+    <div className="flex items-center gap-3 my-2">
+      <span className="text-gray-700">Free</span>
+
+      <label className="relative inline-flex items-center cursor-pointer">
+       <input
+  type="checkbox"
+  className="sr-only peer"
+  checked={isPaidDonation}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPaid = e.target.checked;
+    setIsPaidDonation(newPaid);
+    setForm((prevForm) => ({
+      ...prevForm,
+      voluntaryDonation: newPaid ? "1000" : "0", // string
+    }));
+  }}
+/>
+        <div className="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-green-500 transition-all"></div>
+        <div
+          className={`absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-all ${
+            isPaidDonation ? "translate-x-5" : "translate-x-0"
+          }`}
+        ></div>
+      </label>
+
+      <span className="text-gray-700">Paid</span>
+    </div>
+
+    <input
+  name="voluntaryDonation"
+  type="number"
+  min="1000"
+  required={isPaidDonation}
+  value={form.voluntaryDonation}
+  onChange={handleChange}
+  placeholder="₹1000"
+  disabled={!isPaidDonation}
+  className={`mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border focus:outline-none ${
+    errors.voluntaryDonation
+      ? "border-red-500"
+      : !isPaidDonation
+      ? "bg-gray-100 cursor-not-allowed"
+      : "border-gray-300"
+  }`}
+/>
+
+{errors.voluntaryDonation && (
+  <p className="mt-1 text-sm text-red-600">
+    {errors.voluntaryDonation}
+  </p>
+)}
+  </div>
+
+  <button
+    type="submit"
+    className="w-full max-w-[386px] h-[56px] rounded-md bg-green-700 text-white text-[16px] font-medium uppercase transition"
+  >
+    Submit
+  </button>
+</div>
         </form>
       </section>
     </div>

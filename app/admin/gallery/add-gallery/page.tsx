@@ -298,8 +298,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 const handleDelete = async () => {
   if (!selectedId) return;
 
-  const toastId = toast.loading("Deleting gallery item...");
-
   try {
     const res = await fetch(`/api/gallery/${selectedId}`, {
       method: "DELETE",
@@ -311,13 +309,13 @@ const handleDelete = async () => {
         prev.filter((item) => item.id !== selectedId)
       );
 
-      toast.success("Gallery item deleted successfully", { id: toastId });
+      toast.success("Gallery item deleted successfully");
     } else {
-      toast.error("Failed to delete gallery item", { id: toastId });
+      toast.error("Failed to delete gallery item");
     }
   } catch (error) {
     console.error(error);
-    toast.error("Something went wrong", { id: toastId });
+    toast.error("Something went wrong");
   } finally {
     setShowDeleteModal(false);
     setSelectedId(null);
@@ -326,15 +324,15 @@ const handleDelete = async () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Gallery Management</h1>
           <p className="text-sm text-gray-500">View and manage gallery items</p>
         </div>
         <button
-          onClick={openAddForm}
-          className="flex items-center gap-2 px-6 py-2.5 bg-[#096412] text-white rounded-xl hover:bg-[#074d0e] transition-all duration-300 shadow-lg shadow-green-900/10 font-bold active:scale-95"
-        >
+  onClick={openAddForm}
+  className="flex items-center justify-center md:justify-start gap-2 px-6 py-2.5 bg-[#096412] text-white rounded-xl hover:bg-[#074d0e] transition-all duration-300 shadow-lg shadow-green-900/10 font-bold active:scale-95 w-full md:w-auto"
+>
           <Plus size={20} />
           Add Gallery
         </button>
@@ -355,24 +353,32 @@ const handleDelete = async () => {
       {/* Table */}
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
   
-  <div className="w-full overflow-x-auto">
+<div className="w-full overflow-x-auto rounded-lg border border-gray-100">
+   <table className="w-full min-w-[620px] text-left border-collapse">
+  <thead className="bg-[#1a4d2e] text-white">
+    <tr>
+          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+S.No</th>
+    <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+  PROGRAM
+</th>
+          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+Category</th>
+          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+Title</th>
+          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+Year</th>
+                <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+Type</th>
+                <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+Actions</th>
+    </tr>
+  </thead>
 
-    <table className="min-w-[1400px] w-full text-left border-collapse">
-          <thead className="bg-[#1a4d2e] text-white">
-      <tr>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">S.No</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Program</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Category</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Year</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Month</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">Type</th>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider text-right">Actions</th>
-      </tr>
-    </thead>
-          <tbody className="divide-y divide-gray-50">
+  <tbody className="divide-y divide-gray-50">
             {fetching ? (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                <td colSpan={7} className="px-4 py-3 text-gray-600 whitespace-nowrap">
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-8 h-8 border-4 border-[#1a4d2e] border-t-transparent rounded-full animate-spin" />
                     <span className="font-semibold text-gray-600">Loading gallery...</span>
@@ -381,7 +387,7 @@ const handleDelete = async () => {
               </tr>
             ) : filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-gray-400 italic">
+                <td colSpan={7} className="px-4 py-3 text-gray-600 whitespace-nowrap">
                   {search ? "No items match your search." : 'No gallery items found. Click "Add Gallery" to start.'}
                 </td>
               </tr>
@@ -389,25 +395,35 @@ const handleDelete = async () => {
               paginatedData.map((item, idx) => (
 
                 <tr key={item.id} className="hover:bg-green-50/30 transition-colors">
-                  <td className="px-6 py-4 text-gray-400 text-sm">{startIndex + idx + 1}</td>
-                  <td className="px-6 py-4 text-gray-800 font-semibold capitalize">{item.title}</td>
-                  <td className="px-6 py-4 text-gray-600">{item.program.programs}</td>
-                  <td className="px-6 py-4 text-gray-600">{item.category.category}</td>
-                  <td className="px-6 py-4 text-gray-600">{item.year}</td>
-                 <td className="px-6 py-4">
+                  <td className="px-4 py-3 whitespace-nowrap">{startIndex + idx + 1}</td>
+
+<td className="px-4 py-3 whitespace-nowrap">
+  {item.program.programs}
+</td>
+
+<td className="px-4 py-3 whitespace-nowrap">
+  {item.category.category}
+</td>
+
+<td className="px-4 py-3 whitespace-nowrap capitalize">
+  {item.title}
+</td>
+
+<td className="px-4 py-3 whitespace-nowrap">
+  {item.year}
+</td>
+                 <td className="px-4 py-3 text-sml whitespace-nowrap">
   {item.media_type === "image" && item.file_path ? (
-    <a
-      href={item.file_path}       // image URL
-      target="_blank"             // open in new tab
-      rel="noopener noreferrer"
+    <button
+      onClick={() => setPreviewItem(item)}
       className="text-green-600 text-sm font-semibold hover:underline"
     >
       View
-    </a>
+    </button>
   ) : item.media_type === "video" && item.video_url ? (
     <a
-      href={item.video_url}       // video URL
-      target="_blank"             // open in new tab
+      href={item.video_url}
+      target="_blank"
       rel="noopener noreferrer"
       className="text-green-600 text-sm font-semibold hover:underline"
     >
@@ -417,8 +433,8 @@ const handleDelete = async () => {
     <span className="text-gray-400 text-sm italic">No media</span>
   )}
 </td>
-                  <td className="px-7 py-4 text-right">
-                    <div className="flex items-center justify-end gap-2">
+                  <td  className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <div className="flex items-center  gap-2">
                       <button
                         onClick={() => openEditForm(item)}
                         className="p-2 text-[#096412] hover:bg-green-50 rounded-lg transition-colors"
@@ -444,23 +460,25 @@ const handleDelete = async () => {
         </table>
        
       </div>
- <Pagination
-  currentPage={currentPage}
-  totalItems={filtered.length}
-  defaultPerPage={perPage}
-  onPageChange={(page) => setCurrentPage(page)}
-  onPerPageChange={(value) => {
-    setPerPage(value);
-    setCurrentPage(1);
-  }}
-/>
+{/* <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"> */}
+    <Pagination
+    currentPage={currentPage}
+    totalItems={filtered.length}
+    defaultPerPage={perPage}
+    onPageChange={(page) => setCurrentPage(page)}
+    onPerPageChange={(value) => {
+      setPerPage(value);
+      setCurrentPage(1);
+    }}
+  />
+{/* </div> */}
    {/* another tab view image or video  */}
 {previewItem && (
-  <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-    <div className="bg-white p-4 rounded-lg max-w-full sm:max-w-2xl w-full relative">
+  <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4">
+    <div className="bg-white p-4 rounded-lg w-full max-w-lg md:max-w-2xl relative">
       <button
         onClick={() => setPreviewItem(null)}
-        className="absolute top-2 right-2 text-red-500 font-bold"
+        className="absolute top-0 right-2 text-red font-bold"
       >
         ✕
       </button>
@@ -471,7 +489,7 @@ const handleDelete = async () => {
           alt={previewItem.title}
           width={600}
           height={500}
-          className="w-full max-h-[500px] object-contain"
+          className="w-full max-h-[60vh] object-contain"
         />
       ) : previewItem.media_type === "video" && previewItem.video_url ? (
         <video controls className="w-full max-h-[500px]">
@@ -486,7 +504,7 @@ const handleDelete = async () => {
       {/* Add / Edit Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[999999] p-4 animate-in fade-in duration-300">
-          <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-300">
+          <div className="bg-white rounded-3xl w-full max-w-xl md:max-w-2xl shadow-2xl relative overflow-hidden">
             {/* Modal Header - Dark premium integration */}
             <div className="bg-[#1a4d2e] p-8 flex justify-between items-center text-white relative overflow-hidden text-center justify-center">
               <div className="relative z-10 w-full">

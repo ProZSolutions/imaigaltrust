@@ -1,15 +1,38 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+// export async function GET() {
+//   try {
+//     const memberships = await prisma.membership.findMany({
+//       orderBy: { created_at: "desc" },
+//     });
+
+//     return NextResponse.json({
+//       success: true,
+//       memberships,
+//     });
+//   } catch (err) {
+//     const error = err as Error;
+//     return NextResponse.json(
+//       { success: false, error: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
 export async function GET() {
   try {
     const memberships = await prisma.membership.findMany({
       orderBy: { created_at: "desc" },
     });
 
+    const formatted = memberships.map((m) => ({
+      ...m,
+      voluntaryDonation: m.voluntary_donation, // convert here
+    }));
+
     return NextResponse.json({
       success: true,
-      memberships,
+      memberships: formatted,
     });
   } catch (err) {
     const error = err as Error;
@@ -19,7 +42,6 @@ export async function GET() {
     );
   }
 }
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();

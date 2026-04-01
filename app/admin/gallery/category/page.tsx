@@ -62,8 +62,6 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
  const handleDelete = async () => {
   if (!deleteId) return;
 
-  const toastId = toast.loading("Deleting category...");
-
   try {
     const res = await fetch(`/api/gallery/category/${deleteId}`, {
       method: "DELETE",
@@ -73,13 +71,13 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
       // remove deleted category from UI immediately
       setCategories((prev) => prev.filter((cat) => cat.id !== deleteId));
 
-      toast.success("Category deleted successfully", { id: toastId });
+      toast.success("Category deleted successfully");
     } else {
-      toast.error("Failed to delete category", { id: toastId });
+      toast.error("Failed to delete category");
     }
   } catch (error) {
     console.error(error);
-    toast.error("Something went wrong", { id: toastId });
+    toast.error("Something went wrong");
   } finally {
     setDeleteModalOpen(false);
     setDeleteId(null);

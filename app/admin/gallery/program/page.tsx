@@ -84,8 +84,6 @@ const fetchPrograms = async () => {
  const handleDelete = async () => {
   if (!deleteId) return;
 
-  const toastId = toast.loading("Deleting program...");
-
   try {
     const res = await fetch(`/api/gallery/program/${deleteId}`, {
       method: "DELETE",
@@ -93,13 +91,13 @@ const fetchPrograms = async () => {
 
     if (res.ok) {
       setPrograms((prev) => prev.filter((p) => p.id !== deleteId));
-      toast.success("Program deleted successfully", { id: toastId });
+      toast.success("Program deleted successfully");
     } else {
-      toast.error("Failed to delete program", { id: toastId });
+      toast.error("Failed to delete program");
     }
   } catch (error) {
     console.error(error);
-    toast.error("Something went wrong", { id: toastId });
+    toast.error("Something went wrong");
   } finally {
     setDeleteModalOpen(false);
     setDeleteId(null);
