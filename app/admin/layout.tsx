@@ -55,14 +55,15 @@ export default function AdminLayout({
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Sidebar */}
-<aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0">        {/* Logo */}
-        <div className="p-8 border-b border-white/5">
-          <h2 className="text-xl font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase">Admin Portal</h2>
-          <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-[0.2em]">Management System</p>
-        </div>
+<aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0 h-screen">
+  {/* Logo */}
+  <div className="p-8 border-b border-white/5 flex-shrink-0">
+    <h2 className="text-xl font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase">Admin Portal</h2>
+    <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-[0.2em]">Management System</p>
+  </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 mt-6 px-4 space-y-1.5">
+  {/* Navigation (scrollable) */}
+<nav className="flex-1 mt-6 px-4 space-y-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;

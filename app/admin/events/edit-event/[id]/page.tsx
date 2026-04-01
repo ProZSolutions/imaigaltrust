@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 export default function EditEventPage({
   params,
 }: {
@@ -131,47 +132,45 @@ export default function EditEventPage({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
+ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
   e.preventDefault();
   setSaving(true);
 
   try {
     const data = new FormData();
-
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
-
     data.append("isDraft", String(isDraft));
 
-    if (coverImage) {
-      data.append("coverImage", coverImage);
-    }
+    if (coverImage) data.append("coverImage", coverImage);
 
-    const response = await fetch(`/api/events/${id}`, {
-      method: "PUT",
-      body: data,
-    });
+    // Use toast.promise so user always sees feedback
+    const result = await toast.promise(
+      fetch(`/api/events/${id}`, {
+        method: "PUT",
+        body: data,
+      }).then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.message || "Failed to update");
+        return json;
+      }),
+      {
+        loading: isDraft ? "Saving draft..." : "Updating event...",
+        success: isDraft ? "Draft saved successfully!" : "Event updated successfully!",
+        error: (err) => `${err.message}`,
+      },
+      { duration: 2000 } // optional duration
+    );
 
-    const result = await response.json();
-
-    if (response.ok) {
-      toast.success("Event updated successfully ");
-
-      setTimeout(() => {
-        router.push("/admin/events");
-      }, 1500);
-    } else {
-      toast.error(result.message || "Failed to update event ");
-    }
+    // navigate after toast
+    router.push("/admin/events");
   } catch (error) {
-    console.error("Error updating event:", error);
-    toast.error("Something went wrong ");
+    console.error(error);
   } finally {
     setSaving(false);
   }
 };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">

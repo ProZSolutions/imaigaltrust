@@ -66,6 +66,30 @@ export default function EventsPage() {
     });
   };
 
+//   const handleUpdate = async (e: React.FormEvent) => {
+//   e.preventDefault();
+  
+//   try {
+//     const res = await fetch(`/api/events/${eventId}`, {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(formData),
+//     });
+
+//     const data = await res.json();
+
+//     if (res.ok) {
+//       toast.success("Event updated successfully!");
+//       // optional: redirect or refresh page
+//     } else {
+//       toast.error(data.message || "Update failed");
+//     }
+//   } catch (error) {
+//     toast.error("Something went wrong");
+//     console.error(error);
+//   }
+// };
+
   const handleDelete = async () => {
     if (!deleteId) return;
 

@@ -187,3 +187,14 @@ section .aspect-square img {
 }
 
 
+/* Tailwind-compatible classes */
+nav::-webkit-scrollbar {
+  width: 6px;
+}
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+nav::-webkit-scrollbar-thumb {
+  background-color: rgb(201, 188, 188);
+  border-radius: 5px;
+}
