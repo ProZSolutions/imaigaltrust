@@ -14,8 +14,6 @@ export default function EditEventPage({
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   interface Program {
     id: number | string;
     programs: string;
@@ -107,8 +105,6 @@ export default function EditEventPage({
       } catch (error) {
         console.error("Error fetching data:", error);
         alert("Error loading event data");
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
@@ -131,9 +127,8 @@ export default function EditEventPage({
     }
   };
 
- const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
+const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
   e.preventDefault();
-  setSaving(true);
 
   try {
     const data = new FormData();
@@ -144,43 +139,37 @@ export default function EditEventPage({
 
     if (coverImage) data.append("coverImage", coverImage);
 
-    // Use toast.promise so user always sees feedback
+    // Show toast for update
     await toast.promise(
       fetch(`/api/events/${id}`, {
         method: "PUT",
         body: data,
       }).then(async (res) => {
         const json = await res.json();
-        if (!res.ok) throw new Error(json.message || "Failed to update");
+        const errorMessage =
+          json?.message || json?.error || "Failed to update event";
+        if (!res.ok) throw new Error(errorMessage);
         return json;
       }),
       {
         loading: isDraft ? "Saving draft..." : "Updating event...",
         success: isDraft ? "Draft saved successfully!" : "Event updated successfully!",
-        error: (err) => `${err.message}`,
+        error: (err) => err.message,
       },
-      { duration: 2000 } // optional duration
+      { duration: 2000 }
     );
 
-    // navigate after toast
+    // Navigate after success
     router.push("/admin/events");
   } catch (error) {
-    console.error(error);
-  } finally {
-    setSaving(false);
+    console.error("Error updating event:", error);
   }
 };
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a4d2e]"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       {/* Header */}
+            {/* <Toaster position="top-right" /> */}
+      
       <div className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <Link
           href="/admin/events"
@@ -577,7 +566,6 @@ export default function EditEventPage({
           <button
             type="button"
             onClick={(e) => handleSubmit(e, true)}
-            disabled={saving}
             className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
           >
             Save as Draft
@@ -585,12 +573,8 @@ export default function EditEventPage({
           <button
             type="button"
             onClick={(e) => handleSubmit(e, false)}
-            disabled={saving}
             className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
           >
-            {saving ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            ) : null}
             Update Event
           </button>
         </div>

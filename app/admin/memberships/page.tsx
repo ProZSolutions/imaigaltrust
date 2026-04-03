@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Pagination from "@/app/component/Pagination/Pagination";
-
+import toast, { Toaster } from "react-hot-toast";
 interface Membership {
   id: number;
   name: string;
@@ -71,63 +71,83 @@ status: m.status || "pending",}));
 
 //approeve
  const handleApprove = async () => {
+  if (selectedMembers.length === 0) {
+    toast.error("Please select at least one member to approve");
+    return;
+  }
 
-  await fetch("/api/membership/update-status", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ids: selectedMembers,
-      status: "approved",
-    }),
-  });
+  try {
+    await fetch("/api/membership/update-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ids: selectedMembers,
+        status: "approved",
+      }),
+    });
 
-  setMemberships(prev =>
-    prev.map(member =>
-      selectedMembers.includes(member.id)
-        ? { ...member, status: "approved" }
-        : member
-    )
-  );
+    setMemberships((prev) =>
+      prev.map((member) =>
+        selectedMembers.includes(member.id)
+          ? { ...member, status: "approved" }
+          : member
+      )
+    );
 
-  setSelectedMembers([]);
+    toast.success("Selected member(s) approved successfully!"); 
+
+    setSelectedMembers([]);
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to approve members");
+  }
 };
 
 //reject 
 const handleReject = async () => {
-
   if (!rejectReason.trim()) {
-    alert("Reject reason mandatory");
+    toast.error("Reject reason is mandatory"); 
     return;
   }
 
-  await fetch("/api/membership/update-status", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ids: selectedMembers,
-      status: "rejected",
-      reason: rejectReason,
-    }),
-  });
+  try {
+    await fetch("/api/membership/update-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ids: selectedMembers,
+        status: "rejected",
+        reason: rejectReason,
+      }),
+    });
 
-  setMemberships(prev =>
-    prev.map(member =>
-      selectedMembers.includes(member.id)
-        ? { ...member, status: "rejected" }
-        : member
-    )
-  );
+    setMemberships((prev) =>
+      prev.map((member) =>
+        selectedMembers.includes(member.id)
+          ? { ...member, status: "rejected" }
+          : member
+      )
+    );
 
-  setRejectPopup(false);
-  setRejectReason("");
-  setSelectedMembers([]);
+    toast.success("Selected member(s) rejected successfully!"); 
+
+    setRejectPopup(false);
+    setRejectReason("");
+    setSelectedMembers([]);
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to reject members"); 
+  }
 };
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Toaster position="top-right" />
+
+      {/* Header + Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 sm:p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Membership Data</h1>
@@ -135,24 +155,22 @@ const handleReject = async () => {
             View and manage organization members
           </p>
         </div>
-        <div className="flex gap-3">
-
-<button
-  onClick={() => handleApprove()}
-  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-semibold"
->
-Approve
-</button>
-
-<button
-  onClick={() => setRejectPopup(true)}
-  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold"
->
-Reject
-</button>
-
-</div>
-        
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
+          <button
+            onClick={handleApprove}
+            disabled={selectedMembers.length === 0}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-semibold w-full sm:w-auto"
+          >
+            Approve
+          </button>
+          <button
+            onClick={() => setRejectPopup(true)}
+            disabled={selectedMembers.length === 0}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold w-full sm:w-auto"
+          >
+            Reject
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -161,165 +179,147 @@ Reject
         </div>
       ) : (
         <>
-          <div className="bg-white rounded-2xl shadow overflow-hidden border border-gray-100">
-            <div className="w-full overflow-x-auto">
-              <table className="min-w-[900px] w-full text-left border-collapse">
-                <thead className="bg-[#1a4d2e] text-white">
-                  <tr>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">S.No</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Name</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Contact</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Location</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Membership Type</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Voluntary Donation</th>
-<th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Select</th>
-<th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Status</th>
-                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-xs">Applied Date</th>
+          {/* Desktop Table */}
+          <div className="hidden sm:block bg-white rounded-2xl shadow overflow-x-auto border border-gray-100">
+            <table className="min-w-full text-left border-collapse text-xs sm:text-sm">
+              <thead className="bg-[#1a4d2e] text-white">
+                <tr>
+                  <th className="px-3 py-2">S.No</th>
+                  <th className="px-3 py-2">Select</th>
+                  <th className="px-3 py-2">Name</th>
+                  <th className="px-3 py-2">Contact</th>
+                  <th className="px-3 py-2">Location</th>
+                  <th className="px-3 py-2">Membership</th>
+                  <th className="px-3 py-2">Donation</th>
+                  <th className="px-3 py-2">Status</th>
+                  <th className="px-3 py-2">Applied Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentData.map((member, index) => (
+                  <tr
+                    key={member.id}
+                    className="border-b hover:bg-gray-50 transition"
+                  >
+                    <td className="px-3 py-2">{startIndex + index + 1}</td>
+                    <td className="px-3 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedMembers.includes(member.id)}
+                        onChange={(e) =>
+                          e.target.checked
+                            ? setSelectedMembers([...selectedMembers, member.id])
+                            : setSelectedMembers(
+                                selectedMembers.filter((id) => id !== member.id)
+                              )
+                        }
+                        disabled={member.status !== "pending"}
+                        className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                    </td>
+                    <td className="px-3 py-2">{member.name}</td>
+                    <td className="px-3 py-2">
+                      {member.email} <br />
+                      <span className="text-gray-400">{member.mobile}</span>
+                    </td>
+                    <td className="px-3 py-2">
+                      {member.city}, {member.state}
+                    </td>
+                    <td className="px-3 py-2">{member.membership_type}</td>
+                    <td className="px-3 py-2">
+                      {member.voluntaryDonation > 0
+                        ? `₹${member.voluntaryDonation}`
+                        : "Free"}
+                    </td>
+                    <td className="px-3 py-2">
+                      {member.status === "approved" && (
+                        <span className="bg-green-900 text-white px-2 py-1 rounded-full text-xs">
+                          Approved
+                        </span>
+                      )}
+                      {member.status === "pending" && (
+                        <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs">
+                          Pending
+                        </span>
+                      )}
+                      {member.status === "rejected" && (
+                        <span className="bg-red-800 text-white px-2 py-1 rounded-full text-xs">
+                          Rejected
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2">
+                      {new Date(member.created_at).toLocaleDateString()}
+                    </td>
                   </tr>
-                </thead>
-
-                <tbody>
-  {currentData.length > 0 ? (
-    currentData.map((member, index) => (
-      <tr
-        key={member.id}
-        className="border-b hover:bg-gray-50 transition"
-      >
-        <td className="px-6 py-4 text-xs sm:text-sm">
-          {startIndex + index + 1}
-        </td>
-
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          {member.name}
-        </td>
-
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          <div>{member.email}</div>
-          <div className="text-xs text-gray-400">
-            {member.mobile}
+                ))}
+              </tbody>
+            </table>
           </div>
-        </td>
 
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          {member.city}, {member.state}
-        </td>
-
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          <span className="px-2 py-1 text-xs rounded-full text-green-800">
-            {member.membership_type}
-          </span>
-        </td>
-
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          {member.voluntaryDonation > 0 ? (
-            <span className="text-green-600 font-semibold">
-              Paid ₹{member.voluntaryDonation}
-            </span>
-          ) : (
-            <span className="text-gray-500">Free</span>
-          )}
-        </td>
-
-        {/* Select Checkbox */}
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          <input
-            type="checkbox"
-            checked={selectedMembers.includes(member.id)}
-            onChange={(e) => {
-              if (e.target.checked) {
-                setSelectedMembers([...selectedMembers, member.id]);
-              } else {
-                setSelectedMembers(
-                  selectedMembers.filter((id) => id !== member.id)
-                );
-              }
-            }}
-            className="w-5 h-5 cursor-pointer"
-          />
-        </td>
-
-        {/* Status */}
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          {member.status === "approved" && (
-            <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">
-              Approved
-            </span>
-          )}
-
-          {member.status === "pending" && (
-            <span className="px-2 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded-full">
-              Pending
-            </span>
-          )}
-
-          {member.status === "rejected" && (
-            <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">
-              Rejected
-            </span>
-          )}
-        </td>
-
-        <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm">
-          {new Date(member.created_at).toLocaleDateString()}
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td
-        colSpan={9}
-        className="text-center py-10 text-gray-500"
-      >
-        No memberships found.
-      </td>
-    </tr>
-  )}
-</tbody>
-              </table>
-            </div>
+          {/* Mobile Cards */}
+          <div className="sm:hidden space-y-4">
+            {currentData.map((member) => (
+              <div
+                key={member.id}
+                className="bg-white p-4 rounded-xl shadow border border-gray-100"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="font-semibold text-sm">{member.name}</h3>
+                    <p className="text-xs text-gray-400">
+                      {member.email} | {member.mobile}
+                    </p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={selectedMembers.includes(member.id)}
+                    onChange={(e) =>
+                      e.target.checked
+                        ? setSelectedMembers([...selectedMembers, member.id])
+                        : setSelectedMembers(
+                            selectedMembers.filter((id) => id !== member.id)
+                          )
+                    }
+                    disabled={member.status !== "pending"}
+                    className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
+                  />
+                </div>
+                <p className="text-xs mt-1">
+                  Location: {member.city}, {member.state}
+                </p>
+                <p className="text-xs mt-1">
+                  Membership: {member.membership_type}
+                </p>
+                <p className="text-xs mt-1">
+                  Donation: {member.voluntaryDonation > 0
+                    ? `₹${member.voluntaryDonation}`
+                    : "Free"}
+                </p>
+                <p className="text-xs mt-1">
+                  Status:{" "}
+                  {member.status === "approved" ? (
+                    <span className="bg-green-900 text-white px-2 py-1 rounded-full text-xs">
+                      Approved
+                    </span>
+                  ) : member.status === "pending" ? (
+                    <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs">
+                      Pending
+                    </span>
+                  ) : (
+                    <span className="bg-red-800 text-white px-2 py-1 rounded-full text-xs">
+                      Rejected
+                    </span>
+                  )}
+                </p>
+                <p className="text-xs mt-1">
+                  Applied: {new Date(member.created_at).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
           </div>
-{rejectPopup && (
-<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-  <div className="bg-white p-6 rounded-xl w-[400px]">
-
-    <h2 className="text-lg font-bold mb-3">Reject Reason</h2>
-
-   <textarea
-  value={rejectReason}
-  onChange={(e) => setRejectReason(e.target.value)}
-  placeholder="Enter rejection reason..."
-  className="w-full border p-2 rounded-lg mb-4"
-  required
-/>
-
-    <div className="flex justify-end gap-2">
-
-      <button
-        onClick={() => setRejectPopup(false)}
-        className="px-4 py-2 bg-gray-200 rounded-lg"
-      >
-Cancel
-      </button>
-
-      <button
-  onClick={handleReject}
-  disabled={!rejectReason.trim()}
-  className={`px-4 py-2 text-white rounded-lg ${
-    rejectReason.trim()
-      ? "bg-red-600 hover:bg-red-700"
-      : "bg-red-300 cursor-not-allowed"
-  }`}
->
-Reject
-</button>
-
-    </div>
-
-  </div>
-
-</div>
-)}
+          {/* Pagination */}
           <Pagination
             currentPage={currentPage}
             totalItems={totalItems}
@@ -329,6 +329,42 @@ Reject
           />
         </>
       )}
+
+      {/* Reject Popup */}
+      {rejectPopup && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl w-[90%] max-w-sm">
+            <h2 className="text-lg font-bold mb-3">Reject Reason</h2>
+            <textarea
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="Enter rejection reason..."
+              className="w-full border p-2 rounded-lg mb-4"
+              required
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setRejectPopup(false)}
+                className="px-4 py-2 bg-gray-200 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReject}
+                disabled={!rejectReason.trim()}
+                className={`px-4 py-2 text-white rounded-lg ${
+                  rejectReason.trim()
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "bg-red-300 cursor-not-allowed"
+                }`}
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+       
   );
 }

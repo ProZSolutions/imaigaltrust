@@ -361,20 +361,22 @@ export default function EventRegistrationsPage() {
           <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 pointer-events-auto">
             {/* Modal Header */}
             <div className="bg-[#1a4d2e] p-6 text-white flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-xl">
-                  <User size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Registration Details</h3>
-                  <p className="text-white/70 text-xs font-medium uppercase tracking-wider">
-                    Registered on{" "}
-                    {new Date(selectedReg.created_at)
-                      .toLocaleDateString("en-GB")
-                      .replace(/\//g, "-")}
-                  </p>
-                </div>
-              </div>
+             <div className="flex justify-center items-center w-full">
+  <div className="flex items-center gap-3">
+    <div className="bg-white/20 p-2 rounded-xl">
+      <User size={24} />
+    </div>
+    <div>
+      <h3 className="text-xl font-bold">Registration Details</h3>
+      <p className="text-white/70 text-xs font-medium uppercase tracking-wider">
+        Registered on{" "}
+        {new Date(selectedReg.created_at)
+          .toLocaleDateString("en-GB")
+          .replace(/\//g, "-")}
+      </p>
+    </div>
+  </div>
+</div>
               <button
                 onClick={() => setSelectedReg(null)}
                 className="p-2 hover:bg-white/20 rounded-full transition-colors"
@@ -388,30 +390,35 @@ export default function EventRegistrationsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Personal Information */}
                 <div className="space-y-6">
-                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
+                  <h4 className="text-[12px] font-black text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-2">
                     Personal Information
                   </h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    <DetailItem
-                      label="Full Name"
-                      value={`${selectedReg.first_name} ${selectedReg.last_name}`}
-                      icon={<User size={14} />}
-                    />
-                    <DetailItem
-                      label="Age"
-                      value={`${selectedReg.age} Years`}
-                    />
-                    <DetailItem label="Gender" value={selectedReg.gender} />
-                    <DetailItem
-                      label="Source"
-                      value={selectedReg.source || "-"}
-                    />
-                  </div>
+                  <div className="text-gray-300">
+  <div className="grid grid-cols-2 gap-4">
+    <DetailItem
+      label="Full Name"
+      value={`${selectedReg.first_name} ${selectedReg.last_name}`}
+      icon={<User size={14} />}
+    />
+    <DetailItem
+      label="Age"
+      value={`${selectedReg.age} Years`}
+    />
+    <DetailItem
+      label="Gender"
+      value={selectedReg.gender}
+    />
+    <DetailItem
+      label="Source"
+      value={selectedReg.source || "-"}
+    />
+  </div>
+</div>
                 </div>
 
                 {/* Contact Information */}
                 <div className="space-y-6">
-                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
+                  <h4 className="text-[12px] font-black text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-2">
                     Contact Details
                   </h4>
                   <div className="space-y-4">
@@ -431,7 +438,7 @@ export default function EventRegistrationsPage() {
 
                 {/* Additional Information */}
                 <div className="md:col-span-2 space-y-6 mt-2">
-                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
+                  <h4 className="text-[12px] font-black text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-2">
                     Participant Notes
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
