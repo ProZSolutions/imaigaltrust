@@ -20,9 +20,9 @@ const memberships = await prisma.membership.findMany({
 
 let membershipRevenue = 0;
 
-memberships.forEach(m => {
-  // Remove any commas, trim string, convert to number safely
-  const fee = m.membership_fee ? Number(m.membership_fee.toString().replace(/,/g, '').trim()) : 0;
+memberships.forEach((m: { membership_fee: number }) => {
+  // membership_fee is now Float, so directly add it
+  const fee = Number(m.membership_fee) || 0;
   membershipRevenue += isNaN(fee) ? 0 : fee;
 });
     
@@ -30,7 +30,7 @@ memberships.forEach(m => {
     const paidMembers = await prisma.membership.count({
       where: {
         membership_fee: {
-          not: "0",
+          not: 0,
         },
       },
     });

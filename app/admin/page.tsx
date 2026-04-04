@@ -146,7 +146,7 @@ export default function DashboardPage() {
       </section>
 
       {/* ===== Membership Breakdown (Left-accent Cards) ===== */}
-      <section className="bg-green-50 p-6 rounded-2xl shadow-xl border border-green-200">
+      {/* <section className="bg-green-50 p-6 rounded-2xl shadow-xl border border-green-200">
         <h2 className="text-2xl font-bold text-green-800 mb-6">Membership Breakdown</h2>
         <div className="space-y-4">
           {[
@@ -166,7 +166,7 @@ export default function DashboardPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ===== Annual Reports ===== */}
       <section className="bg-indigo-50 p-6 rounded-2xl shadow-lg border border-indigo-200">

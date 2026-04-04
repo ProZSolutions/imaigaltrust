@@ -25,7 +25,7 @@ export async function GET() {
       orderBy: { created_at: "desc" },
     });
 
-    const formatted = memberships.map((m) => ({
+    const formatted = memberships.map((m: typeof memberships[0]) => ({
       ...m,
       voluntaryDonation: m.voluntary_donation, // convert here
     }));
@@ -49,6 +49,18 @@ export async function POST(req: Request) {
     // Log the received body for debugging
     console.log("Received membership body:", body);
 
+    // Extract numeric fee from formatted string like "Annual Membership – ₹1,000.00"
+    const extractFeeAmount = (feeString: string): number => {
+      if (!feeString) return 0;
+      // Extract numbers and decimal points, handle ₹ and comma separators
+      const match = feeString.match(/₹?([\d,]+(?:\.\d{2})?)/);
+      if (match && match[1]) {
+        // Remove commas and convert to number
+        return Number(match[1].replace(/,/g, ""));
+      }
+      return 0;
+    };
+
     const result = await prisma.membership.create({
       data: {
         name: body.name || "",
@@ -62,7 +74,7 @@ export async function POST(req: Request) {
 
         membership_type: body.membershipType || "",
         interest: body.interest || "",
-        membership_fee: body.fee || "",
+        membership_fee: extractFeeAmount(body.fee),
 
         voluntary_donation: body.voluntaryDonation ? Number(body.voluntaryDonation) : 0,
 

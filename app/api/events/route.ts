@@ -117,7 +117,7 @@ export async function GET(request: Request) {
     });
     console.log("Events fetched successfully:", events.length);
 
-    const formattedEvents = events.map((event) => ({
+    const formattedEvents = events.map((event: typeof events[0]) => ({
       ...event,
       program: event.program?.programs || "N/A",
       start_date_formatted: event.start_date.toLocaleDateString("en-GB"), // Format date for UI
