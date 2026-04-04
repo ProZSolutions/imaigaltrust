@@ -16,6 +16,7 @@ const MembershipForm: React.FC = () => {
     interest: "",
     fee: "",
   });
+  
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
