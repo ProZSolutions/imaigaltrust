@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
@@ -9,6 +10,9 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { NextRequest } from "next/server";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
