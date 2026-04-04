@@ -1,33 +1,33 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(request: Request) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ message: "Skipping during build" });
   }
 
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const formData = await request.formData();
 
-    // Extracting data from FormData
     const title = formData.get("title") as string;
     const programId = parseInt(formData.get("programId") as string);
     const categoryId = parseInt(formData.get("categoryId") as string);
     const status = formData.get("status") as "upcoming" | "ongoing" | "past";
     const startDate = formData.get("startDate") as string;
     const startTime = formData.get("startTime") as string;
-
     const endDate = formData.get("endDate") as string | null;
     const endTime = formData.get("endTime") as string | null;
-
     const location = formData.get("location") as string;
     const shortDescription = formData.get("shortDescription") as string;
     const fullDescription = formData.get("fullDescription") as string || null;
@@ -38,25 +38,20 @@ export async function POST(request: Request) {
     const registrationEndDate = formData.get("registrationEndDate") as string || null;
     const isDraft = formData.get("isDraft") === "true";
 
-    // Handle File Upload for Cover Image
     const coverImageFile = formData.get("coverImage") as File | null;
     let coverImagePath = null;
 
     if (coverImageFile) {
       const bytes = await coverImageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
-
       const uploadDir = path.join(process.cwd(), "public/assets/images/events");
       await mkdir(uploadDir, { recursive: true });
-
       const fileName = `${Date.now()}-${coverImageFile.name.replace(/\s+/g, "-")}`;
       coverImagePath = `/assets/images/events/${fileName}`;
       const fullPath = path.join(uploadDir, fileName);
-
       await writeFile(fullPath, buffer);
     }
 
-    // Prepare dates for Prisma
     const formatToDateTime = (dateStr: string, timeStr: string | null) => {
       if (!dateStr) return null;
       const time = timeStr ? timeStr : "00:00";
@@ -91,32 +86,32 @@ export async function POST(request: Request) {
       event,
     });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     console.error("Error creating event:", error);
     return NextResponse.json(
-      { message: "Failed to create event", error: errorMessage },
+      { message: "Failed to create event" },
       { status: 500 }
     );
   }
 }
 
 export async function GET(request: Request) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ events: [] }, { status: 200 });
   }
 
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const { searchParams } = new URL(request.url);
     const draftsOnly = searchParams.get("drafts") === "true";
 
-    console.log(`Fetching events from Prisma (drafts: ${draftsOnly})...`);
     const events = await prisma.event.findMany({
       where: {
-        status_active: 1, // Only show active events
-        is_draft: draftsOnly, // Show either drafts or published based on param
+        status_active: 1,
+        is_draft: draftsOnly,
       },
       include: {
         program: {
@@ -129,7 +124,6 @@ export async function GET(request: Request) {
         id: "desc",
       },
     });
-    console.log("Events fetched successfully:", events.length);
 
     const formattedEvents = events.map((event: any) => ({
       ...event,
@@ -151,10 +145,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ events: formattedEvents });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     console.error("Error fetching events:", error);
     return NextResponse.json(
-      { message: "Failed to fetch events", error: errorMessage },
+      { message: "Failed to fetch events" },
       { status: 500 }
     );
   }
