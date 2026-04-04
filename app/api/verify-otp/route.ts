@@ -18,12 +18,12 @@ export async function POST(req: Request) {
     const { prisma } = await import("@/lib/prisma");
     const { email, otp } = await req.json();
 
-    const record = await prisma.oTP.findUnique({
+    const record = await prisma.otp.findUnique({
       where: { email },
     });
 
     if (record && record.otp === otp && new Date() < record.expiresAt) {
-      await prisma.oTP.delete({ where: { email } });
+      await prisma.otp.delete({ where: { email } });
       return NextResponse.json({ success: true, message: "OTP verified" });
     } else {
       return NextResponse.json(
