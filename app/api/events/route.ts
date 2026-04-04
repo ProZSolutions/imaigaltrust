@@ -94,6 +94,11 @@ coverImagePath = `/assets/images/events/${fileName}`;
 }
 
 export async function GET(request: Request) {
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ events: [] }, { status: 200 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const draftsOnly = searchParams.get("drafts") === "true";

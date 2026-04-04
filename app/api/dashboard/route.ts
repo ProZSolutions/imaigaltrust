@@ -2,6 +2,27 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({
+      totalMembers: 0,
+      paidMembers: 0,
+      freeVolunteers: 0,
+      pendingMembers: 0,
+      approvedMembers: 0,
+      rejectedMembers: 0,
+      totalEvents: 0,
+      pendingApprovals: 0,
+      membershipRevenue: 0,
+      ongoingEvents: 0,
+      upcomingEvents: 0,
+      pastEvents: 0,
+      draftEvents: 0,
+      registerCount: 0,
+      annualReportCount: 0,
+    });
+  }
+
   try {
 
     // Platform Summary

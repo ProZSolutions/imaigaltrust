@@ -12,6 +12,12 @@ export async function GET(
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
+
+    // Skip database operations during build phase
+    if (process.env.NEXT_PHASE === 'phase-production-build') {
+      return NextResponse.json({ event: null }, { status: 200 });
+    }
+
     const event = await prisma.event.findUnique({
       where: { id },
       include: {
