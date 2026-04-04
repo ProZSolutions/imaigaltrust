@@ -13,14 +13,13 @@ export async function GET(
   // Force dynamic execution by accessing headers
   await headers();
 
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ event: null }, { status: 200 });
+  }
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
-
-    // Skip database operations during build phase
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
-      return NextResponse.json({ event: null }, { status: 200 });
-    }
 
     const event = await prisma.event.findUnique({
       where: { id },
@@ -45,6 +44,13 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
@@ -93,28 +99,7 @@ export async function PUT(
       return new Date(`${dateStr}T${time}:00`);
     };
 
-    interface UpdateData {
-      title: string;
-      program_id: number;
-      category_id: number;
-      status: "upcoming" | "ongoing" | "past";
-      start_date: Date;
-      start_time: Date;
-      end_date: Date | null;
-      end_time: Date | null;
-      location: string;
-      short_description: string;
-      full_description: string | null;
-      contact_person: string | null;
-      contact_email: string | null;
-      video_url: string | null;
-      registration_start_date: Date | null;
-      registration_end_date: Date | null;
-      is_draft: boolean;
-      cover_image?: string;
-    }
-
-    const updateData: UpdateData = {
+    const updateData: any = {
       title,
       program_id: programId,
       category_id: categoryId,
@@ -160,6 +145,13 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);

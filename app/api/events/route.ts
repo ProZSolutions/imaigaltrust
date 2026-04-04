@@ -7,6 +7,13 @@ import path from "path";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Skipping during build" });
+  }
+
   try {
     const formData = await request.formData();
 
@@ -39,22 +46,19 @@ export async function POST(request: Request) {
       const bytes = await coverImageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-const uploadDir = path.join(process.cwd(), "public/assets/images/events");
+      const uploadDir = path.join(process.cwd(), "public/assets/images/events");
       await mkdir(uploadDir, { recursive: true });
 
       const fileName = `${Date.now()}-${coverImageFile.name.replace(/\s+/g, "-")}`;
-// coverImagePath = `/assets/images/events/${fileName}`;
-coverImagePath = `/assets/images/events/${fileName}`;
+      coverImagePath = `/assets/images/events/${fileName}`;
       const fullPath = path.join(uploadDir, fileName);
 
       await writeFile(fullPath, buffer);
     }
 
-    // Prepare dates for Prisma (Prisma expects ISO-8601 or Date objects)
+    // Prepare dates for Prisma
     const formatToDateTime = (dateStr: string, timeStr: string | null) => {
       if (!dateStr) return null;
-      // If no time is provided, default to midnight.
-      // Note: For MySQL @db.Time, we'll send a full DateTime and Prisma handles it if mapped correctly.
       const time = timeStr ? timeStr : "00:00";
       return new Date(`${dateStr}T${time}:00`);
     };
@@ -100,7 +104,6 @@ export async function GET(request: Request) {
   // Force dynamic execution by accessing headers
   await headers();
 
-  // Skip database operations during build phase
   if (process.env.NEXT_PHASE === 'phase-production-build') {
     return NextResponse.json({ events: [] }, { status: 200 });
   }
@@ -128,15 +131,15 @@ export async function GET(request: Request) {
     });
     console.log("Events fetched successfully:", events.length);
 
-    const formattedEvents = events.map((event: typeof events[0]) => ({
+    const formattedEvents = events.map((event: any) => ({
       ...event,
       program: event.program?.programs || "N/A",
-      start_date_formatted: event.start_date.toLocaleDateString("en-GB"), // Format date for UI
+      start_date_formatted: event.start_date.toLocaleDateString("en-GB"),
       start_time_formatted: event.start_time.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
-      }), // Format time for UI
+      }),
       end_time_formatted: event.end_time
         ? event.end_time.toLocaleTimeString([], {
             hour: "2-digit",
@@ -156,4 +159,3 @@ export async function GET(request: Request) {
     );
   }
 }
-

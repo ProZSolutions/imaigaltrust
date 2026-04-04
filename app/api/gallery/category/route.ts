@@ -29,6 +29,13 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
     const body = await req.json();
     const { category, status } = body;
@@ -41,11 +48,11 @@ export async function POST(req: Request) {
     }
 
     const newCategory = await prisma.galleryCategory.create({
-  data: {
-    category,
-    status: status !== undefined ? parseInt(status) : 1,
-  },
-});
+      data: {
+        category,
+        status: status !== undefined ? parseInt(status) : 1,
+      },
+    });
 
     return NextResponse.json(newCategory, { status: 201 });
   } catch (error) {

@@ -7,6 +7,13 @@ import path from "path";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Skipping during build" });
+  }
+
   try {
     const formData = await request.formData();
     const type = formData.get("type") as string;
@@ -62,7 +69,6 @@ export async function GET() {
   // Force dynamic execution by accessing headers
   await headers();
 
-  // Skip database operations during build phase
   if (process.env.NEXT_PHASE === 'phase-production-build') {
     return NextResponse.json({ reports: [] }, { status: 200 });
   }
