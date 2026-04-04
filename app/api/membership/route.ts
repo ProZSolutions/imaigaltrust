@@ -1,18 +1,21 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function GET() {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ success: true, memberships: [] }, { status: 200 });
   }
 
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const memberships = await prisma.membership.findMany({
       orderBy: { created_at: "desc" },
     });
@@ -36,14 +39,16 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ success: true, id: 0 });
   }
 
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const body = await req.json();
 
     const extractFeeAmount = (feeString: string): number => {
@@ -82,7 +87,7 @@ export async function POST(req: Request) {
     const err = error as Error;
     console.error("Prisma error details:", err);
     return NextResponse.json(
-      { success: false, message: err.message, details: (err as any).code },
+      { success: false, message: err.message },
       { status: 500 }
     );
   }

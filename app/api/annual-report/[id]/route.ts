@@ -1,22 +1,28 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { NextRequest } from "next/server";
 import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function DELETE(
-  request: NextRequest,
+  request: any,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  // IMMEDIATELY check for build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ message: "Skipping during build" });
   }
 
+  // Force dynamic execution
   try {
+    await headers();
+  } catch (e) {
+    // Ignore headers error during build if it happens
+  }
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
 
@@ -42,17 +48,23 @@ export async function DELETE(
 }
 
 export async function GET(
-  request: NextRequest,
+  request: any,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  // IMMEDIATELY check for build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ report: null }, { status: 200 });
   }
 
+  // Force dynamic execution
   try {
+    await headers();
+  } catch (e) {
+    // Ignore headers error during build
+  }
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
 

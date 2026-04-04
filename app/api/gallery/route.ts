@@ -1,20 +1,23 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(request: Request) {
-    // Force dynamic execution by accessing headers
-    await headers();
-
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
+    if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
         return NextResponse.json({ message: "Skipping during build" });
     }
 
     try {
+        await headers();
+    } catch (e) {}
+
+    try {
+        const { prisma } = await import("@/lib/prisma");
         const formData = await request.formData();
         const programIdRaw = formData.get("programId");
         const categoryIdRaw = formData.get("categoryId");
@@ -54,71 +57,54 @@ export async function POST(request: Request) {
         let file_path = null;
 
         if (media_type === "image" && file) {
-            try {
-                const bytes = await file.arrayBuffer();
-                const buffer = Buffer.from(bytes);
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            const galleryDir = path.join(process.cwd(), "public", "gallery");
+            await mkdir(galleryDir, { recursive: true });
+            const filename = `${Date.now()}-${file.name.replaceAll(" ", "_")}`;
+            const fullPath = path.join(galleryDir, filename);
+            file_path = `/gallery/${filename}`;
+            await writeFile(fullPath, buffer);
+        }
 
-                const galleryDir = path.join(process.cwd(), "public", "gallery");
-                await mkdir(galleryDir, { recursive: true });
-
-                const filename = `${Date.now()}-${file.name.replaceAll(" ", "_")}`;
-                const fullPath = path.join(galleryDir, filename);
-                file_path = `/gallery/${filename}`;
-
-                await writeFile(fullPath, buffer);
-            } catch (fileError) {
-                console.error("File Upload Error:", fileError);
-                return NextResponse.json(
-                    { message: "File upload failed", details: fileError instanceof Error ? fileError.message : "Unknown error" },
-                    { status: 500 }
-                );
+        const newGalleryItem = await prisma.gallery.create({
+            data: {
+                year,
+                month,
+                title,
+                media_type,
+                description,
+                file_path,
+                video_url,
+                program_id,
+                category_id
             }
-        }
+        });
 
-        try {
-            const newGalleryItem = await prisma.gallery.create({
-                data: {
-                    year,
-                    month,
-                    title,
-                    media_type,
-                    description,
-                    file_path,
-                    video_url,
-                    program_id,
-                    category_id
-                }
-            });
-
-            return NextResponse.json(
-                { message: "Gallery item created successfully", data: newGalleryItem },
-                { status: 201 }
-            );
-        } catch (dbError) {
-            console.error("Prisma Error:", dbError);
-            return NextResponse.json(
-                { message: "Prisma creation failed", details: dbError instanceof Error ? dbError.message : "Unknown error" },
-                { status: 500 }
-            );
-        }
+        return NextResponse.json(
+            { message: "Gallery item created successfully", data: newGalleryItem },
+            { status: 201 }
+        );
     } catch (error) {
         console.error("Error creating gallery item:", error);
         return NextResponse.json(
-            { message: "Failed to create gallery item", details: error instanceof Error ? error.message : "Unknown error" },
+            { message: "Failed to create gallery item" },
             { status: 500 }
         );
     }
 }
 
 export async function GET() {
-    // Force dynamic execution by accessing headers
-    await headers();
-
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
+    if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
         return NextResponse.json({ galleryItems: [] }, { status: 200 });
     }
 
     try {
+        await headers();
+    } catch (e) {}
+
+    try {
+        const { prisma } = await import("@/lib/prisma");
         const galleryItems = await prisma.gallery.findMany({
             where: { NOT: { status: -1 } },
             include: {

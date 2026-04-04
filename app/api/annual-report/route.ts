@@ -1,20 +1,26 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(request: Request) {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  // IMMEDIATELY check for build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ message: "Skipping during build" });
   }
 
+  // Force dynamic execution
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
+
     const formData = await request.formData();
     const type = formData.get("type") as string;
     const year = formData.get("year") as string;
@@ -31,18 +37,15 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create reports directory if it doesn't exist
     const reportsDir = path.join(process.cwd(), "public", "reports");
     await mkdir(reportsDir, { recursive: true });
 
-    // Generate unique filename
     const filename = `${Date.now()}-${file.name.replaceAll(" ", "_")}`;
     const filePath = path.join(reportsDir, filename);
     const relativePath = `/reports/${filename}`;
 
     await writeFile(filePath, buffer);
 
-    // Save to database
     const annualReport = await prisma.annualReport.create({
       data: {
         type,
@@ -66,14 +69,18 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  // Force dynamic execution by accessing headers
-  await headers();
-
-  if (process.env.NEXT_PHASE === 'phase-production-build') {
+  // IMMEDIATELY check for build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
     return NextResponse.json({ reports: [] }, { status: 200 });
   }
 
+  // Force dynamic execution
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const reports = await prisma.annualReport.findMany({
       orderBy: { created_at: "desc" },
     });
