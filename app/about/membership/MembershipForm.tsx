@@ -814,7 +814,17 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   min="1000"
   required={isPaidDonation}
   value={form.voluntaryDonation}
-  onChange={handleChange}
+  onChange={(e) => {
+    let value = e.target.value;
+
+    // remove leading 0
+    if (value === "0") value = "";
+
+    setForm((prev) => ({
+      ...prev,
+      voluntaryDonation: value,
+    }));
+  }}
   placeholder="₹1000"
   disabled={!isPaidDonation}
   className={`mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border focus:outline-none ${

@@ -113,7 +113,7 @@ export default function EventRegistrationsPage() {
               <div className="flex-1 p-8">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-10">
                   <div className="col-span-2 lg:col-span-4 mb-2">
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">
+                    <p className="text-[12px] font-bold text-black uppercase tracking-[0.2em] mb-1">
                       Event Name
                     </p>
                     <h1 className="text-3xl font-extrabold text-[#2d2a4a] tracking-tight">
@@ -122,19 +122,19 @@ export default function EventRegistrationsPage() {
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-2">
+                    <p className="text-[12px] font-bold text-black uppercase tracking-[0.15em] mb-2">
                       Event Period
                     </p>
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-gray-800 flex items-center gap-2">
-                        <Calendar size={12} className="text-[#1a4d2e]" />
+                      <p className="text-sm font-bold text-gray-800 flex items-center gap-2">
+                        <Calendar size={14} className="text-[#1a4d2e]" />
                         {new Date(eventInfo.start_date)
                           .toLocaleDateString("en-GB")
                           .replace(/\//g, "-")}
                       </p>
                       {eventInfo.end_date && (
-                        <p className="text-[11px] font-semibold text-gray-500 flex items-center gap-2">
-                          <Clock size={12} className="text-gray-300" />
+                        <p className="text-[12px] font-semibold text-gray-500 flex items-center gap-2">
+                          <Clock size={14} className="text-gray-300" />
                           Ends:{" "}
                           {new Date(eventInfo.end_date)
                             .toLocaleDateString("en-GB")
@@ -145,12 +145,12 @@ export default function EventRegistrationsPage() {
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-2">
+                    <p className="text-[12px] font-bold text-black uppercase tracking-[0.15em] mb-2">
                       Registration Dates
                     </p>
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-gray-800 flex items-center gap-2">
-                        <FileText size={12} className="text-blue-500" />
+                      <p className="text-sm font-bold text-gray-800 flex items-center gap-2">
+                        <FileText size={14} className="text-blue-500" />
                         {eventInfo.registration_start_date
                           ? new Date(eventInfo.registration_start_date)
                               .toLocaleDateString("en-GB")
@@ -158,8 +158,8 @@ export default function EventRegistrationsPage() {
                           : "Not set"}
                       </p>
                       {eventInfo.registration_end_date && (
-                        <p className="text-[11px] font-semibold text-red-500 flex items-center gap-2">
-                          <AlertCircle size={12} className="text-red-300" />
+                        <p className="text-[12px] font-semibold text-red-500 flex items-center gap-2">
+                          <AlertCircle size={14} className="text-red-300" />
                           Closes:{" "}
                           {new Date(eventInfo.registration_end_date)
                             .toLocaleDateString("en-GB")
@@ -170,12 +170,12 @@ export default function EventRegistrationsPage() {
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-2">
+                    <p className="text-[12px] font-bold text-black uppercase tracking-[0.15em] mb-2">
                       Location / Venue
                     </p>
-                    <p className="text-xs font-bold text-gray-800 flex items-start gap-2">
+                    <p className="text-sm font-bold text-gray-800 flex items-start gap-2">
                       <User
-                        size={12}
+                        size={14}
                         className="text-[#1a4d2e] shrink-0 mt-0.5"
                       />
                       {eventInfo.location}
@@ -183,14 +183,14 @@ export default function EventRegistrationsPage() {
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-2 text-right">
+                    <p className="text-[12px] font-bold text-black uppercase tracking-[0.15em] mb-2 text-right">
                       Total Impact
                     </p>
                     <div className="text-right">
                       <p className="text-2xl font-black text-[#1a4d2e]">
                         {registrations.length}
                       </p>
-                      <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
+                      <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest">
                         REGISTERED PARTICIPANTS
                       </p>
                     </div>
@@ -396,21 +396,24 @@ export default function EventRegistrationsPage() {
                   <div className="text-gray-300">
   <div className="grid grid-cols-2 gap-4">
     <DetailItem
-      label="Full Name"
-      value={`${selectedReg.first_name} ${selectedReg.last_name}`}
-      icon={<User size={14} />}
+  label={<span className="text-black text-xs font-semibold">Full Name</span>}
+  value={<span className="text-gray-500 text-sm ">{`${selectedReg.first_name} ${selectedReg.last_name}`}</span>}
+  icon={<User size={16} className="text-blue-600" />}
+/>
+   <DetailItem
+      label={<span className="text-black text-xs font-semibold">Age</span>}
+      value={<span className="text-gray-500 text-sm font-bold">{`${selectedReg.age} Years`}</span>}
+      icon={<Clock size={16} className="text-green-600" />}
     />
     <DetailItem
-      label="Age"
-      value={`${selectedReg.age} Years`}
+      label={<span className="text-black text-xs font-semibold">Gender</span>}
+      value={<span className="text-gray-500 text-sm font-bold">{selectedReg.gender}</span>}
+      icon={<Users size={16} className="text-purple-600" />}
     />
     <DetailItem
-      label="Gender"
-      value={selectedReg.gender}
-    />
-    <DetailItem
-      label="Source"
-      value={selectedReg.source || "-"}
+      label={<span className="text-black text-xs font-semibold">Source</span>}
+      value={<span className="text-gray-500 text-sm font-bold">{selectedReg.source || "-"}</span>}
+      icon={<Info size={16} className="text-yellow-600" />}
     />
   </div>
 </div>
@@ -422,18 +425,18 @@ export default function EventRegistrationsPage() {
                     Contact Details
                   </h4>
                   <div className="space-y-4">
-                    <DetailItem
-                      label="Email Address"
-                      value={selectedReg.email}
-                      icon={<Mail size={14} />}
-                      highlight
-                    />
-                    <DetailItem
-                      label="Phone Number"
-                      value={selectedReg.phone}
-                      icon={<Phone size={14} />}
-                    />
-                  </div>
+  <DetailItem
+    label={<span className="text-black text-xs font-semibold">Email Address</span>}
+    value={<span className="text-gray-500 text-sm font-bold">{selectedReg.email}</span>}
+    icon={<Mail size={14} />}
+    highlight
+  />
+  <DetailItem
+    label={<span className="text-black text-xs font-semibold">Phone Number</span>}
+    value={<span className="text-gray-500 text-sm font-bold">{selectedReg.phone}</span>}
+    icon={<Phone size={14} />}
+  />
+</div>
                 </div>
 
                 {/* Additional Information */}
@@ -443,17 +446,17 @@ export default function EventRegistrationsPage() {
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Info size={12} className="text-[#1a4d2e]" />
+                      <p className="text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <Info size={14} className="text-[#1a4d2e]" />
                         Motivation
                       </p>
-                      <p className="text-sm text-gray-700 leading-relaxed italic">
+                      <p className="text-sml text-gray-700 leading-relaxed italic">
                         &quot;{selectedReg.motivation || "No motivation provided"}&quot;
                       </p>
                     </div>
                     <div className="bg-red-50 p-4 rounded-2xl border border-red-100">
-                      <p className="text-[10px] font-bold text-red-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <AlertCircle size={12} className="text-red-500" />
+                      <p className="text-[12px] font-bold text-red-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <AlertCircle size={14} className="text-red-500" />
                         Special Requirements
                       </p>
                       <p className="text-sm text-red-700 leading-relaxed font-medium">
@@ -469,7 +472,7 @@ export default function EventRegistrationsPage() {
             <div className="p-6 bg-gray-50 border-t border-gray-100 flex justify-end">
               <button
                 onClick={() => setSelectedReg(null)}
-                className="px-6 py-2.5 bg-[#1a4d2e] text-white text-xs font-bold rounded-xl hover:bg-[#143d24] transition-all shadow-lg shadow-[#1a4d2e]/20"
+                className="px-6 py-2.5 bg-[#1a4d2e] text-white text-sml font-bold rounded-xl hover:bg-[#143d24] transition-all shadow-lg shadow-[#1a4d2e]/20"
               >
                 Close Details
               </button>
@@ -487,8 +490,8 @@ function DetailItem({
   icon,
   highlight,
 }: {
-  label: string;
-  value: string;
+  label: React.ReactNode;
+  value: React.ReactNode;
   icon?: React.ReactNode;
   highlight?: boolean;
 }) {
