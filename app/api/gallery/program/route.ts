@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ programs: [] }, { status: 200 });
+  }
+
   try {
     const programs = await prisma.galleryProgram.findMany({
       where: { NOT: { status: -1 } },

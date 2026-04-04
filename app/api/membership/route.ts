@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 // export async function GET() {
 //   try {
@@ -20,6 +23,9 @@ import prisma from "@/lib/prisma";
 //   }
 // }
 export async function GET() {
+  // Force dynamic execution by accessing headers
+  await headers();
+
   // Skip database operations during build phase
   if (process.env.NEXT_PHASE === 'phase-production-build') {
     return NextResponse.json({ success: true, memberships: [] }, { status: 200 });

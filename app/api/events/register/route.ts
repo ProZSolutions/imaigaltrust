@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
@@ -64,6 +67,14 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ registrations: [] }, { status: 200 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('eventId');

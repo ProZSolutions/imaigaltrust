@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
     try {
@@ -101,6 +104,9 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+    // Force dynamic execution by accessing headers
+    await headers();
+
     // Skip database operations during build phase
     if (process.env.NEXT_PHASE === 'phase-production-build') {
         return NextResponse.json({ galleryItems: [] }, { status: 200 });
