@@ -20,6 +20,11 @@ import prisma from "@/lib/prisma";
 //   }
 // }
 export async function GET() {
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ success: true, memberships: [] }, { status: 200 });
+  }
+
   try {
     const memberships = await prisma.membership.findMany({
       orderBy: { created_at: "desc" },

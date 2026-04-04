@@ -101,6 +101,11 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+    // Skip database operations during build phase
+    if (process.env.NEXT_PHASE === 'phase-production-build') {
+        return NextResponse.json({ galleryItems: [] }, { status: 200 });
+    }
+
     try {
         const galleryItems = await prisma.gallery.findMany({
             where: { NOT: { status: -1 } },

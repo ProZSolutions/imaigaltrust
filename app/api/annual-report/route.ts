@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -56,6 +58,11 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  // Skip database operations during build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ reports: [] }, { status: 200 });
+  }
+
   try {
     const reports = await prisma.annualReport.findMany({
       orderBy: { created_at: "desc" },
