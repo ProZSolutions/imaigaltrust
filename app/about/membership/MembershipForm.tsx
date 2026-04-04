@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { states } from "@/app/content/StateList";
-import toast from "react-hot-toast";
-
+import { toast } from "react-hot-toast";
 const MembershipForm: React.FC = () => {
   const [form, setForm] = useState({
     name: "",
@@ -19,7 +18,7 @@ const MembershipForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dateRef = useRef<HTMLInputElement>(null);
   const membershipTypes = [
     "Individual Member",
@@ -178,24 +177,27 @@ const [isPaidDonation, setIsPaidDonation] = useState(false);
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
+  if (isSubmitting) return; // Prevent multiple clicks
+  setIsSubmitting(true);    // Disable button
+
   // Validate voluntary donation
- if (isPaidDonation && Number(form.voluntaryDonation) < 1000) {
-  alert("Minimum donation is ₹1000");
-  return;
-}
+  if (isPaidDonation && Number(form.voluntaryDonation) < 1000) {
+    toast.error(" Minimum donation amount is ₹1000 for paid donations.");
+    setIsSubmitting(false);
+    return;
+  }
 
   const isValid = validate();
   const newErrors: Record<string, string> = {};
 
-  // Mandatory checkbox validations
   if (!form.membershipType) newErrors.membershipType = "Please select a Membership Type";
   if (!form.interest) newErrors.interest = "Please select an Area of Interest";
   if (!form.fee) newErrors.fee = "Please select a Membership Fee";
 
-  // If errors exist
   if (!isValid || Object.keys(newErrors).length > 0) {
     setErrors((prev) => ({ ...prev, ...newErrors }));
-    toast.error("Please fix the errors before submitting.");
+    toast.error(" Please fix the errors before submitting the form.");
+    setIsSubmitting(false);
     return;
   }
 
@@ -205,17 +207,17 @@ const handleSubmit = async (e: React.FormEvent) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...form,
-        donation_type: isPaidDonation ? "Paid" : "Free", // add donation type
-        voluntaryDonation: isPaidDonation ? Number(form.voluntaryDonation) : 0, // 0 if free
-        approved: false, // default approved = false
-        dob: convertDOB(form.dob), // convert DOB
+        donation_type: isPaidDonation ? "Paid" : "Free",
+        voluntaryDonation: isPaidDonation ? Number(form.voluntaryDonation) : 0,
+        approved: false,
+        dob: convertDOB(form.dob),
       }),
     });
 
     const data = await res.json();
 
     if (data.success) {
-      toast.success("Form submitted successfully!");
+      toast.success(" Membership application submitted successfully! We'll review your application and get back to you soon.");
       setForm({
         name: "",
         dob: "",
@@ -233,11 +235,13 @@ const handleSubmit = async (e: React.FormEvent) => {
       setIsPaidDonation(false);
       setErrors({});
     } else {
-      toast.error("Something went wrong.");
+      toast.error(" Something went wrong. Please try again.");
     }
   } catch (error) {
     console.error(error);
-    toast.error("Server error");
+    toast.error(" Server error. Please check your connection and try again.");
+  } finally {
+    setIsSubmitting(false); // Re-enable button
   }
 };
   // function validate(vals: Partial<typeof form> = form) {
@@ -788,7 +792,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
     setIsPaidDonation(newPaid);
     setForm((prevForm) => ({
       ...prevForm,
-      voluntaryDonation: newPaid ? "1000" : "0", // string
+      voluntaryDonation: newPaid ? "1000" : "", // string
     }));
   }}
 />
@@ -809,7 +813,17 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   min="1000"
   required={isPaidDonation}
   value={form.voluntaryDonation}
-  onChange={handleChange}
+  onChange={(e) => {
+    let value = e.target.value;
+
+    // remove leading 0
+    if (value === "0") value = "";
+
+    setForm((prev) => ({
+      ...prev,
+      voluntaryDonation: value,
+    }));
+  }}
   placeholder="₹1000"
   disabled={!isPaidDonation}
   className={`mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border focus:outline-none ${
@@ -829,11 +843,14 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   </div>
 
   <button
-    type="submit"
-    className="w-full max-w-[386px] h-[56px] rounded-md bg-green-700 text-white text-[16px] font-medium uppercase transition"
-  >
-    Submit
-  </button>
+  type="submit"
+  disabled={isSubmitting}
+  className={`w-full max-w-[386px] h-[56px] rounded-md text-white text-[16px] font-medium uppercase transition ${
+    isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-green-700"
+  }`}
+>
+  {isSubmitting ? "Submitting..." : "Submit"}
+</button>
 </div>
         </form>
       </section>

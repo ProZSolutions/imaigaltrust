@@ -32,14 +32,22 @@ export default function AdminLayout({
   );
   const [mounted, setMounted] = useState(false);
 
+//     useEffect(() => {
+//   const token = sessionStorage.getItem("authToken");
+
+//   if (token) {
+//     router.push("/admin");
+//   }
+// }, [router]);
+
 React.useEffect(() => {
-  setMounted(true);
+  const token = sessionStorage.getItem("authToken");
 
-  const auth = sessionStorage.getItem("authToken");
-
-  if (!auth) {
-    router.push("/login");
+  if (token) {
+    router.push("/admin");
   }
+
+  setMounted(true);
 }, [router]);
 
   const navItems = [

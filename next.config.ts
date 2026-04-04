@@ -8,7 +8,6 @@ const nextConfig = {
   experimental: {
     nextScriptWorkers: false, // Disable Next.js Dev Tools Badge
   },
-  // output: "export", // Ensures static export
 };
 
 module.exports = nextConfig;

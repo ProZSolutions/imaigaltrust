@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Calendar, Clock, Users, FileText, Layers, DollarSign, UserPlus } from "lucide-react";
+import { Calendar, Clock, Users, FileText, Layers, DollarSign, UserPlus, CheckCircle, XCircle } from "lucide-react";
 
 type Counts = {
   totalMembers: number;
@@ -10,7 +10,6 @@ type Counts = {
   pendingMembers: number;
   approvedMembers: number;
   rejectedMembers: number;
-
   totalEvents: number;
   pendingApprovals: number;
   membershipRevenue: number;
@@ -31,37 +30,26 @@ type CardProps = {
 
 function Card({ icon, title, count, color }: CardProps) {
   const bgColors: Record<CardProps["color"], string> = {
-    green: "from-green-50 to-green-100",
-    blue: "from-blue-50 to-blue-100",
-    yellow: "from-yellow-50 to-yellow-100",
-    purple: "from-purple-50 to-purple-100",
-    red: "from-red-50 to-red-100",
-    indigo: "from-indigo-50 to-indigo-100",
-  };
-  const borderColors: Record<CardProps["color"], string> = {
-    green: "border-green-100",
-    blue: "border-blue-100",
-    yellow: "border-yellow-100",
-    purple: "border-purple-100",
-    red: "border-red-100",
-    indigo: "border-indigo-100",
+    green: "from-green-100 to-green-200",
+    blue: "from-blue-100 to-blue-200",
+    yellow: "from-yellow-100 to-yellow-200",
+    purple: "from-purple-100 to-purple-200",
+    red: "from-red-100 to-red-200",
+    indigo: "from-indigo-100 to-indigo-200",
   };
   const textColors: Record<CardProps["color"], string> = {
-    green: "text-green-700",
-    blue: "text-blue-700",
-    yellow: "text-yellow-700",
-    purple: "text-purple-700",
-    red: "text-red-700",
-    indigo: "text-indigo-700",
+    green: "text-green-800",
+    blue: "text-blue-800",
+    yellow: "text-yellow-800",
+    purple: "text-purple-800",
+    red: "text-red-800",
+    indigo: "text-indigo-800",
   };
-
   return (
-    <div
-      className={`group bg-gradient-to-br ${bgColors[color]} p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ${borderColors[color]}`}
-    >
-      <div className="flex items-center justify-between mb-4">{icon}</div>
-      <h3 className="text-sm text-gray-500 font-medium">{title}</h3>
-      <p className={`text-3xl font-bold ${textColors[color]} mt-1`}>{count}</p>
+    <div className={`p-6 rounded-xl bg-gradient-to-br ${bgColors[color]} shadow-lg transform hover:-translate-y-1 transition-all`}>
+      <div className="flex items-center justify-between mb-3 text-2xl">{icon}</div>
+      <h3 className="text-sm font-semibold text-gray-700">{title}</h3>
+      <p className={`text-2xl font-bold ${textColors[color]} mt-1`}>{count}</p>
     </div>
   );
 }
@@ -93,50 +81,101 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="space-y-8 p-6">
-      {/* Platform Summary */}
-      <h2 className="text-xl font-bold text-gray-700">Platform Summary</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card icon={<Users className="text-blue-600" />} title="Total Members" count={counts.totalMembers} color="blue" />
-        <Card icon={<Layers className="text-purple-600" />} title="Total Events" count={counts.totalEvents} color="purple" />
-        <Card icon={<UserPlus className="text-yellow-600" />} title="Pending Approvals" count={counts.pendingApprovals} color="yellow" />
-        <Card icon={<DollarSign className="text-green-600" />} title="Membership Revenue" count={`$${counts.membershipRevenue}`} color="green" />
-      </div>
+    <div className="space-y-12 p-6">
 
-      {/* Event Summary */}
-      <h2 className="text-xl font-bold text-gray-700">Events</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card icon={<Clock className="text-green-600" />} title="Ongoing Events" count={counts.ongoingEvents} color="green" />
-        <Card icon={<Calendar className="text-blue-600" />} title="Upcoming Events" count={counts.upcomingEvents} color="blue" />
-        <Card icon={<FileText className="text-red-600" />} title="Past Events" count={counts.pastEvents} color="red" />
-        <Card icon={<Layers className="text-purple-600" />} title="Draft Events" count={counts.draftEvents} color="purple" />
-      </div>
+      {/* ===== Platform Summary (Blue) ===== */}
+      <section className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-2xl shadow-xl border border-blue-200">
+        <h2 className="text-2xl font-bold text-blue-800 mb-6">Platform Summary</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card icon={<Users className="text-blue-600" />} title="Total Members" count={counts.totalMembers} color="blue" />
+          <Card icon={<Layers className="text-purple-600" />} title="Total Events" count={counts.totalEvents} color="purple" />
+          <Card icon={<UserPlus className="text-yellow-600" />} title="Pending Approvals" count={counts.pendingApprovals} color="yellow" />
+          <Card icon={<DollarSign className="text-green-600" />} title="Membership Revenue" count={`₹${counts.membershipRevenue}`} color="green" />
+        </div>
+      </section>
 
-      {/* Registrations */}
-      <h2 className="text-xl font-bold text-gray-700">Registrations</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        <Card icon={<Users className="text-yellow-600" />} title="Total Registrations" count={counts.registerCount} color="yellow" />
-      </div>
+      {/* ===== Event Summary (Dark Purple Cards) ===== */}
+      <section className="bg-purple-50 p-6 rounded-2xl shadow-inner border border-purple-200">
+        <h2 className="text-2xl font-bold text-purple-800 mb-6">Events Overview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { icon: <Clock />, title: "Ongoing Events", count: counts.ongoingEvents, color: "green" },
+            { icon: <Calendar />, title: "Upcoming Events", count: counts.upcomingEvents, color: "blue" },
+            { icon: <FileText />, title: "Past Events", count: counts.pastEvents, color: "red" },
+            { icon: <Layers />, title: "Draft Events", count: counts.draftEvents, color: "purple" },
+          ].map((item, idx) => (
+            <div key={idx} className="flex flex-col items-center p-5 bg-white rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className={`bg-${item.color}-100 text-${item.color}-600 w-12 h-12 flex items-center justify-center rounded-full mb-4 text-2xl`}>
+                {item.icon}
+              </div>
+              <h3 className="text-md font-semibold text-gray-700 mb-1">{item.title}</h3>
+              <p className={`text-xl font-bold text-${item.color}-700`}>{item.count}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-     
+      {/* ===== Registrations Table with Icons ===== */}
+      <section className="bg-yellow-50 p-6 rounded-3xl shadow-md border border-yellow-200">
+        <h2 className="text-2xl font-bold text-yellow-800 mb-6">Registrations Breakdown</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-xl shadow-md">
+            <thead className="bg-yellow-100">
+              <tr>
+                <th className="py-3 px-6 text-left text-gray-700 font-semibold">Type</th>
+                <th className="py-3 px-6 text-right text-gray-700 font-semibold">Total</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {[
+                { icon: <Users className="text-yellow-600 w-5 h-5" />, label: "Total Registrations", count: counts.registerCount },
+                { icon: <DollarSign className="text-green-600 w-5 h-5" />, label: "Paid Members", count: counts.paidMembers },
+                { icon: <UserPlus className="text-blue-600 w-5 h-5" />, label: "Free Volunteers", count: counts.freeVolunteers },
+                { icon: <Clock className="text-purple-600 w-5 h-5" />, label: "Pending Members", count: counts.pendingMembers },
+                { icon: <CheckCircle className="text-green-600 w-5 h-5" />, label: "Approved Members", count: counts.approvedMembers },
+                { icon: <XCircle className="text-red-600 w-5 h-5" />, label: "Rejected Members", count: counts.rejectedMembers },
+              ].map((item, idx) => (
+                <tr key={idx} className="hover:bg-yellow-50 transition">
+                  <td className="py-4 px-6 flex items-center gap-3 text-gray-800">{item.icon} {item.label}</td>
+                  <td className="py-4 px-6 text-right font-bold text-gray-800">{item.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-      {/* Membership Breakdown */}
-      <h2 className="text-xl font-bold text-gray-700">Membership Breakdown</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card icon={<Users className="text-blue-600" />} title="Total Members" count={counts.totalMembers} color="blue" />
-        <Card icon={<DollarSign className="text-green-600" />} title="Paid Members" count={counts.paidMembers} color="green" />
-        <Card icon={<UserPlus className="text-yellow-600" />} title="Free Volunteers" count={counts.freeVolunteers} color="yellow" />
-        <Card icon={<Users className="text-purple-600" />} title="Pending Members" count={counts.pendingMembers} color="purple" />
-        <Card icon={<Users className="text-indigo-600" />} title="Approved Members" count={counts.approvedMembers} color="indigo" />
-        <Card icon={<Users className="text-red-600" />} title="Rejected Members" count={counts.rejectedMembers} color="red" />
-      </div>
+      {/* ===== Membership Breakdown (Left-accent Cards) ===== */}
+      {/* <section className="bg-green-50 p-6 rounded-2xl shadow-xl border border-green-200">
+        <h2 className="text-2xl font-bold text-green-800 mb-6">Membership Breakdown</h2>
+        <div className="space-y-4">
+          {[
+            { icon: <Users className="text-blue-600 w-10 h-10" />, label: "Total Members", count: counts.totalMembers, border: "border-blue-600" },
+            { icon: <DollarSign className="text-green-600 w-10 h-10" />, label: "Paid Members", count: counts.paidMembers, border: "border-green-600" },
+            { icon: <UserPlus className="text-yellow-600 w-10 h-10" />, label: "Free Volunteers", count: counts.freeVolunteers, border: "border-yellow-600" },
+            { icon: <Users className="text-purple-600 w-10 h-10" />, label: "Pending Members", count: counts.pendingMembers, border: "border-purple-600" },
+            { icon: <Users className="text-indigo-600 w-10 h-10" />, label: "Approved Members", count: counts.approvedMembers, border: "border-indigo-600" },
+            { icon: <Users className="text-red-600 w-10 h-10" />, label: "Rejected Members", count: counts.rejectedMembers, border: "border-red-600" },
+          ].map((item, idx) => (
+            <div key={idx} className={`flex items-center p-4 bg-white rounded-xl shadow hover:shadow-lg transition-all border-l-8 ${item.border}`}>
+              {item.icon}
+              <div className="flex flex-col ml-4">
+                <span className="text-gray-600 font-medium">{item.label}</span>
+                <span className="text-xl font-bold text-gray-800">{item.count}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section> */}
 
-       {/* Annual Reports */}
-      <h2 className="text-xl font-bold text-gray-700">Annual Reports</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+      {/* ===== Annual Reports ===== */}
+      <section className="bg-indigo-50 p-6 rounded-2xl shadow-lg border border-indigo-200">
+        <h2 className="text-2xl font-bold text-indigo-800 mb-6">Annual Reports</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card icon={<FileText className="text-indigo-600" />} title="Annual Reports" count={counts.annualReportCount} color="indigo" />
+        </div>
+      </section>
 
-      <Card icon={<FileText className="text-indigo-600" />} title="Annual Reports" count={counts.annualReportCount} color="indigo" />
-      </div>
     </div>
   );
 }

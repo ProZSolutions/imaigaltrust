@@ -43,6 +43,7 @@ export default function ProgramHealthcare() {
       alt="RuralHealth"
       className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
     />
+    
   </div>
 </section>
 

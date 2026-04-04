@@ -48,14 +48,14 @@ const [resendTimer, setResendTimer] = useState(0); // controls Resend button
 //rate limit otp send 
 const [otpRequestCount, setOtpRequestCount] = useState(0);
 const [otpRequestStart, setOtpRequestStart] = useState<number | null>(null);
+
 useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const token = sessionStorage.getItem("authToken");
 
-    if (!isLoggedIn) {
-      router.push("/login"); // redirect if not logged in
-    }
-  }, [router]);
-
+  if (token) {
+    router.push("/admin");
+  }
+}, [router]);
 
 // OTP Timer (1.5 seconds)
 useEffect(() => {
@@ -149,10 +149,12 @@ useEffect(() => {
   body: JSON.stringify(data),
 });
 const result = await res.json();
+
 if (res.ok) {
   sessionStorage.setItem("authToken", "loggedin");
-router.push("/admin");
+  router.push("/admin");
 }
+
 else alert(result.message || "Login failed");
     } catch (err) {
       console.error(err);

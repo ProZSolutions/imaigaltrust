@@ -17,10 +17,10 @@ model Membership {
   city               String
   pincode            String
   state              String
-  membership_type    String
+  membership_fee     Float
   interest           String
-  membership_fee     String
-  voluntary_donation Decimal  @default(0.000000000000000000000000000000)
+  membership_type    String
+  voluntary_donation Decimal  @default(0)
   status             Int
   is_active          Int
   created_at         DateTime @default(now())
