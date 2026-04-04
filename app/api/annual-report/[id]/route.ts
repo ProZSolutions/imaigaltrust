@@ -9,14 +9,16 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ message: "Skipping during build" });
+  }
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
-
-    // Skip database operations during build phase
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
-      return NextResponse.json({ message: "Skipping during build" });
-    }
 
     if (isNaN(id)) {
       return NextResponse.json(
@@ -46,14 +48,13 @@ export async function GET(
   // Force dynamic execution by accessing headers
   await headers();
 
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ report: null }, { status: 200 });
+  }
+
   try {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
-
-    // Skip database operations during build phase
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
-      return NextResponse.json({ report: null }, { status: 200 });
-    }
 
     if (isNaN(id)) {
       return NextResponse.json(

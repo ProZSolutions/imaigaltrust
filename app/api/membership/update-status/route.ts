@@ -1,7 +1,17 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
+  // Force dynamic execution by accessing headers
+  await headers();
+
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({ success: true });
+  }
+
   try {
     const { ids, status, reason } = await req.json();
 
