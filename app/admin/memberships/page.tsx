@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import toast, { Toaster } from "react-hot-toast";
+
 interface Membership {
   id: number;
   name: string;
@@ -32,27 +33,24 @@ interface RawMembership {
 export default function AdminMembershipsPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(25);
-
-
   const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
-const [rejectPopup, setRejectPopup] = useState(false);
-const [rejectReason, setRejectReason] = useState("");
+  const [rejectPopup, setRejectPopup] = useState(false);
+  const [rejectReason, setRejectReason] = useState("");
 
-//use effect to fetch data
   useEffect(() => {
     async function fetchMemberships() {
       try {
         const response = await fetch("/api/membership");
         const data = await response.json();
-
-       const enrichedData: Membership[] = (data.memberships || []).map((m: RawMembership) => ({
-  ...m,
-  voluntaryDonation: Number(m.voluntaryDonation) || 0,
-status: m.status || "pending",}));
-
+        const enrichedData: Membership[] = (data.memberships || []).map(
+          (m: RawMembership) => ({
+            ...m,
+            voluntaryDonation: Number(m.voluntaryDonation) || 0,
+            status: m.status || "pending",
+          })
+        );
         setMemberships(enrichedData);
       } catch (error) {
         console.error("Failed to fetch memberships:", error);
@@ -60,7 +58,6 @@ status: m.status || "pending",}));
         setLoading(false);
       }
     }
-
     fetchMemberships();
   }, []);
 
@@ -69,91 +66,71 @@ status: m.status || "pending",}));
   const endIndex = startIndex + perPage;
   const currentData = memberships.slice(startIndex, endIndex);
 
-//approeve
- const handleApprove = async () => {
-  if (selectedMembers.length === 0) {
-    toast.error("Please select at least one member to approve");
-    return;
-  }
+  // Approve members
+  const handleApprove = async () => {
+    if (selectedMembers.length === 0) {
+      toast.error("Please select at least one member to approve");
+      return;
+    }
+    try {
+      await fetch("/api/membership/update-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedMembers, status: "approved" }),
+      });
+      setMemberships((prev) =>
+        prev.map((m) =>
+          selectedMembers.includes(m.id) ? { ...m, status: "approved" } : m
+        )
+      );
+      toast.success("Selected member(s) approved successfully!");
+      setSelectedMembers([]);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to approve members");
+    }
+  };
 
-  try {
-    await fetch("/api/membership/update-status", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ids: selectedMembers,
-        status: "approved",
-      }),
-    });
+  // Reject members
+  const handleReject = async () => {
+    if (!rejectReason.trim()) {
+      toast.error("Reject reason is mandatory");
+      return;
+    }
+    try {
+      await fetch("/api/membership/update-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: selectedMembers,
+          status: "rejected",
+          reason: rejectReason,
+        }),
+      });
+      setMemberships((prev) =>
+        prev.map((m) =>
+          selectedMembers.includes(m.id) ? { ...m, status: "rejected" } : m
+        )
+      );
+      toast.success("Selected member(s) rejected successfully!");
+      setRejectPopup(false);
+      setRejectReason("");
+      setSelectedMembers([]);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to reject members");
+    }
+  };
 
-    setMemberships((prev) =>
-      prev.map((member) =>
-        selectedMembers.includes(member.id)
-          ? { ...member, status: "approved" }
-          : member
-      )
-    );
-
-    toast.success("Selected member(s) approved successfully!"); 
-
-    setSelectedMembers([]);
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to approve members");
-  }
-};
-
-//reject 
-const handleReject = async () => {
-  if (!rejectReason.trim()) {
-    toast.error("Reject reason is mandatory"); 
-    return;
-  }
-
-  try {
-    await fetch("/api/membership/update-status", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ids: selectedMembers,
-        status: "rejected",
-        reason: rejectReason,
-      }),
-    });
-
-    setMemberships((prev) =>
-      prev.map((member) =>
-        selectedMembers.includes(member.id)
-          ? { ...member, status: "rejected" }
-          : member
-      )
-    );
-
-    toast.success("Selected member(s) rejected successfully!"); 
-
-    setRejectPopup(false);
-    setRejectReason("");
-    setSelectedMembers([]);
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to reject members"); 
-  }
-};
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className=" w-[650px] mx-auto px-4 sm:px-6 lg:px-8">
       <Toaster position="top-right" />
 
-      {/* Header + Buttons */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 sm:p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
+      {/* Header */}
+      <div className="flex w-[650px] flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 sm:p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Membership Data</h1>
-          <p className="text-sm text-gray-500">
-            View and manage organization members
-          </p>
+          <p className="text-sm text-gray-500">View and manage organization members</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
           <button
@@ -180,7 +157,7 @@ const handleReject = async () => {
       ) : (
         <>
           {/* Desktop Table */}
-          <div className="hidden sm:block bg-white rounded-2xl shadow overflow-x-auto border border-gray-100">
+          <div className="hidden  w-[650px] sm:block bg-white rounded-2xl shadow overflow-x-auto border border-gray-100">
             <table className="min-w-full text-left border-collapse text-xs sm:text-sm">
               <thead className="bg-[#1a4d2e] text-white">
                 <tr>
@@ -196,138 +173,93 @@ const handleReject = async () => {
                 </tr>
               </thead>
               <tbody>
-                {currentData.map((member, index) => (
-  <tr
-    key={member.id}
-    className="border-b hover:bg-gray-50 transition"
-  >
-    {/* Index */}
-    <td className="px-3 py-2">{startIndex + index + 1}</td>
-
-    {/* Checkbox */}
-    <td className="px-3 py-2">
-      <input
-        type="checkbox"
-        checked={selectedMembers.includes(member.id)}
-        onChange={(e) =>
-          e.target.checked
-            ? setSelectedMembers([...selectedMembers, member.id])
-            : setSelectedMembers(
-                selectedMembers.filter((id) => id !== member.id)
-              )
-        }
-        disabled={member.status !== "pending"}
-        className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
-      />
-    </td>
-
-    {/* Name */}
-    <td className="px-3 py-2">{member.name}</td>
-
-    {/* Email & Mobile */}
-    <td className="px-3 py-2">
-      {member.email} <br />
-      <span className="text-gray-400">{member.mobile}</span>
-    </td>
-
-    {/* City & State */}
-    <td className="px-3 py-2">
-      {member.city}, {member.state}
-    </td>
-
-    {/* Membership Type */}
-    <td className="px-3 py-2">{member.membership_type}</td>
-
-    {/* Voluntary Donation */}
-    <td className="px-3 py-2">
-      {member.voluntaryDonation > 0
-        ? `₹${member.voluntaryDonation}`
-        : "Free"}
-    </td>
-
-    {/* Status Badge */}
-    <td className="px-3 py-2">
-      <span
-        className={`px-2 py-1 rounded-full text-xs ${
-          member.status === "approved"
-            ? "bg-green-100 text-green-800"
-            : member.status === "rejected"
-            ? "bg-red-100 text-red-800"
-            : "bg-yellow-100 text-yellow-800"
-        }`}
-      >
-        {member.status.charAt(0).toUpperCase() + member.status.slice(1)}
-      </span>
-    </td>
-
-    {/* Created Date */}
-    <td className="px-3 py-2">
-      {new Date(member.created_at).toLocaleDateString()}
-    </td>
-  </tr>
-))}
+                {currentData.map((m, i) => (
+                  <tr key={m.id} className="border-b hover:bg-gray-50 transition">
+                    <td className="px-3 py-2">{startIndex + i + 1}</td>
+                    <td className="px-3 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedMembers.includes(m.id)}
+                        onChange={(e) =>
+                          e.target.checked
+                            ? setSelectedMembers([...selectedMembers, m.id])
+                            : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
+                        }
+                        disabled={m.status !== "pending"}
+                        className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                    </td>
+                    <td className="px-3 py-2">{m.name}</td>
+                    <td className="px-3 py-2">
+                      {m.email} <br />
+                      <span className="text-gray-400">{m.mobile}</span>
+                    </td>
+                    <td className="px-3 py-2">
+                      {m.city}, {m.state}
+                    </td>
+                    <td className="px-3 py-2">{m.membership_type}</td>
+                    <td className="px-3 py-2">
+                      {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}
+                    </td>
+                    <td className="px-3 py-2">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          m.status === "approved"
+                            ? "bg-green-100 text-green-800"
+                            : m.status === "rejected"
+                            ? "bg-red-100 text-red-800"
+                            : "bg-yellow-100 text-yellow-800"
+                        }`}
+                      >
+                        {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2">{new Date(m.created_at).toLocaleDateString()}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
 
           {/* Mobile Cards */}
           <div className="sm:hidden space-y-4">
-            {currentData.map((member) => (
-              <div
-                key={member.id}
-                className="bg-white p-4 rounded-xl shadow border border-gray-100"
-              >
+            {currentData.map((m) => (
+              <div key={m.id} className="bg-white p-4 rounded-xl shadow border border-gray-100">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="font-semibold text-sm">{member.name}</h3>
-                    <p className="text-xs text-gray-400">
-                      {member.email} | {member.mobile}
-                    </p>
+                    <h3 className="font-semibold text-sm">{m.name}</h3>
+                    <p className="text-xs text-gray-400">{m.email} | {m.mobile}</p>
                   </div>
                   <input
                     type="checkbox"
-                    checked={selectedMembers.includes(member.id)}
+                    checked={selectedMembers.includes(m.id)}
                     onChange={(e) =>
                       e.target.checked
-                        ? setSelectedMembers([...selectedMembers, member.id])
-                        : setSelectedMembers(
-                            selectedMembers.filter((id) => id !== member.id)
-                          )
+                        ? setSelectedMembers([...selectedMembers, m.id])
+                        : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
                     }
-                    disabled={member.status !== "pending"}
+                    disabled={m.status !== "pending"}
                     className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
                   />
                 </div>
-                <p className="text-xs mt-1">
-                  Location: {member.city}, {member.state}
-                </p>
-                <p className="text-xs mt-1">
-                  Membership: {member.membership_type}
-                </p>
-                <p className="text-xs mt-1">
-                  Donation: {member.voluntaryDonation > 0
-                    ? `₹${member.voluntaryDonation}`
-                    : "Free"}
-                </p>
+                <p className="text-xs mt-1">Location: {m.city}, {m.state}</p>
+                <p className="text-xs mt-1">Membership: {m.membership_type}</p>
+                <p className="text-xs mt-1">Donation: {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</p>
                 <p className="text-xs mt-1">
                   Status:{" "}
-                  {member.status === "approved" ? (
-                    <span className="bg-green-900 text-white px-2 py-1 rounded-full text-xs">
-                      Approved
-                    </span>
-                  ) : member.status === "pending" ? (
-                    <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs">
-                      Pending
-                    </span>
-                  ) : (
-                    <span className="bg-red-800 text-white px-2 py-1 rounded-full text-xs">
-                      Rejected
-                    </span>
-                  )}
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${
+                      m.status === "approved"
+                        ? "bg-green-800 text-white"
+                        : m.status === "pending"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-800 text-white"
+                    }`}
+                  >
+                    {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
+                  </span>
                 </p>
-                <p className="text-xs mt-1">
-                  Applied: {new Date(member.created_at).toLocaleDateString()}
-                </p>
+                <p className="text-xs mt-1">Applied: {new Date(m.created_at).toLocaleDateString()}</p>
               </div>
             ))}
           </div>
@@ -353,22 +285,16 @@ const handleReject = async () => {
               onChange={(e) => setRejectReason(e.target.value)}
               placeholder="Enter rejection reason..."
               className="w-full border p-2 rounded-lg mb-4"
-              required
             />
             <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setRejectPopup(false)}
-                className="px-4 py-2 bg-gray-200 rounded-lg"
-              >
+              <button onClick={() => setRejectPopup(false)} className="px-4 py-2 bg-gray-200 rounded-lg">
                 Cancel
               </button>
               <button
                 onClick={handleReject}
                 disabled={!rejectReason.trim()}
                 className={`px-4 py-2 text-white rounded-lg ${
-                  rejectReason.trim()
-                    ? "bg-red-600 hover:bg-red-700"
-                    : "bg-red-300 cursor-not-allowed"
+                  rejectReason.trim() ? "bg-red-600 hover:bg-red-700" : "bg-red-300 cursor-not-allowed"
                 }`}
               >
                 Reject
@@ -378,6 +304,5 @@ const handleReject = async () => {
         </div>
       )}
     </div>
-       
   );
 }

@@ -30,31 +30,33 @@ export default function SubHeader() {
 
         {/* Phone */}
         <div className="flex gap-2 items-center group cursor-pointer">
-          <span className="primary-text group-hover:text-green-500 transition-colors duration-300">
-            {React.createElement(IoCallSharp, { className: "text-xl sml:text-2xl" })}
-          </span>
+  {/* Phone Icon */}
+  <span className="primary-text group-hover:text-green-500 transition-colors duration-300">
+    {React.createElement(IoCallSharp, { className: "text-2xl sml:text-3xl" })}
+  </span>
 
-          <Link href="tel:+918248786810">
-            <span className="text-black text-sml sml:text-base group-hover:text-green-900 transition-colors duration-300">
-              +91 82487 86810
-            </span>
-          </Link>
-
-
-        </div>
+  {/* Phone Number */}
+  <Link href="tel:+918248786810">
+    <span className="text-black text-lg sml:text-xl group-hover:text-green-900 transition-colors duration-300">
+      +91 82487 86810
+    </span>
+  </Link>
+</div>
 
         {/* Email */}
         <div className="flex gap-2 items-center group cursor-pointer">
-          <span className="primary-text group-hover:text-green-900 transition-colors duration-300">
-            {React.createElement(IoMailOutline, { className: "text-xl sml:text-2xl" })}
-          </span>
+  {/* Icon */}
+  <span className="primary-text group-hover:text-green-900 transition-colors duration-300">
+    {React.createElement(IoMailOutline, { className: "text-2xl sml:text-3xl" })}
+  </span>
 
-          <Link href="mailto:theimaigaltrust@gmail.com">
-            <span className="text-black text-sml sml:text-base break-all group-hover:text-green-900 transition-colors duration-300">
-              theimaigaltrust@gmail.com
-            </span>
-          </Link>
-        </div>
+  {/* Email */}
+  <Link href="mailto:theimaigaltrust@gmail.com">
+    <span className="text-black text-lg sml:text-xl break-all group-hover:text-green-900 transition-colors duration-300">
+      theimaigaltrust@gmail.com
+    </span>
+  </Link>
+</div>
 
 
 
