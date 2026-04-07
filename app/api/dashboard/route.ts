@@ -1,8 +1,39 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function GET() {
+  // IMMEDIATELY check for build phase
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({
+      totalMembers: 0,
+      paidMembers: 0,
+      freeVolunteers: 0,
+      pendingMembers: 0,
+      approvedMembers: 0,
+      rejectedMembers: 0,
+      totalEvents: 0,
+      pendingApprovals: 0,
+      membershipRevenue: 0,
+      ongoingEvents: 0,
+      upcomingEvents: 0,
+      pastEvents: 0,
+      draftEvents: 0,
+      registerCount: 0,
+      annualReportCount: 0,
+    });
+  }
+
+  // Force dynamic execution
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
 
     // Platform Summary
     const totalMembers = await prisma.membership.count();
@@ -12,21 +43,16 @@ export async function GET() {
       where: { status: 0 },
     });
 
-    // Membership Revenue
-   // Membership Revenue
-const memberships = await prisma.membership.findMany({
-  select: { membership_fee: true },
-});
+    const memberships = await prisma.membership.findMany({
+      select: { membership_fee: true },
+    });
 
-let membershipRevenue = 0;
-
-memberships.forEach((m: { membership_fee: number }) => {
-  // membership_fee is now Float, so directly add it
-  const fee = Number(m.membership_fee) || 0;
-  membershipRevenue += isNaN(fee) ? 0 : fee;
-});
+    let membershipRevenue = 0;
+    memberships.forEach((m: { membership_fee: number }) => {
+      const fee = Number(m.membership_fee) || 0;
+      membershipRevenue += isNaN(fee) ? 0 : fee;
+    });
     
-    // Membership Breakdown
     const paidMembers = await prisma.membership.count({
       where: {
         membership_fee: {
@@ -46,14 +72,13 @@ memberships.forEach((m: { membership_fee: number }) => {
     });
 
     const approvedMembers = await prisma.membership.count({
-      where: { status: 1 }, // FIXED
+      where: { status: 1 },
     });
 
     const rejectedMembers = await prisma.membership.count({
-      where: { status: 2 }, // FIXED
+      where: { status: 2 },
     });
 
-    // Events
     const ongoingEvents = await prisma.event.count({
       where: { status: "ongoing" },
     });
@@ -70,10 +95,7 @@ memberships.forEach((m: { membership_fee: number }) => {
       where: { is_draft: true },
     });
 
-    // Registrations
     const registerCount = await prisma.eventRegistration.count();
-
-    // Annual Reports
     const annualReportCount = await prisma.annualReport.count();
 
     return NextResponse.json({

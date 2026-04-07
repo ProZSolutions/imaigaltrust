@@ -1,15 +1,29 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ event: null }, { status: 200 });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
+
     const event = await prisma.event.findUnique({
       where: { id },
       include: {
@@ -33,12 +47,20 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
     const formData = await request.formData();
 
-    // Extracting data from FormData
     const title = formData.get("title") as string;
     const programId = parseInt(formData.get("programId") as string);
     const categoryId = parseInt(formData.get("categoryId") as string);
@@ -57,21 +79,17 @@ export async function PUT(
     const registrationEndDate = formData.get("registrationEndDate") as string || null;
     const isDraft = formData.get("isDraft") === "true";
 
-    // Handle File Upload for Cover Image
     const coverImageFile = formData.get("coverImage") as File | string | null;
     let coverImagePath = undefined;
 
     if (coverImageFile instanceof File) {
       const bytes = await coverImageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
-
-      const eventsDir = path.join(process.cwd(), "events");
-      await mkdir(eventsDir, { recursive: true });
-
+      const uploadDir = path.join(process.cwd(), "public/assets/images/events");
+      await mkdir(uploadDir, { recursive: true });
       const fileName = `${Date.now()}-${coverImageFile.name.replace(/\s+/g, "-")}`;
-      coverImagePath = `events/${fileName}`;
-      const fullPath = path.join(eventsDir, fileName);
-
+      coverImagePath = `/assets/images/events/${fileName}`;
+      const fullPath = path.join(uploadDir, fileName);
       await writeFile(fullPath, buffer);
     }
 
@@ -81,28 +99,7 @@ export async function PUT(
       return new Date(`${dateStr}T${time}:00`);
     };
 
-    interface UpdateData {
-      title: string;
-      program_id: number;
-      category_id: number;
-      status: "upcoming" | "ongoing" | "past";
-      start_date: Date;
-      start_time: Date;
-      end_date: Date | null;
-      end_time: Date | null;
-      location: string;
-      short_description: string;
-      full_description: string | null;
-      contact_person: string | null;
-      contact_email: string | null;
-      video_url: string | null;
-      registration_start_date: Date | null;
-      registration_end_date: Date | null;
-      is_draft: boolean;
-      cover_image?: string;
-    }
-
-    const updateData: UpdateData = {
+    const updateData: any = {
       title,
       program_id: programId,
       category_id: categoryId,
@@ -138,7 +135,7 @@ export async function PUT(
   } catch (error) {
     console.error("Error updating event:", error);
     return NextResponse.json(
-      { message: "Failed to update event", error: error instanceof Error ? error.message : "Unknown error" },
+      { message: "Failed to update event" },
       { status: 500 }
     );
   }
@@ -148,11 +145,19 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id);
     
-    // Soft delete by setting status_active to 0
     await prisma.event.update({
       where: { id },
       data: { status_active: 0 }
@@ -162,7 +167,7 @@ export async function DELETE(
   } catch (error) {
     console.error("Error deleting event:", error);
     return NextResponse.json(
-      { message: "Failed to delete event", error: error instanceof Error ? error.message : "Unknown error" },
+      { message: "Failed to delete event" },
       { status: 500 }
     );
   }

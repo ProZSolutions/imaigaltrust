@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(request: Request) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Skipping during build" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const body = await request.json();
     const {
       event_id,
@@ -57,17 +70,25 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error creating registration:", error);
     return NextResponse.json(
-      { message: "Failed to process registration", error: error instanceof Error ? error.message : "Unknown error" },
+      { message: "Failed to process registration" },
       { status: 500 }
     );
   }
 }
 
 export async function GET(request: Request) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ registrations: [] }, { status: 200 });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('eventId');
-
     const whereClause = eventId ? { event_id: parseInt(eventId) } : {};
 
     const registrations = await prisma.eventRegistration.findMany({

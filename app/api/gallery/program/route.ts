@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function GET() {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ programs: [] }, { status: 200 });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const programs = await prisma.galleryProgram.findMany({
       where: { NOT: { status: -1 } },
       orderBy: { created_at: "desc" },
@@ -18,7 +31,16 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const body = await req.json();
     const { programs, status } = body;
 
@@ -40,7 +62,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error creating gallery program:", error);
     return NextResponse.json(
-      { error: "Failed to create program", details: error instanceof Error ? error.message : "Unknown error" },
+      { error: "Failed to create program" },
       { status: 500 }
     );
   }

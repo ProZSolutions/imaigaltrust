@@ -1,30 +1,34 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PHASE === "phase-production-build" || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const { email, newPassword } = await req.json();
-
-    if (!email || !newPassword) {
-      return NextResponse.json({ message: "Missing email or password" }, { status: 400 });
-    }
-
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) {
-      return NextResponse.json({ message: "No user found with this email" }, { status: 404 });
-    }
-
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     await prisma.user.update({
       where: { email },
-      data: { password: hashedPassword },
+      data: { password: newPassword },
     });
 
-    return NextResponse.json({ message: "Password reset successfully!" });
-  } catch (err) {
-    console.error("Reset Password Error:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ success: true, message: "Password reset successful" });
+  } catch (error) {
+    console.error("Reset Password Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

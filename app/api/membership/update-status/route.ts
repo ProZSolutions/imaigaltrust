@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ success: true });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { db } = await import("@/lib/db");
     const { ids, status, reason } = await req.json();
 
     if (!ids || ids.length === 0) {

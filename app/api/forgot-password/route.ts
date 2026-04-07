@@ -1,39 +1,46 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 import nodemailer from "nodemailer";
-import prisma from "@/lib/prisma";
-import otpStore from "@/lib/otp-store";
 
-function generateOTP(length = 6) {
-  return Math.floor(Math.random() * 10 ** length)
-    .toString()
-    .padStart(length, "0");
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PHASE === "phase-production-build" || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const { email } = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ message: "Email is required" }, { status: 400 });
-    }
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
 
-    // Check if email exists in DB
-    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return NextResponse.json({ message: "Email not registered" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "User not found" },
+        { status: 404 }
+      );
     }
 
-    // Generate OTP
-    const otp = generateOTP();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-    // Save OTP with 5 minute expiry
-    otpStore.set(email, { otp, expires: Date.now() + 1.5* 60 * 1000 });
+    await prisma.otp.upsert({
+      where: { email },
+      update: { otp, expiresAt },
+      create: { email, otp, expiresAt },
+    });
 
-    // Send OTP via nodemailer
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -41,17 +48,18 @@ export async function POST(req: Request) {
     });
 
     await transporter.sendMail({
-      from: `"Imaigal Trust" <${process.env.EMAIL_USER}>`,
+      from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your OTP Code",
-      text: `Your OTP is: ${otp}. It is valid for 1.5 minutes.`,
-      html: `<p>Your OTP is: <b>${otp}</b>. It is valid for 1.5 minutes.</p>`,
+      subject: "Your Password Reset OTP",
+      text: `Your OTP for password reset is: ${otp}. It is valid for 10 minutes.`,
     });
 
-    return NextResponse.json({ message: "OTP sent to your email!" });
-
+    return NextResponse.json({ success: true, message: "OTP sent to your email" });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    console.error("Forgot Password Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

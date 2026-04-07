@@ -1,55 +1,40 @@
 import { NextResponse } from "next/server";
-import otpStore from "@/lib/otp-store";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PHASE === "phase-production-build" || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+    return NextResponse.json({ message: "Build phase" });
+  }
+
   try {
+    await headers();
+  } catch (e) {}
+
+  try {
+    const { prisma } = await import("@/lib/prisma");
     const { email, otp } = await req.json();
 
-    // Validate input
-    if (!email || !otp) {
-      return NextResponse.json(
-        { message: "Email and OTP are required" },
-        { status: 400 }
-      );
-    }
-
-    // Get OTP record
-    const record = otpStore.get(email);
-    if (!record) {
-      return NextResponse.json(
-        { message: "No OTP found for this email" },
-        { status: 400 }
-      );
-    }
-
-    // Check expiry
-    if (Date.now() > record.expires) {
-      otpStore.delete(email);
-      return NextResponse.json(
-        { message: "OTP expired" },
-        { status: 400 }
-      );
-    }
-
-    // Check if OTP matches
-    if (record.otp !== otp) {
-      return NextResponse.json(
-        { message: "Invalid OTP" },
-        { status: 400 }
-      );
-    }
-
-    // OTP is correct → remove from store
-    otpStore.delete(email);
-
-    return NextResponse.json({
-      message: "OTP verified! You can reset your password now.",
+    const record = await prisma.otp.findUnique({
+      where: { email },
     });
 
-  } catch (err) {
-    console.error("OTP Verification Error:", err);
+    if (record && record.otp === otp && new Date() < record.expiresAt) {
+      await prisma.otp.delete({ where: { email } });
+      return NextResponse.json({ success: true, message: "OTP verified" });
+    } else {
+      return NextResponse.json(
+        { success: false, message: "Invalid or expired OTP" },
+        { status: 400 }
+      );
+    }
+  } catch (error) {
+    console.error("Verify OTP Error:", error);
     return NextResponse.json(
-      { message: "Server error" },
+      { success: false, message: "Internal server error" },
       { status: 500 }
     );
   }

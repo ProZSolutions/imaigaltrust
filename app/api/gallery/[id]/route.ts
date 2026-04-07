@@ -1,49 +1,51 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { writeFile, mkdir, unlink } from "fs/promises";
-import path from "path";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const { id } = await params;
-    const galleryId = parseInt(id, 10);
-
-    if (isNaN(galleryId)) {
-      return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
+    if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+        return NextResponse.json({ message: "Build phase" });
     }
 
-    const formData = await req.formData();
+    try {
+        await headers();
+    } catch (e) {}
 
-    const program_id = parseInt(formData.get("programId") as string);
-    const category_id = parseInt(formData.get("categoryId") as string);
+    try {
+        const { prisma } = await import("@/lib/prisma");
+        const { id: idParam } = await params;
+        const id = parseInt(idParam);
+        const body = await req.json();
+        const { year, month, title, mediaType, description, videoUrl, programId, categoryId, status } = body;
 
-    const year = formData.get("year") as string;
-    const month = (formData.get("month") as string) || null;
-    const title = formData.get("title") as string;
-    const media_type = formData.get("mediaType") as string;
-    const description = (formData.get("description") as string) || null;
-    const video_url = (formData.get("videoUrl") as string) || null;
-    const file = formData.get("file") as File | null;
+        const updated = await prisma.gallery.update({
+            where: { id },
+            data: {
+                year,
+                month,
+                title,
+                media_type: mediaType,
+                description,
+                video_url: videoUrl,
+                program_id: parseInt(programId),
+                category_id: parseInt(categoryId),
+                status: typeof status === 'string' ? parseInt(status) : status,
+            },
+        });
 
-    if (!title || !year) {
-      return NextResponse.json(
-        { message: "Title and Year required" },
-        { status: 400 }
-      );
-    }
-
-    const existing = await prisma.gallery.findUnique({
-      where: { id: galleryId },
-    });
-
-    if (!existing) {
-      return NextResponse.json(
-        { message: "Gallery item not found" },
-        { status: 404 }
-      );
+        return NextResponse.json(updated);
+    } catch (error) {
+        console.error("Error updating gallery item:", error);
+        return NextResponse.json(
+            { message: "Failed to update" },
+            { status: 500 }
+        );
     }
 
     let file_path = existing.file_path || null;
@@ -101,15 +103,32 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> }
+    _req: Request,
+    { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const { id } = await params;
-    const galleryId = parseInt(id, 10);
+    if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+        return NextResponse.json({ message: "Build phase" });
+    }
 
-    if (isNaN(galleryId)) {
-      return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
+    try {
+        await headers();
+    } catch (e) {}
+
+    try {
+        const { prisma } = await import("@/lib/prisma");
+        const { id: idParam } = await params;
+        const id = parseInt(idParam);
+        await prisma.gallery.update({
+            where: { id },
+            data: { status: -1 }
+        });
+        return NextResponse.json({ message: "Deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting gallery item:", error);
+        return NextResponse.json(
+            { message: "Failed to delete" },
+            { status: 500 }
+        );
     }
 
     await prisma.gallery.update({
