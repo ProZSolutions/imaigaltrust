@@ -1,23 +1,17 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
+import { prisma } from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 export async function POST(req: Request) {
-  if (process.env.NEXT_PHASE === "phase-production-build" || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
-    return NextResponse.json({ message: "Build phase" });
-  }
-
   try {
-    await headers();
-  } catch (e) {}
-
-  try {
-    const { prisma } = await import("@/lib/prisma");
     const { email } = await req.json();
+
+    if (!email) {
+      return NextResponse.json(
+        { message: "Email required" },
+        { status: 400 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -25,20 +19,21 @@ export async function POST(req: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { success: false, message: "User not found" },
+        { message: "Email not found" },
         { status: 404 }
       );
     }
 
+    // generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-    await prisma.otp.upsert({
+    // store OTP in DB
+    await prisma.user.update({
       where: { email },
-      update: { otp, expiresAt },
-      create: { email, otp, expiresAt },
+      data: { otp },
     });
 
+    // email transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -47,18 +42,24 @@ export async function POST(req: Request) {
       },
     });
 
+    // send email
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your Password Reset OTP",
-      text: `Your OTP for password reset is: ${otp}. It is valid for 10 minutes.`,
+      subject: "Password Reset OTP",
+      html: `<h2>Your OTP is: ${otp}</h2>`,
     });
 
-    return NextResponse.json({ success: true, message: "OTP sent to your email" });
+    return NextResponse.json({
+      success: true,
+      message: "OTP sent successfully",
+    });
+
   } catch (error) {
     console.error("Forgot Password Error:", error);
+
     return NextResponse.json(
-      { success: false, message: "Internal server error" },
+      { message: "Server error" },
       { status: 500 }
     );
   }

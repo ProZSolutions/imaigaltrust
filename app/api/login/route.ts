@@ -6,10 +6,11 @@ export async function POST(req: Request) {
     const { prisma } = await import("@/lib/prisma");
     const { email, password } = await req.json();
 
+    // ✅ Find user only by email (and active status)
     const user = await prisma.user.findFirst({
       where: {
         email: email,
-        is_active: 1,
+        is_active: 1
       },
     });
 
@@ -20,6 +21,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Compare password using bcrypt
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
@@ -29,6 +31,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Login success
     return NextResponse.json({
       success: true,
       message: "Login successful",

@@ -37,7 +37,7 @@ export default function LoginPage() {
   const [otpSending, setOtpSending] = useState(false);
   const [otpTimer, setOtpTimer] = useState(90); // counts down for OTP validity
   const [resendEnabled, setResendEnabled] = useState(false); // controls resend button
-
+  
 const [resendTimer, setResendTimer] = useState(0); // controls Resend button
 
   const [newPassword, setNewPassword] = useState("");
@@ -145,8 +145,13 @@ useEffect(() => {
     try {
       const res = await fetch("/api/login", {
   method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email: data.email,
+    password: data.password,
+  }),
 });
 const result = await res.json();
 
@@ -230,33 +235,38 @@ const sendOtp = async () => {
 };
 // Submit OTP
 const submitOtp = async () => {
-  if (!otp) return toast.error("Enter OTP");
+  if (!otp || otp.length !== 6) {
+    return toast.error("Enter valid 6-digit OTP");
+  }
 
   setOtpVerifying(true);
 
   try {
     const res = await fetch("/api/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: forgotEmail, otp }),
-    });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email: forgotEmail,
+    otp: otp,
+  }),
+});
 
     const data = await res.json();
 
     if (!res.ok) {
-      setOtpVerifying(false);
-      return toast.error(data.message || "Invalid OTP");
+      toast.error(data.message || "Invalid OTP");
+      return;
     }
 
-    // OTP verified successfully
-    toast.success(data.message || "OTP verified successfully!");
-
+    toast.success("OTP verified");
     setShowOtpModal(false);
-    setShowResetModal(true); // show reset password modal
+    setShowResetModal(true);
 
-  } catch (err) {
-    console.error(err);
-    toast.error("Server error, try again later");
+  } catch (error) {
+    console.error(error);
+    toast.error("Server error");
   } finally {
     setOtpVerifying(false);
   }
@@ -433,9 +443,9 @@ const submitOtp = async () => {
             value={otp[i] || ""}
             onChange={(e) => {
               const value = e.target.value.replace(/\D/, "");
-              const newOtp = otp.split("");
-              newOtp[i] = value;
-              setOtp(newOtp.join(""));
+             const newOtp = otp.split("");
+newOtp[i] = value;
+setOtp(newOtp.join(""));
               const next = e.currentTarget.nextElementSibling as HTMLInputElement | null;
               if (value && next) next.focus();
             }}
