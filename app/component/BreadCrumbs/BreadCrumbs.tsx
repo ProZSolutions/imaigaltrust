@@ -22,7 +22,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ list }) => {
           <MdOutlineKeyboardArrowLeft />,{size:20})}
 
         {list.map((item, index) => (
-          <div key={item?.id} className="flex items-center ">
+          <div key={item?.id} className="flex items-center">
             {index==0 ?(
             <>
             {item?.link ? (
@@ -41,7 +41,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ list }) => {
                   </>
                 ):(
                   <>
-                  <span className=" me-3">/</span>
+                  <span className="me-3">/</span>
                   <span className="">{item?.name}</span>
                   </>
                 )}

@@ -121,7 +121,7 @@ const currentReports = filteredReports.slice(
         <>
                     <div className="flex flex-wrap justify-end mx-auto px-4 pt-8 gap-4 max-w-[1600px]">
             <select
-              className="border border-gray-300 rounded px-4 py-2 w-[250px] text-sm"
+              className="border border-gray-300 rounded px-4 py-2 w-[250px] text-xs"
               value={selectedYear}
               onChange={(e) => {
                 setSelectedYear(e.target.value);
@@ -153,11 +153,11 @@ const currentReports = filteredReports.slice(
                   className="mb-4 bg-accent-800 rounded px-4 py-2 text-white"
                 >
                   <div className="flex gap-5 flex-wrap items-center justify-between">
-                    <h2 className="text-lg font-bold">{item.title}</h2>
+                    <h2 className="font-bold text-base">{item.title}</h2>
 
                     <div className="flex items-center gap-2">
                       <button
-                        className="bg-white text-gray-900 text-sm px-4 py-1 font-semibold rounded flex items-center gap-2 hover:bg-gray-300 transition duration-300"
+                        className="bg-white text-gray-900 px-4 py-1 font-semibold rounded flex items-center gap-2 hover:bg-gray-300 transition duration-300 text-xs"
                        onClick={() => {
   setSelectedData(item);
   setViewMode(true);

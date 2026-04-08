@@ -129,21 +129,21 @@ export default function AdminMembershipsPage() {
   {/* Header */}
   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 bg-white p-4 md:p-6 rounded-xl border border-gray-100 shadow-sm mb-6 w-full">
     <div>
-      <h1 className="text-2xl font-bold text-gray-800">Membership Data</h1>
-      <p className="text-sm text-gray-500">View and manage organization members</p>
+      <h1 className="font-bold text-gray-800 text-xl">Membership Data</h1>
+      <p className="text-gray-500 text-xs">View and manage organization members</p>
     </div>
     <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full md:w-auto">
       <button
         onClick={handleApprove}
         disabled={selectedMembers.length === 0}
-        className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-900 text-sm font-semibold w-full md:w-auto"
+        className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-900 font-semibold w-full md:w-auto text-xs"
       >
         Approve
       </button>
       <button
         onClick={() => setRejectPopup(true)}
         disabled={selectedMembers.length === 0}
-        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold w-full md:w-auto"
+        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold w-full md:w-auto text-xs"
       >
         Reject
       </button>
@@ -153,7 +153,7 @@ export default function AdminMembershipsPage() {
   
 {/* Desktop Table */}
 <div className="w-full md:overflow-x-scroll overflow-x-auto">
-      <table className="min-w-[900px] md:min-w-full text-left border-collapse text-[10px] md:text-sm">
+      <table className="min-w-[900px] md:min-w-full text-left border-collapse text-xs">
     
     <thead className="bg-[#1a4d2e] text-white">
       <tr>
@@ -174,7 +174,7 @@ export default function AdminMembershipsPage() {
       {currentData.map((m, i) => (
         <tr key={m.id} className="border-b hover:bg-gray-50 transition">
           <td className="py-2 text-xs">{startIndex + i + 1}</td>
-            <td className=" py-2 text-xs">
+            <td className="py-2 text-xs">
               <input
                 type="checkbox"
                 checked={selectedMembers.includes(m.id)}
@@ -187,17 +187,17 @@ export default function AdminMembershipsPage() {
                 className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
               />
             </td>
-            <td className=" py-2 text-xs">{m.name}</td>
-            <td className=" py-2 text-xs">
+            <td className="py-2 text-xs">{m.name}</td>
+            <td className="py-2 text-xs">
               {m.email} <br />
               <span className="text-gray-400 text-xs">{m.mobile}</span>
             </td>
             <td className="py-2 text-xs">
-  {m.city}, <span className="text-[10px] text-gray-400">{m.state}</span>
+  {m.city}, <span className="text-gray-400 text-xs">{m.state}</span>
 </td>
-            <td className=" py-2 text-xs">{m.membership_type}</td>
-            <td className=" py-2 text-xs">{m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</td>
-            <td className=" py-2">
+            <td className="py-2 text-xs">{m.membership_type}</td>
+            <td className="py-2 text-xs">{m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</td>
+            <td className="py-2">
               <span
                 className={` py-2 rounded-full text-xs ${
                   m.status === "approved"
@@ -210,7 +210,7 @@ export default function AdminMembershipsPage() {
                 {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
               </span>
             </td>
-            <td className=" py-2 text-xs">{new Date(m.created_at).toLocaleDateString()}</td>
+            <td className="py-2 text-xs">{new Date(m.created_at).toLocaleDateString()}</td>
           </tr>
         ))}
       </tbody>
@@ -223,8 +223,8 @@ export default function AdminMembershipsPage() {
       <div key={m.id} className="bg-white p-4 rounded-xl shadow border border-gray-100 w-full">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="font-semibold text-sm">{m.name}</h3>
-            <p className="text-xs text-gray-400">{m.email} | {m.mobile}</p>
+            <h3 className="font-semibold text-xs">{m.name}</h3>
+            <p className="text-gray-400 text-xs">{m.email} | {m.mobile}</p>
           </div>
           <input
             type="checkbox"
@@ -238,10 +238,10 @@ export default function AdminMembershipsPage() {
             className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
           />
         </div>
-        <p className="text-xs mt-1">Location: {m.city}, {m.state}</p>
-        <p className="text-xs mt-1">Membership: {m.membership_type}</p>
-        <p className="text-xs mt-1">Donation: {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</p>
-        <p className="text-xs mt-1">
+        <p className="mt-1 text-xs">Location: {m.city}, {m.state}</p>
+        <p className="mt-1 text-xs">Membership: {m.membership_type}</p>
+        <p className="mt-1 text-xs">Donation: {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</p>
+        <p className="mt-1 text-xs">
           Status:{" "}
           <span
             className={`px-2 py-1 rounded-full text-xs ${
@@ -255,7 +255,7 @@ export default function AdminMembershipsPage() {
             {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
           </span>
         </p>
-        <p className="text-xs mt-1">Applied: {new Date(m.created_at).toLocaleDateString()}</p>
+        <p className="mt-1 text-xs">Applied: {new Date(m.created_at).toLocaleDateString()}</p>
       </div>
     ))}
   </div>
@@ -263,25 +263,25 @@ export default function AdminMembershipsPage() {
 
 {/* Reject Popup */}
 {rejectPopup && (
-  <div className="fixed inset-0 flex items-center justify-center  bg-opacity-10 backdrop-blur-sm z-[9999]">
+  <div className="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-sm z-[9999]">
   <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-      <h2 className="text-lg font-semibold mb-4">Reject Members</h2>
+      <h2 className="font-semibold mb-4 text-base">Reject Members</h2>
       <textarea 
         value={rejectReason}
         onChange={(e) => setRejectReason(e.target.value)}
         placeholder="Enter reject reason..."
-        className="w-full border border-gray-300 rounded-md p-2 text-sm mb-4"
+        className="w-full border border-gray-300 rounded-md p-2 mb-4 text-xs"
       />
       <div className="flex justify-end gap-2">
         <button
           onClick={() => setRejectPopup(false)}
-          className="px-4 py-2 bg-gray-300 rounded-md text-sm"
+          className="px-4 py-2 bg-gray-300 rounded-md text-xs"
         >
           Cancel
         </button>
         <button
           onClick={handleReject}
-          className="px-4 py-2 bg-red-600 text-white rounded-md text-sm"
+          className="px-4 py-2 bg-red-600 text-white rounded-md text-xs"
         >
           Confirm Reject
         </button>

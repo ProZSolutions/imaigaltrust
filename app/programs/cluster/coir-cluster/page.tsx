@@ -20,11 +20,11 @@ export default function ProgramAgriculture() {
 <section className="py-10 max-w-[1700px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8">
   {/* Left Side - Text */}
   <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center md:ml-12">
-    <h2 className="text-[36px] leading-[46px] font-medium text-[#1B2F7C] font-poppins">
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
       Revitalizing the Coir Industry for Sustainable Growth
     </h2>
 
-    <p className="font-poppins font-normal text-[16px] leading-[30px] text-[#101010]">
+    <p className="font-poppins font-normal text-[#101010] text-sm">
       The Erode Kongu Coir Cluster is a pioneering initiative aimed at
       strengthening the coir industry in the Erode region by enhancing
       production, quality, and market linkages. Supported under the SFURTI
@@ -48,7 +48,7 @@ export default function ProgramAgriculture() {
       <section className="py-1 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto">
 <h3 className="sfurti-heading text-center">Cluster Development Goals</h3>
-    <div className=" p-3 md:p-5 flex flex-col md:flex-row md:items-center gap-5">
+    <div className="p-3 md:p-5 flex flex-col md:flex-row md:items-center gap-5">
       
       {/* Left: Image */}
       <div className="w-full md:w-1/2 flex justify-center">
@@ -67,46 +67,46 @@ export default function ProgramAgriculture() {
 
         <ul className="mt-8 ml-10 space-y-6">
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Modernizing coir processing techniques for increased efficiency.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Establishing common facility centers (CFCs) with advanced machinery.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Providing skill development and capacity-building programs for artisans.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Creating market linkages and branding for coir-based products.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Promoting eco-friendly and sustainable coir production methods.
             </p>
           </li>
@@ -120,7 +120,7 @@ export default function ProgramAgriculture() {
   <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
     
     {/* Centered Heading */}
-    <h2 className="font-poppins font-medium text-[36px] leading-[46px] text-[#101010] text-center">
+    <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
       Core Initiatives
     </h2>
 
@@ -131,37 +131,37 @@ export default function ProgramAgriculture() {
       <div className="w-full md:w-1/2 flex flex-col mt-6 font-poppins text-[#101010] gap-8">
 
         <div className="space-y-4">
-          <h3 className="font-medium text-[24px] leading-[30px]">
+          <h3 className="font-medium text-xl">
             Technology Upgradation
           </h3>
-          <p className="font-normal text-[16px] leading-[24px]">
+          <p className="font-normal text-sm">
             Introducing modern coir processing equipment to enhance productivity.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-[24px] leading-[30px]">
+          <h3 className="font-medium text-xl">
             Skill Development
           </h3>
-          <p className="font-normal text-[16px] leading-[24px]">
+          <p className="font-normal text-sm">
             Conducting training sessions for artisans to improve their craftsmanship.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-[24px] leading-[30px]">
+          <h3 className="font-medium text-xl">
             Sustainability Initiatives
           </h3>
-          <p className="font-normal text-[16px] leading-[24px]">
+          <p className="font-normal text-sm">
             Encouraging eco-friendly production methods and waste utilization.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-[24px] leading-[30px]">
+          <h3 className="font-medium text-xl">
             Market Expansion
           </h3>
-          <p className="font-normal text-[16px] leading-[24px]">
+          <p className="font-normal text-sm">
             Strengthening supply chains and increasing product outreach through e-commerce and direct marketing.
           </p>
         </div>
@@ -185,8 +185,8 @@ export default function ProgramAgriculture() {
 
 
       <section className="py-6 px-4 md:px-10">
-  <div className="max-w-[1700px] mx-auto ">
-    <h3 className="sfurti-heading  mt-10 text-center">
+  <div className="max-w-[1700px] mx-auto">
+    <h3 className="sfurti-heading mt-10 text-center">
           Benefits
         </h3>
     <div className="p-3 md:p-5 flex flex-col md:flex-row items-center gap-8">
@@ -208,37 +208,37 @@ export default function ProgramAgriculture() {
 
         <ul className="mt-8 ml-10 space-y-6">
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Improved livelihoods for local coir artisans and entrepreneurs.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Enhanced production quality and efficiency.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Strengthened coir-based businesses and self-help groups.
             </p>
           </li>
 
           <li className="flex items-start gap-3">
-            <span className="h-[24px] flex items-center text-green-600 text-[16px] leading-[24px]">
+            <span className="h-[24px] flex items-center text-green-600 text-sm">
               &raquo;
             </span>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+            <p className="font-poppins text-[#101010] text-sm">
               Increased employment opportunities in rural areas.
             </p>
           </li>

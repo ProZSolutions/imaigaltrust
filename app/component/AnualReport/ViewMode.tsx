@@ -39,13 +39,13 @@ const ViewMode: React.FC<ViewModeProps> = ({ data, clickEvent }) => {
      <div className="flex items-center justify-between mb-6">
 
 
-  <h2 className="text-start uppercase font-semibold text-xl md:text-2xl text-black  p-3 rounded w-full md:w-auto">
+  <h2 className="text-start uppercase font-semibold text-black p-3 rounded w-full md:w-auto text-xl">
     {data?.map((item) => item.title).join(", ")}
   </h2>
 
   <button
   onClick={() => clickEvent && clickEvent({ name: "Example", links: [] })}
-  className="flex items-center gap-2 bg-gray-500  text-white px-4 py-2 rounded text-sml font-medium"
+  className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded text-sml font-medium"
 >
   <IoArrowBack />
   Back
@@ -71,7 +71,7 @@ const ViewMode: React.FC<ViewModeProps> = ({ data, clickEvent }) => {
           >
 
             {/* Chapter Name */}
-            <span className="text-sm md:text-base font-medium  md:pl-5 text-gray-800">
+            <span className="font-medium md:pl-5 text-gray-800 text-sm">
               {item?.name}
             </span>
 
@@ -86,7 +86,7 @@ const ViewMode: React.FC<ViewModeProps> = ({ data, clickEvent }) => {
             {link?.name}
           </span>
         }
-        className="text-accent-700 capitalize bg-white blue__btn text-sm rounded px-4 py-2"
+        className="text-accent-700 capitalize bg-white blue__btn rounded px-4 py-2 text-xs"
       />
     </a>
   ))}
@@ -106,7 +106,7 @@ const ViewMode: React.FC<ViewModeProps> = ({ data, clickEvent }) => {
                             {link?.type?.toUpperCase()}
                           </span>
                         }
-                        className="text-accent-700 capitalize bg-white blue__btn text-sm rounded px-4 py-2"
+                        className="text-accent-700 capitalize bg-white blue__btn rounded px-4 py-2 text-xs"
                       />
                     </a>
                   )}

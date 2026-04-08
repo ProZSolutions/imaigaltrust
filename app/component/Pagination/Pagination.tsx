@@ -36,12 +36,12 @@ const Pagination: React.FC<PaginationProps> = ({
 
       {/* Items per page */}
       <div className="flex items-center gap-2">
-        <span className="text-sm">Items per page:</span>
+        <span className="text-xs">Items per page:</span>
 
         <select
           value={perPage}
           onChange={handlePerPageChange}
-          className="border px-2 py-1 rounded text-sm"
+          className="border px-2 py-1 rounded text-xs"
         >
           {[25, 50, 75, 100].map((count) => (
             <option key={count} value={count}>
@@ -63,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <FaArrowLeft /> Prev
         </button>
 
-        <span className="text-sm font-medium">
+        <span className="font-medium text-xs">
           {startItem}-{endItem} of {totalItems}
         </span>
 

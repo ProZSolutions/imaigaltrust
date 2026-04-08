@@ -34,7 +34,7 @@ const FormCheckboxGroup: React.FC<FormCheckboxGroupProps> = ({
           </div>
         ))}
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+      {error && <p className="text-red-500 mt-1 text-xs">{error.message}</p>}
     </div>
   );
 };

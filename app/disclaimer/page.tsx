@@ -70,7 +70,7 @@ export default function DisclaimerPage() {
           {/* <p className="text-gray-500 mb-6 font-medium">
             Last Updated: March 6, 2026
           </p> */}
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-gray-700 text-base">
             The information provided on this website{" "}
             <strong>www.imaigaltrust.org</strong> (the &quot;Website&quot;) is published
             by <strong>Imaigal Trust</strong> for general informational purposes
@@ -87,14 +87,14 @@ export default function DisclaimerPage() {
               className="bg-white border-1 border-black rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300"
             >
               <div className="flex items-center space-x-4 mb-4">
-                <div className="p-3 bg-primary/10 rounded-2xl text-primary text-xl">
+                <div className="p-3 bg-primary/10 rounded-2xl text-primary text-lg">
                   {section.icon}
                 </div>
-                <h3 className="josefin-font text-xl font-bold secondary-text-900 uppercase tracking-wide">
+                <h3 className="josefin-font font-bold secondary-text-900 uppercase tracking-wide text-lg">
                   {section.title}
                 </h3>
               </div>
-              <p className="inter-font text-gray-600 leading-relaxed">
+              <p className="inter-font text-gray-600">
                 {section.content}
               </p>
             </div>
@@ -103,11 +103,11 @@ export default function DisclaimerPage() {
 
         <div className="bg-primary/5 rounded-[3rem] p-10 md:p-14">
 
-  <h2 className="josefin-font text-3xl font-bold black-text uppercase mb-8 text-center">
+  <h2 className="josefin-font font-bold black-text uppercase mb-8 text-center text-2xl">
     Contact Information
   </h2>
 
-  <p className="text-gray-600 text-lg italic text-center max-w-2xl mx-auto mb-10">
+  <p className="text-gray-600 italic text-center max-w-2xl mx-auto mb-10 text-base">
     If you have any questions regarding this Disclaimer, please
     contact us at our administrative office.
   </p>
@@ -118,9 +118,9 @@ export default function DisclaimerPage() {
   <div className="flex flex-col gap-1">
 
     {/* Location */}
-<div className="flex items-center  gap-4 p-3  rounded-xl transition-colors">
+<div className="flex items-center gap-4 p-3 rounded-xl transition-colors">
   <div className="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-    <FaMapMarkerAlt className="text-green-700 text-xl" />
+    <FaMapMarkerAlt className="text-green-700 text-lg" />
   </div>
 
   <span className="text-gray-700 font-medium">
@@ -129,9 +129,9 @@ export default function DisclaimerPage() {
 </div>
 
 {/* Email */}
-<div className="flex items-center gap-4 p-3  rounded-xl transition-colors cursor-pointer">
+<div className="flex items-center gap-4 p-3 rounded-xl transition-colors cursor-pointer">
   <div className="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-    <IoMailOutline className="text-green-700 text-xl" />
+    <IoMailOutline className="text-green-700 text-lg" />
   </div>
 
   <a
@@ -143,9 +143,9 @@ export default function DisclaimerPage() {
 </div>
 
 {/* Phone */}
-<div className="flex items-center gap-4 p-3  rounded-xl transition-colors cursor-pointer">
+<div className="flex items-center gap-4 p-3 rounded-xl transition-colors cursor-pointer">
   <div className="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-    <IoCall className="text-green-700 text-xl" />
+    <IoCall className="text-green-700 text-lg" />
   </div>
 
   <a

@@ -22,7 +22,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
     <div className="page-banner p-5 poppins-font">
 
       
-      <ul className="flex items-center gap-1 sm:gap-2 text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px]  text-gray-500 mb-4 px-4 md:px-10">
+      <ul className="flex items-center gap-1 sm:gap-2 text-gray-500 mb-4 px-4 md:px-10 text-sm">
         {list.map((item, index) => (
           <li key={item.id} className="flex items-center gap-1 sm:gap-2">
             
@@ -49,7 +49,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
         {/* Subtitle */}
         {subtitle && (
-          <span className="border border-gray-300 px-4 py-2 rounded-md text-[13px] sm:text-[13px] tracking-widest mb-4 text-green-700">
+          <span className="border border-gray-300 px-4 py-2 rounded-md tracking-widest mb-4 text-green-700 text-xs">
             {subtitle}
           </span>
         )}
@@ -63,7 +63,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
         {/* Description */}
         {description && (
-          <p className="text-gray-600 mt-3 text-sm md:text-base max-w-[600px]">
+          <p className="text-gray-600 mt-3 max-w-[600px] text-sm">
             {description}
           </p>
         )}
@@ -74,7 +74,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
     {tags.map((tag, index) => (
       <span
         key={index}
-        className="px-1 sm:px-3 py-1 text-[8px] sm:text-xs md:text-xs rounded-full border border-gray-300 text-gray-700"
+        className="px-1 sm:px-3 py-1 rounded-full border border-gray-300 text-gray-700 text-xs"
       >
         {tag}
       </span>

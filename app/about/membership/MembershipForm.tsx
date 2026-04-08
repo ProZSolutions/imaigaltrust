@@ -432,7 +432,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Full Name */}
             <div>
-              <label className="block text-[16px] font-medium text-gray-700">
+              <label className="block font-medium text-gray-700 text-sm">
                 Full Name / Organization Name{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -455,13 +455,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   required
 />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                <p className="mt-1 text-red-600 text-xs">{errors.name}</p>
               )}
             </div>
 
             {/* DOB with icon */}
             <div>
-              <label className="block text-[16px] font-medium text-gray-700">
+              <label className="block font-medium text-gray-700 text-sm">
                 Date of Birth / Establishment Year{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -508,13 +508,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
                 </span>
               </div>
               {errors.dob && (
-                <p className="mt-1 text-sm text-red-600">{errors.dob}</p>
+                <p className="mt-1 text-red-600 text-xs">{errors.dob}</p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-[16px] font-medium text-gray-700">
+              <label className="block font-medium text-gray-700 text-sm">
                 Email <span className="text-red-500">*</span>
               </label>
               <input
@@ -531,13 +531,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
                 required
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-red-600 text-xs">{errors.email}</p>
               )}
             </div>
 
            {/* Mobile */}
 <div>
-  <label className="block text-[16px] font-medium text-gray-700">
+  <label className="block font-medium text-gray-700 text-sm">
     Mobile Number <span className="text-red-500">*</span>
   </label>
 
@@ -566,13 +566,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   />
 
   {errors.mobile && (
-    <p className="mt-1 text-sm text-red-600">{errors.mobile}</p>
+    <p className="mt-1 text-red-600 text-xs">{errors.mobile}</p>
   )}
 </div>
 
             {/* Address */}
             <div>
-              <label className="block text-[16px] font-medium text-gray-700">
+              <label className="block font-medium text-gray-700 text-sm">
                 Address <span className="text-red-500">*</span>
               </label>
               <input
@@ -588,13 +588,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
                 required
               />
               {errors.address && (
-                <p className="mt-1 text-sm text-red-600">{errors.address}</p>
+                <p className="mt-1 text-red-600 text-xs">{errors.address}</p>
               )}
             </div>
 
             {/* City */}
             <div>
-              <label className="block text-[16px] font-medium text-gray-700">
+              <label className="block font-medium text-gray-700 text-sm">
                 City <span className="text-red-500">*</span>
               </label>
              <input
@@ -616,13 +616,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   required
 />
               {errors.city && (
-                <p className="mt-1 text-sm text-red-600">{errors.city}</p>
+                <p className="mt-1 text-red-600 text-xs">{errors.city}</p>
               )}
             </div>
 
             {/* Pincode */}
             <div>
-  <label className="block text-[16px] font-medium text-gray-700">
+  <label className="block font-medium text-gray-700 text-sm">
     Pincode <span className="text-red-500">*</span>
   </label>
   <input
@@ -638,13 +638,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
     required
   />
   {errors.pincode && (
-    <p className="mt-1 text-sm text-red-600">{errors.pincode}</p>
+    <p className="mt-1 text-red-600 text-xs">{errors.pincode}</p>
   )}
 </div>
 
             {/* State */}
 <div>
-  <label className="block text-[16px] font-medium text-gray-700">
+  <label className="block font-medium text-gray-700 text-sm">
     State <span className="text-red-500">*</span>
   </label>
 
@@ -667,12 +667,12 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   </select>
 
   {errors.state && (
-    <p className="mt-1 text-sm text-red-600">{errors.state}</p>
+    <p className="mt-1 text-red-600 text-xs">{errors.state}</p>
   )}
 </div>
 </div>
           <fieldset className="pt-1">
-  <legend className="text-base font-medium text-gray-900 text-[16px]">
+  <legend className="font-medium text-gray-900 text-sm">
     Membership Type<span className="text-red-500"> &#42;</span>
   </legend>
   <div className="mt-4 space-y-3">
@@ -688,7 +688,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
         />
         <label
           htmlFor={label}
-          className="ml-2 block text-[16px] text-gray-700 font-poppins"
+          className="ml-2 block text-gray-700 font-poppins text-sm"
         >
           {label}
         </label>
@@ -697,14 +697,14 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
     ))}
   </div>
   {errors.membershipType && (
-  <p className="mt-1 text-sm text-red-600">{errors.membershipType}</p>
+  <p className="mt-1 text-red-600 text-xs">{errors.membershipType}</p>
 )}
 </fieldset>
 
           <hr className="border-t border-gray-200 my-8" />
 
-          <fieldset className="pt-1 ">
-            <legend className="text-base font-medium text-gray-900 text-[16px]">
+          <fieldset className="pt-1">
+            <legend className="font-medium text-gray-900 text-sm">
               Area Of Interest<span className="text-red-500"> &#42;</span>
             </legend>
             <div className="mt-4 space-y-3">
@@ -727,7 +727,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
                   />
                   <label
                     htmlFor={label}
-                    className="ml-2 block text-[16px] text-gray-700 font-poppins"
+                    className="ml-2 block text-gray-700 font-poppins text-sm"
                   >
                     {label}
                   </label>
@@ -735,13 +735,13 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
               ))}
             </div>
             {errors.interest && (
-  <p className="mt-1 text-sm text-red-600">{errors.interest}</p>
+  <p className="mt-1 text-red-600 text-xs">{errors.interest}</p>
 )}
           </fieldset>
           <hr className="border-t border-gray-200 my-8" />
 
-          <fieldset className="pt-2 ">
-            <legend className="text-base font-medium text-gray-900 text-[16px]">
+          <fieldset className="pt-2">
+            <legend className="font-medium text-gray-900 text-sm">
               Membership Type<span className="text-red-500">&#42;</span>
             </legend>
             <div className="mt-4 space-y-3">
@@ -760,7 +760,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
                   />
                   <label
                     htmlFor={label}
-                    className="ml-2 block text-[16px] text-gray-700 font-poppins"
+                    className="ml-2 block text-gray-700 font-poppins text-sm"
                   >
                     {label}
                   </label>
@@ -768,7 +768,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
               ))}
             </div>
             {errors.fee && (
-  <p className="mt-1 text-sm text-red-600">{errors.fee}</p>
+  <p className="mt-1 text-red-600 text-xs">{errors.fee}</p>
 )}
           </fieldset>
 
@@ -776,7 +776,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
          
           <div className="space-y-4 pt-6">
   <div>
-    <label className="block text-[16px] font-medium text-gray-700">
+    <label className="block font-medium text-gray-700 text-sm">
       Voluntary Donation
     </label>
 
@@ -836,7 +836,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
         />
 
         {errors.voluntaryDonation && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-red-600 text-xs">
             {errors.voluntaryDonation}
           </p>
         )}
@@ -849,7 +849,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
   <button
   type="submit"
   disabled={isSubmitting}
-  className={`w-full max-w-[386px] h-[56px] rounded-md text-white text-[16px] font-medium uppercase transition ${
+  className={`w-full max-w-[386px] h-[56px] rounded-md text-white text-base font-medium uppercase transition ${
     isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-green-700"
   }`}
 >

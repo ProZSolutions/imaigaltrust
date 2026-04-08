@@ -47,8 +47,8 @@ function Card({ icon, title, count, color }: CardProps) {
   };
   return (
     <div className={`p-6 rounded-xl bg-gradient-to-br ${bgColors[color]} shadow-lg transform hover:-translate-y-1 transition-all`}>
-      <div className="flex items-center justify-between mb-3 text-2xl">{icon}</div>
-      <h3 className="text-sm font-semibold text-gray-700">{title}</h3>
+      <div className="flex items-center justify-between mb-3 text-xl">{icon}</div>
+      <h3 className="font-semibold text-gray-700 text-xs">{title}</h3>
       <p className={`text-2xl font-bold ${textColors[color]} mt-1`}>{count}</p>
     </div>
   );
@@ -85,7 +85,7 @@ export default function DashboardPage() {
 
       {/* ===== Platform Summary (Blue) ===== */}
       <section className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-2xl shadow-xl border border-blue-200">
-        <h2 className="text-2xl font-bold text-blue-800 mb-6">Platform Summary</h2>
+        <h2 className="font-bold text-blue-800 mb-6 text-xl">Platform Summary</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card icon={<Users className="text-blue-600" />} title="Total Members" count={counts.totalMembers} color="blue" />
           <Card icon={<Layers className="text-purple-600" />} title="Total Events" count={counts.totalEvents} color="purple" />
@@ -96,7 +96,7 @@ export default function DashboardPage() {
 
       {/* ===== Event Summary (Dark Purple Cards) ===== */}
       <section className="bg-purple-50 p-6 rounded-2xl shadow-inner border border-purple-200">
-        <h2 className="text-2xl font-bold text-purple-800 mb-6">Events Overview</h2>
+        <h2 className="font-bold text-purple-800 mb-6 text-xl">Events Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { icon: <Clock />, title: "Ongoing Events", count: counts.ongoingEvents, color: "green" },
@@ -117,7 +117,7 @@ export default function DashboardPage() {
 
       {/* ===== Registrations Table with Icons ===== */}
       <section className="bg-yellow-50 p-6 rounded-3xl shadow-md border border-yellow-200">
-        <h2 className="text-2xl font-bold text-yellow-800 mb-6">Registrations Breakdown</h2>
+        <h2 className="font-bold text-yellow-800 mb-6 text-xl">Registrations Breakdown</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded-xl shadow-md">
             <thead className="bg-yellow-100">
@@ -147,7 +147,7 @@ export default function DashboardPage() {
 
       {/* ===== Membership Breakdown (Left-accent Cards) ===== */}
       {/* <section className="bg-green-50 p-6 rounded-2xl shadow-xl border border-green-200">
-        <h2 className="text-2xl font-bold text-green-800 mb-6">Membership Breakdown</h2>
+        <h2 className="font-bold text-green-800 mb-6 text-xl">Membership Breakdown</h2>
         <div className="space-y-4">
           {[
             { icon: <Users className="text-blue-600 w-10 h-10" />, label: "Total Members", count: counts.totalMembers, border: "border-blue-600" },
@@ -161,7 +161,7 @@ export default function DashboardPage() {
               {item.icon}
               <div className="flex flex-col ml-4">
                 <span className="text-gray-600 font-medium">{item.label}</span>
-                <span className="text-xl font-bold text-gray-800">{item.count}</span>
+                <span className="font-bold text-gray-800 text-lg">{item.count}</span>
               </div>
             </div>
           ))}
@@ -170,7 +170,7 @@ export default function DashboardPage() {
 
       {/* ===== Annual Reports ===== */}
       <section className="bg-indigo-50 p-6 rounded-2xl shadow-lg border border-indigo-200">
-        <h2 className="text-2xl font-bold text-indigo-800 mb-6">Annual Reports</h2>
+        <h2 className="font-bold text-indigo-800 mb-6 text-xl">Annual Reports</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card icon={<FileText className="text-indigo-600" />} title="Annual Reports" count={counts.annualReportCount} color="indigo" />
         </div>

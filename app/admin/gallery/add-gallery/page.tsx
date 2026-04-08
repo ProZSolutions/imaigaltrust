@@ -326,8 +326,8 @@ const handleDelete = async () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Gallery Management</h1>
-          <p className="text-sm text-gray-500">View and manage gallery items</p>
+          <h1 className="font-bold text-gray-800 text-xl">Gallery Management</h1>
+          <p className="text-gray-500 text-xs">View and manage gallery items</p>
         </div>
         <button
   onClick={openAddForm}
@@ -346,7 +346,7 @@ const handleDelete = async () => {
           placeholder="Search by title, program or category..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 border border-gray-200 cursor-pointer rounded-xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none text-sm transition-all shadow-sm"
+          className="w-full pl-10 pr-4 py-2.5 border border-gray-200 cursor-pointer rounded-xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all shadow-sm text-xs"
         />
       </div>
 
@@ -357,20 +357,20 @@ const handleDelete = async () => {
    <table className="w-full min-w-[620px] text-left border-collapse">
   <thead className="bg-[#1a4d2e] text-white">
     <tr>
-          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+          <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 S.No</th>
-    <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+    <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
   PROGRAM
 </th>
-          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+          <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 Category</th>
-          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+          <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 Title</th>
-          <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+          <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 Year</th>
-                <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 Type</th>
-                <th className="px-4 py-3 font-bold uppercase text-sm tracking-wider">
+                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
 Actions</th>
     </tr>
   </thead>
@@ -416,7 +416,7 @@ Actions</th>
   {item.media_type === "image" && item.file_path ? (
     <button
       onClick={() => setPreviewItem(item)}
-      className="text-green-600 text-sm font-semibold hover:underline"
+      className="text-green-600 font-semibold hover:underline text-xs"
     >
       View
     </button>
@@ -425,17 +425,17 @@ Actions</th>
       href={item.video_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-green-600 text-sm font-semibold hover:underline"
+      className="text-green-600 font-semibold hover:underline text-xs"
     >
       View
     </a>
   ) : (
-    <span className="text-gray-400 text-sm italic">No media</span>
+    <span className="text-gray-400 italic text-xs">No media</span>
   )}
 </td>
 
                   <td  className="px-4 py-3 text-gray-600 whitespace-nowrap">
-                    <div className="flex items-center  gap-2">
+                    <div className="flex items-center gap-2">
                       <button
                         onClick={() => openEditForm(item)}
                         className="p-2 text-[#096412] hover:bg-green-50 rounded-lg transition-colors"
@@ -510,10 +510,10 @@ Actions</th>
             {/* Modal Header - Dark premium integration */}
             <div className="bg-[#1a4d2e] p-8 flex justify-between items-center text-white relative overflow-hidden text-center justify-center">
               <div className="relative z-10 w-full">
-                <h2 className="text-2xl font-bold tracking-tight josefin-font">
+                <h2 className="font-bold tracking-tight josefin-font text-xl">
                   {editItem ? "Edit Gallery Item" : "Add New Gallery Item"}
                 </h2>
-                <p className="text-sm text-green-100/60 mt-1 font-medium italic">
+                <p className="text-green-100/60 mt-1 font-medium italic text-xs">
                   {editItem ? "Update the details below" : "Fill in the details to create a new gallery item"}
                 </p>
               </div>
@@ -532,7 +532,7 @@ Actions</th>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Program */}
                 <div className="space-y-2.5">
-                  <label className="block text-sm font-bold text-gray-700 ml-1">Program <span className="text-red-500">*</span></label> 
+                  <label className="block font-bold text-gray-700 ml-1 text-xs">Program <span className="text-red-500">*</span></label> 
                   <div className="relative">
                   <select
   suppressHydrationWarning
@@ -552,7 +552,7 @@ Actions</th>
   ))}
 </select>
 {errors.programId && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.programId}
   </p>
 )}
@@ -564,7 +564,7 @@ Actions</th>
 
                 {/* Category */}
                 <div className="space-y-2.5">
-                  <label className="block text-sm font-bold text-gray-700 ml-1">Category <span className="text-red-500">*</span></label>
+                  <label className="block font-bold text-gray-700 ml-1 text-xs">Category <span className="text-red-500">*</span></label>
                   <div className="relative">
                    <select
   value={formData.categoryId}
@@ -583,7 +583,7 @@ Actions</th>
 </select>
 
 {errors.categoryId && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.categoryId}
   </p>
 )}
@@ -595,7 +595,7 @@ Actions</th>
 
                 {/* Year */}
                <div className="space-y-2.5">
-  <label className="block text-sm font-bold text-gray-700 ml-1">
+  <label className="block font-bold text-gray-700 ml-1 text-xs">
     Year
   </label>
 
@@ -614,14 +614,14 @@ Actions</th>
   />
 
   {errors.year && (
-    <p className="text-red-500 text-sm mt-1 ml-1">
+    <p className="text-red-500 mt-1 ml-1 text-xs">
       {errors.year}
     </p>
   )}
 </div>
                 {/* Month */}
                 <div className="space-y-2.5">
-                  <label className="block text-sm font-bold text-gray-700 ml-1">Month <span className="text-red-500">*</span> (Optional) </label>
+                  <label className="block font-bold text-gray-700 ml-1 text-xs">Month <span className="text-red-500">*</span> (Optional) </label>
                   <div className="relative">
                     <select
   suppressHydrationWarning
@@ -640,7 +640,7 @@ Actions</th>
                       ))}
                     </select>
                     {errors.month && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.month}
   </p>
 )}
@@ -653,7 +653,7 @@ Actions</th>
 
               {/* Title */}
               <div className="space-y-2.5">
-                <label className="block text-sm font-bold text-gray-700 ml-1">Title <span className="text-red-500">*</span></label>
+                <label className="block font-bold text-gray-700 ml-1 text-xs">Title <span className="text-red-500">*</span></label>
                 <input
   type="text"
   value={formData.title}
@@ -667,7 +667,7 @@ Actions</th>
   } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm`}
 />
                 {errors.title && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.title}
   </p>
 )}
@@ -675,7 +675,7 @@ Actions</th>
 
               {/* Media Type */}
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">Media Type</label>
+                <label className="block font-bold text-gray-700 text-xs">Media Type</label>
                 <div className="flex gap-6 pt-1">
                   <label className="flex items-center gap-2 cursor-pointer group">
                     <input
@@ -687,7 +687,7 @@ Actions</th>
                       onChange={(e) => setFormData({ ...formData, mediaType: e.target.value })}
                       className="w-4 h-4 text-[#096412] focus:ring-[#096412]"
                     />
-                    <span className="text-sm font-semibold text-gray-600 group-hover:text-gray-800">Image</span>
+                    <span className="font-semibold text-gray-600 group-hover:text-gray-800 text-xs">Image</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer group">
                     <input
@@ -699,11 +699,11 @@ Actions</th>
                       onChange={(e) => setFormData({ ...formData, mediaType: e.target.value })}
                       className="w-4 h-4 text-[#096412] focus:ring-[#096412]"
                     />
-                    <span className="text-sm font-semibold text-gray-600 group-hover:text-gray-800">Video Link</span>
+                    <span className="font-semibold text-gray-600 group-hover:text-gray-800 text-xs">Video Link</span>
                   </label>
                 </div>
                 {errors.videoUrl && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.videoUrl}
   </p>
 )}
@@ -711,7 +711,7 @@ Actions</th>
 
               {/* Description */}
               <div className="space-y-2.5">
-                <label className="block text-sm font-bold text-gray-700 ml-1">Description <span className="text-red-500">*</span></label>
+                <label className="block font-bold text-gray-700 ml-1 text-xs">Description <span className="text-red-500">*</span></label>
                 <textarea
   rows={3}
   value={formData.description}
@@ -725,7 +725,7 @@ Actions</th>
   } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm resize-none shadow-sm`}
 />
 {errors.description && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.description}
   </p>
 )}
@@ -733,7 +733,7 @@ Actions</th>
 
               {/* File / Video */}
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">
+                <label className="block font-bold text-gray-700 text-xs">
                   {formData.mediaType === "image" ? "File Upload" : "Video URL / Embed"} <span className="text-red-500">*</span>
                 </label>
                 {formData.mediaType === "image" ? (
@@ -769,11 +769,11 @@ Actions</th>
                     value={formData.videoUrl}
                     onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
                     placeholder="https://youtube.com/..."
-                    className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm"
+                    className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold shadow-sm text-xs"
                   />
                 )}
                 {errors.file && (
-  <p className="text-red-500 text-sm mt-2 ml-1">
+  <p className="text-red-500 mt-2 ml-1 text-xs">
     {errors.file}
   </p>
 )}

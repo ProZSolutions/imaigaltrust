@@ -46,24 +46,24 @@ Growing with the Community.`}
         <div className="max-w-[1200px] mx-auto">
 
           {/* small label */}
-          <span className="inline-block bg-[#E7F3EC] text-[#2D6A4F] text-xs font-semibold tracking-widest px-4 py-2 rounded mb-6">
+          <span className="inline-block bg-[#E7F3EC] text-[#2D6A4F] font-semibold tracking-widest px-4 py-2 rounded mb-6 text-xs">
             WHO WE ARE
           </span>
 
           {/* heading */}
-          <h2 className="font-serif text-[36px] md:text-[46px] font-bold text-[#1B3022] leading-tight mb-6">
+          <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
             A Grassroots Trust <br />
             Built on Community Trust
           </h2>
 
           {/* paragraph */}
-          <p className="text-[#5E6E64] text-[16px] leading-relaxed mb-6">
+          <p className="text-[#5E6E64] mb-6 text-sm">
             Imagial Trust is a registered charitable trust based in Tamil Nadu,
             India, dedicated to empowering rural communities through sustainable
             agriculture, livelihood development, and inclusive growth.
           </p>
 
-          <p className="text-[#5E6E64] text-[16px] leading-relaxed mb-6">
+          <p className="text-[#5E6E64] mb-6 text-sm">
             Founded by a group of development professionals, agricultural
             experts, and community leaders, the Trust was born from a simple
             recognition — smallholder farmers lacked access to timely advisory,
@@ -71,7 +71,7 @@ Growing with the Community.`}
             their lives.
           </p>
 
-          <p className="text-[#5E6E64] text-[16px] leading-relaxed">
+          <p className="text-[#5E6E64] text-sm">
             Starting with a handful of villages, Imagial Trust has grown into a
             credible development organisation operating across multiple
             districts of Tamil Nadu, impacting thousands of farming households
@@ -88,13 +88,13 @@ Growing with the Community.`}
           {/* Vision Card */}
           <div className="bg-[#23663A] rounded-xl border border-[#3B7D52] p-10 text-white">
 
-            <div className="text-3xl mb-4"><Compass size={24} /></div>
+            <div className="mb-4 text-2xl"><Compass size={24} /></div>
 
-            <h3 className="text-[22px] font-semibold mb-4 text-[#7ED957]">
+            <h3 className="font-semibold mb-4 text-[#7ED957] text-lg">
               Our Vision
             </h3>
 
-            <p className="text-white/90 leading-relaxed text-[16px]">
+            <p className="text-white/90 text-sm">
               &quot;A Tamil Nadu where every farming family lives with dignity,
               resilience, and prosperity — where no village is left behind.&quot;
             </p>
@@ -105,13 +105,13 @@ Growing with the Community.`}
           {/* Mission Card */}
           <div className="bg-[#23663A] rounded-xl border border-[#3B7D52] p-10 text-white">
 
-            <div className="text-3xl mb-4"><Target size={24} /></div>
+            <div className="mb-4 text-2xl"><Target size={24} /></div>
 
-            <h3 className="text-[22px] font-semibold mb-4 text-[#7ED957]">
+            <h3 className="font-semibold mb-4 text-[#7ED957] text-lg">
               Our Mission
             </h3>
 
-            <p className="text-white/90 leading-relaxed text-[16px]">
+            <p className="text-white/90 text-sm">
               &quot;To transform the lives of smallholder farmers and rural communities
               through sustainable agricultural practices, collective empowerment,
               and inclusive development.&quot;
@@ -128,11 +128,11 @@ Growing with the Community.`}
 
           {/* Section Header */}
           <div className="mb-14">
-            <span className="inline-block bg-[#E7F3EC] text-[#2D6A4F] text-xs font-semibold tracking-widest px-4 py-2 rounded mb-4">
+            <span className="inline-block bg-[#E7F3EC] text-[#2D6A4F] font-semibold tracking-widest px-4 py-2 rounded mb-4 text-xs">
               CORE VALUES
             </span>
 
-            <h2 className="font-serif text-[36px] md:text-[44px] font-bold text-[#1B3022] mb-3">
+            <h2 className="font-serif font-bold text-[#1B3022] mb-3 text-3xl">
               What We Stand For
             </h2>
 
@@ -183,17 +183,17 @@ Growing with the Community.`}
               >
 
                 {/* Icon */}
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#2D6A4F] text-white text-xl mb-5">
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#2D6A4F] text-white mb-5 text-lg">
                   {item.icon}
                 </div>
 
                 {/* Title */}
-                <h3 className="font-semibold text-[18px] text-[#1B3022] mb-3">
+                <h3 className="font-semibold text-[#1B3022] mb-3 text-base">
                   {item.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[#5E6E64] text-[15px] leading-relaxed">
+                <p className="text-[#5E6E64] text-sm">
                   {item.desc}
                 </p>
 
@@ -210,11 +210,11 @@ Growing with the Community.`}
 
           {/* Section Header */}
           <div className="mb-14">
-            <span className="inline-block text-[#2D6A4F] text-xs font-semibold tracking-widest mb-3">
+            <span className="inline-block text-[#2D6A4F] font-semibold tracking-widest mb-3 text-xs">
               WHAT WE DO
             </span>
 
-            <h2 className="font-serif text-[36px] md:text-[42px] font-bold text-[#1B3022] mb-3">
+            <h2 className="font-serif font-bold text-[#1B3022] mb-3 text-3xl">
               Four Areas of Intervention
             </h2>
 
@@ -254,17 +254,17 @@ Growing with the Community.`}
               >
 
                 {/* Icon */}
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#F3F7F4] text-xl">
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#F3F7F4] text-lg">
                   {item.icon}
                 </div>
 
                 {/* Content */}
                 <div>
-                  <h3 className="text-[18px] font-semibold text-[#1B3022] mb-2">
+                  <h3 className="font-semibold text-[#1B3022] mb-2 text-base">
                     {item.title}
                   </h3>
 
-                  <p className="text-[#5E6E64] text-[15px] leading-relaxed">
+                  <p className="text-[#5E6E64] text-sm">
                     {item.desc}
                   </p>
                 </div>
@@ -282,11 +282,11 @@ Growing with the Community.`}
 
           {/* Section Header */}
           <div className="mb-14">
-            <span className="inline-block bg-[#2D6A4F] text-[#A5D6A7] text-xs font-semibold tracking-widest px-4 py-2 rounded mb-4">
+            <span className="inline-block bg-[#2D6A4F] text-[#A5D6A7] font-semibold tracking-widest px-4 py-2 rounded mb-4 text-xs">
               PARTNERS & FUNDERS
             </span>
 
-            <h2 className="font-serif text-[36px] md:text-[42px] font-bold mb-3">
+            <h2 className="font-serif font-bold mb-3 text-3xl">
               Who We Work With
             </h2>
 
@@ -337,15 +337,15 @@ Growing with the Community.`}
               >
 
                 {/* Icon */}
-                <div className="text-2xl">{partner.icon}</div>
+                <div className="text-xl">{partner.icon}</div>
 
                 {/* Content */}
                 <div>
-                  <h3 className="font-semibold text-[17px] mb-1">
+                  <h3 className="font-semibold mb-1 text-base">
                     {partner.title}
                   </h3>
 
-                  <p className="text-white/80 text-[14px]">
+                  <p className="text-white/80 text-xs">
                     {partner.desc}
                   </p>
                 </div>

@@ -11,12 +11,12 @@ const FooterLinkList: React.FC<FooterLinkListProps> = ({ content, link }) => {
   return (
     <Link
       href={link}
-      className="flex gap-2 items-center py-1 text-sm"
+      className="flex gap-2 items-center py-1 text-xs"
     >
       <span className="primary-text">
         <IoIosArrowForward />
       </span>
-      <span className="text-base secondary-text-900   transition-colors link-content" >{content}</span>
+      <span className="secondary-text-900 transition-colors link-content text-sm" >{content}</span>
     </Link>
   );
 };

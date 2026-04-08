@@ -78,8 +78,8 @@ const handleLogout = () => {
 <aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0 h-screen">
   {/* Logo */}
   <div className="p-8 border-b border-white/5 flex-shrink-0">
-    <h2 className="text-xl font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase">Admin Portal</h2>
-    <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-[0.2em]">Management System</p>
+    <h2 className="font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase text-lg">Admin Portal</h2>
+    <p className="text-gray-400 mt-1 uppercase tracking-[0.2em] text-xs">Management System</p>
   </div>
 
   {/* Navigation (scrollable) */}
@@ -229,7 +229,7 @@ const handleLogout = () => {
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-md sticky top-0 z-10 px-8 py-4 flex justify-between items-center border-b border-gray-100">
-          <div className="flex items-center text-sm gap-2">
+          <div className="flex items-center gap-2 text-xs">
            {mounted &&
   pathname
     .split("/")
@@ -260,13 +260,13 @@ const handleLogout = () => {
           {index > 0 && <ChevronRight size={14} className="text-gray-300" />}
 
           {isLast ? (
-            <span className="text-[20px] font-bold text-[#096412] tracking-wide">
+            <span className="font-bold text-[#096412] tracking-wide text-lg">
               {displayName}
             </span>
           ) : (
             <Link
               href={href}
-              className="text-[16px] text-gray-600 hover:text-green-900 transition-colors font-medium"
+              className="text-gray-600 hover:text-green-900 transition-colors font-medium text-sm"
             >
               {displayName}
             </Link>
@@ -280,7 +280,7 @@ const handleLogout = () => {
           <div className="flex items-center gap-6">
             <div className="hidden md:flex flex-col items-end">
               <span className="text-sml font-bold text-gray-700">Administrator</span>
-              <span className="text-[11px] text-gray-400 uppercase tracking-tighter">Imaigal Trust</span>
+              <span className="text-gray-400 uppercase tracking-tighter text-xs">Imaigal Trust</span>
             </div>
 
             <div className="relative">
@@ -298,7 +298,7 @@ const handleLogout = () => {
                 <div className="absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2.5 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <Link
                     href="/"
-                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 transition-colors text-xs"
                   >
                     View Website
                   </Link>
@@ -308,7 +308,7 @@ const handleLogout = () => {
     handleLogout();
     setIsDropdownOpen(false);
   }}
-  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors font-semibold"
+  className="w-full flex items-center gap-3 px-4 py-2.5 text-red-500 hover:bg-red-50 transition-colors font-semibold text-xs"
 >
   <LogOut size={16} />
   Logout

@@ -151,7 +151,7 @@ function GalleryContent() {
     <select
       value={activeYear}
       onChange={(e) => setActiveYear(e.target.value)}
-      className="appearance-none pl-4 pr-10 py-2.5 bg-white border border-[#D8E8DC] rounded-xl text-sm font-bold text-[#1F5D33] focus:outline-none focus:ring-2 focus:ring-[#1F5D33]/20 focus:border-[#1F5D33] cursor-pointer shadow-sm min-w-[160px]"
+      className="appearance-none pl-4 pr-10 py-2.5 bg-white border border-[#D8E8DC] rounded-xl font-bold text-[#1F5D33] focus:outline-none focus:ring-2 focus:ring-[#1F5D33]/20 focus:border-[#1F5D33] cursor-pointer shadow-sm min-w-[160px] text-xs"
     >
       {years.map((y) => {
         const count =
@@ -176,7 +176,7 @@ function GalleryContent() {
 
               {/* Program Filter Pills */}
               <div className="flex gap-2 flex-wrap pt-2 border-t border-[#E3ECE6]">
-                <span className="text-[10px] font-bold text-[#5E6E64] uppercase tracking-wider py-1.5 px-1 mr-2">Programs:</span>
+                <span className="font-bold text-[#5E6E64] uppercase tracking-wider py-1.5 px-1 mr-2 text-xs">Programs:</span>
                 {programs.map((prog) => (
                   <button
                     key={prog}
@@ -192,7 +192,7 @@ function GalleryContent() {
               </div>
             </>
           ) : (
-            <div className="h-32 flex items-center justify-center text-[#5E6E64] text-sm animate-pulse">
+            <div className="h-32 flex items-center justify-center text-[#5E6E64] animate-pulse text-xs">
               Initializing filters...
             </div>
           )}
@@ -205,7 +205,7 @@ function GalleryContent() {
 
           {/* Count Badge */}
           {!loading && (
-            <p className="text-sm text-[#5E6E64] mb-6">
+            <p className="text-[#5E6E64] mb-6 text-xs">
               Showing <span className="font-bold text-[#1F5D33]">{filtered.length}</span> item{filtered.length !== 1 ? "s" : ""}
             </p>
           )}
@@ -224,8 +224,8 @@ function GalleryContent() {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#E7F3EC] text-[#1F5D33]">
                 <ImageIcon size={28} />
               </div>
-              <p className="text-[#1B3022] font-semibold text-lg">No items found</p>
-              <p className="text-[#5E6E64] text-sm">Try changing the filters above.</p>
+              <p className="text-[#1B3022] font-semibold text-base">No items found</p>
+              <p className="text-[#5E6E64] text-xs">Try changing the filters above.</p>
             </div>
           )}
 
@@ -274,14 +274,14 @@ function GalleryContent() {
 
                   {/* Info Bar */}
                   <div className="p-4">
-                    <h3 className="font-semibold text-[#1B3022] text-[15px] leading-snug mb-1 line-clamp-1">
+                    <h3 className="font-semibold text-[#1B3022] mb-1 line-clamp-1 text-sm">
                       {item.title}
                     </h3>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[11px] font-semibold bg-[#E7F3EC] text-[#1F5D33] px-2 py-0.5 rounded-full">
+                      <span className="font-semibold bg-[#E7F3EC] text-[#1F5D33] px-2 py-0.5 rounded-full text-xs">
                         {item.category.category}
                       </span>
-                      <span className="text-[11px] text-[#5E6E64]">
+                      <span className="text-[#5E6E64] text-xs">
                         {item.month ? `${item.month.charAt(0).toUpperCase() + item.month.slice(1)} ` : ""}
                         {item.year}
                       </span>
@@ -334,9 +334,9 @@ function GalleryContent() {
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-3">
                     <Video size={48} className="opacity-20" />
-                    <p className="text-sm">Invalid video link or video unavailable</p>
+                    <p className="text-xs">Invalid video link or video unavailable</p>
                     {lightbox.video_url && (
-                      <p className="text-[10px] bg-white/10 px-2 py-1 rounded">{lightbox.video_url}</p>
+                      <p className="bg-white/10 px-2 py-1 rounded text-xs">{lightbox.video_url}</p>
                     )}
                   </div>
                 )}
@@ -349,9 +349,9 @@ function GalleryContent() {
 
             {/* Meta Info */}
             <div className="p-5">
-              <h2 className="text-[18px] font-bold text-[#1B3022] mb-1">{lightbox.title}</h2>
+              <h2 className="font-bold text-[#1B3022] mb-1 text-base">{lightbox.title}</h2>
               {lightbox.description && (
-                <p className="text-[#5E6E64] text-sm mb-3">{lightbox.description}</p>
+                <p className="text-[#5E6E64] mb-3 text-xs">{lightbox.description}</p>
               )}
               <div className="flex gap-3 flex-wrap text-xs">
                 <span className="bg-[#E7F3EC] text-[#1F5D33] font-semibold px-3 py-1 rounded-full">

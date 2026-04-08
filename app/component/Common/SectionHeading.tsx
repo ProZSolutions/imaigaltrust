@@ -14,7 +14,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({ title, className }) => 
 </div>
 
       {/* Heading */}
-       <h2 className=" poppins-font text-2xl md:text-3xl font-semibold uppercase text-center <div class=" >
+       <h2 className="poppins-font font-semibold uppercase text-center <div class= text-2xl" >
         {title}
       </h2>
 

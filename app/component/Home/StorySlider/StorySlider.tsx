@@ -23,16 +23,16 @@ export default function StorySlider() {
     <Slider {...settings}>
       {successStoriesContent.map((item) => (
         <div key={item?.id}>
-          <div className="flex poppins-font items-center w-full gap-18 ">
+          <div className="flex poppins-font items-center w-full gap-18">
             <div>
-              <p className="text-xl  primary-text my-2">{item?.mTitle}</p>
-              <p className="text-2xl uppercase  accent-text-800 font-semibold my-2 mb-8">{item?.title}</p>
-              <q className="text-justify leading-8	">
+              <p className="primary-text my-2 text-lg">{item?.mTitle}</p>
+              <p className="uppercase accent-text-800 font-semibold my-2 mb-8 text-xl">{item?.title}</p>
+              <q className="text-justify leading-8">
                 {item?.desc} 
               </q>
 
               <div className="flex flex-col justify-end gap-1 mt-5 items-end">
-                <p className="text-2xl primary-text">{item?.name}</p>
+                <p className="primary-text text-xl">{item?.name}</p>
                 <p >{item?.sign}</p>
               
             </div>

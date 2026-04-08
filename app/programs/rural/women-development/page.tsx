@@ -21,11 +21,11 @@ export default function ProgramAgriculture() {
       <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
         {/* TEXT */}
         <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-6 justify-center">
-          <h2 className="text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] leading-[32px] sm:leading-[38px] md:leading-[44px] lg:leading-[48px] font-medium text-[#1B2F7C] font-poppins">
+          <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
             Building Stronger Communities Through Women’s Empowerment
           </h2>
 
-          <p className="font-poppins text-[14px] sm:text-[15px] md:text-[16px] leading-[24px] sm:leading-[26px] md:leading-[28px] text-[#101010]">
+          <p className="font-poppins text-[#101010] text-sm">
             Imaigal Trust is committed to uplifting rural women by providing
             them with the necessary skills, resources, and opportunities to
             achieve financial independence and social empowerment. Our Women
@@ -50,7 +50,7 @@ export default function ProgramAgriculture() {
 <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
-          <h2 className="font-poppins font-medium text-[22px] sm:text-[28px] md:text-[34px] lg:text-[36px] leading-[32px] md:leading-[44px] text-[#101010] text-center">
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
             Core Empowerment
           </h2>
 
@@ -59,40 +59,40 @@ export default function ProgramAgriculture() {
             {/* LEFT CONTENT */}
             <div className="w-full md:w-1/2 flex flex-col mt-2 md:mt-6 font-poppins text-[#101010] gap-6 md:gap-8">
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px]">
+                <h3 className="font-medium text-xl">
                   Livelihood & Skill Development
                 </h3>
-                <p className="text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                <p className="text-sm">
                   Training programs in tailoring, handicrafts, food processing,
                   and other income-generating activities.
                 </p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px]">
+                <h3 className="font-medium text-xl">
                   Education & Financial Literacy
                 </h3>
-                <p className="text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                <p className="text-sm">
                   Workshops on entrepreneurship, savings, and self-help group
                   (SHG) formation.
                 </p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px]">
+                <h3 className="font-medium text-xl">
                   Employment & Entrepreneurship Support
                 </h3>
-                <p className="text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                <p className="text-sm">
                   Encouraging eco-friendly production methods and waste
                   utilization.
                 </p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px]">
+                <h3 className="font-medium text-xl">
                   Health & Well-being
                 </h3>
-                <p className="text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                <p className="text-sm">
                   Awareness programs on maternal health, nutrition, hygiene, and
                   mental well-being.
                 </p>
@@ -117,7 +117,7 @@ export default function ProgramAgriculture() {
 <section className="pt-8 sm:pt-10 md:pt-12 pb-2 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
-          <h2 className="font-poppins font-medium text-[22px] sm:text-[28px] md:text-[34px] lg:text-[36px] leading-[32px] md:leading-[44px] text-[#101010] text-center">
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
             Impact & Achievements
           </h2>
 
@@ -127,26 +127,26 @@ export default function ProgramAgriculture() {
             <div className="w-full md:w-1/2 flex flex-col mt-2 md:mt-6 font-poppins text-[#101010] gap-6 md:gap-8 order-1 md:order-1">
               <ul className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-sm">
                     Trained over [Number] women in skill development programs.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-sm">
                     Established multiple SHGs for financial independence.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-sm">
                     Enabled women entrepreneurs to access markets and financial aid.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[14px] sm:text-[15px] md:text-[16px] leading-[22px] md:leading-[24px]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-sm">
                     Improved health awareness and access to medical facilities for women.
                   </p>
                 </li>
