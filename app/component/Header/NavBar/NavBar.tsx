@@ -10,6 +10,11 @@ import { TbHome } from "react-icons/tb";
 const Navbar = ({ hideNavItems = false }: { hideNavItems?: boolean }) => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+const toggleDropdown = (name: string) => {
+  setOpenDropdown(openDropdown === name ? null : name);
+};
 
   // Close hamburger menu on route change
   useEffect(() => {
@@ -67,10 +72,14 @@ const Navbar = ({ hideNavItems = false }: { hideNavItems?: boolean }) => {
                 className={`nav-link ${isParentPathActive("/about") ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-                <Link href="#">
-                  About Us <FaChevronDown />
-                </Link>
-                <div className="dropdown">
+              <span
+  onClick={() => toggleDropdown("about")}
+  className="flex items-center gap-1 cursor-pointer text-white justify-center md:justify-start mr-40 md:ml-4 py-4 md:py-0"
+>
+  About Us <FaChevronDown />
+</span>
+
+                <div className={`dropdown ${openDropdown === "about" ? "show" : ""}`}>
                   <ul>
                     <li
                       className={`dropdown-link ${pathname === "/about/board-members" ? "active" : ""}`}
@@ -104,10 +113,15 @@ const Navbar = ({ hideNavItems = false }: { hideNavItems?: boolean }) => {
                 className={`nav-link ${isParentPathActive("/programs") ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-                <Link href="#">
-                  Programs <FaChevronDown />
-                </Link>
-                <div className="dropdown">
+           <span
+  onClick={() => toggleDropdown("programs")}
+  className="flex items-center gap-1 cursor-pointer text-white justify-center md:justify-start mr-40 md:ml-4 py-4 md:py-0"
+>
+  Programs <FaChevronDown />
+</span>
+
+
+                <div className={`dropdown ${openDropdown === "programs" ? "show" : ""}`}>
                   <ul>
                     <li
                       className={`dropdown-link ${pathname === "/programs/agriculture" ? "active" : ""}`}

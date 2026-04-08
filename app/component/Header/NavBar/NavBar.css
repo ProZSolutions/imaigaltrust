@@ -393,6 +393,15 @@ header {
     display: none;
   }
 
+
+
+.dropdown {
+  display: none;
+}
+
+.dropdown.show {
+  display: block;
+}
   .nav-link:hover > .dropdown,
   .dropdown-link:hover > .dropdown {
     display: block;
@@ -570,5 +579,6 @@ header {
     margin-right: -20px;/* left side alignment */
   }
 
-  
+
 }
+
