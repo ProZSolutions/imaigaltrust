@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export default function AdminLayout({
-  
+
   children,
 }: {
   children: React.ReactNode;
@@ -32,58 +32,58 @@ export default function AdminLayout({
   );
   const [mounted, setMounted] = useState(false);
 
-//     useEffect(() => {
-//   const token = sessionStorage.getItem("authToken");
+  //     useEffect(() => {
+  //   const token = sessionStorage.getItem("authToken");
 
-//   if (token) {
-//     router.push("/admin");
-//   }
-// }, [router]);
+  //   if (token) {
+  //     router.push("/admin");
+  //   }
+  // }, [router]);
 
-React.useEffect(() => {
-  const token = sessionStorage.getItem("authToken");
+  React.useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
 
-  if (token) {
-    router.push("/admin");
-  }
+    if (!token) {
+      router.push("/login");
+    }
 
-  setMounted(true);
-}, [router]);
+    setMounted(true);
+  }, [router]);
 
   const navItems = [
-  {
-    label: "Dashboard",
-    href: "/admin",
-    icon: LayoutGrid,
-  },
-  {
-    label: "Membership",
-    href: "/admin/memberships",
-    icon: Users,
-  },
-  {
-    label: "Annual Report",
-    href: "/admin/annual-report",
-    icon: FileText,
-  },
-];
+    {
+      label: "Dashboard",
+      href: "/admin",
+      icon: LayoutGrid,
+    },
+    {
+      label: "Membership",
+      href: "/admin/memberships",
+      icon: Users,
+    },
+    {
+      label: "Annual Report",
+      href: "/admin/annual-report",
+      icon: FileText,
+    },
+  ];
 
-const handleLogout = () => {
-  sessionStorage.removeItem("authToken");
-  router.push("/login");
-};
+  const handleLogout = () => {
+    sessionStorage.removeItem("authToken");
+    router.push("/login");
+  };
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Sidebar */}
-<aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0 h-screen">
-  {/* Logo */}
-  <div className="p-8 border-b border-white/5 flex-shrink-0">
-    <h2 className="font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase text-lg">Admin Portal</h2>
-    <p className="text-gray-400 mt-1 uppercase tracking-[0.2em] text-xs">Management System</p>
-  </div>
+      <aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0 h-screen">
+        {/* Logo */}
+        <div className="p-8 border-b border-white/5 flex-shrink-0">
+          <h2 className="font-bold tracking-widest josefin-font text-gray-400 brightness-125 uppercase text-lg">Admin Portal</h2>
+          <p className="text-gray-400 mt-1 uppercase tracking-[0.2em] text-xs">Management System</p>
+        </div>
 
-  {/* Navigation (scrollable) */}
-<nav className="flex-1 mt-6 px-4 space-y-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+        {/* Navigation (scrollable) */}
+        <nav className="flex-1 mt-6 px-4 space-y-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
@@ -230,51 +230,51 @@ const handleLogout = () => {
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-md sticky top-0 z-10 px-8 py-4 flex justify-between items-center border-b border-gray-100">
           <div className="flex items-center gap-2 text-xs">
-           {mounted &&
-  pathname
-    .split("/")
-    .filter((segment) => segment !== "")
-    .map((segment, index, array) => {
-      let href = `/${array.slice(0, index + 1).join("/")}`;
+            {mounted &&
+              pathname
+                .split("/")
+                .filter((segment) => segment !== "")
+                .map((segment, index, array) => {
+                  let href = `/${array.slice(0, index + 1).join("/")}`;
 
-      // Special breadcrumb names
-      let displayName = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+                  // Special breadcrumb names
+                  let displayName = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
 
-     if (href === "/admin") {
-  href = "/admin"; 
-  displayName = "Dashboard";
-}
- else if (href === "/admin/gallery") {
-        href = "/admin/gallery/program";
-        displayName = "Gallery";
-      } 
-      else if (href === "/admin/events") {
-        href = "/admin/events";
-        displayName = "Events";
-      }
+                  if (href === "/admin") {
+                    href = "/admin";
+                    displayName = "Dashboard";
+                  }
+                  else if (href === "/admin/gallery") {
+                    href = "/admin/gallery/program";
+                    displayName = "Gallery";
+                  }
+                  else if (href === "/admin/events") {
+                    href = "/admin/events";
+                    displayName = "Events";
+                  }
 
-      const isLast = index === array.length - 1;
+                  const isLast = index === array.length - 1;
 
-      return (
-        <React.Fragment key={`${href}-${index}`}>
-          {index > 0 && <ChevronRight size={14} className="text-gray-300" />}
+                  return (
+                    <React.Fragment key={`${href}-${index}`}>
+                      {index > 0 && <ChevronRight size={14} className="text-gray-300" />}
 
-          {isLast ? (
-            <span className="font-bold text-[#096412] tracking-wide text-lg">
-              {displayName}
-            </span>
-          ) : (
-            <Link
-              href={href}
-              className="text-gray-600 hover:text-green-900 transition-colors font-medium text-sm"
-            >
-              {displayName}
-            </Link>
-          )}
-        </React.Fragment>
-      );
-    })}
-  
+                      {isLast ? (
+                        <span className="font-bold text-[#096412] tracking-wide text-lg">
+                          {displayName}
+                        </span>
+                      ) : (
+                        <Link
+                          href={href}
+                          className="text-gray-600 hover:text-green-900 transition-colors font-medium text-sm"
+                        >
+                          {displayName}
+                        </Link>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+
           </div>
 
           <div className="flex items-center gap-6">
@@ -303,16 +303,16 @@ const handleLogout = () => {
                     View Website
                   </Link>
                   <div className="my-1 border-t border-gray-50" />
-                 <button
-  onClick={() => {
-    handleLogout();
-    setIsDropdownOpen(false);
-  }}
-  className="w-full flex items-center gap-3 px-4 py-2.5 text-red-500 hover:bg-red-50 transition-colors font-semibold text-xs"
->
-  <LogOut size={16} />
-  Logout
-</button>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsDropdownOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-red-500 hover:bg-red-50 transition-colors font-semibold text-xs"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </button>
                 </div>
               )}
             </div>

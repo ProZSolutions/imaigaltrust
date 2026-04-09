@@ -12,7 +12,7 @@ export async function GET(
   const { name } = await params;
 
   try {
-    const filePath = path.join(process.cwd(), "gallery", name);
+    const filePath = path.join(process.cwd(), "public", "gallery", name);
 
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: "File not found" }, { status: 404 });

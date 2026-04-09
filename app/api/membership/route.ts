@@ -30,6 +30,9 @@ export async function GET() {
 
     const formatted = memberships.map((m: any) => ({
       ...m,
+      id: m.id.toString(),
+      status: m.status == 0 ? "pending" : m.status == 1 ? "approved" : m.status == 2 ? "rejected" : m.status?.toString(),
+      is_active: m.is_active?.toString(),
       voluntaryDonation: m.voluntary_donation,
     }));
 

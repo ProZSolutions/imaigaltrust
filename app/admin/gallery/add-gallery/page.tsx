@@ -486,7 +486,7 @@ Actions</th>
 
   {previewItem.media_type === "image" && previewItem.file_path ? (
   <Image
-    src={`/api/gallery-image/${previewItem.file_path}`}
+    src={`/api/gallery-image/${previewItem.file_path.replace("/gallery/", "")}`}
     alt={previewItem.title}
     width={600}
     height={500}
@@ -754,13 +754,13 @@ Actions</th>
   className="hidden"
   onChange={handleFileChange}
 />                    <Upload className={`mx-auto mb-3 w-8 h-8 ${selectedFile ? "text-[#096412]" : "text-gray-300 group-hover:text-[#096412]"}`} />
-                    <p className={`text-sm font-bold transition-colors ${selectedFile ? "text-gray-800" : "text-gray-500 group-hover:text-gray-700"}`}>
-                      {selectedFile
-                        ? selectedFile.name
-                        : editItem?.file_path
-                          ? `Current: ${editItem.file_path.split("/").pop()} (click to replace)`
-                          : "Click to upload"}
-                    </p>
+                      <p className={`text-sm font-bold transition-colors ${selectedFile ? "text-gray-800" : "text-gray-500 group-hover:text-gray-700"}`}>
+                        {selectedFile
+                          ? selectedFile.name.replace(/\.(jpg|jpeg|png)\.(jpg|jpeg|png)$/i, '.$2')
+                          : editItem?.file_path
+                            ? `Current: ${editItem.file_path.replace("/gallery/", "").replace(/^[0-9]+-/, "").replace(/\.(jpg|jpeg|png)\.(jpg|jpeg|png)$/i, '.$2')} (click to replace)`
+                            : "Click to upload"}
+                      </p>
                   </div>
                 ) : (
                   <input

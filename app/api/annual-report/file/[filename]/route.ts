@@ -7,7 +7,7 @@ export async function GET(
 context: { params: Promise<{ filename: string }> }
 ) {
 const { filename } = await context.params;
-  const filePath = path.join(process.cwd(), "uploads", filename);
+  const filePath = path.join(process.cwd(), "public", "reports", filename);
 
   if (!fs.existsSync(filePath)) {
     return NextResponse.json({ message: "File not found" }, { status: 404 });
@@ -17,7 +17,7 @@ const { filename } = await context.params;
   return new NextResponse(fileBuffer, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `inline; filename="${filename}"`,
+      "Content-Disposition": `attachment; filename="${filename}"`,
     },
   });
 }

@@ -5,7 +5,7 @@ import Pagination from "@/app/component/Pagination/Pagination";
 import toast, { Toaster } from "react-hot-toast";
 
 interface Membership {
-  id: number;
+  id: string;
   name: string;
   email: string;
   mobile: string;
@@ -18,7 +18,7 @@ interface Membership {
 }
 
 interface RawMembership {
-  id: number;
+  id: string;
   name: string;
   email: string;
   mobile: string;
@@ -35,9 +35,10 @@ export default function AdminMembershipsPage() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(25);
-  const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   const [rejectPopup, setRejectPopup] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     async function fetchMemberships() {
@@ -61,10 +62,14 @@ export default function AdminMembershipsPage() {
     fetchMemberships();
   }, []);
 
-  const totalItems = memberships.length;
+  const filteredMemberships = memberships.filter((m) =>
+    statusFilter === "all" ? true : m.status === statusFilter
+  );
+
+  const totalItems = filteredMemberships.length;
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
-  const currentData = memberships.slice(startIndex, endIndex);
+  const currentData = filteredMemberships.slice(startIndex, endIndex);
 
   // Approve members
   const handleApprove = async () => {
@@ -76,7 +81,7 @@ export default function AdminMembershipsPage() {
       await fetch("/api/membership/update-status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: selectedMembers, status: "approved" }),
+        body: JSON.stringify({ ids: selectedMembers, status: 1 }),
       });
       setMemberships((prev) =>
         prev.map((m) =>
@@ -103,7 +108,7 @@ export default function AdminMembershipsPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ids: selectedMembers,
-          status: "rejected",
+          status: 2,
           reason: rejectReason,
         }),
       });
@@ -133,17 +138,30 @@ export default function AdminMembershipsPage() {
       <p className="text-gray-500 text-xs">View and manage organization members</p>
     </div>
     <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full md:w-auto">
+      <select
+        value={statusFilter}
+        onChange={(e) => {
+          setStatusFilter(e.target.value);
+          setCurrentPage(1);
+        }}
+        className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold focus:ring-2 focus:ring-green-500 outline-none cursor-pointer"
+      >
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
       <button
         onClick={handleApprove}
         disabled={selectedMembers.length === 0}
-        className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-900 font-semibold w-full md:w-auto text-xs"
+        className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-800 disabled:opacity-50 disabled:cursor-not-allowed font-semibold w-full md:w-auto text-xs transition-all"
       >
         Approve
       </button>
       <button
         onClick={() => setRejectPopup(true)}
         disabled={selectedMembers.length === 0}
-        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold w-full md:w-auto text-xs"
+        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold w-full md:w-auto text-xs transition-all"
       >
         Reject
       </button>
@@ -175,17 +193,18 @@ export default function AdminMembershipsPage() {
         <tr key={m.id} className="border-b hover:bg-gray-50 transition">
           <td className="py-2 text-xs">{startIndex + i + 1}</td>
             <td className="py-2 text-xs">
-              <input
-                type="checkbox"
-                checked={selectedMembers.includes(m.id)}
-                onChange={(e) =>
-                  e.target.checked
-                    ? setSelectedMembers([...selectedMembers, m.id])
-                    : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
-                }
-                disabled={m.status !== "pending"}
-                className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
-              />
+              {m.status === "pending" && (
+                <input
+                  type="checkbox"
+                  checked={selectedMembers.includes(m.id)}
+                  onChange={(e) =>
+                    e.target.checked
+                      ? setSelectedMembers([...selectedMembers, m.id])
+                      : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
+                  }
+                  className="w-4 h-4 cursor-pointer"
+                />
+              )}
             </td>
             <td className="py-2 text-xs">{m.name}</td>
             <td className="py-2 text-xs">
@@ -197,20 +216,22 @@ export default function AdminMembershipsPage() {
 </td>
             <td className="py-2 text-xs">{m.membership_type}</td>
             <td className="py-2 text-xs">{m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}</td>
-            <td className="py-2">
+            <td className="py-2 text-left">
               <span
-                className={` py-2 rounded-full text-xs ${
+                className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                   m.status === "approved"
-                    ? "bg-green-900 text-white"
+                    ? "bg-green-100 text-green-700 border border-green-200"
                     : m.status === "rejected"
-                    ? "bg-red-900 text-white"
-                    : "bg-yellow-100 text-yellow-800"
+                    ? "bg-red-100 text-red-700 border border-red-200"
+                    : "bg-yellow-100 text-yellow-700 border border-yellow-200"
                 }`}
               >
-                {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
+                {m.status}
               </span>
             </td>
-            <td className="py-2 text-xs">{new Date(m.created_at).toLocaleDateString()}</td>
+            <td className="py-2 text-xs">
+              {new Date(m.created_at).toLocaleDateString("en-GB").replace(/\//g, "-")}
+            </td>
           </tr>
         ))}
       </tbody>
@@ -226,17 +247,18 @@ export default function AdminMembershipsPage() {
             <h3 className="font-semibold text-xs">{m.name}</h3>
             <p className="text-gray-400 text-xs">{m.email} | {m.mobile}</p>
           </div>
-          <input
-            type="checkbox"
-            checked={selectedMembers.includes(m.id)}
-            onChange={(e) =>
-              e.target.checked
-                ? setSelectedMembers([...selectedMembers, m.id])
-                : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
-            }
-            disabled={m.status !== "pending"}
-            className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
-          />
+          {m.status === "pending" && (
+            <input
+              type="checkbox"
+              checked={selectedMembers.includes(m.id)}
+              onChange={(e) =>
+                e.target.checked
+                  ? setSelectedMembers([...selectedMembers, m.id])
+                  : setSelectedMembers(selectedMembers.filter((id) => id !== m.id))
+              }
+              className="w-4 h-4 cursor-pointer"
+            />
+          )}
         </div>
         <p className="mt-1 text-xs">Location: {m.city}, {m.state}</p>
         <p className="mt-1 text-xs">Membership: {m.membership_type}</p>
@@ -244,18 +266,20 @@ export default function AdminMembershipsPage() {
         <p className="mt-1 text-xs">
           Status:{" "}
           <span
-            className={`px-2 py-1 rounded-full text-xs ${
+            className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
               m.status === "approved"
-                ? "bg-green-800 text-white"
-                : m.status === "pending"
-                ? "bg-yellow-100 text-yellow-700"
-                : "bg-red-800 text-white"
+                ? "bg-green-100 text-green-700 border border-green-200"
+                : m.status === "rejected"
+                ? "bg-red-100 text-red-700 border border-red-200"
+                : "bg-yellow-100 text-yellow-700 border border-yellow-200"
             }`}
           >
-            {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
+            {m.status}
           </span>
         </p>
-        <p className="mt-1 text-xs">Applied: {new Date(m.created_at).toLocaleDateString()}</p>
+        <p className="mt-1 text-xs">
+          Applied: {new Date(m.created_at).toLocaleDateString("en-GB").replace(/\//g, "-")}
+        </p>
       </div>
     ))}
   </div>
