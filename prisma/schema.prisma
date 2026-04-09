@@ -17,7 +17,7 @@ model Membership {
   city               String
   pincode            String
   state              String
-  membership_fee     Float
+  membership_fee     String 
   interest           String
   membership_type    String
   voluntary_donation Decimal  @default(0)

@@ -393,6 +393,15 @@ header {
     display: none;
   }
 
+
+
+.dropdown {
+  display: none;
+}
+
+.dropdown.show {
+  display: block;
+}
   .nav-link:hover > .dropdown,
   .dropdown-link:hover > .dropdown {
     display: block;
@@ -570,5 +579,22 @@ header {
     margin-right: -20px;/* left side alignment */
   }
 
-  
+
+}
+
+.nav-btn {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.65s, opacity 0.65s;
+}
+
+#check:checked ~ .nav-btn {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .arrow {
+    display: none; /* hide all arrows on mobile */
+  }
 }

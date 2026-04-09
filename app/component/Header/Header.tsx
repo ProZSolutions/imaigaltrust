@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <div className="main-header p-5">
-      <header className=" md:px-4 py-2">
+      <header className="md:px-4 py-2">
         <Navbar hideNavItems={isLoginPage || isAdminPage} />
       </header>
     </div>

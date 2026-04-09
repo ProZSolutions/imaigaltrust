@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 interface Program {
   id: number;
@@ -306,8 +307,8 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Add New Event</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="font-bold text-gray-800 text-xl">Add New Event</h1>
+          <p className="text-gray-500 text-xs">
             Create a new event with detailed information
           </p>
         </div>
@@ -317,16 +318,16 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* EVENT IDENTITY */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Events Identity
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               Basic information about the event
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Event Title <span className="text-red-500">*</span>
               </label>
               <input
@@ -339,12 +340,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 placeholder="Enter event title"
               />
               {errors.title && (
-  <p className="text-red-500 text-sm">{errors.title}</p>
+  <p className="text-red-500 text-xs">{errors.title}</p>
 )}
             </div>
 
            <div className="space-y-2">
-  <label className="block text-sm font-bold text-gray-700">
+  <label className="block font-bold text-gray-700 text-xs">
     Program <span className="text-red-500">*</span>
   </label>
 
@@ -372,13 +373,13 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     </div>
 
     {errors.programId && (
-      <p className="text-red-500 text-sm">{errors.programId}</p>
+      <p className="text-red-500 text-xs">{errors.programId}</p>
     )}
   </div>
 </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Event Status <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -398,13 +399,13 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   <ChevronDown size={18} />
                 </div>
                 {errors.status && (
-  <p className="text-red-500 text-sm">{errors.status}</p>
+  <p className="text-red-500 text-xs">{errors.status}</p>
 )}
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Category <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -426,7 +427,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   <ChevronDown size={18} />
                 </div>
                 {errors.categoryId && (
-  <p className="text-red-500 text-sm">{errors.categoryId}</p>
+  <p className="text-red-500 text-xs">{errors.categoryId}</p>
 )}
               </div>
             </div>
@@ -436,16 +437,16 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* DATE & LOCATION */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Date & Location
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               When and where the event takes place
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Start Date <span className="text-red-500">*</span>
               </label>
               <input
@@ -457,12 +458,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.startDate && (
-  <p className="text-red-500 text-sm">{errors.startDate}</p>
+  <p className="text-red-500 text-xs">{errors.startDate}</p>
 )}
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Start Time <span className="text-red-500">*</span>
               </label>
               <input
@@ -474,12 +475,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.startTime && (
-  <p className="text-red-500 text-sm">{errors.startTime}</p>
+  <p className="text-red-500 text-xs">{errors.startTime}</p>
 )}
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 End Date
               </label>
               <input
@@ -490,12 +491,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.endDate && (
-  <p className="text-red-500 text-sm">{errors.endDate}</p>
+  <p className="text-red-500 text-xs">{errors.endDate}</p>
 )}
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 End Time
               </label>
               <input
@@ -506,12 +507,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.endTime && (
-  <p className="text-red-500 text-sm">{errors.endTime}</p>
+  <p className="text-red-500 text-xs">{errors.endTime}</p>
 )}
             </div>
 
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Location <span className="text-red-500">*</span>
               </label>
               <input
@@ -524,7 +525,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.location && (
-  <p className="text-red-500 text-sm">{errors.location}</p>
+  <p className="text-red-500 text-xs">{errors.location}</p>
 )}
             </div>
           </div>
@@ -533,14 +534,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* CONTENT */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">Content</h2>
-            <p className="text-sm text-gray-500">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">Content</h2>
+            <p className="text-gray-500 text-xs">
               Detailed descriptions and contact info
             </p>
           </div>
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Short Description <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -553,14 +554,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all resize-none"
               />
               {errors.shortDescription && (
-  <p className="text-red-500 text-sm">
+  <p className="text-red-500 text-xs">
     {errors.shortDescription}
   </p>
 )}
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Full Description <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -572,7 +573,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all resize-y"
               />
                 {errors.fullDescription && (
-  <p className="text-red-500 text-sm">
+  <p className="text-red-500 text-xs">
     {errors.fullDescription}
   </p>
 )}
@@ -580,7 +581,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">
+                <label className="block font-bold text-gray-700 text-xs">
                   Contact Person <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -598,14 +599,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   />
 
             {errors.contactPerson && (
-            <p className="text-red-500 text-sm">
+            <p className="text-red-500 text-xs">
                {errors.contactPerson}
               </p>
               )}
               </div>
 
               <div className="space-y-2">
-  <label className="block text-sm font-bold text-gray-700">
+  <label className="block font-bold text-gray-700 text-xs">
     Contact Email/Phone <span className="text-red-500">*</span>
   </label>
 
@@ -619,7 +620,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   />
 
   {errors.contactEmail && (
-    <p className="text-red-500 text-sm">
+    <p className="text-red-500 text-xs">
       {errors.contactEmail}
     </p>
   )}
@@ -632,10 +633,10 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* MEDIA & COVERAGE */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Media & Coverage <span className="text-red-500">*</span>
             </h2>
-            <p className="text-sm text-gray-500">Visual assets for the event</p>
+            <p className="text-gray-500 text-xs">Visual assets for the event</p>
           </div>
 
           <div className="space-y-6">
@@ -677,7 +678,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     The cover image appears as the card thumbnail on the events
                     listing page.
                   </h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-gray-600 mt-1 text-xs">
                     Recommended: 1200 x 630 px (16:9), JPG or PNG, max 2 MB.
                   </p>
                 </div>
@@ -714,24 +715,24 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                       <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <Upload size={24} />
                       </div>
-                      <p className="text-sm font-semibold text-gray-700 mt-2">
+                      <p className="font-semibold text-gray-700 mt-2 text-xs">
                         Choose Cover Image
                       </p>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 flex flex-col justify-center">
-                  <p className="text-sm font-medium text-gray-700">
+                  <p className="font-medium text-gray-700 text-xs">
                     Click the thumbnail to upload a cover image.
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-gray-500 mt-1 text-xs">
                     Accepted: JPG, PNG, WEBP · Max: 2 MB
                   </p>
                   {coverImage && (
                     <button
                       type="button"
                       onClick={() => setCoverImage(null)}
-                      className="mt-4 text-sm text-red-500 font-semibold self-start hover:text-red-700"
+                      className="mt-4 text-red-500 font-semibold self-start hover:text-red-700 text-xs"
                     >
                       Remove Image
                     </button>
@@ -740,15 +741,15 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               </div>
             </div>
             {errors.coverImage && (
-  <p className="text-red-500 text-sm mt-2">
+  <p className="text-red-500 mt-2 text-xs">
     {errors.coverImage}
   </p>
 )}
 
             <div className="space-y-2 pt-4">
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">
+              <label className="block font-bold text-gray-700 uppercase tracking-wide text-xs">
                 Additional Gallery Images{" "}<span className="text-red-500">*</span> 
-                <span className="text-xs font-normal text-gray-500 normal-case">
+                <span className="font-normal text-gray-500 normal-case text-xs">
                   (Shown in the event gallery section)
                 </span>
               </label>
@@ -770,10 +771,10 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Upload size={32} />
                 </div>
-                <p className="font-bold text-gray-800 text-lg">
+                <p className="font-bold text-gray-800 text-base">
                   Drag & drop or click to upload gallery images
                 </p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-gray-500 mt-2 text-xs">
                   JPG, PNG, GIF · Max 200 MB per file · Multiple files allowed
                 </p>
               </div>
@@ -808,15 +809,15 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               )}
             </div>
             {errors.coverImage && (
-  <p className="text-red-500 text-sm mt-2">
+  <p className="text-red-500 mt-2 text-xs">
     {errors.coverImage}
   </p>
 )}
 
             <div className="space-y-2 pt-4">
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">
+              <label className="block font-bold text-gray-700 uppercase tracking-wide text-xs">
                 Event Video Link{" "}
-                <span className="text-xs font-normal text-gray-500 normal-case">
+                <span className="font-normal text-gray-500 normal-case text-xs">
                   (YouTube or Vimeo embed optional)
                 </span>
               </label>
@@ -829,7 +830,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.videoUrl && (
-  <p className="text-red-500 text-sm">
+  <p className="text-red-500 text-xs">
     {errors.videoUrl}
   </p>
 )}
@@ -841,16 +842,16 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* REGISTRATION */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Registration & Application Form
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               Configure registration timelines if applicable
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Registration Start Date
               </label>
               <input
@@ -862,7 +863,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               />
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Registration End Date <span className="text-red-500">*</span>
               </label>
               <input
@@ -874,7 +875,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
             {errors.RegistrationEndDate && (
-  <p className="text-red-500 text-sm">{errors.RegistrationEndDate}</p>
+  <p className="text-red-500 text-xs">{errors.RegistrationEndDate}</p>
 )}
             </div>
           </div>

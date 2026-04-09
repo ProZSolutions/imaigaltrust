@@ -23,7 +23,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
       <div className="bg-white rounded-lg shadow-xl w-[420px] p-6">
 
         {/* Title */}
-        <h2 className="text-xl font-semibold text-gray-800 mb-3">
+        <h2 className="font-semibold text-gray-800 mb-3 text-lg">
           {title}
         </h2>
 

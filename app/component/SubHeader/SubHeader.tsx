@@ -37,7 +37,7 @@ export default function SubHeader() {
 
   {/* Phone Number */}
   <Link href="tel:+918248786810">
-    <span className="text-black text-lg sml:text-xl group-hover:text-green-900 transition-colors duration-300">
+    <span className="text-black sml:text-xl group-hover:text-green-900 transition-colors duration-300 text-base">
       +91 82487 86810
     </span>
   </Link>
@@ -52,7 +52,7 @@ export default function SubHeader() {
 
   {/* Email */}
   <Link href="mailto:theimaigaltrust@gmail.com">
-    <span className="text-black text-lg sml:text-xl break-all group-hover:text-green-900 transition-colors duration-300">
+    <span className="text-black sml:text-xl break-all group-hover:text-green-900 transition-colors duration-300 text-base">
       theimaigaltrust@gmail.com
     </span>
   </Link>
@@ -64,10 +64,10 @@ export default function SubHeader() {
   label={
     <span className="flex gap-2 items-center">
       {React.createElement(LuUserPen, { className: "text-lg sm:text-xl" })}
-      <span className="capitalize text-sm sm:text-base">Join Us</span>
+      <span className="capitalize text-sm">Join Us</span>
     </span>
   }
-  className="blue__btn rounded capitalize text-xs sm:text-sm px-3 py-2"
+  className="blue__btn rounded capitalize px-3 py-2 text-xs"
   onClick={() => router.push("/about/membership")} // <-- add this line
 />
       </div>

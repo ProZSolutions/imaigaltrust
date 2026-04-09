@@ -42,5 +42,19 @@
    html,
    body {
      max-width: 100%;
-     overflow-x: hidden;
+     /* overflow-x: hidden; */
    }
+   
+   @keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: scroll 10s linear infinite;
+}

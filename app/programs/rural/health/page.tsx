@@ -17,13 +17,13 @@ export default function ProgramHealthcare() {
       />
 
       {/* SECTION 1 */}
-<section className="py-10 px-4 md:px-10 max-w-[1600px] mx-auto  p-6 md:p-8 rounded-lg flex flex-col md:flex-row items-center gap-8">
+<section className="py-10 px-4 md:px-10 max-w-[1600px] mx-auto p-6 md:p-8 rounded-lg flex flex-col md:flex-row items-center gap-8">
   {/* TEXT LEFT */}
   <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-5 md:gap-6 justify-center">
-    <h2 className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] leading-[32px] sm:leading-[38px] md:leading-[42px] lg:leading-[46px] font-medium text-[#1B2F7C] font-poppins">
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
       Strengthening Healthcare Access in Rural Areas
     </h2>
-    <p className="font-poppins font-normal text-[14px] sm:text-[15px] md:text-[16px] leading-[24px] sm:leading-[26px] md:leading-[28px] text-[#101010]">
+    <p className="font-poppins font-normal text-[#101010] text-sm">
       At Imaigal Trust, we believe that access to quality healthcare is a
       fundamental right. Our Rural Health initiatives focus on improving
       healthcare facilities, increasing awareness, and providing medical
@@ -51,7 +51,7 @@ export default function ProgramHealthcare() {
       <section className="pt-12 pb-7 px-4 md:px-10 max-w-[1600px] mx-auto">
         <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
           {/* Centered Heading */}
-          <h2 className="font-poppins font-medium text-[36px] leading-[46px] text-[#101010] text-center">
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
             Primary Healthcare Initiatives
           </h2>
 
@@ -60,40 +60,40 @@ export default function ProgramHealthcare() {
             {/* TEXT LEFT */}
             <div className="w-full md:w-1/2 flex flex-col mt-6 font-poppins text-[#101010] gap-8">
               <div className="space-y-4">
-                <h3 className="font-medium text-[24px] leading-[30px]">
+                <h3 className="font-medium text-xl">
                   Medical Camps & Free Health Check-ups
                 </h3>
-                <p className="font-normal text-[16px] leading-[24px]">
+                <p className="font-normal text-sm">
                   Organizing periodic health camps to provide medical
                   consultations and treatments.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-[24px] leading-[30px]">
+                <h3 className="font-medium text-xl">
                   Education & Financial Literacy
                 </h3>
-                <p className="font-normal text-[16px] leading-[24px]">
+                <p className="font-normal text-sm">
                   Ensuring safe pregnancies, proper nutrition, and immunization
                   for children.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-[24px] leading-[30px]">
+                <h3 className="font-medium text-xl">
                   Awareness on Preventive Healthcare
                 </h3>
-                <p className="font-normal text-[16px] leading-[24px]">
+                <p className="font-normal text-sm">
                   Educating communities about hygiene, sanitation, and common
                   diseases.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-[24px] leading-[30px]">
+                <h3 className="font-medium text-xl">
                   Mental Health & Well-being
                 </h3>
-                <p className="font-normal text-[16px] leading-[24px]">
+                <p className="font-normal text-sm">
                   Offering counseling services and mental health support for
                   rural individuals.
                 </p>
@@ -118,7 +118,7 @@ export default function ProgramHealthcare() {
       <section className="py-10 px-4 md:px-10 max-w-[1600px] mx-auto">
         <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
           {/* Centered Heading */}
-          <h2 className="font-poppins font-medium text-[36px] leading-[46px] text-[#101010] text-center">
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
             Healthcare Impacts
           </h2>
 
@@ -139,26 +139,26 @@ export default function ProgramHealthcare() {
             <div className="w-full md:w-1/2 flex flex-col mt-6 font-poppins text-[#101010] gap-6 md:gap-8 order-2 md:order-2">
               <ul className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-[#101010] text-sm">
                     Conducted [Number] health camps benefiting thousands of rural residents.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-[#101010] text-sm">
                     Improved maternal and child healthcare access in multiple villages.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-[#101010] text-sm">
                     Enhanced awareness about preventive healthcare and hygiene.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 text-[16px] mt-1">&raquo;</span>
-                  <p className="font-poppins text-[16px] leading-[24px] text-[#101010]">
+                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
+                  <p className="font-poppins text-[#101010] text-sm">
                     Strengthened partnerships with local hospitals and medical professionals.
                   </p>
                 </li>

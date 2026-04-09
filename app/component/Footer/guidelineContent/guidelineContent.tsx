@@ -8,7 +8,7 @@ export default function Footer() {
         <a
           key={item.id}
           href={item.link}
-          className="text-sm text-gray-600 hover:text-green-700"
+          className="text-gray-600 hover:text-green-700 text-xs"
         >
           {item.content}
         </a>

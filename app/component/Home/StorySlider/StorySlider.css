@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 /* slick dots custom styling */
 .slick-dots {
     /* bottom: 30px; distance from slider */
@@ -8,7 +9,7 @@
   }
   
   .slick-dots li button:before {
-    font-size: 12px; /* dot size */
+    @apply text-xs; /* dot size */
     color: #888;     /* default dot color */
     opacity: 1;
   }

@@ -130,11 +130,11 @@ export default function EventsPage() {
 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
 
   <div className="min-w-0">
-    <h1 className="text-xl md:text-2xl font-bold text-gray-800">
+    <h1 className="font-bold text-gray-800 text-xl">
       Events
     </h1>
 
-    <p className="text-sm text-gray-500">
+    <p className="text-gray-500 text-xs">
       Manage charity events and community programs
     </p>
   </div>
@@ -153,38 +153,38 @@ export default function EventsPage() {
 <div className="bg-white rounded-xl border border-gray-200 shadow-sm w-full min-w-0">
   <div className="w-full overflow-x-auto">
 
-    <table className="w-full min-w-[650px] table-auto text-sm">
+    <table className="w-full min-w-[650px] table-auto text-xs">
 
       <thead className="bg-[#1a4d2e] text-white">
         <tr>
 
-          <th className="px-3 py-3 w-[50px] text-xs uppercase">S.No</th>
+          <th className="px-3 py-3 w-[50px] uppercase text-xs">S.No</th>
 
-          <th className="px-3 py-3 w-[160px] text-xs uppercase">
+          <th className="px-3 py-3 w-[160px] uppercase text-xs">
             Event Title
           </th>
 
-          <th className="px-3 py-3 w-[120px] text-xs uppercase hidden md:table-cell">
+          <th className="px-3 py-3 w-[120px] uppercase hidden md:table-cell text-xs">
             Program
           </th>
 
-          <th className="px-3 py-3 w-[100px] text-xs uppercase">
+          <th className="px-3 py-3 w-[100px] uppercase text-xs">
             Status
           </th>
 
-          <th className="px-3 py-3 w-[110px] text-xs uppercase">
+          <th className="px-3 py-3 w-[110px] uppercase text-xs">
             Start Date
           </th>
 
-          <th className="px-3 py-3 w-[100px] text-xs uppercase hidden md:table-cell">
+          <th className="px-3 py-3 w-[100px] uppercase hidden md:table-cell text-xs">
             Start Time
           </th>
 
-          <th className="px-3 py-3 w-[150px] text-xs uppercase hidden lg:table-cell">
+          <th className="px-3 py-3 w-[150px] uppercase hidden lg:table-cell text-xs">
             Location
           </th>
 
-          <th className="px-3 py-3 w-[120px] text-xs uppercase text-center">
+          <th className="px-3 py-3 w-[120px] uppercase text-center text-xs">
             Actions
           </th>
 

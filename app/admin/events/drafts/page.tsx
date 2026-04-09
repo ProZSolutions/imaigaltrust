@@ -86,8 +86,8 @@ const handleDelete = async () => {
             <FileText size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Draft Events</h1>
-            <p className="text-sm text-gray-500">Review and finish incomplete event listings</p>
+            <h1 className="font-bold text-gray-800 text-xl">Draft Events</h1>
+            <p className="text-gray-500 text-xs">Review and finish incomplete event listings</p>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ const handleDelete = async () => {
   {/* Horizontal Scroll */}
   <div className="w-full overflow-x-auto">
 
-    <table className="w-full min-w-[650px] table-auto text-sm">
+    <table className="w-full min-w-[650px] table-auto text-xs">
 
       <thead className="bg-[#1a4d2e] text-white">
         <tr>
@@ -108,7 +108,7 @@ const handleDelete = async () => {
           <th className="p-4 font-bold text-left uppercase text-xs">Start Date</th>
           <th className="p-4 font-bold text-left uppercase text-xs">End Date</th>
           <th className="p-4 font-bold text-left uppercase text-xs">Location</th>
-          <th className="p-4 font-bold text-left uppercase text-xs text-center">Actions</th>
+          <th className="p-4 font-bold text-left uppercase text-center text-xs">Actions</th>
         </tr>
       </thead>
             <tbody>
@@ -139,7 +139,7 @@ const handleDelete = async () => {
                       className="border-b border-gray-100 hover:bg-gray-50 bg-gray-50/50"
                     >
                       <td className="p-4">{startIndex + index + 1}</td>
-                      <td className="p-4 font-medium   text-gray-800">
+                      <td className="p-4 font-medium text-gray-800">
                         {event.title}
                       </td>
                       <td className="p-4 text-gray-600">{event.program}</td>
@@ -155,17 +155,17 @@ const handleDelete = async () => {
                           {event.status}
                         </span>
                       </td>
-                     <td className="p-4 text-gray-600 text-sm whitespace-nowrap">
+                     <td className="p-4 text-gray-600 whitespace-nowrap text-xs">
   {formatDateIST(event.start_date)}
 </td>
 
-<td className="p-4 text-gray-600 text-sm whitespace-nowrap">
+<td className="p-4 text-gray-600 whitespace-nowrap text-xs">
   {event.end_date ? formatDateIST(event.end_date) : "-"}
 </td>
 
 <td className="p-4 text-gray-600">{event.location}</td>
-                      <td className="p-2  flex ">
-                        <div className="flex  gap-1">
+                      <td className="p-2 flex">
+                        <div className="flex gap-1">
                           <Link
                             href={`/admin/events/edit-event/${event.id}`}
                             className="p-2 text-[#096412] hover:bg-green-50 rounded-lg transition-all duration-200 border border-transparent hover:border-green-100"
@@ -193,10 +193,10 @@ const handleDelete = async () => {
                   <td colSpan={8} className="p-12 text-center text-gray-500">
                     <div className="flex flex-col items-center gap-2">
                       <FileText size={48} className="text-gray-300" />
-                      <p className="text-lg font-medium">
+                      <p className="font-medium text-base">
                         No draft events found
                       </p>
-                      <p className="text-sm">
+                      <p className="text-xs">
                         Drafts will appear here when you click &quot;Save as
                         Draft&quot; in the add event form.
                       </p>

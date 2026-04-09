@@ -161,8 +161,8 @@ const validate = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Gallery Categories</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="font-bold text-gray-800 text-xl">Gallery Categories</h1>
+          <p className="text-gray-500 text-xs">
             Manage your gallery organizational categories
           </p>
         </div>
@@ -179,13 +179,13 @@ const validate = () => {
         <table className="w-full text-left">
           <thead className="bg-[#1a4d2e] text-white">
             <tr>
-              <th className="px-6 py-4 font-bold uppercase text-xs tracking-wider">
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">
                 Category Name
               </th>
-              <th className="px-8 py-4 font-bold uppercase text-xs tracking-wider">
+              <th className="px-8 py-4 font-bold uppercase tracking-wider text-xs">
                 Status
               </th>
-              <th className="px-8 py-4 font-bold uppercase text-xs tracking-wider text-right">
+              <th className="px-8 py-4 font-bold uppercase tracking-wider text-right text-xs">
                 Actions
               </th>
             </tr>
@@ -280,10 +280,10 @@ const validate = () => {
             {/* Modal Header - Using sidebar dark green for premium integration */}
             <div className="bg-[#1a4d2e] p-8 flex justify-between items-center text-white relative overflow-hidden text-center justify-center">
               <div className="relative z-10 w-full">
-                <h2 className="text-2xl font-bold tracking-tight josefin-font text-white">
+                <h2 className="font-bold tracking-tight josefin-font text-white text-xl">
                   {editingId ? "Edit Category" : "Add New Category"}
                 </h2>
-                <p className="text-sm text-green-100/60 mt-1 font-medium italic">
+                <p className="text-green-100/60 mt-1 font-medium italic text-xs">
                   {editingId ? "Update existing category details" : "Create a new organizational category"}
                 </p>
               </div>
@@ -301,7 +301,7 @@ const validate = () => {
 
             <form onSubmit={handleSubmit} className="p-8 space-y-8">
               <div className="space-y-2.5">
-                <label className="block text-sm font-bold text-gray-700 ml-1">
+                <label className="block font-bold text-gray-700 ml-1 text-xs">
                   Category Name
                 </label>
                <input
@@ -325,14 +325,14 @@ const validate = () => {
 />
 
 {errors.category && (
-  <p className="text-red-500 text-sm mt-1 ml-1">
+  <p className="text-red-500 mt-1 ml-1 text-xs">
     {errors.category}
   </p>
 )}
               </div>
 
               <div className="space-y-2.5">
-                <label className="block text-sm font-bold text-gray-700 ml-1">
+                <label className="block font-bold text-gray-700 ml-1 text-xs">
                   Status
                 </label>
                 <div className="relative">
@@ -341,7 +341,7 @@ const validate = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, status: e.target.value })
                     }
-                    className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm"
+                    className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-xs"
                   >
                     <option value="1">Active</option>
                     <option value="0">Inactive</option>

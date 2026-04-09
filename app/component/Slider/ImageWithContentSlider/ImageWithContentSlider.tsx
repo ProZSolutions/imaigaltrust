@@ -39,8 +39,8 @@ const ImageWithContentSlider: React.FC<ImageWithContentSliderProps> = ({
       >
         {images.map((img,index) => (
           <SwiperSlide key={img?.id}>
-            <div className="flex flex-col items-center ">
-              <div className="relative w-full h-full  border-gray-300">
+            <div className="flex flex-col items-center">
+              <div className="relative w-full h-full border-gray-300">
                 <Image
                   src={img.image}
                   alt={`slide-${index}`}              
@@ -51,7 +51,7 @@ const ImageWithContentSlider: React.FC<ImageWithContentSliderProps> = ({
                   
                 />
               </div>
-              <p className="mt-3 text-center text-sm text-gray-800">{img.content}</p>
+              <p className="mt-3 text-center text-gray-800 text-xs">{img.content}</p>
             </div>
           </SwiperSlide>
         ))}

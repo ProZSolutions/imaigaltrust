@@ -107,13 +107,12 @@ export default function SecondaryFooter() {
         rel="noopener noreferrer"
       >
         <Image
-         
-          src="/assets/images/whatsapp.svg"
-          alt="Whatsapp"
-          width={30}
-          height={30}
-          className="transition duration-300 hover:scale-110"
-        />
+  src="/assets/images/whatsapp.svg"
+  alt="Whatsapp"
+  width={30}
+  height={30}
+  className="w-auto transition duration-300 hover:scale-110"
+/>
       </Link>
 
       <Link
@@ -125,7 +124,7 @@ export default function SecondaryFooter() {
           alt="Youtube"
           width={30}
           height={30}
-          className="transition duration-300 hover:scale-110"
+          className="w-auto transition duration-300 hover:scale-110"
         />
       </Link>
     </div>

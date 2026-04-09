@@ -57,7 +57,7 @@ const StatCard: React.FC<StatCardProps> = ({ count, label, accentColor = 'green'
       <div className={`${getBarColor('left')} max-h-28 top-0 left-0`} />
       <div className={`${getBarColor('right')} max-h-28 bottom-0 right-0`} />
 
-      <p className="text-4xl text-green-700 font-bold mb-3">
+      <p className="text-green-700 font-bold mb-3 text-2xl">
         <span ref={countRef}></span>+
       </p>
       <p className="">{label}</p>

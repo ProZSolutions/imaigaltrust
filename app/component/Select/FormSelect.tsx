@@ -23,7 +23,7 @@ const FormSelect: React.FC<FormSelectProps> = ({ label, options, error, registra
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+      {error && <p className="text-red-500 mt-1 text-xs">{error.message}</p>}
     </div>
   );
 };

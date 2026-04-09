@@ -178,8 +178,8 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
           <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Edit Event</h1>
-          <p className="text-sm text-gray-500">Update event information</p>
+          <h1 className="font-bold text-gray-800 text-xl">Edit Event</h1>
+          <p className="text-gray-500 text-xs">Update event information</p>
         </div>
       </div>
 
@@ -187,16 +187,16 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
         {/* EVENT IDENTITY */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Events Identity
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               Basic information about the event
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Event Title <span className="text-red-500">*</span>
               </label>
               <input
@@ -211,7 +211,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Program <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -236,7 +236,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Event Status <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -259,7 +259,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Category <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -288,16 +288,16 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
         {/* DATE & LOCATION */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Date & Location
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               When and where the event takes place
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Start Date <span className="text-red-500">*</span>
               </label>
               <input
@@ -311,7 +311,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Start Time <span className="text-red-500">*</span>
               </label>
               <input
@@ -325,7 +325,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 End Date
               </label>
               <input
@@ -338,7 +338,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 End Time
               </label>
               <input
@@ -351,7 +351,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2 col-span-1 md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Location <span className="text-red-500">*</span>
               </label>
               <input
@@ -370,14 +370,14 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
         {/* CONTENT */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">Content</h2>
-            <p className="text-sm text-gray-500">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">Content</h2>
+            <p className="text-gray-500 text-xs">
               Detailed descriptions and contact info
             </p>
           </div>
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Short Description <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -392,7 +392,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Full Description
               </label>
               <textarea
@@ -407,7 +407,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">
+                <label className="block font-bold text-gray-700 text-xs">
                   Contact Person
                 </label>
                 <input
@@ -420,7 +420,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-bold text-gray-700">
+                <label className="block font-bold text-gray-700 text-xs">
                   Contact Email/Phone
                 </label>
                 <input
@@ -439,10 +439,10 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
         {/* MEDIA & COVERAGE */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Media & Coverage
             </h2>
-            <p className="text-sm text-gray-500">Visual assets for the event</p>
+            <p className="text-gray-500 text-xs">Visual assets for the event</p>
           </div>
 
           <div className="space-y-6">
@@ -475,17 +475,17 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
                       <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <Upload size={24} />
                       </div>
-                      <p className="text-sm font-semibold text-gray-700 mt-2">
+                      <p className="font-semibold text-gray-700 mt-2 text-xs">
                         Choose Cover Image
                       </p>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 flex flex-col justify-center">
-                  <p className="text-sm font-medium text-gray-700">
+                  <p className="font-medium text-gray-700 text-xs">
                     Click the thumbnail to upload a cover image.
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-gray-500 mt-1 text-xs">
                     Accepted: JPG, PNG, WEBP · Max: 5 MB
                   </p>
                   {(coverImage || previewImage) && (
@@ -495,7 +495,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
                         setCoverImage(null);
                         setPreviewImage(null);
                       }}
-                      className="mt-4 text-sm text-red-500 font-semibold self-start hover:text-red-700"
+                      className="mt-4 text-red-500 font-semibold self-start hover:text-red-700 text-xs"
                     >
                       Remove Image
                     </button>
@@ -505,9 +505,9 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
             </div>
 
             <div className="space-y-2 pt-4">
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">
+              <label className="block font-bold text-gray-700 uppercase tracking-wide text-xs">
                 Event Video Link{" "}
-                <span className="text-xs font-normal text-gray-500 normal-case">
+                <span className="font-normal text-gray-500 normal-case text-xs">
                   (YouTube or Vimeo embed optional)
                 </span>
               </label>
@@ -526,16 +526,16 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
         {/* REGISTRATION */}
         <section>
           <div className="border-b border-gray-200 pb-2 mb-6">
-            <h2 className="text-xl font-bold text-[#1a4d2e]">
+            <h2 className="font-bold text-[#1a4d2e] text-lg">
               Registration & Application Form
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-gray-500 text-xs">
               Configure registration timelines if applicable
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Registration Start Date
               </label>
               <input
@@ -547,7 +547,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
               />
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-700">
+              <label className="block font-bold text-gray-700 text-xs">
                 Registration End Date
               </label>
               <input

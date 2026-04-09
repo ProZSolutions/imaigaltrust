@@ -175,7 +175,7 @@ reset();
         {/* Filters and Search */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-10 bg-white p-2 rounded-full shadow-sm border border-gray-100">
           <div className="flex flex-wrap gap-1 items-center px-2">
-            <span className="text-xs font-bold text-gray-400 mr-2 uppercase tracking-wider pl-4">
+            <span className="font-bold text-gray-400 mr-2 uppercase tracking-wider pl-4 text-xs">
               Filter
             </span>
             {mounted &&
@@ -197,13 +197,13 @@ reset();
 
         {/* Section Title */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 Josefin-font">
+          <h2 className="font-bold text-gray-800 Josefin-font text-xl">
             {mounted &&
               (activeFilter === "All Events"
                 ? "Upcoming Events"
                 : `${activeFilter} Events`)}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-gray-500 mt-1 text-xs">
             {filteredEvents.length} events found
           </p>
         </div>
@@ -229,10 +229,10 @@ reset();
   className="object-cover group-hover:scale-105 transition-transform duration-500"
 />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 bg-yellow-400/90 backdrop-blur-sm text-[10px] font-bold text-gray-800 uppercase tracking-widest rounded-md">
+                    <span className="px-3 py-1 bg-yellow-400/90 backdrop-blur-sm font-bold text-gray-800 uppercase tracking-widest rounded-md text-xs">
                       {event.status}
                     </span>
-                    <span className="px-3 py-1 bg-black/40 backdrop-blur-sm text-[10px] font-medium text-white uppercase tracking-widest rounded-md">
+                    <span className="px-3 py-1 bg-black/40 backdrop-blur-sm font-medium text-white uppercase tracking-widest rounded-md text-xs">
                       {event.category}
                     </span>
                   </div>
@@ -240,7 +240,7 @@ reset();
 
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-4 mb-4 text-xs text-gray-500">
+                  <div className="flex items-center gap-4 mb-4 text-gray-500 text-xs">
                     <div className="flex items-center gap-1.5">
                       <Calendar size={14} className="text-[#1a4d2e]" />
                       <span>{event.start_date_formatted}</span>
@@ -255,21 +255,21 @@ reset();
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-[#1a4d2e] transition-colors leading-tight">
+                  <h3 className="font-bold text-gray-800 mb-3 group-hover:text-[#1a4d2e] transition-colors text-base">
                     {event.title}
                   </h3>
 
-                  <div className="flex items-center gap-1.5 mb-4 text-xs text-gray-500">
+                  <div className="flex items-center gap-1.5 mb-4 text-gray-500 text-xs">
                     <MapPin size={14} className="text-[#1a4d2e]" />
                     <span>{event.location}</span>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-6 line-clamp-2 leading-relaxed">
+                  <p className="text-gray-600 mb-6 line-clamp-2 text-xs">
                     {event.short_description}
                   </p>
 
                   <div className="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-blue-600">
+                    <div className="flex items-center gap-1.5 font-semibold text-blue-600 text-xs">
                       <Users size={14} />
                       <span>
                         {(() => {
@@ -358,7 +358,7 @@ reset();
             <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
               <Calendar size={32} className="text-gray-300" />
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <h3 className="font-bold text-gray-800 mb-2 text-lg">
               No Events Found
             </h3>
             <p className="text-gray-500 max-w-xs mx-auto">
@@ -384,10 +384,10 @@ reset();
             <div className="bg-[#1a4d2e] p-8 pb-6 text-white relative">
               <div className="flex justify-between items-start mb-6 relative z-10">
                 <div>
-                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-widest rounded-md mb-3">
+                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm font-bold text-white uppercase tracking-widest rounded-md mb-3 text-xs">
                     {selectedEvent.category || "EVENT REGISTRATION"}
                   </span>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white Josefin-font tracking-tight leading-tight">
+                  <h2 className="font-bold text-white Josefin-font tracking-tight text-2xl">
                     {selectedEvent.title}
                   </h2>
                 </div>
@@ -400,7 +400,7 @@ reset();
               </div>
 
               {/* Event Info Row */}
-              <div className="flex flex-wrap gap-3 text-xs text-white/90 relative z-10">
+              <div className="flex flex-wrap gap-3 text-white/90 relative z-10 text-xs">
                 <div className="flex items-center gap-1.5 bg-black/10 px-3 py-2 rounded-lg backdrop-blur-sm">
                   <Calendar size={14} className="text-yellow-400" />
                   <span className="font-medium">
@@ -428,7 +428,7 @@ reset();
 
     {/* Personal Information */}
     <div>
-      <h3 className="text-sm font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+      <h3 className="font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2 text-xs">
         Personal Information
       </h3>
 
@@ -436,7 +436,7 @@ reset();
 
         {/* First Name */}
         <div className="space-y-1.5">
-  <label className="text-xs font-semibold text-gray-600">
+  <label className="font-semibold text-gray-600 text-xs">
     First Name <span className="text-red-500">*</span>
   </label>
   <input
@@ -451,7 +451,7 @@ reset();
       e.currentTarget.value = e.currentTarget.value.replace(/[^A-Za-z\s]/g, '');
     }}
     placeholder="Enter first name"
-    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
   />
   {errors.firstName && (
     <p className="text-red-500 text-xs">{errors.firstName.message}</p>
@@ -460,7 +460,7 @@ reset();
 
         {/* Last Name */}
        <div className="space-y-1.5">
-  <label className="text-xs font-semibold text-gray-600">
+  <label className="font-semibold text-gray-600 text-xs">
     Last Name <span className="text-red-500">*</span>
   </label>
   <input
@@ -475,7 +475,7 @@ reset();
       e.currentTarget.value = e.currentTarget.value.replace(/[^A-Za-z\s]/g, '');
     }}
     placeholder="Enter last name"
-    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
   />
   {errors.lastName && (
     <p className="text-red-500 text-xs">{errors.lastName.message}</p>
@@ -488,7 +488,7 @@ reset();
 
         {/* Age */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-gray-600">
+          <label className="font-semibold text-gray-600 text-xs">
             Age <span className="text-red-500">*</span>
           </label>
           <input
@@ -498,20 +498,20 @@ reset();
               min: { value: 1, message: "Enter valid age" },
             })}
             placeholder="e.g. 18"
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
           />
           {errors.age && <p className="text-red-500 text-xs">{errors.age.message}</p>}
         </div>
 
         {/* Gender */}
         <div className="space-y-1.5 relative">
-          <label className="text-xs font-semibold text-gray-600">
+          <label className="font-semibold text-gray-600 text-xs">
             Gender <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <select
               {...register("gender", { required: "Gender is required" })}
-              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
             >
               <option value="">— Select —</option>
               <option value="male">Male</option>
@@ -528,7 +528,7 @@ reset();
 
     {/* Contact Details */}
     <div className="pt-2">
-      <h3 className="text-sm font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+      <h3 className="font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2 text-xs">
         Contact Details
       </h3>
 
@@ -536,7 +536,7 @@ reset();
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-gray-600">
+          <label className="font-semibold text-gray-600 text-xs">
             Email Address <span className="text-red-500">*</span>
           </label>
           <input
@@ -549,14 +549,14 @@ reset();
               },
             })}
             placeholder="you@email.com"
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
           />
           {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
         </div>
 
         {/* Phone */}
         <div className="space-y-1.5">
-  <label className="text-xs font-semibold text-gray-600">
+  <label className="font-semibold text-gray-600 text-xs">
     Phone Number <span className="text-red-500">*</span>
   </label>
   <input
@@ -575,7 +575,7 @@ reset();
       e.currentTarget.value = value;
     }}
     placeholder="e.g. 9876543210"
-    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
   />
   {errors.phone && (
     <p className="text-red-500 text-xs">{errors.phone.message}</p>
@@ -587,7 +587,7 @@ reset();
 
     {/* Participation Details */}
     <div className="pt-2">
-      <h3 className="text-sm font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+      <h3 className="font-bold text-[#1a4d2e] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2 text-xs">
         Participation Details
       </h3>
 
@@ -595,13 +595,13 @@ reset();
 
         {/* Motivation */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-gray-600">
+          <label className="font-semibold text-gray-600 text-xs">
             Why do you want to attend? <span className="text-red-500">*</span>
           </label>
           <textarea
             {...register("motivation", { required: "This field is required" })}
             rows={3}
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm"
+            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
           />
           {errors.motivation && <p className="text-red-500 text-xs">{errors.motivation.message}</p>}
         </div>
@@ -613,7 +613,7 @@ reset();
             {...register("consent", { required: "You must consent" })}
             className="mt-1 w-4 h-4"
           />
-          <label className="text-xs text-gray-600">
+          <label className="text-gray-600 text-xs">
             I consent to the Foundation collecting and using my data <span className="text-red-500">*</span>
           </label>
         </div>
@@ -627,7 +627,7 @@ reset();
       <button
         type="submit"
         disabled={isSubmitting}
-        className="px-8 py-3 bg-[#1a4d2e] text-white text-sm font-bold rounded-lg"
+        className="px-8 py-3 bg-[#1a4d2e] text-white font-bold rounded-lg text-xs"
       >
         {isSubmitting ? "Submitting..." : "Complete Registration"}
       </button>

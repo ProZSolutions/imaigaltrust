@@ -13,8 +13,45 @@
   --inter-font:"Inter", sans-serif;
   --poppins-font:"Poppins", sans-serif;
 
- 
+  /* Fluid Typography Scale (320px -> 1280px) */
+  --fs-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);      /* 12px -> 14px */
+  --fs-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);     /* 14px -> 16px */
+  --fs-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);    /* 16px -> 18px */
+  --fs-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.375rem); /* 18px -> 22px */
+  --fs-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);     /* 20px -> 28px */
+  --fs-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 2.25rem);    /* 24px -> 36px */
+  --fs-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 3rem);    /* 30px -> 48px */
+  --fs-4xl: clamp(2.25rem, 2rem + 1.75vw, 4rem);         /* 36px -> 64px */
 }
+
+@theme {
+  --font-size-fluid-xs: var(--fs-xs);
+  --font-size-fluid-sm: var(--fs-sm);
+  --font-size-fluid-base: var(--fs-base);
+  --font-size-fluid-lg: var(--fs-lg);
+  --font-size-fluid-xl: var(--fs-xl);
+  --font-size-fluid-2xl: var(--fs-2xl);
+  --font-size-fluid-3xl: var(--fs-3xl);
+  --font-size-fluid-4xl: var(--fs-4xl);
+
+  --text-xs: var(--fs-xs);
+  --text-xs--line-height: 1rem;
+  --text-sm: var(--fs-sm);
+  --text-sm--line-height: 1.25rem;
+  --text-base: var(--fs-base);
+  --text-base--line-height: 1.5rem;
+  --text-lg: var(--fs-lg);
+  --text-lg--line-height: 1.75rem;
+  --text-xl: var(--fs-xl);
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: var(--fs-2xl);
+  --text-2xl--line-height: 2rem;
+  --text-3xl: var(--fs-3xl);
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: var(--fs-4xl);
+  --text-4xl--line-height: 2.5rem;
+}
+
 *{
   /* overflow-x: hidden; */
   box-sizing: border-box;
@@ -64,13 +101,13 @@
 }
 
 body{
-  font-size: 16px;
+  font-size: var(--fs-base);
   color: var(--secondary-color-900);
 }
 
 .secondary-heading{
   font-family: var(--josefin-font);
-  font-size: 20px;
+  font-size: var(--fs-lg);
   font-weight:500;
   text-transform: uppercase;
 }
@@ -192,9 +229,46 @@ nav::-webkit-scrollbar {
   width: 6px;
 }
 nav::-webkit-scrollbar-track {
-  background: transparent;
+  background: black;
 }
 nav::-webkit-scrollbar-thumb {
   background-color: rgb(201, 188, 188);
   border-radius: 5px;
 }
+
+/* show scrollbar clearly */
+/* .overflow-x-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.overflow-x-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.overflow-x-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+} */
+/* enable horizontal scroll */
+/* .overflow-x-scrollbar {
+  overflow-x: auto;
+} */
+
+/* show horizontal scrollbar */
+/* .overflow-x-scrollbar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.overflow-x-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.overflow-x-scrollbar::-webkit-scrollbar-thumb {
+  background: #7c3939;
+  border-radius: 5px;
+} */
+
+/* force table width so scrollbar appears */
+/* .overflow-x-scrollbar table {
+  min-width: 900px;
+} */

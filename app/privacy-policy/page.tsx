@@ -18,25 +18,25 @@ export default function PrivacyPolicy() {
 
             {/* Main Content */}
             <div className="max-w-4xl mx-auto px-4 py-16">
-                <div className="text-right text-sm text-gray-500 mb-8 inter-font">
+                <div className="text-right text-gray-500 mb-8 inter-font text-xs">
                     Last Updated: {currentDate}
                 </div>
 
                 <section className="inter-font mb-12">
-                    <p className="text-gray-700 leading-relaxed text-lg">
+                    <p className="text-gray-700 text-base">
                         At <strong>Imaigal Trust</strong>, we respect the privacy of our website visitors, donors, and members. This policy explains how we collect, use, and protect your information when you interact with our website.
                     </p>
                 </section>
 
                 <section className="inter-font mb-12">
-                    <h2 className="josefin-font text-2xl font-bold primary-text mb-6 uppercase border-b-2 border-primary pb-2 inline-block">
+                    <h2 className="josefin-font font-bold primary-text mb-6 uppercase border-b-2 border-primary pb-2 inline-block text-xl">
                         Information We Collect
                     </h2>
                     <p className="text-gray-700 mb-6">When you interact with our website, we may collect the following information:</p>
 
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="bg-secondary-50 p-6 rounded-lg">
-                            <h3 className="josefin-font text-lg font-bold mb-4 primary-text flex items-center gap-2">
+                            <h3 className="josefin-font font-bold mb-4 primary-text flex items-center gap-2 text-base">
                                 <span className="w-2 h-2 bg-primary rounded-full"></span>
                                 Personal Information
                             </h3>
@@ -51,7 +51,7 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="bg-secondary-50 p-6 rounded-lg">
-                            <h3 className="josefin-font text-lg font-bold mb-4 primary-text flex items-center gap-2">
+                            <h3 className="josefin-font font-bold mb-4 primary-text flex items-center gap-2 text-base">
                                 <span className="w-2 h-2 bg-primary rounded-full"></span>
                                 Non-Personal Information
                             </h3>
@@ -61,7 +61,7 @@ export default function PrivacyPolicy() {
                                 <li className="flex items-center gap-2"><span>•</span> Device information</li>
                                 <li className="flex items-center gap-2"><span>•</span> Pages visited</li>
                             </ul>
-                            <p className="mt-4 text-xs text-gray-500 italic">
+                            <p className="mt-4 text-gray-500 italic text-xs">
                                 This information helps us improve the performance and usability of the website.
                             </p>
                         </div>
@@ -69,7 +69,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="inter-font mb-12">
-                    <h2 className="josefin-font text-2xl font-bold primary-text mb-6 uppercase">
+                    <h2 className="josefin-font font-bold primary-text mb-6 uppercase text-xl">
                         Use of Information
                     </h2>
                     <p className="text-gray-700 mb-4">The information collected may be used for:</p>
@@ -84,25 +84,25 @@ export default function PrivacyPolicy() {
 
                 <section className="grid md:grid-cols-2 gap-12 mb-16">
                     <div className="inter-font">
-                        <h2 className="josefin-font text-2xl font-bold primary-text mb-4 uppercase">
+                        <h2 className="josefin-font font-bold primary-text mb-4 uppercase text-xl">
                             Data Protection
                         </h2>
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700">
                             We take reasonable security measures to protect personal information from unauthorized access, misuse, or disclosure.
                         </p>
                     </div>
                     <div className="inter-font">
-                        <h2 className="josefin-font text-2xl font-bold primary-text mb-4 uppercase">
+                        <h2 className="josefin-font font-bold primary-text mb-4 uppercase text-xl">
                             Sharing of Information
                         </h2>
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700">
                             <strong>Imaigal Trust</strong> does not sell, rent, or trade personal information. Information may only be shared when required for payment processing or by law.
                         </p>
                     </div>
                 </section>
 
                 <section className="bg-primary/5 p-8 rounded-xl border border-primary/20 mb-16 inter-font">
-                    <h2 className="josefin-font text-2xl font-bold primary-text mb-4 uppercase">
+                    <h2 className="josefin-font font-bold primary-text mb-4 uppercase text-xl">
                         Cookies
                     </h2>
                     <p className="text-gray-700">
@@ -115,7 +115,7 @@ export default function PrivacyPolicy() {
                 {/* Donation Collection Section */}
                 <section className="inter-font">
                     <div className="text-center mb-12">
-                        <h2 className="josefin-font text-3xl font-bold primary-text mb-4 uppercase tracking-tighter">
+                        <h2 className="josefin-font font-bold primary-text mb-4 uppercase tracking-tighter text-2xl">
                             Donation Collection
                         </h2>
                         <p className="text-gray-600 max-w-2xl mx-auto">
@@ -126,7 +126,7 @@ export default function PrivacyPolicy() {
                     <div className="grid md:grid-cols-3 gap-8 mb-12">
                         <div className="md:col-span-2 space-y-8">
                             <div>
-                                <h3 className="josefin-font text-xl font-bold mb-4 secondary-text-900 uppercase">Purpose of Donations</h3>
+                                <h3 className="josefin-font font-bold mb-4 secondary-text-900 uppercase text-lg">Purpose of Donations</h3>
                                 <p className="text-gray-700 mb-4">Funds collected are used for various social and charitable initiatives including:</p>
                                 <div className="grid grid-cols-2 gap-4">
                                     {[
@@ -136,7 +136,7 @@ export default function PrivacyPolicy() {
                                         "Social welfare programs",
                                         "Charitable activities"
                                     ].map((item, idx) => (
-                                        <div key={idx} className="flex items-center gap-2 text-gray-700 text-sm">
+                                        <div key={idx} className="flex items-center gap-2 text-gray-700 text-xs">
                                             <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                             </svg>
@@ -147,7 +147,7 @@ export default function PrivacyPolicy() {
                             </div>
 
                             <div>
-                                <h3 className="josefin-font text-xl font-bold mb-4 secondary-text-900 uppercase">Transparency & Receipts</h3>
+                                <h3 className="josefin-font font-bold mb-4 secondary-text-900 uppercase text-lg">Transparency & Receipts</h3>
                                 <p className="text-gray-700 mb-4">
                                     The trust maintains transparency in the use of donated funds and ensures that donations are used for charitable purposes.
                                 </p>
@@ -158,8 +158,8 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="bg-accent-800 text-white p-6 rounded-xl shadow-lg h-fit">
-                            <h3 className="josefin-font text-xl font-bold mb-6 text-center uppercase">Methods of Donation</h3>
-                            <ul className="space-y-4 text-sm font-light">
+                            <h3 className="josefin-font font-bold mb-6 text-center uppercase text-lg">Methods of Donation</h3>
+                            <ul className="space-y-4 font-light text-xs">
                                 <li className="flex items-center gap-3">
                                     <span className="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center">1</span>
                                     Online payment through website
@@ -181,8 +181,8 @@ export default function PrivacyPolicy() {
                     </div>
 
                     <div className="bg-red-50 p-6 border-l-4 border-red-500 rounded">
-                        <h3 className="josefin-font text-lg font-bold text-red-800 mb-2 uppercase">Refund Policy</h3>
-                        <p className="text-red-700 text-sm">
+                        <h3 className="josefin-font font-bold text-red-800 mb-2 uppercase text-base">Refund Policy</h3>
+                        <p className="text-red-700 text-xs">
                             Donations are generally non-refundable. However, in case of a duplicate transaction or technical error, donors may contact the trust within <strong>7 days</strong> of the transaction.
                         </p>
                     </div>

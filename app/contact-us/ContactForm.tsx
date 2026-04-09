@@ -160,7 +160,7 @@ export default function ContactForm() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                <h2 className="font-bold text-gray-800 mb-4 text-2xl">
                   Get in Touch
                 </h2>
                 <p className="text-gray-600 mb-8">
@@ -173,7 +173,7 @@ export default function ContactForm() {
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="bg-[#1a4d2e] p-3 rounded-lg">
-                    <IoLocationSharp className="text-white text-xl" />
+                    <IoLocationSharp className="text-white text-lg" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Address</h3>
@@ -186,7 +186,7 @@ export default function ContactForm() {
 
                 <div className="flex items-start space-x-4">
                   <div className="bg-[#1a4d2e] p-3 rounded-lg">
-                    <IoCall className="text-white text-xl" />
+                    <IoCall className="text-white text-lg" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Phone</h3>
@@ -196,7 +196,7 @@ export default function ContactForm() {
 
                 <div className="flex items-start space-x-4">
                   <div className="bg-[#1a4d2e] p-3 rounded-lg">
-                    <IoMail className="text-white text-xl" />
+                    <IoMail className="text-white text-lg" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Email</h3>
@@ -211,7 +211,7 @@ export default function ContactForm() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Subject Dropdown */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Subject *
                   </label>
                   <select
@@ -229,7 +229,7 @@ export default function ContactForm() {
 
                 {/* Full Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Full Name *
                   </label>
                   <input
@@ -243,13 +243,13 @@ export default function ContactForm() {
                     placeholder="Enter your full name"
                   />
                   {errors.fullName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                    <p className="text-red-500 mt-1 text-xs">{errors.fullName}</p>
                   )}
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Phone *
                   </label>
                   <input
@@ -263,13 +263,13 @@ export default function ContactForm() {
                     placeholder="Enter your phone number"
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                    <p className="text-red-500 mt-1 text-xs">{errors.phone}</p>
                   )}
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Email *
                   </label>
                   <input
@@ -283,13 +283,13 @@ export default function ContactForm() {
                     placeholder="Enter your email address"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-500 mt-1 text-xs">{errors.email}</p>
                   )}
                 </div>
 
                 {/* Organisation */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Organisation
                   </label>
                   <input
@@ -304,7 +304,7 @@ export default function ContactForm() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block font-medium text-gray-700 mb-2 text-xs">
                     Message *
                   </label>
                   <textarea
@@ -318,7 +318,7 @@ export default function ContactForm() {
                     placeholder="Enter your message"
                   />
                   {errors.message && (
-                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                    <p className="text-red-500 mt-1 text-xs">{errors.message}</p>
                   )}
                 </div>
 

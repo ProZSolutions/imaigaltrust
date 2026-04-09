@@ -143,7 +143,7 @@ export default function AnnualReportFormPage() {
   //       <div className="flex gap-2 justify-end">
   //         <button
   //           onClick={() => toast.dismiss(t.id)}
-  //           className="px-3 py-1 text-sm bg-black rounded"
+  //           className="px-3 py-1 bg-black rounded text-xs"
   //         >
   //           Cancel
   //         </button>
@@ -162,7 +162,7 @@ export default function AnnualReportFormPage() {
   //               toast.error("Something went wrong ");
   //             }
   //           }}
-  //           className="px-3 py-1 text-sm bg-red-600 text-white rounded"
+  //           className="px-3 py-1 bg-red-600 text-white rounded text-xs"
   //         >
   //           Delete
   //         </button>
@@ -211,8 +211,8 @@ export default function AnnualReportFormPage() {
       {/* Header */}
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Annual Report</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="font-bold text-gray-800 text-xl">Annual Report</h1>
+          <p className="text-gray-500 text-xs">
             Upload and manage organization annual reports
           </p>
         </div>
@@ -232,8 +232,8 @@ export default function AnnualReportFormPage() {
             {/* Header */}
             <div className="bg-[#1a4d2e] p-6 flex justify-between items-center text-white">
               <div className="text-center w-full">
-                <h2 className="text-xl font-bold">Add Annual Report</h2>
-                <p className="text-sm text-green-100/60 italic">
+                <h2 className="font-bold text-lg">Add Annual Report</h2>
+                <p className="text-green-100/60 italic text-xs">
                   Upload report details
                 </p>
               </div>
@@ -251,7 +251,7 @@ export default function AnnualReportFormPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Type */}
                   <div className="space-y-2.5">
-                    <label className="block text-sm font-bold text-gray-700 ml-1">
+                    <label className="block font-bold text-gray-700 ml-1 text-xs">
                       Report Type
                     </label>
                     <select
@@ -259,7 +259,7 @@ export default function AnnualReportFormPage() {
                       value={formData.type}
                       onChange={handleChange}
                       required
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm"
+                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold shadow-sm text-xs"
                     >
                       <option value="pdf">PDF</option>
                       <option value="word">Word</option>
@@ -269,7 +269,7 @@ export default function AnnualReportFormPage() {
 
                   {/* Year */}
                   <div className="space-y-2.5">
-                    <label className="block text-sm font-bold text-gray-700 ml-1">
+                    <label className="block font-bold text-gray-700 ml-1 text-xs">
                       Year
                     </label>
                     <input
@@ -279,13 +279,13 @@ export default function AnnualReportFormPage() {
                       onChange={handleChange}
                       placeholder="e.g. 2023-2024"
                       required
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm"
+                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold shadow-sm text-xs"
                     />
                   </div>
 
                   {/* Language */}
                   <div className="space-y-2.5">
-                    <label className="block text-sm font-bold text-gray-700 ml-1">
+                    <label className="block font-bold text-gray-700 ml-1 text-xs">
                       Language
                     </label>
                     <select
@@ -293,7 +293,7 @@ export default function AnnualReportFormPage() {
                       value={formData.language}
                       onChange={handleChange}
                       required
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm"
+                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold shadow-sm text-xs"
                     >
                       <option value="tamil">Tamil</option>
                       <option value="english">English</option>
@@ -302,7 +302,7 @@ export default function AnnualReportFormPage() {
 
                   {/* File */}
                   <div className="space-y-2.5">
-  <label className="block text-sm font-bold text-gray-700 ml-1">
+  <label className="block font-bold text-gray-700 ml-1 text-xs">
     Upload Report File ({formData.type.toUpperCase()})
   </label>
 
@@ -351,19 +351,19 @@ export default function AnnualReportFormPage() {
             <table className="w-full text-left">
               <thead className="bg-[#1a4d2e] text-white">
                 <tr>
-                  <th className="px-10 py-4 text-xs font-bold uppercase tracking-wider">
+                  <th className="px-10 py-4 font-bold uppercase tracking-wider text-xs">
                     Year
                   </th>
-                  <th className="px-12 py-4 text-xs font-bold uppercase tracking-wider">
+                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
                     Type
                   </th>
-                  <th className="px-12 py-4 text-xs font-bold uppercase tracking-wider">
+                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
                     Language
                   </th>
-                  <th className="px-12 py-4 text-xs font-bold uppercase tracking-wider">
+                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
                     File
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-right">
+                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-right text-xs">
                     Actions
                   </th>
                 </tr>
@@ -379,7 +379,7 @@ export default function AnnualReportFormPage() {
   href={`/api/annual-report/file/${r.file_path}`} 
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold text-sm rounded-lg transition"
+  className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold rounded-lg transition text-xs"
 >
   <FileText size={16} />
   View

@@ -38,12 +38,12 @@ export default function ProgramAgriculture() {
         <div className="max-w-[1350px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="flex flex-col gap-8">
-            <h2 className="font-serif font-bold text-[42px] md:text-[52px] leading-[1.1] text-[#1B3022]">
+            <h2 className="font-serif font-bold leading-[1.1] text-[#1B3022] text-4xl">
               Building Stronger Communities <br />
               <span className="text-green-700">Through Collaboration</span>
             </h2>
             <div className="space-y-6 max-w-[620px]">
-              <p className="font-sans text-[16px] md:text-[17px] leading-[1.7] text-[#4A4A4A]">
+              <p className="font-sans leading-[1.7] text-[#4A4A4A] text-base">
                 At Imaigal Trust, we believe that collaboration is the
                 foundation of impactful social change. Our work in rural
                 development, sustainable agriculture, women empowerment, and
@@ -51,7 +51,7 @@ export default function ProgramAgriculture() {
                 government agencies, financial institutions, NGOs, and corporate
                 entities.
               </p>
-              <p className="font-sans text-[16px] md:text-[17px] leading-[1.7] text-[#4A4A4A]">
+              <p className="font-sans leading-[1.7] text-[#4A4A4A] text-base">
                 These collaborations help us deliver resources, knowledge, and
                 opportunities to marginalized communities, ensuring long-term
                 sustainability and progress.
@@ -71,10 +71,10 @@ export default function ProgramAgriculture() {
                 key={index}
                 className="bg-[#F4F9F6] p-10 rounded-xl border-l-[6px] border-green-700 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300"
               >
-                <div className="text-[40px] font-bold text-[#1B3022] mb-3 font-serif">
+                <div className="font-bold text-[#1B3022] mb-3 font-serif text-3xl">
                   {stat.value}
                 </div>
-                <div className="text-[#3A5A40] font-semibold text-[15px] leading-tight">
+                <div className="text-[#3A5A40] font-semibold text-sm">
                   {stat.label}
                 </div>
               </div>
@@ -91,13 +91,13 @@ export default function ProgramAgriculture() {
         <div className="max-w-[1350px] mx-auto">
           {/* Section Heading */}
           <div className="text-center mb-16">
-            <span className="text-green-700 text-[14px] font-bold tracking-[3px] uppercase block mb-3">
+            <span className="text-green-700 font-bold tracking-[3px] uppercase block mb-3 text-xs">
               Our Network
             </span>
-            <h2 className="font-serif font-bold text-[40px] md:text-[48px] text-[#1B3022] mb-6">
+            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
               Key Partner Organizations
             </h2>
-            <p className="text-[#666666] max-w-[750px] mx-auto text-[16px] md:text-[18px] leading-relaxed mb-8">
+            <p className="text-[#666666] max-w-[750px] mx-auto mb-8 text-base">
               Imaigal Trust collaborates with premier national bodies to amplify
               impact across agriculture, rural enterprise, and community
               development.
@@ -106,7 +106,7 @@ export default function ProgramAgriculture() {
           </div>
 
           {/* Partner Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
             {[
               {
                 title: "SFURTI",
@@ -176,14 +176,14 @@ export default function ProgramAgriculture() {
               >
                 {/* Card Header */}
                 <div className="bg-green-900 p-8 flex items-start gap-6">
-                 <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center text-[28px] backdrop-blur-sm shrink-0 border border-white/20">
+                 <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0 border border-white/20 text-xl">
   <org.icon className="w-7 h-7 text-white" />
 </div>
                   <div>
-                    <h3 className="text-white text-[24px] font-bold font-serif mb-1  transition-colors">
+                    <h3 className="text-white font-bold font-serif mb-1 transition-colors text-xl">
                       {org.title}
                     </h3>
-                    <p className="text-white/70 text-[14px] leading-snug">
+                    <p className="text-white/70 text-xs">
                       {org.subtitle}
                     </p>
                   </div>
@@ -196,7 +196,7 @@ export default function ProgramAgriculture() {
                         <span className="text-[#89C541] mt-1 shrink-0 font-bold">
                           ››
                         </span>
-                        <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                        <p className="text-[#555555] italic text-sm">
                           {point}
                         </p>
                       </li>
@@ -214,10 +214,10 @@ export default function ProgramAgriculture() {
   <Landmark className="w-8 h-8 text-white" />
 </div>
               <div>
-                <h3 className="text-white text-[28px] font-bold font-serif leading-tight mb-2">
+                <h3 className="text-white font-bold font-serif mb-2 text-xl">
                   Government & Local <br /> Administrative Bodies
                 </h3>
-                <p className="text-white/70 text-[15px]">
+                <p className="text-white/70 text-sm">
                   Central & State Government Departments
                 </p>
               </div>
@@ -226,20 +226,20 @@ export default function ProgramAgriculture() {
               <ul className="space-y-5">
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     Collaborate in healthcare, education, women empowerment, and
                     poverty alleviation.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     Help implement policies and schemes for rural welfare.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     Department of Horticulture, Erode
                   </p>
                 </li>
@@ -247,20 +247,20 @@ export default function ProgramAgriculture() {
               <ul className="space-y-5">
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     Support climate-proofing and sustainability projects in
                     rural areas.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     ATMA, Department of Agriculture, Govt. of Tamil Nadu
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#89C541] font-bold">››</span>
-                  <p className="text-[#555555] text-[15px] leading-relaxed italic">
+                  <p className="text-[#555555] italic text-sm">
                     NSDC – Ministry of Skill Development, Govt. of India
                   </p>
                 </li>
@@ -274,15 +274,15 @@ export default function ProgramAgriculture() {
         <div className="max-w-[1350px] mx-auto">
           {/* Heading */}
           <div className="text-center mb-16">
-            <span className="text-green-700 text-[14px] font-bold tracking-[3px] uppercase block mb-3">
+            <span className="text-green-700 font-bold tracking-[3px] uppercase block mb-3 text-xs">
               Programme History
             </span>
 
-            <h2 className="font-serif font-bold text-[40px] md:text-[48px] text-[#1B3022] mb-6">
+            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
               Training Programmes & Associations
             </h2>
 
-            <p className="text-[#666666] max-w-[720px] mx-auto text-[16px] md:text-[18px] leading-relaxed mb-6">
+            <p className="text-[#666666] max-w-[720px] mx-auto mb-6 text-base">
               Key training initiatives delivered by Imaigal Trust in
               collaboration with partner organizations across Tamil Nadu.
             </p>
@@ -300,19 +300,19 @@ export default function ProgramAgriculture() {
     
     <thead className="bg-green-900 text-white">
       <tr>
-        <th className="px-6 py-4 text-[15px] font-semibold">
+        <th className="px-6 py-4 font-semibold text-sm">
           Programme Name
         </th>
-        <th className="px-6 py-4 text-[15px] font-semibold">
+        <th className="px-6 py-4 font-semibold text-sm">
           Associated Organization
         </th>
-        <th className="px-6 py-4 text-[15px] font-semibold">
+        <th className="px-6 py-4 font-semibold text-sm">
           Category
         </th>
       </tr>
     </thead>
 
-    <tbody className="text-[15px] text-[#444]">
+    <tbody className="text-[#444] text-sm">
       {[
         {
           name: "EDP in Medicinal Plant Cultivation, Harvest, Grading & Marketing",
@@ -427,7 +427,7 @@ export default function ProgramAgriculture() {
           <td className="px-6 py-4">{item.name}</td>
           <td className="px-6 py-4">{item.org}</td>
           <td className="px-6 py-4">
-            <span className="bg-[#E6F4EC] text-[#2D6A4F] px-3 py-1 text-[13px] rounded-md font-semibold">
+            <span className="bg-[#E6F4EC] text-[#2D6A4F] px-3 py-1 rounded-md font-semibold text-xs">
               {item.category}
             </span>
           </td>
@@ -560,17 +560,17 @@ export default function ProgramAgriculture() {
 
     {/* title + badge */}
     <div className="flex justify-between items-start gap-4">
-      <h3 className="text-[17px] font-semibold text-[#1F2D26] leading-snug">
+      <h3 className="font-semibold text-[#1F2D26] text-base">
         {item.name}
       </h3>
 
-      <span className="border border-green-700 text-green-700 px-4 py-1 rounded-full text-[13px] font-semibold whitespace-nowrap">
+      <span className="border border-green-700 text-green-700 px-4 py-1 rounded-full font-semibold whitespace-nowrap text-xs">
         {item.category}
       </span>
     </div>
 
     {/* organization */}
-    <div className="flex items-center gap-2 mt-3 text-[#5A7B67] text-[14px]">
+    <div className="flex items-center gap-2 mt-3 text-[#5A7B67] text-xs">
       <span className="w-2 h-2 bg-green-600 rounded-full"></span>
       {item.org}
     </div>
@@ -589,15 +589,15 @@ export default function ProgramAgriculture() {
         <div className="max-w-[1350px] mx-auto">
           {/* Heading */}
           <div className="text-center mb-10">
-            <span className="text-green-700 text-[14px] font-bold tracking-[3px] uppercase block mb-3">
+            <span className="text-green-700 font-bold tracking-[3px] uppercase block mb-3 text-xs">
               Governance & Membership
             </span>
 
-            <h2 className="font-serif font-bold text-[40px] md:text-[48px] text-[#1B3022] mb-6">
+            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
               Committees & Advisory Bodies
             </h2>
 
-            <p className="text-[#666666] max-w-[720px] mx-auto text-[16px] md:text-[18px] leading-relaxed mb-6">
+            <p className="text-[#666666] max-w-[720px] mx-auto mb-6 text-base">
               Imaigal Trust is represented in key district and national-level
               committees, ensuring community voice in policy decisions.
             </p>
@@ -670,12 +670,12 @@ export default function ProgramAgriculture() {
 </div>
 
                 {/* Title */}
-                <h3 className="text-[18px] font-semibold text-[#1B3022] mb-2">
+                <h3 className="font-semibold text-[#1B3022] mb-2 text-base">
                   {item.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[14px] text-[#666] leading-relaxed">
+                <p className="text-[#666] text-xs">
                   {item.desc}
                 </p>
               </div>

@@ -23,15 +23,15 @@ export default function ProgramAgriculture() {
           width={480}
           height={354}
           alt="agriculture"
-          className="object-cover w-[320px] h-auto sm:w-[260px] sm:h-auto md:w-[320px] md:h-auto  lg:w-[480px] lg:h-auto  mx-auto rounded-lg shadow-[0_0_8px_rgba(0,0,0,0.7),0_0_3px_rgba(255,255,255,1)]"
+          className="object-cover w-[320px] h-auto sm:w-[260px] sm:h-auto md:w-[320px] md:h-auto lg:w-[480px] lg:h-auto mx-auto rounded-lg shadow-[0_0_8px_rgba(0,0,0,0.7),0_0_3px_rgba(255,255,255,1)]"
         />
 
-        <div className="w-full  h-auto  flex flex-col gap-6 justify-center md:ml-12">
-          <h2 className="text-[36px] leading-[46px] font-medium text-[#1B2F7C] font-poppins">
+        <div className="w-full h-auto flex flex-col gap-6 justify-center md:ml-12">
+          <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
             <span className="block poppins-font">BOARD OF DIRECTORS</span>
           </h2>
 
-          <p className="poppins-font font-normal text-[16px] leading-[30px] text-[#101010] text-justify">
+          <p className="poppins-font font-normal text-[#101010] text-justify text-sm">
             At Imaigal Trust, our leadership team comprises visionary
             individuals who bring expertise in rural development, agriculture,
             social work, and policy-making. Our board members are dedicated to
@@ -43,10 +43,10 @@ export default function ProgramAgriculture() {
 
       <section className="py-10 px-4">
         <div className="md:hidden max-w-[600px] mx-auto flex flex-col items-center gap-6">
-          <h2 className="text-[30px] font-medium leading-[40px] text-[#096412] font-poppins text-center">
+          <h2 className="font-medium text-[#096412] font-poppins text-center text-2xl">
             Founder’s Vision:
           </h2>
-          <h3 className="font-poppins font-semibold text-[24px] leading-[28px] text-[#1B2F7C] text-center">
+          <h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-xl">
             Leading Change for a Sustainable Future
           </h3>
           <div className="flex-shrink-0 w-full mb-6">
@@ -61,16 +61,16 @@ export default function ProgramAgriculture() {
               </div>
 
               <div className="mt-8 text-center space-y-2">
-                <h4 className="poppins-font font-bold text-[28px] text-[#1B2F7C]">
+                <h4 className="poppins-font font-bold text-[#1B2F7C] text-xl">
                   Mr. Prabhu R
                 </h4>
-                <p className="poppins-font text-[16px] font-medium text-[#096412] uppercase tracking-wider">
+                <p className="poppins-font font-medium text-[#096412] uppercase tracking-wider text-sm">
                   Founder & Chief Strategist
                 </p>
               </div>
             </div>
           </div>
-          <p className="font-poppins text-[16px] leading-[24px] text-[#101010] text-justify">
+          <p className="font-poppins text-[#101010] text-justify text-sm">
             Mr. R. Prabhu is the founding Managing Trustee and Financial Trustee
             of Imagal Trust. He oversees the Trust&apos;s overall strategic
             direction, financial governance, and program implementation across
@@ -78,7 +78,7 @@ export default function ProgramAgriculture() {
             agri-business management, he brings both technical knowledge and
             deep grassroots experience to his leadership role.
           </p>
-          <p className="font-poppins text-[16px] leading-[24px] text-[#101010] text-justify">
+          <p className="font-poppins text-[#101010] text-justify text-sm">
             As a dedicated social worker, Mr. Prabhu has championed the cause of
             smallholder farmers in Namakkal district and beyond — building
             systems that empower rural communities through sustainable
@@ -130,10 +130,10 @@ export default function ProgramAgriculture() {
               </div>
 
               <div className="mt-8 text-center space-y-2">
-                <h4 className="poppins-font font-bold text-[30px] text-[#1B2F7C]">
+                <h4 className="poppins-font font-bold text-[#1B2F7C] text-2xl">
                   Mr. Prabhu R
                 </h4>
-                <p className="poppins-font text-[18px] font-medium text-[#096412] uppercase tracking-wider">
+                <p className="poppins-font font-medium text-[#096412] uppercase tracking-wider text-base">
                   Founder & Chief Strategist
                 </p>
               </div>
@@ -142,13 +142,13 @@ export default function ProgramAgriculture() {
 
           {/* Right: Heading + Text */}
           <div className="flex-1 flex flex-col justify-center gap-6 py-4">
-            <p className="poppins-font font-medium text-[24px] leading-[28px] text-[#096412]">
+            <p className="poppins-font font-medium text-[#096412] text-xl">
               Founder’s Vision:
             </p>
-            <h2 className="poppins-font - font-semibold text-[36px] leading-[46px] text-[#1B2F7C]">
+            <h2 className="poppins-font - font-semibold text-[#1B2F7C] text-2xl">
               Leading Change for a Sustainable Future
             </h2>
-            <p className="poppins-font  text-[16px] leading-[34px] text-[#101010] text-justify">
+            <p className="poppins-font text-[#101010] text-justify text-sm">
               Mr. R. Prabhu is the founding Managing Trustee and Financial
               Trustee of Imagal Trust. He oversees the Trust&apos;s overall
               strategic direction, financial governance, and program
@@ -157,7 +157,7 @@ export default function ProgramAgriculture() {
               both technical knowledge and deep grassroots experience to his
               leadership role.
             </p>
-            <p className="poppins-font  text-[16px] leading-[34px] text-[#101010] text-justify">
+            <p className="poppins-font text-[#101010] text-justify text-sm">
               As a dedicated social worker, Mr. Prabhu has championed the cause
               of smallholder farmers in Namakkal district and beyond — building
               systems that empower rural communities through sustainable
@@ -199,10 +199,10 @@ export default function ProgramAgriculture() {
       <section className="py-10 px-4">
         {/* ========== MOBILE ONLY ========== */}
         <div className="md:hidden max-w-[600px] mx-auto flex flex-col items-center gap-6">
-          <h2 className="font-poppins font-medium text-[24px] leading-[28px] text-[#096412]">
+          <h2 className="font-poppins font-medium text-[#096412] text-xl">
             Cultivating Growth:
           </h2>
-          <h3 className="font-poppins font-semibold text-[24px] leading-[28px] text-[#1B2F7C] text-center">
+          <h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-xl">
             Leadership in Agriculture & Rural Development
           </h3>
 
@@ -218,10 +218,10 @@ export default function ProgramAgriculture() {
               </div>
 
               <div className="mt-8 text-center space-y-2">
-                <h4 className="poppins-font font-bold text-[28px] text-[#1B2F7C]">
+                <h4 className="poppins-font font-bold text-[#1B2F7C] text-xl">
                   Mrs. A. Poongodi
                 </h4>
-                <p className="poppins-font text-[16px] font-medium text-[#096412] uppercase tracking-wider">
+                <p className="poppins-font font-medium text-[#096412] uppercase tracking-wider text-sm">
                   Director of Agriculture & Rural Development
                 </p>
               </div>
@@ -230,14 +230,14 @@ export default function ProgramAgriculture() {
 
           {/* 3) Text blocks */}
           <div className="w-full flex flex-col gap-4">
-            <p className="font-poppins text-[14px] leading-[20px] text-[#101010] text-justify">
+            <p className="font-poppins text-[#101010] text-justify text-xs">
               Mrs. A. Poongodi serves as Secretary of Imagal Trust and plays a
               central role in coordinating the Trust&apos;s administrative
               operations, program documentation, and community outreach
               activities. She is a qualified social worker with additional
               specialisation in agri-business management.
             </p>
-            <p className="font-poppins text-[16px] leading-[24px] text-[#101010] text-justify">
+            <p className="font-poppins text-[#101010] text-justify text-sm">
               Mrs. A. Poongodi is particularly focused on women&apos;s participation
               in agricultural livelihoods, self-help group formation, and
               community-led development initiatives. Her leadership has been
@@ -291,10 +291,10 @@ export default function ProgramAgriculture() {
               </div>
 
               <div className="mt-8 text-center space-y-2">
-                <h4 className="poppins-font font-bold text-[30px] text-[#1B2F7C]">
+                <h4 className="poppins-font font-bold text-[#1B2F7C] text-2xl">
                   Mrs. A. Poongodi
                 </h4>
-                <p className="poppins-font text-[18px] font-medium text-[#096412] uppercase tracking-wider">
+                <p className="poppins-font font-medium text-[#096412] uppercase tracking-wider text-base">
                   Director of Agriculture & Rural Development
                 </p>
               </div>
@@ -303,20 +303,20 @@ export default function ProgramAgriculture() {
 
           {/* Left: Heading, text, button */}
           <div className="flex-1 flex flex-col justify-center gap-4 py-4">
-            <p className="font-poppins font-medium text-[24px] leading-[28px] text-[#096412]">
+            <p className="font-poppins font-medium text-[#096412] text-xl">
               Cultivating Growth:
             </p>
-            <h3 className="poppins-font font-semibold text-[36px] leading-[46px] text-[#1B2F7C]">
+            <h3 className="poppins-font font-semibold text-[#1B2F7C] text-2xl">
               Leadership in Agriculture & Rural Development
             </h3>
-            <p className="poppins-font text-[16px] leading-[34px] text-[#101010]">
+            <p className="poppins-font text-[#101010] text-sm">
               Mrs. A. Poongodi serves as Secretary of Imagal Trust and plays a
               central role in coordinating the Trust&apos;s administrative
               operations, program documentation, and community outreach
               activities. She is a qualified social worker with additional
               specialisation in agri-business management.
             </p>
-            <p className="poppins-font text-[16px] leading-[34px] text-[#101010]">
+            <p className="poppins-font text-[#101010] text-sm">
               Mrs. A. Poongodi is particularly focused on women&apos;s participation
               in agricultural livelihoods, self-help group formation, and
               community-led development initiatives. Her leadership has been
@@ -354,7 +354,7 @@ export default function ProgramAgriculture() {
         </div>
       </section>
 
-      <section className="py-10 px-4 md:px-10 ">
+      <section className="py-10 px-4 md:px-10">
         <div className="max-w-[1350px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Card 1 */}
           <div className="bg-white p-5 flex flex-col h-full shadow-sm rounded-lg border border-gray-100">
@@ -367,21 +367,21 @@ export default function ProgramAgriculture() {
               />
             </div>
             <div className="mt-5 space-y-3">
-              <h4 className="poppins-font font-bold text-[20px] leading-tight text-[#1B2F7C]">
+              <h4 className="poppins-font font-bold text-[#1B2F7C] text-lg">
                 A. Appachigounder
               </h4>
-              <p className="poppins-font font-medium text-[15px] text-gray-500">
+              <p className="poppins-font font-medium text-gray-500 text-sm">
                 Trustee
               </p>
               <div className="space-y-2 pt-2">
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
                   <span className="text-green-900 mt-1">
                     <IoLocationSharp size={16} />
                   </span>
                   <span>Alampalayam, Sirukalanji, Erode District</span>
                 </div>
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
-                  <span className="mt-1 text-green-900 text-[12px]">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
+                  <span className="mt-1 text-green-900 text-xs">
                     <FaBriefcase size={14} />
                   </span>
                   <span>Social Worker</span>
@@ -401,27 +401,27 @@ export default function ProgramAgriculture() {
               />
             </div>
             <div className="mt-5 space-y-3">
-              <h4 className="poppins-font font-bold text-[20px] leading-tight text-[#1B2F7C]">
+              <h4 className="poppins-font font-bold text-[#1B2F7C] text-lg">
                 N. Senthikumar, <span className="text-green-700">B.Com.</span>
               </h4>
-              <p className="poppins-font font-medium text-[15px] text-gray-500">
+              <p className="poppins-font font-medium text-gray-500 text-sm">
                 Trustee
               </p>
               <div className="space-y-2 pt-2">
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
                   <span className="text-green-900 mt-1">
                     <IoLocationSharp size={16} />
                   </span>
                   <span>Kolathupalayam, S.Uduppam, Namakkal District</span>
                 </div>
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
-                  <span className="mt-1 text-green-900 text-[12px]">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
+                  <span className="mt-1 text-green-900 text-xs">
                     <FaBriefcase size={14} />
                   </span>
                   <span>Social Worker</span>
                 </div>
                 {/* <div className="pt-2">
-                  <span className="bg-[#E7F3E7] text-[#096412] text-[12px] font-bold px-3 py-1 rounded">
+                  <span className="bg-[#E7F3E7] text-[#096412] font-bold px-3 py-1 rounded text-xs">
                     B.Com.
                   </span>
                 </div> */}
@@ -440,27 +440,27 @@ export default function ProgramAgriculture() {
               />
             </div>
             <div className="mt-5 space-y-3">
-              <h4 className="poppins-font font-bold text-[20px] leading-tight text-[#1B2F7C]">
+              <h4 className="poppins-font font-bold text-[#1B2F7C] text-lg">
                 P. Gowrishankar, <span className="text-green-700">M.Sc.</span>
               </h4>
-              <p className="poppins-font font-medium text-[15px] text-gray-500">
+              <p className="poppins-font font-medium text-gray-500 text-sm">
                 Trustee
               </p>
               <div className="space-y-2 pt-2">
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
                   <span className="text-green-900 mt-1">
                     <IoLocationSharp size={16} />
                   </span>
                   <span>Jalakandapuram, Mettur, Salem District</span>
                 </div>
-                <div className="flex items-start gap-2 text-[14px] text-gray-600">
-                  <span className="mt-1 text-green-900 text-[12px]">
+                <div className="flex items-start gap-2 text-gray-600 text-xs">
+                  <span className="mt-1 text-green-900 text-xs">
                     <FaBriefcase size={14} />
                   </span>
                   <span>Social Worker</span>
                 </div>
                 {/* <div className="pt-2">
-                  <span className="bg-[#E7F3E7] text-[#096412] text-[12px] font-bold px-3 py-1 rounded">
+                  <span className="bg-[#E7F3E7] text-[#096412] font-bold px-3 py-1 rounded text-xs">
                     M.Sc.
                   </span>
                 </div> */}
