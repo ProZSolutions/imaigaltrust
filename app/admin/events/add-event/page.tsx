@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 interface Program {
   id: number;

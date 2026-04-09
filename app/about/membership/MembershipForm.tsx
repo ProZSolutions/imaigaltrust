@@ -736,7 +736,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
           </fieldset>
           <hr className="border-t border-gray-200 my-8" />
 
-          <fieldset className="pt-2">
+          {/* <fieldset className="pt-2">
             <legend className="font-medium text-gray-900 text-sm">
               Membership Type<span className="text-red-500">&#42;</span>
             </legend>
@@ -766,7 +766,7 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
             {errors.fee && (
   <p className="mt-1 text-red-600 text-xs">{errors.fee}</p>
 )}
-          </fieldset> 
+          </fieldset>  */}
 
           {/* Donation + Submit */}
          

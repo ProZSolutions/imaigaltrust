@@ -14,32 +14,40 @@ export default function ProgramAgriculture() {
       <PageBanner title="Agriculture" list={breadrumbs} />
 
       <section className="py-10 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8 justify-center">
-        <Image
-          src="/assets/images/agriculture.png"
-          width={346.87}
-          height={348.76}
-          className="rounded-full object-cover w-[280px] h-[280px] sm:w-[320px] sm:h-[320px]"
-          alt="agriculture"
-        />
 
-        <div className="w-full h-auto flex flex-col gap-6 justify-center md:ml-12">
-          <p className="uppercase primary-text poppins-font weihgt text-xl">
-            Agriculture-Based Initiatives
-          </p>
-          <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
-            <span className="block">Empowering Farmers, Sustaining</span>
-            <span className="block">Agriculture</span>
-          </h2>
+  {/* Image */}
+  <div className="w-[220px] sm:w-[260px] md:w-[300px] aspect-square rounded-full overflow-hidden flex-shrink-0">
+    <Image
+      src="/assets/images/agriculture.png"
+      alt="agriculture"
+      width={400}
+      height={400}
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-          <p className="font-poppins font-normal text-[#101010] text-base">
-            Agri-Bra is a flagship initiative of Imaigal Trust aimed at
-            transforming rural agriculture through innovation, sustainability,
-            and community-driven practices. We work closely with farmers,
-            agricultural experts, and industry partners to enhance productivity,
-            ensure food security, and promote eco-friendly farming methods.
-          </p>
-        </div>
-      </section>
+  {/* Content */}
+  <div className="w-full flex flex-col gap-6 justify-center md:ml-12 text-center md:text-left">
+
+    <p className="uppercase text-xl primary-text font-poppins">
+      Agriculture-Based Initiatives
+    </p>
+
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl sm:text-3xl">
+      <span className="block">Empowering Farmers, Sustaining</span>
+      <span className="block">Agriculture</span>
+    </h2>
+
+    <p className="font-poppins text-[#101010] text-base leading-relaxed">
+      Agri-Bra is a flagship initiative of Imaigal Trust aimed at
+      transforming rural agriculture through innovation, sustainability,
+      and community-driven practices. We work closely with farmers,
+      agricultural experts, and industry partners to enhance productivity,
+      ensure food security, and promote eco-friendly farming methods.
+    </p>
+
+  </div>
+</section>
 
       <section className="pb-10 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col lg:flex-row items-start lg:items-center gap-8 mt-5">
   <div className="w-full lg:w-2/3 flex flex-col gap-6">
