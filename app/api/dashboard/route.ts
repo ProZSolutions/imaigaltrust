@@ -47,19 +47,22 @@ export async function GET() {
       select: { membership_fee: true },
     });
 
-    let membershipRevenue = 0;
-    memberships.forEach((m: any) => {
-      const fee = Number(m.membership_fee) || 0;
-      membershipRevenue += isNaN(fee) ? 0 : fee;
-    });
-    
-    const paidMembers = await prisma.membership.count({
-      where: {
-        membership_fee: {
-          not: 0,
-        },
-      },
-    });
+  let membershipRevenue = 0;
+
+try {
+  const memberships = await prisma.membership.findMany({
+    select: { membership_fee: true },
+  });
+
+  memberships.forEach((m: any) => {
+    const fee = Number(m.membership_fee) || 0;
+    membershipRevenue += isNaN(fee) ? 0 : fee;
+  });
+
+} catch (err) {
+  console.error("membership_fee error ignored:", err);
+  membershipRevenue = 0;
+}
 
     const freeVolunteers = await prisma.membership.count({
       where: {
@@ -100,7 +103,7 @@ export async function GET() {
 
     return NextResponse.json({
       totalMembers,
-      paidMembers,
+      // paidMembers,
       freeVolunteers,
       pendingMembers,
       approvedMembers,
