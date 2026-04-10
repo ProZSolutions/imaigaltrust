@@ -67,16 +67,16 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const extractFeeAmount = (feeString: string): number => {
-      if (!feeString) return 0;
+    const extractFeeAmount = (feeString: string): string => {
+      if (!feeString) return "0";
 
       const match = feeString.match(/₹?([\d,]+(?:\.\d{2})?)/);
 
       if (match && match[1]) {
-        return Number(match[1].replace(/,/g, ""));
+        return match[1].replace(/,/g, "");
       }
 
-      return 0;
+      return "0";
     };
 
     const result = await prisma.membership.create({
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
         state: body.state || "",
         membership_type: body.membershipType || "",
         interest: body.interest || "",
-        membership_fee: extractFeeAmount(body.fee),
+        membership_fee: Number(extractFeeAmount(body.fee)),
         voluntary_donation: body.voluntaryDonation
           ? Number(body.voluntaryDonation)
           : 0,

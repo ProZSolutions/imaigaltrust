@@ -17,6 +17,7 @@ interface Program {
 
 export default function AddEventPage() {
   const router = useRouter();
+  const today = new Date().toISOString().split("T")[0];
   const [loading, setLoading] = useState(false);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [categories, setCategories] = useState([]);
@@ -36,13 +37,13 @@ export default function AddEventPage() {
     contactPerson: "",
     contactEmail: "",
     videoUrl: "",
-    registrationStartDate: new Date().toISOString().split("T")[0], // Default to current date
+    registrationStartDate: today, // Default to current date
     registrationEndDate: "",
   });
 
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[]>([]);
-  
+
   useEffect(() => {
     // Fetch programs and categories from existing API endpoints
     const fetchDropdowns = async () => {
@@ -61,129 +62,129 @@ export default function AddEventPage() {
     };
     fetchDropdowns();
   }, []);
-//form validation
+  //form validation
   const validateForm = () => {
-  const newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = {};
 
-  if (!formData.title.trim()) newErrors.title = "Event title is required";
-  if (!formData.programId) newErrors.programId = "Program is required";
-  if (!formData.status) newErrors.status = "Status is required";
-  if (!formData.categoryId) newErrors.categoryId = "Category is required";
+    if (!formData.title.trim()) newErrors.title = "Event title is required";
+    if (!formData.programId) newErrors.programId = "Program is required";
+    if (!formData.status) newErrors.status = "Status is required";
+    if (!formData.categoryId) newErrors.categoryId = "Category is required";
 
-  if (!formData.startDate) newErrors.startDate = "Start date is required";
-  if (!formData.startTime) newErrors.startTime = "Start time is required";
-  if (!formData.endDate) newErrors.endDate = "End date is required";
-  if (!formData.endTime) newErrors.endTime = "End time is required";
-  if (!formData.location.trim()) newErrors.location = "Location is required";
-  if (!formData.registrationEndDate) {
-  newErrors.RegistrationEndDate = "Registration End Date is required";
-}
+    if (!formData.startDate) newErrors.startDate = "Start date is required";
+    if (!formData.startTime) newErrors.startTime = "Start time is required";
+    if (!formData.endDate) newErrors.endDate = "End date is required";
+    if (!formData.endTime) newErrors.endTime = "End time is required";
+    if (!formData.location.trim()) newErrors.location = "Location is required";
+    if (!formData.registrationEndDate) {
+      newErrors.RegistrationEndDate = "Registration End Date is required";
+    }
 
-// End date must be after start date
-if (
-  formData.registrationStartDate &&
-  formData.registrationEndDate &&
-  formData.registrationEndDate < formData.registrationStartDate
-) {
-  newErrors.RegistrationEndDate =
-    "Registration End Date must be after Start Date";
-}
+    // End date must be after start date
+    if (
+      formData.registrationStartDate &&
+      formData.registrationEndDate &&
+      formData.registrationEndDate < formData.registrationStartDate
+    ) {
+      newErrors.RegistrationEndDate =
+        "Registration End Date must be after Start Date";
+    }
 
-  if (!formData.shortDescription.trim())
-    newErrors.shortDescription = "Short description is required";
+    if (!formData.shortDescription.trim())
+      newErrors.shortDescription = "Short description is required";
 
-  if (!formData.fullDescription.trim())
-    newErrors.fullDescription = "Full description is required";
+    if (!formData.fullDescription.trim())
+      newErrors.fullDescription = "Full description is required";
 
- if (!formData.contactPerson.trim()) {
-  newErrors.contactPerson = "Contact person is required";
-}
+    if (!formData.contactPerson.trim()) {
+      newErrors.contactPerson = "Contact person is required";
+    }
 
-// Contact Email / Phone required
-if (!formData.contactEmail.trim()) {
-  newErrors.contactEmail = "Contact Email or Phone is required";
-}
+    // Contact Email / Phone required
+    if (!formData.contactEmail.trim()) {
+      newErrors.contactEmail = "Contact Email or Phone is required";
+    }
 
-// Email or phone validation
-if (formData.contactEmail) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9]{10}$/;
+    // Email or phone validation
+    if (formData.contactEmail) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
 
-  if (
-    !emailRegex.test(formData.contactEmail) &&
-    !phoneRegex.test(formData.contactEmail)
-  ) {
-    newErrors.contactEmail =
-      "Enter valid email or 10-digit phone number";
-  }
-}
-  // Email validation
-  if (formData.contactEmail) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9]{10}$/; 
+      if (
+        !emailRegex.test(formData.contactEmail) &&
+        !phoneRegex.test(formData.contactEmail)
+      ) {
+        newErrors.contactEmail =
+          "Enter valid email or 10-digit phone number";
+      }
+    }
+    // Email validation
+    if (formData.contactEmail) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
 
-  if (
-    !emailRegex.test(formData.contactEmail) &&
-    !phoneRegex.test(formData.contactEmail)
-  ) {
-    newErrors.contactEmail = "Enter valid email or 10-digit phone number";
-  }
-}
+      if (
+        !emailRegex.test(formData.contactEmail) &&
+        !phoneRegex.test(formData.contactEmail)
+      ) {
+        newErrors.contactEmail = "Enter valid email or 10-digit phone number";
+      }
+    }
 
-// Cover Image 
-if (!coverImage) {
-  newErrors.coverImage = "Cover image is required";
-}
+    // Cover Image 
+    if (!coverImage) {
+      newErrors.coverImage = "Cover image is required";
+    }
 
-// Gallery 
-if (galleryImages.length > 10) {
-  newErrors.galleryImages = "Maximum 10 images allowed";
-}
+    // Gallery 
+    if (galleryImages.length > 10) {
+      newErrors.galleryImages = "Maximum 10 images allowed";
+    }
 
-// Video URL 
-if (formData.videoUrl) {
-  const urlPattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\/.+$/;
-  if (!urlPattern.test(formData.videoUrl)) {
-    newErrors.videoUrl = "Enter valid YouTube or Vimeo URL";
-  }
-}
+    // Video URL 
+    if (formData.videoUrl) {
+      const urlPattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\/.+$/;
+      if (!urlPattern.test(formData.videoUrl)) {
+        newErrors.videoUrl = "Enter valid YouTube or Vimeo URL";
+      }
+    }
 
- if (!formData.registrationEndDate) newErrors.RegistrationEndDate = "RegistrationEndDate date is required";
+    if (!formData.registrationEndDate) newErrors.RegistrationEndDate = "RegistrationEndDate date is required";
 
-  return newErrors;
-};
-// const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.files && e.target.files[0]) {
-//       setCoverImage(e.target.files[0]);
-//     }
-//   };
+    return newErrors;
+  };
+  // const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     if (e.target.files && e.target.files[0]) {
+  //       setCoverImage(e.target.files[0]);
+  //     }
+  //   };
 
 
-const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
+  const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 2 * 1024 * 1024; // 2MB
 
-  if (file.size > maxSize) {
+    if (file.size > maxSize) {
+      setErrors((prev) => ({
+        ...prev,
+        coverImage: "Image must be 2MB or smaller",
+      }));
+
+      e.target.value = ""; // reset file input
+      setCoverImage(null);
+      return;
+    }
+
+    // If file size is valid
     setErrors((prev) => ({
       ...prev,
-      coverImage: "Image must be 2MB or smaller",
+      coverImage: "",
     }));
 
-    e.target.value = ""; // reset file input
-    setCoverImage(null);
-    return;
-  }
-
-  // If file size is valid
-  setErrors((prev) => ({
-    ...prev,
-    coverImage: "",
-  }));
-
-  setCoverImage(file);
-};
+    setCoverImage(file);
+  };
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -193,7 +194,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  
+
   // const handleGalleryImagesChange = (
   //   e: React.ChangeEvent<HTMLInputElement>,
   // ) => {
@@ -203,26 +204,26 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   }
   // };
   const handleGalleryImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const files = e.target.files;
-  if (!files) return;
+    const files = e.target.files;
+    if (!files) return;
 
-  const maxSize = 2 * 1024 * 1024; // 2MB
-  const validFiles: File[] = [];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    const validFiles: File[] = [];
 
-  Array.from(files).forEach((file) => {
-    if (file.size > maxSize) {
-      alert(`${file.name} is larger than 2MB`);
-    } else {
-      validFiles.push(file);
+    Array.from(files).forEach((file) => {
+      if (file.size > maxSize) {
+        alert(`${file.name} is larger than 2MB`);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (validFiles.length > 0) {
+      setGalleryImages((prev: File[]) => [...prev, ...validFiles]);
     }
-  });
 
-  if (validFiles.length > 0) {
-    setGalleryImages((prev: File[]) => [...prev, ...validFiles]);
-  }
-
-  e.target.value = ""; // reset input
-};
+    e.target.value = ""; // reset input
+  };
   const removeGalleryImage = (index: number) => {
     setGalleryImages((prev) => prev.filter((_, i) => i !== index));
   };
@@ -230,71 +231,71 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
   const [activeAction, setActiveAction] = useState<"draft" | "publish" | null>(null);
 
-//handleSubmit
- const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
-  e.preventDefault();
+  //handleSubmit
+  const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
+    e.preventDefault();
 
-  setActiveAction(isDraft ? "draft" : "publish");
+    setActiveAction(isDraft ? "draft" : "publish");
     setLoading(true);
-  const newErrors = validateForm();
-  setErrors(newErrors);
+    const newErrors = validateForm();
+    setErrors(newErrors);
 
-  if (Object.keys(newErrors).length > 0) {
-    const firstError = Object.values(newErrors)[0] as string;
+    if (Object.keys(newErrors).length > 0) {
+      const firstError = Object.values(newErrors)[0] as string;
 
-    toast.error(firstError, {
-      duration: 3000,
-      position: "top-right",
-    });
+      toast.error(firstError, {
+        duration: 3000,
+        position: "top-right",
+      });
 
-    setActiveAction(null); // reset action
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const data = new FormData();
-
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-
-    data.append("isDraft", String(isDraft));
-
-    if (coverImage) {
-      data.append("coverImage", coverImage);
+      setActiveAction(null); // reset action
+      return;
     }
 
-    galleryImages.forEach((file) => {
-      data.append("galleryImages", file);
-    });
+    setLoading(true);
 
-    const response = await fetch("/api/events", {
-      method: "POST",
-      body: data,
-    });
+    try {
+      const data = new FormData();
 
-    const result = await response.json();
+      Object.entries(formData).forEach(([key, value]) => {
+        data.append(key, value);
+      });
 
-    if (response.ok) {
-      toast.success("Event saved successfully");
+      data.append("isDraft", String(isDraft));
 
-      setTimeout(() => {
-        router.push("/admin/events");
-      }, 1500);
-    } else {
-      toast.error(result.message || "Failed to save event");
+      if (coverImage) {
+        data.append("coverImage", coverImage);
+      }
+
+      galleryImages.forEach((file) => {
+        data.append("galleryImages", file);
+      });
+
+      const response = await fetch("/api/events", {
+        method: "POST",
+        body: data,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("Event saved successfully");
+
+        setTimeout(() => {
+          router.push("/admin/events");
+        }, 1500);
+      } else {
+        toast.error(result.message || "Failed to save event");
+      }
+
+    } catch {
+      console.error("Error saving event:");
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+      setActiveAction(null); // reset button state
     }
-
-  } catch {
-    console.error("Error saving event:");
-    toast.error("Something went wrong");
-  } finally {
-    setLoading(false);
-    setActiveAction(null); // reset button state
-  }
-};
+  };
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
@@ -340,43 +341,43 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 placeholder="Enter event title"
               />
               {errors.title && (
-  <p className="text-red-500 text-xs">{errors.title}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.title}</p>
+              )}
             </div>
 
-           <div className="space-y-2">
-  <label className="block font-bold text-gray-700 text-xs">
-    Program <span className="text-red-500">*</span>
-  </label>
+            <div className="space-y-2">
+              <label className="block font-bold text-gray-700 text-xs">
+                Program <span className="text-red-500">*</span>
+              </label>
 
-  <div className="relative">
-    <select
-      required
-      name="programId"
-      value={formData.programId}
-      onChange={handleInputChange}
-      className="w-full px-4 py-3 border border-gray-200 rounded-xl appearance-none focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all bg-white"
-    >
-      <option value="">Select Program</option>
+              <div className="relative">
+                <select
+                  required
+                  name="programId"
+                  value={formData.programId}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl appearance-none focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all bg-white"
+                >
+                  <option value="">Select Program</option>
 
-      {programs
-        .filter((p: Program) => Number(p.status) === 1) // ✅ only active
-        .map((p: Program) => (
-          <option key={p.id} value={p.id}>
-            {p.programs}
-          </option>
-        ))}
-    </select>
+                  {programs
+                    .filter((p: Program) => Number(p.status) === 1) // ✅ only active
+                    .map((p: Program) => (
+                      <option key={p.id} value={p.id}>
+                        {p.programs}
+                      </option>
+                    ))}
+                </select>
 
-    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-      <ChevronDown size={18} />
-    </div>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                  <ChevronDown size={18} />
+                </div>
 
-    {errors.programId && (
-      <p className="text-red-500 text-xs">{errors.programId}</p>
-    )}
-  </div>
-</div>
+                {errors.programId && (
+                  <p className="text-red-500 text-xs">{errors.programId}</p>
+                )}
+              </div>
+            </div>
 
             <div className="space-y-2">
               <label className="block font-bold text-gray-700 text-xs">
@@ -399,8 +400,8 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   <ChevronDown size={18} />
                 </div>
                 {errors.status && (
-  <p className="text-red-500 text-xs">{errors.status}</p>
-)}
+                  <p className="text-red-500 text-xs">{errors.status}</p>
+                )}
               </div>
             </div>
 
@@ -409,26 +410,26 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 Category <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-              <select
+                <select
                   required
-  name="categoryId"
-  value={formData.categoryId}
-  onChange={handleInputChange}
+                  name="categoryId"
+                  value={formData.categoryId}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl appearance-none focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all bg-white"
->
-  <option value="">Select Category</option>
+                >
+                  <option value="">Select Category</option>
                   {categories.map((c: { id: string; category: string }) => (
-    <option key={c.id} value={c.id}>
-      {c.category}
-    </option>
-  ))}
-</select>
+                    <option key={c.id} value={c.id}>
+                      {c.category}
+                    </option>
+                  ))}
+                </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
                   <ChevronDown size={18} />
                 </div>
                 {errors.categoryId && (
-  <p className="text-red-500 text-xs">{errors.categoryId}</p>
-)}
+                  <p className="text-red-500 text-xs">{errors.categoryId}</p>
+                )}
               </div>
             </div>
           </div>
@@ -453,13 +454,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 type="date"
                 required
                 name="startDate"
+                min={formData.status === "past" ? undefined : today}
                 value={formData.startDate}
-  onChange={handleInputChange}
+                onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.startDate && (
-  <p className="text-red-500 text-xs">{errors.startDate}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.startDate}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -475,8 +477,8 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.startTime && (
-  <p className="text-red-500 text-xs">{errors.startTime}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.startTime}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -486,13 +488,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               <input
                 type="date"
                 name="endDate"
+                min={formData.startDate || today}
                 value={formData.endDate}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.endDate && (
-  <p className="text-red-500 text-xs">{errors.endDate}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.endDate}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -507,8 +510,8 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.endTime && (
-  <p className="text-red-500 text-xs">{errors.endTime}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.endTime}</p>
+              )}
             </div>
 
             <div className="space-y-2 col-span-1 md:col-span-2">
@@ -525,8 +528,8 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.location && (
-  <p className="text-red-500 text-xs">{errors.location}</p>
-)}
+                <p className="text-red-500 text-xs">{errors.location}</p>
+              )}
             </div>
           </div>
         </section>
@@ -554,10 +557,10 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all resize-none"
               />
               {errors.shortDescription && (
-  <p className="text-red-500 text-xs">
-    {errors.shortDescription}
-  </p>
-)}
+                <p className="text-red-500 text-xs">
+                  {errors.shortDescription}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -572,11 +575,11 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 placeholder="Comprehensive details about the event, schedule, speakers, etc."
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all resize-y"
               />
-                {errors.fullDescription && (
-  <p className="text-red-500 text-xs">
-    {errors.fullDescription}
-  </p>
-)}
+              {errors.fullDescription && (
+                <p className="text-red-500 text-xs">
+                  {errors.fullDescription}
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -589,43 +592,43 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   name="contactPerson"
                   value={formData.contactPerson}
                   onChange={(e) => {
-                  const value = e.target.value;
+                    const value = e.target.value;
                     if (/^[A-Za-z\s]*$/.test(value)) {
-                    handleInputChange(e);
-                 }
-                }}
-                placeholder="Name"
-                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
-                  />
+                      handleInputChange(e);
+                    }
+                  }}
+                  placeholder="Name"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
+                />
 
-            {errors.contactPerson && (
-            <p className="text-red-500 text-xs">
-               {errors.contactPerson}
-              </p>
-              )}
+                {errors.contactPerson && (
+                  <p className="text-red-500 text-xs">
+                    {errors.contactPerson}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
-  <label className="block font-bold text-gray-700 text-xs">
-    Contact Email/Phone <span className="text-red-500">*</span>
-  </label>
+                <label className="block font-bold text-gray-700 text-xs">
+                  Contact Email/Phone <span className="text-red-500">*</span>
+                </label>
 
-  <input
-    type="email"
-    name="contactEmail"
-    value={formData.contactEmail}
-    onChange={handleInputChange}
-    placeholder="Email or phone number"
-    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
-  />
+                <input
+                  type="email"
+                  name="contactEmail"
+                  value={formData.contactEmail}
+                  onChange={handleInputChange}
+                  placeholder="Email or phone number"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
+                />
 
-  {errors.contactEmail && (
-    <p className="text-red-500 text-xs">
-      {errors.contactEmail}
-    </p>
-  )}
-</div>
-            
+                {errors.contactEmail && (
+                  <p className="text-red-500 text-xs">
+                    {errors.contactEmail}
+                  </p>
+                )}
+              </div>
+
             </div>
           </div>
         </section>
@@ -682,9 +685,9 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     Recommended: 1200 x 630 px (16:9), JPG or PNG, max 2 MB.
                   </p>
                 </div>
-                
+
               </div>
-              
+
 
               <div className="mt-6 flex flex-col md:flex-row gap-6">
                 <div
@@ -701,16 +704,16 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     onChange={handleCoverImageChange}
                   />
                   {coverImage ? (
-  <div className="relative w-full h-full">
-    <Image
-      src={URL.createObjectURL(coverImage)}
-      alt="Cover Preview"
-      fill
-      className="object-cover"
-    />
-  </div>
-) : (
-                   
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={URL.createObjectURL(coverImage)}
+                        alt="Cover Preview"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+
                     <div className="text-center p-4">
                       <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <Upload size={24} />
@@ -741,14 +744,14 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               </div>
             </div>
             {errors.coverImage && (
-  <p className="text-red-500 mt-2 text-xs">
-    {errors.coverImage}
-  </p>
-)}
+              <p className="text-red-500 mt-2 text-xs">
+                {errors.coverImage}
+              </p>
+            )}
 
             <div className="space-y-2 pt-4">
               <label className="block font-bold text-gray-700 uppercase tracking-wide text-xs">
-                Additional Gallery Images{" "}<span className="text-red-500">*</span> 
+                Additional Gallery Images{" "}<span className="text-red-500">*</span>
                 <span className="font-normal text-gray-500 normal-case text-xs">
                   (Shown in the event gallery section)
                 </span>
@@ -778,7 +781,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   JPG, PNG, GIF · Max 200 MB per file · Multiple files allowed
                 </p>
               </div>
-              
+
 
               {/* Gallery Previews */}
               {galleryImages.length > 0 && (
@@ -794,25 +797,25 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                         fill
                         className="object-cover"
                       />
-                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
-  <button
-    type="button"
-    onClick={() => removeGalleryImage(index)}
-    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 hover:scale-110 transition-all shadow-lg z-10"
-  >
-    <X size={16} />
-  </button>
-</div>
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button
+                          type="button"
+                          onClick={() => removeGalleryImage(index)}
+                          className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 hover:scale-110 transition-all shadow-lg z-10"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
               )}
             </div>
             {errors.coverImage && (
-  <p className="text-red-500 mt-2 text-xs">
-    {errors.coverImage}
-  </p>
-)}
+              <p className="text-red-500 mt-2 text-xs">
+                {errors.coverImage}
+              </p>
+            )}
 
             <div className="space-y-2 pt-4">
               <label className="block font-bold text-gray-700 uppercase tracking-wide text-xs">
@@ -830,12 +833,12 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
               {errors.videoUrl && (
-  <p className="text-red-500 text-xs">
-    {errors.videoUrl}
-  </p>
-)}
+                <p className="text-red-500 text-xs">
+                  {errors.videoUrl}
+                </p>
+              )}
             </div>
-            
+
           </div>
         </section>
 
@@ -857,6 +860,7 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               <input
                 type="date"
                 name="registrationStartDate"
+                min={formData.status === "past" ? undefined : today}
                 value={formData.registrationStartDate}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
@@ -867,16 +871,16 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 Registration End Date <span className="text-red-500">*</span>
               </label>
               <input
-               type="date"
-  name="registrationEndDate"
-  min={formData.registrationStartDate}
-  value={formData.registrationEndDate}
-  onChange={handleInputChange}
+                type="date"
+                name="registrationEndDate"
+                min={formData.registrationStartDate || today}
+                value={formData.registrationEndDate}
+                onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] outline-none transition-all"
               />
-            {errors.RegistrationEndDate && (
-  <p className="text-red-500 text-xs">{errors.RegistrationEndDate}</p>
-)}
+              {errors.RegistrationEndDate && (
+                <p className="text-red-500 text-xs">{errors.RegistrationEndDate}</p>
+              )}
             </div>
           </div>
         </section>
@@ -884,37 +888,37 @@ const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* ACTIONS */}
         <div className="pt-6 border-t border-gray-200 flex justify-end gap-4">
 
-  {/* Save Draft */}
-  <button
-    type="button"
-    onClick={(e) => handleSubmit(e, true)}
-    disabled={loading && activeAction === "publish"}
-    className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
-  >
-    {loading && activeAction === "draft" ? (
-      <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin" />
-    ) : (
-      "Save as Draft"
-    )}
-  </button>
+          {/* Save Draft */}
+          <button
+            type="button"
+            onClick={(e) => handleSubmit(e, true)}
+            disabled={loading && activeAction === "publish"}
+            className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
+          >
+            {loading && activeAction === "draft" ? (
+              <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              "Save as Draft"
+            )}
+          </button>
 
-  {/* Publish */}
-  <button
-    type="button"
-    onClick={(e) => handleSubmit(e, false)}
-    disabled={loading && activeAction === "draft"}
-    className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
-  >
-    {loading && activeAction === "publish" ? (
-      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-    ) : null}
+          {/* Publish */}
+          <button
+            type="button"
+            onClick={(e) => handleSubmit(e, false)}
+            disabled={loading && activeAction === "draft"}
+            className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
+          >
+            {loading && activeAction === "publish" ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : null}
 
-    Publish Event
-  </button>
+            Publish Event
+          </button>
 
-</div>
         </div>
       </div>
-    
+    </div>
+
   );
 }

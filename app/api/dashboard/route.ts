@@ -48,7 +48,7 @@ export async function GET() {
     });
 
     let membershipRevenue = 0;
-    memberships.forEach((m: { membership_fee: number }) => {
+    memberships.forEach((m: any) => {
       const fee = Number(m.membership_fee) || 0;
       membershipRevenue += isNaN(fee) ? 0 : fee;
     });

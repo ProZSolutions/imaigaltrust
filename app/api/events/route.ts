@@ -125,8 +125,43 @@ export async function GET(request: Request) {
       },
     });
 
+    const now = new Date();
+    now.setHours(0, 0, 0, 0); // Normalize to start of day for comparison
+
+    // Auto-sync status based on dates
+    const syncPromises = events.map(async (event: any) => {
+      let newStatus = event.status;
+      const startDate = new Date(event.start_date);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = event.end_date ? new Date(event.end_date) : startDate;
+      endDate.setHours(0, 0, 0, 0);
+
+      if (now < startDate) {
+        newStatus = "upcoming";
+      } else if (now >= startDate && now <= endDate) {
+        newStatus = "ongoing";
+      } else if (now > endDate) {
+        newStatus = "past";
+      }
+
+      // Only update if status actually changed
+      if (newStatus !== event.status) {
+        await prisma.event.update({
+          where: { id: event.id },
+          data: { status: newStatus },
+        });
+        event.status = newStatus; // reflect in return data
+      }
+      return event;
+    });
+
+    await Promise.all(syncPromises);
+
     const formattedEvents = events.map((event: any) => ({
       ...event,
+      id: Number(event.id),
+      program_id: Number(event.program_id),
+      category_id: Number(event.category_id),
       program: event.program?.programs || "N/A",
       start_date_formatted: event.start_date.toLocaleDateString("en-GB"),
       start_time_formatted: event.start_time.toLocaleTimeString([], {

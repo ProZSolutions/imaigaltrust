@@ -19,10 +19,10 @@ model Membership {
   state              String      @db.VarChar(255)
   membership_type    String      @db.VarChar(255)
   interest           String      @db.VarChar(255)
-  membership_fee     String      @db.VarChar(255)
+  membership_fee     Float       @default(0.00) @db.Double
   voluntary_donation Float       @default(0.00) @db.Double
-  status             BigInt
-  is_active          BigInt
+  status             Int
+  is_active          Int
   created_at         DateTime    @default(now()) @db.Timestamp(0)
   updated_at         DateTime    @default(now()) @updatedAt @db.Timestamp(0)
   reject_reason      String?     @db.LongText
@@ -145,7 +145,11 @@ model EventRegistration {
   special_requirements String?                     @db.Text
   consent              Boolean                     @default(false)
   created_at           DateTime                   @default(now()) @db.Timestamp(0)
+  status               Int                         @default(0) @db.TinyInt
+  updated_at           DateTime                   @default(now()) @updatedAt @db.Timestamp(0)
+  reject_reason        String?                     @db.LongText
   event                Event                       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "event_registrations_ibfk_1")
+
 
   @@index([event_id], map: "event_id")
   @@map("event_registrations")

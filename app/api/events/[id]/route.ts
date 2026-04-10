@@ -36,7 +36,14 @@ export async function GET(
       return NextResponse.json({ message: "Event not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ event });
+    const formattedEvent = {
+      ...event,
+      id: Number(event.id),
+      program_id: Number(event.program_id),
+      category_id: Number(event.category_id),
+    };
+
+    return NextResponse.json({ event: formattedEvent });
   } catch (error) {
     console.error("Error fetching event:", error);
     return NextResponse.json({ message: "Error fetching event" }, { status: 500 });
@@ -128,9 +135,16 @@ export async function PUT(
       data: updateData,
     });
 
+    const formattedEvent = {
+      ...event,
+      id: Number(event.id),
+      program_id: Number(event.program_id),
+      category_id: Number(event.category_id),
+    };
+
     return NextResponse.json({
       message: "Event updated successfully!",
-      event,
+      event: formattedEvent,
     });
   } catch (error) {
     console.error("Error updating event:", error);
@@ -139,6 +153,49 @@ export async function PUT(
       { status: 500 }
     );
   }
+}
+
+export async function PATCH(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+        return NextResponse.json({ message: "Build phase" });
+    }
+
+    try {
+        await headers();
+    } catch (e) { }
+
+    try {
+        const { prisma } = await import("@/lib/prisma");
+        const resolvedParams = await params;
+        const id = parseInt(resolvedParams.id);
+        const body = await request.json();
+
+        const event = await prisma.event.update({
+            where: { id },
+            data: body,
+        });
+
+        const formattedEvent = {
+            ...event,
+            id: Number(event.id),
+            program_id: Number(event.program_id),
+            category_id: Number(event.category_id),
+        };
+
+        return NextResponse.json({
+            message: "Event updated successfully!",
+            event: formattedEvent,
+        });
+    } catch (error) {
+        console.error("Error patching event:", error);
+        return NextResponse.json(
+            { message: "Failed to update event" },
+            { status: 500 }
+        );
+    }
 }
 
 export async function DELETE(
