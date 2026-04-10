@@ -63,9 +63,15 @@ export async function POST(request: Request) {
       },
     });
 
+    const formattedRegistration = {
+      ...registration,
+      id: Number(registration.id),
+      event_id: Number(registration.event_id),
+    };
+
     return NextResponse.json({
       message: "Registration successful!",
-      registration,
+      registration: formattedRegistration,
     });
   } catch (error) {
     console.error("Error creating registration:", error);
@@ -118,7 +124,38 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json({ registrations });
+    let event = null;
+    if (eventId) {
+      event = await prisma.event.findUnique({
+        where: { id: parseInt(eventId) },
+        include: {
+          program: {
+            select: {
+              programs: true,
+            },
+          },
+        },
+      });
+    }
+
+    const formattedRegistrations = registrations.map(reg => ({
+      ...reg,
+      id: Number(reg.id),
+      event_id: Number(reg.event_id),
+      event: reg.event ? {
+        ...reg.event,
+        id: (reg.event as any).id ? Number((reg.event as any).id) : undefined
+      } : null
+    }));
+
+    const formattedEvent = event ? {
+      ...event,
+      id: Number(event.id),
+      program_id: Number(event.program_id),
+      category_id: Number(event.category_id),
+    } : null;
+
+    return NextResponse.json({ registrations: formattedRegistrations, event: formattedEvent });
   } catch (error) {
     console.error("Error fetching registrations:", error);
     return NextResponse.json(
