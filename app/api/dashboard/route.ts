@@ -49,17 +49,17 @@ export async function GET() {
 
     let membershipRevenue = 0;
     memberships.forEach((m: { membership_fee: number }) => {
-      const fee = Number(m.membership_fee) || 0;
+  const fee = Number(m.membership_fee) || 0;
       membershipRevenue += isNaN(fee) ? 0 : fee;
-    });
+});
     
     const paidMembers = await prisma.membership.count({
-      where: {
-        membership_fee: {
+  where: {
+    membership_fee: {
           not: 0,
-        },
-      },
-    });
+    },
+  },
+});
 
     const freeVolunteers = await prisma.membership.count({
       where: {
