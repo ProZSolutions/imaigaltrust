@@ -20,10 +20,10 @@ export default function ProgramHealthcare() {
 <section className="py-10 px-4 md:px-10 max-w-[1600px] mx-auto p-6 md:p-8 rounded-lg flex flex-col md:flex-row items-center gap-8">
   {/* TEXT LEFT */}
   <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-5 md:gap-6 justify-center">
-    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl gap-2 leading-[1.2]">
       Strengthening Healthcare Access in Rural Areas
     </h2>
-    <p className="font-poppins font-normal text-[#101010] text-sm">
+    <p className="font-poppins font-normal text-[#101010] text-sm leading-relaxed">
       At Imaigal Trust, we believe that access to quality healthcare is a
       fundamental right. Our Rural Health initiatives focus on improving
       healthcare facilities, increasing awareness, and providing medical
@@ -51,49 +51,49 @@ export default function ProgramHealthcare() {
       <section className="pt-12 pb-7 px-4 md:px-10 max-w-[1600px] mx-auto">
         <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
           {/* Centered Heading */}
-          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
-            Primary Healthcare Initiatives
-          </h2>
+         <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Primary Healthcare Initiatives
+</h2>
 
           {/* Two-Column Content */}
           <div className="flex flex-col md:flex-row items-start gap-8">
             {/* TEXT LEFT */}
             <div className="w-full md:w-1/2 flex flex-col mt-6 font-poppins text-[#101010] gap-8">
               <div className="space-y-4">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Medical Camps & Free Health Check-ups
                 </h3>
-                <p className="font-normal text-sm">
+                <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
                   Organizing periodic health camps to provide medical
                   consultations and treatments.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Education & Financial Literacy
                 </h3>
-                <p className="font-normal text-sm">
+                <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
                   Ensuring safe pregnancies, proper nutrition, and immunization
                   for children.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Awareness on Preventive Healthcare
                 </h3>
-                <p className="font-normal text-sm">
+                <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
                   Educating communities about hygiene, sanitation, and common
                   diseases.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Mental Health & Well-being
                 </h3>
-                <p className="font-normal text-sm">
+                <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
                   Offering counseling services and mental health support for
                   rural individuals.
                 </p>
@@ -118,9 +118,9 @@ export default function ProgramHealthcare() {
       <section className="py-10 px-4 md:px-10 max-w-[1600px] mx-auto">
         <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
           {/* Centered Heading */}
-          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
-            Healthcare Impacts
-          </h2>
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Healthcare Impacts
+</h2>
 
           {/* Two-Column Content */}
           <div className="flex flex-col md:flex-row items-start gap-8">

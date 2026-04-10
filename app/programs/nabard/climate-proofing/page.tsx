@@ -60,9 +60,9 @@ export default function ClimateProofing() {
   {/* Left Side - Text */}
   <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center">
     
-    <h2 className="font-bold text-[#1B2F7C] uppercase josefin-font text-2xl">
-      Climate Proofing of Agriculture
-    </h2>
+    <h2 className="font-bold text-[#1B2F7C] uppercase josefin-font text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Climate Proofing of Agriculture
+</h2>
 
     <p className="text-black font-medium">
       Building resilient farming systems to withstand irregular rainfall,
@@ -109,9 +109,9 @@ export default function ClimateProofing() {
 
        {/* Objectives Section */}
 <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
-  <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-2xl">
-    Objectives
-  </h2>
+  <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Objectives
+</h2>
   <div className="grid md:grid-cols-3 gap-8">
     {objectives.map((obj, index) => (
       <div
@@ -131,7 +131,7 @@ export default function ClimateProofing() {
 
         {/* Key Activities Grid */}
         <div className="mb-20">
-          <h2 className="josefin-font font-bold text-black uppercase text-center mb-12 text-2xl">
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

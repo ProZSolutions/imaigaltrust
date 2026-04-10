@@ -38,10 +38,10 @@ export default function ProgramAgriculture() {
         <div className="max-w-[1350px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="flex flex-col gap-8">
-            <h2 className="font-serif font-bold leading-[1.1] text-[#1B3022] text-4xl">
-              Building Stronger Communities <br />
-              <span className="text-green-700">Through Collaboration</span>
-            </h2>
+           <h2 className="font-serif font-bold leading-[1.1] text-[#1B3022] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+  Building Stronger Communities <br />
+  <span className="text-green-700">Through Collaboration</span>
+</h2>
             <div className="space-y-6 max-w-[620px]">
               <p className="font-sans leading-[1.7] text-[#4A4A4A] text-base">
                 At Imaigal Trust, we believe that collaboration is the
@@ -94,9 +94,9 @@ export default function ProgramAgriculture() {
             <span className="text-green-700 font-bold tracking-[3px] uppercase block mb-3 text-xs">
               Our Network
             </span>
-            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
-              Key Partner Organizations
-            </h2>
+            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-xl sm:text-2xl md:text-3xl">
+  Key Partner Organizations
+</h2>
             <p className="text-[#666666] max-w-[750px] mx-auto mb-8 text-base">
               Imaigal Trust collaborates with premier national bodies to amplify
               impact across agriculture, rural enterprise, and community
@@ -278,9 +278,9 @@ export default function ProgramAgriculture() {
               Programme History
             </span>
 
-            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
-              Training Programmes & Associations
-            </h2>
+            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-xl sm:text-2xl md:text-3xl">
+  Training Programmes & Associations
+</h2>
 
             <p className="text-[#666666] max-w-[720px] mx-auto mb-6 text-base">
               Key training initiatives delivered by Imaigal Trust in
@@ -593,9 +593,9 @@ export default function ProgramAgriculture() {
               Governance & Membership
             </span>
 
-            <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-3xl">
-              Committees & Advisory Bodies
-            </h2>
+           <h2 className="font-serif font-bold text-[#1B3022] mb-6 text-xl sm:text-2xl md:text-3xl">
+  Committees & Advisory Bodies
+</h2>
 
             <p className="text-[#666666] max-w-[720px] mx-auto mb-6 text-base">
               Imaigal Trust is represented in key district and national-level

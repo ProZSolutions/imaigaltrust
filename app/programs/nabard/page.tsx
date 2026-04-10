@@ -17,9 +17,9 @@ export default function NabardProjects() {
             {/* CRT-Style Container */}
 <section className="pt-4 sm:pt-5 md:pt-6 pb-7 max-w-[1800px] mx-auto px-0 sm:px-1 md:px-2 flex flex-col gap-6">
 <div className="max-w-[1600px] mx-auto p-4 md:p-5 bg-gray-100 rounded-lg flex flex-col gap-6">                    {/* Section Heading */}
-                    <h2 className="josefin-font font-bold text-[#1B2F7C] uppercase text-center text-2xl">
-                        NABARD Supported Projects
-                    </h2>
+                    <h2 className="josefin-font font-bold text-[#1B2F7C] uppercase text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
+  NABARD Supported Projects
+</h2>
                     <p className="inter-font text-gray-700 text-center">
                         Imaigal Trust partners with NABARD to implement various sustainable development projects. Explore our ongoing initiatives below:
                     </p>

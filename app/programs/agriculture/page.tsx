@@ -29,12 +29,12 @@ export default function ProgramAgriculture() {
   {/* Content */}
   <div className="w-full flex flex-col gap-6 justify-center md:ml-12 text-center md:text-left">
 
-    <p className="uppercase text-xl primary-text font-poppins">
-      Agriculture-Based Initiatives
-    </p>
+    <p className="uppercase text-sm sm:text-base md:text-lg lg:text-xl primary-text font-poppins">
+  Agriculture-Based Initiatives
+</p>
 
-    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl sm:text-3xl">
-      <span className="block">Empowering Farmers, Sustaining</span>
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-xl sm:text-2xl md:text-3xl">
+      <span className="block mb-2">Empowering Farmers, Sustaining</span>
       <span className="block">Agriculture</span>
     </h2>
 
@@ -52,37 +52,38 @@ export default function ProgramAgriculture() {
       <section className="pb-10 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col lg:flex-row items-start lg:items-center gap-8 mt-5">
   <div className="w-full lg:w-2/3 flex flex-col gap-6">
     <div className="section-box-lg">
-      <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-lg">
-        Farmer Producer Organizations (FPOs)
-      </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
-  Supporting farmers through NABARD-backed FPCs, providing training,
-  resources, and
-  
-    financial assistance for better productivity and market access.
+      <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-base sm:text-lg md:text-xl mb-2">
+  Farmer Producer Organizations (FPOs)
+</h3>
 
+<p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+  Supporting farmers through NABARD-backed FPCs, providing training,
+  resources, and financial assistance for better productivity and
+  market access.
 </p>
     </div>
 
     <div className="section-box-lg">
-      <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-xl">
-        Organic & Sustainable Farming
-      </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
-        Encouraging eco-friendly agricultural practices, organic certification
-        programs, and training on natural pest control and soil health
-        management
-      </p>
+      <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-base sm:text-lg md:text-xl mb-2">
+  Organic & Sustainable Farming
+</h3>
+
+<p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+  Encouraging eco-friendly agricultural practices, organic certification
+  programs, and training on natural pest control and soil health
+  management
+</p>
     </div>
 
     <div className="section-box-lg">
-      <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-xl">
-        Water Conservation & Climate Resilience
-      </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
-        Implementing rainwater harvesting, drip irrigation, and sustainable
-        water management strategies to combat climate change effects on farming
-      </p>
+     <h3 className="font-poppins font-medium tracking-normal text-[#101010] text-base sm:text-lg md:text-xl mb-2">
+  Water Conservation & Climate Resilience
+</h3>
+
+<p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+  Implementing rainwater harvesting, drip irrigation, and sustainable
+  water management strategies to combat climate change effects on farming
+</p>
     </div>
   </div>
 
@@ -100,30 +101,32 @@ export default function ProgramAgriculture() {
 <section className="w-full max-w-[1600px] mx-auto pt-0 px-4 md:px-10 mb-10">
   <div className="flex flex-col gap-6 w-full">
     <div className="section-box-lg w-full">
-      <h3 className="font-poppins font-medium text-[#101010] text-xl">
-        Technology &amp; Innovation in Agriculture
-      </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
-        Implementing rainwater harvesting, drip irrigation, and sustainable
-        water management strategies to combat climate change effects on farming.
-      </p>
+      <h3 className="font-poppins font-medium text-[#101010] text-base sm:text-lg md:text-xl mb-2">
+  Technology &amp; Innovation in Agriculture
+</h3>
+
+<p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+  Implementing rainwater harvesting, drip irrigation, and sustainable
+  water management strategies to combat climate change effects on farming.
+</p>
     </div>
 
     <div className="section-box-lg w-full">
-      <h3 className="font-poppins font-medium text-[#101010] text-xl">
-        Technology &amp; Innovation in Agriculture
-      </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
-        Implementing rainwater harvesting, drip irrigation, and sustainable
-        water management strategies to combat climate change effects on farming.
-      </p>
+      <h3 className="font-poppins font-medium text-[#101010] text-base sm:text-lg md:text-xl mb-2">
+  Technology &amp; Innovation in Agriculture
+</h3>
+
+<p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+  Implementing rainwater harvesting, drip irrigation, and sustainable
+  water management strategies to combat climate change effects on farming.
+</p>
     </div>
 
     <div className="section-box-lg w-full">
-      <h3 className="font-poppins font-medium text-[#101010] text-xl">
+      <h3 className="font-poppins font-medium text-[#101010] text-base sm:text-lg md:text-xl mb-2">
         Market Linkages &amp; Financial Support
       </h3>
-      <p className="font-poppins font-normal text-gray-500 mb-5 text-base">
+      <p className="font-poppins font-normal text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
         Implementing rainwater harvesting, drip irrigation, and sustainable
         water management strategies to combat climate change effects on farming.
       </p>

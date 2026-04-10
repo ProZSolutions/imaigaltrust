@@ -77,7 +77,7 @@ const toggleDropdown = (name: string) => {
               >
               <span
   onClick={() => toggleDropdown("about")}
-className="flex items-center gap-1 cursor-pointer text-white py-4 md:py-2 ml-8 md:ml-4">
+className="flex items-center gap-1 cursor-pointer text-white text-sm py-4 md:py-2 ml-8 md:ml-4">
 
   About Us <FaChevronDown />
 </span>
@@ -116,12 +116,12 @@ className="flex items-center gap-1 cursor-pointer text-white py-4 md:py-2 ml-8 m
                 className={`nav-link ${isParentPathActive("/programs") ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-           <span
+          <span
   onClick={() => toggleDropdown("programs")}
-className="flex items-center gap-1 cursor-pointer text-white py-4 md:py-2 ml-8 md:ml-4">
-    Programs <FaChevronDown />
+  className="flex items-center gap-1 cursor-pointer text-white text-sm py-4 md:py-2 ml-8 md:ml-4"
+>
+  Programs <FaChevronDown />
 </span>
-
 
                 <div className={`dropdown ${openDropdown === "programs" ? "show" : ""}`}>
                   <ul>
@@ -257,7 +257,7 @@ className="flex items-center gap-1 cursor-pointer text-white py-4 md:py-2 ml-8 m
                 className={`nav-link ${pathname === "/news-events" ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-                <Link href="/news-events" className="md:-ml-3">
+                <Link href="/news-events" className="nav-title">
   News & Events
 </Link>
               </li>
@@ -267,16 +267,18 @@ className="flex items-center gap-1 cursor-pointer text-white py-4 md:py-2 ml-8 m
                 className={`nav-link ${isParentPathActive("/gallery") ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-                <Link href="/gallery " className="md:-ml-3">
-                  Gallery
-                </Link>
+                <Link href="/gallery" className="nav-title">
+  Gallery
+</Link>
               </li>
 
               <li
                 className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
                 style={{ "--i": ".6s" } as React.CSSProperties}
               >
-                <Link href="/contact-us">Contact Us</Link>
+               <Link href="/contact-us" className="nav-title">
+  Contact Us
+</Link>
               </li>
             </ul>
           </div>

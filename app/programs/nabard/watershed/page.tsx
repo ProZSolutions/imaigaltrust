@@ -53,43 +53,43 @@ export default function WatershedDevelopment() {
         {/* Watershed Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
           <div className="space-y-6 inter-font">
-            <h2 className="josefin-font pt-25 font-bold text-[#1B2F7C] uppercase text-2xl">
-              Watershed Development
-            </h2>
+           <h2 className="josefin-font pt-25 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Watershed Development
+</h2>
             {/* <div className="w-20 h-2 bg-[#1B2F7C] rounded-full"></div> */}
-            <p className="text-black text-sml font-medium">
+            <p className="text-black text-sm font-medium leading-relaxed">
               Restoring degraded land and securing water resources for
               sustainable rural agriculture.
             </p>
-            <p className="text-black text-sml">
+            <p className="text-black text-sm leading-relaxed">
               The Watershed Development program focuses on improving soil and
               water conservation in rural landscapes. By restoring degraded land
               and improving groundwater recharge, the project helps farming
               communities maintain sustainable agricultural productivity.
             </p>
-            <p className="text-black text-sml">
+            <p className="text-black text-sm leading-relaxed">
               <strong>Imaigal Trust</strong> works closely with local
               communities to implement watershed activities that improve water
               availability, reduce soil erosion, and support long-term
               environmental sustainability.
             </p>
           </div>
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-primary/10 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform"></div>
+         <div className="relative group">
+  <div className="absolute -inset-4 bg-primary/10 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform"></div>
             <div className="relative h-[450px] w-full rounded-2xl overflow-hidden">
-              <Image
-                src="/assets/images/programs/water.jpeg"
-                alt="Watershed Development Project"
-                fill
+    <Image
+      src="/assets/images/programs/water.jpeg"
+      alt="Watershed Development Project"
+      fill
                 className="object-contain-xl"
-              />
-            </div>
-          </div>
+    />
+  </div>
+</div>
         </div>
 
         {/* Objectives Section */}
         <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
-          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-2xl">
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Objectives
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -111,7 +111,7 @@ export default function WatershedDevelopment() {
 
         {/* Key Activities Grid */}
         <div className="mb-20">
-          <h2 className="josefin-font font-bold black-text uppercase text-center mb-12 text-2xl">
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

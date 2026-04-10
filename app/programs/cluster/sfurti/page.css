@@ -75,17 +75,9 @@
 
 /* 1) Make sure Poppins is loaded (in your HTML <head> or globals.css) */
 
-/* 2) Define a class for your heading */
-.sfurti-heading {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  @apply text-4xl;
-  /* Figma calls for 46px line-height, not 1px */
-  line-height: 46px;
-  letter-spacing: 0;
-  color: #101010;
-  margin: 0 0 32px; /* adds 32px below the heading */
-  /* remove any padding-bottom here */
+
+.sfurti-heading{
+  @apply text-xl sm:text-xl md:text-xl lg:text-2xl ;
 }
 
 /* your list that follows */

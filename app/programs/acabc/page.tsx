@@ -94,7 +94,7 @@ export default function ACABCProgram() {
   {/* TEXT */}
   <div className="space-y-4 sm:space-y-5 md:space-y-6 inter-font">
     
-    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl gap-2 leading-[1.2]">
       ACABC – Agri-Clinics and Agri-Business Centres
     </h2>
 
@@ -103,7 +103,7 @@ export default function ACABCProgram() {
       through professional advisory services.
     </p>
 
-    <p className="text-black-600 text-sm">
+    <p className="text-black-600 text-sm leading-relaxed">
       The Agri-Clinics and Agri-Business Centres (ACABC) program is a
       Government of India initiative designed to provide professional
       agricultural services to farmers. <strong>Imaigal Trust</strong>{" "}
@@ -112,7 +112,7 @@ export default function ACABCProgram() {
       crop productivity and adopt modern farming techniques.
     </p>
 
-    <p className="text-black-600 text-sm">
+    <p className="text-black-600 text-sm  leading-relaxed">
       These agri-clinics act as knowledge hubs for rural farmers,
       providing guidance on crop planning, soil health management, pest
       control, and improved agricultural technologies.
@@ -152,9 +152,9 @@ export default function ACABCProgram() {
 
         {/* Objectives Section */}
         <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
-          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-2xl">
-            Objectives
-          </h2>
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Objectives
+</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {objectives.map((obj, index) => (
               <div
@@ -174,7 +174,8 @@ export default function ACABCProgram() {
 
         {/* Key Services Grid */}
         <div className="mb-20">
-          <h2 className="josefin-font font-bold black-text uppercase text-center mb-12 text-2xl">
+                    <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
+
             Key Services
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -184,23 +185,22 @@ export default function ACABCProgram() {
                className="p-8 bg-white border border-black-200 rounded-3xl hover:border-primary/40 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between h-full bg-gradient-to-br from-white to-gray-50/30"
               >
                 <div className="mb-6 w-12 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
-                <h3 className="josefin-font font-bold secondary-text-900 group-hover:primary-text transition-colors mb-4 min-h-[56px] flex items-center text-lg">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 inter-font flex-grow text-xs">
-                  {service.desc}
-                </p>
+                <h3 className="josefin-font font-bold secondary-text-900 group-hover:primary-text transition-colors mb-4 min-h-[56px] flex items-center text-base sm:text-lg md:text-sml">
+  {service.title}
+</h3>
+
+<p className="text-gray-600 inter-font flex-grow text-xs sm:text-sm md:text-base leading-relaxed">
+  {service.desc}
+</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Implementation Process */}
-        {/* Implementation Process */}
 <div className="mb-20">
   <div className="text-center mb-12">
-    <h2 className="josefin-font font-bold black-text uppercase mb-4 text-2xl">
-      Implementation Process
+<h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">      Implementation Process
     </h2>
     <p className="text-gray-600 inter-font max-w-2xl mx-auto">
       Our structured approach ensures that agricultural graduates are
@@ -243,7 +243,7 @@ export default function ACABCProgram() {
 </div>
 
         {/* Why ACABC? */}
-      <div className="grid md:grid-cols-3 gap-10 mb-20">
+      <div className="grid md:grid-cols-3 gap-10 mb-2">
           <div className="flex items-start space-x-4">
             <div className="text-primary mt-1">
               <FaUsers size={24} />

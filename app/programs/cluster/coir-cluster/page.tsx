@@ -20,11 +20,11 @@ export default function ProgramAgriculture() {
 <section className="py-10 max-w-[1700px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8">
   {/* Left Side - Text */}
   <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center md:ml-12">
-    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
+    <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl gap-2 leading-[1.2]">
       Revitalizing the Coir Industry for Sustainable Growth
     </h2>
 
-    <p className="font-poppins font-normal text-[#101010] text-sm">
+    <p className="font-poppins font-normal leading-relaxed text-[#101010] text-sm">
       The Erode Kongu Coir Cluster is a pioneering initiative aimed at
       strengthening the coir industry in the Erode region by enhancing
       production, quality, and market linkages. Supported under the SFURTI
@@ -131,37 +131,38 @@ export default function ProgramAgriculture() {
       <div className="w-full md:w-1/2 flex flex-col mt-6 font-poppins text-[#101010] gap-8">
 
         <div className="space-y-4">
-          <h3 className="font-medium text-xl">
-            Technology Upgradation
-          </h3>
-          <p className="font-normal text-sm">
-            Introducing modern coir processing equipment to enhance productivity.
-          </p>
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
+  Technology Upgradation
+</h3>
+
+<p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
+  Introducing modern coir processing equipment to enhance productivity.
+</p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-xl">
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
             Skill Development
           </h3>
-          <p className="font-normal text-sm">
+          <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
             Conducting training sessions for artisans to improve their craftsmanship.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-xl">
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
             Sustainability Initiatives
           </h3>
-          <p className="font-normal text-sm">
+          <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
             Encouraging eco-friendly production methods and waste utilization.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-medium text-xl">
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
             Market Expansion
           </h3>
-          <p className="font-normal text-sm">
+          <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed">
             Strengthening supply chains and increasing product outreach through e-commerce and direct marketing.
           </p>
         </div>

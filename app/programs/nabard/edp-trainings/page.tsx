@@ -65,24 +65,24 @@ export default function EDPTrainings() {
 
     {/* Content */}
     <div className="lg:col-span-7 space-y-6 inter-font order-1 text-center lg:text-left">
-      <h2 className="josefin-font text-12px font-bold text-[#1B2F7C] uppercase tracking-tight text-2xl">
-        Entrepreneurship Development Programme (EDP)
-      </h2>
+     <h2 className="josefin-font font-bold text-[#1B2F7C] uppercase tracking-tight text-lg sm:text-xl md:text-xl lg:text-2xl gap-2 leading-snug">
+  Entrepreneurship Development Programme (EDP)
+</h2>
 
-      <p className="text-black font-semibold text-lg">
+      <p className="text-black font-semibold text-sm">
         Empowering rural youth and women to transition from job seekers to
         job creators.
       </p>
 
       <div className="space-y-6">
-        <p className="text-black text-sml">
+        <p className="text-black text-sm leading-relaxed">
           The Entrepreneurship Development Programme (EDP) conducted by{" "}
           <strong className="primary-text">Imaigal Trust</strong> focuses
           on building entrepreneurial skills among rural youth, women, and
           aspiring agri-entrepreneurs.
         </p>
 
-        <p className="text-black text-sml">
+        <p className="text-black text-sm leading-relaxed">
           Through EDP trainings, participants gain exposure to business
           planning, financial management, market opportunities, and
           government support schemes. The program aims to create
@@ -150,7 +150,7 @@ export default function EDPTrainings() {
 
         {/* Objectives Section */}
         <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
-          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-2xl">
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Objectives
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -172,7 +172,7 @@ export default function EDPTrainings() {
 
         {/* Key Activities - Cleaner, more uniform grid */}
         <div className="mb-20">
-          <h2 className="josefin-font font-bold black-text uppercase text-center mb-12 text-2xl">
+          <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -182,9 +182,9 @@ export default function EDPTrainings() {
                 className="p-8 bg-white border-1 border-black rounded-3xl hover:border-primary/30 hover:shadow-xl transition-all duration-300 group flex flex-col h-full items-start"
               >
                 <div className="mb-6 w-12 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
-                <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-lg">
-                  {activity.title}
-                </h3>
+                <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-base sm:text-sm md:text-sml">
+  {activity.title}
+</h3>
                 <p className="text-gray-600 inter-font text-xs">
                   {activity.desc}
                 </p>
@@ -193,7 +193,7 @@ export default function EDPTrainings() {
             {/* Uniform Activity Item for "Exposure visits" */}
             <div className="p-8 bg-white border-1 border-black rounded-3xl hover:border-primary/30 hover:shadow-xl transition-all duration-300 group flex flex-col h-full items-start">
               <div className="mb-6 w-12 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
-              <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-lg">
+              <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-base sm:text-sm md:text-sml">
                 Exposure Visits
               </h3>
               <p className="text-gray-600 inter-font text-xs">
@@ -203,7 +203,7 @@ export default function EDPTrainings() {
             </div>
             <div className="p-8 bg-white border-1 border-black rounded-3xl hover:border-primary/30 hover:shadow-xl transition-all duration-300 group flex flex-col h-full items-start">
               <div className="mb-6 w-12 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
-              <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-lg">
+              <h3 className="josefin-font font-bold secondary-text-900 mb-4 uppercase tracking-wide text-base sm:text-sm md:text-sml">
                 Learning Visits
               </h3>
               <p className="text-gray-600 inter-font text-xs">
@@ -241,13 +241,15 @@ export default function EDPTrainings() {
           key={i}
           className="flex items-start space-x-3 text-gray-700 inter-font bg-white/80 p-4 rounded-2xl border border-white shadow-sm w-full min-w-0"
         >
-          <span className="text-green-600 shrink-0 text-lg">
-            &raquo;
-          </span>
+          <div className="flex items-center gap-2">
+  <span className="text-green-600 mb-1 shrink-0 text-lg">
+    &raquo;
+  </span>
 
-          <span className="font-medium break-words text-sm">
-            {item}
-          </span>
+  <span className="font-medium break-words text-sm">
+    {item}
+  </span>
+</div>
         </div>
       ))}
     </div>
@@ -257,11 +259,11 @@ export default function EDPTrainings() {
   <div className="relative rounded-3xl overflow-hidden bg-primary p-6 md:p-14 text-white flex flex-col justify-center shadow-xl w-full min-w-0">
 
     <div className="relative z-10 space-y-6">
-      <h2 className="josefin-font font-bold uppercase tracking-tight border-b border-white/20 pb-4 break-words text-2xl">
-        Empowering Rural Livelihoods
-      </h2>
+      <h2 className="josefin-font font-bold uppercase tracking-tight border-b border-white/20 pb-4 break-words text-lg sm:text-xl md:text-xl lg:text-xl">
+  Empowering Rural Livelihoods
+</h2>
 
-      <p className="inter-font font-light italic opacity-95 break-words text-lg">
+      <p className="inter-font font-light italic opacity-95 break-words text-sml">
         &quot;Our Entrepreneurship Development Programme is designed not
         just to teach business, but to ignite the spirit of innovation
         in rural India, creating sustainable wealth within the

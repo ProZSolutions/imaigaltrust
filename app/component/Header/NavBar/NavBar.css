@@ -354,9 +354,29 @@ header {
   .nav-links {
     flex: initial;
     width: 100%;
-
+    
   }
 
+
+  /* ===== Navbar Menu Text Size Fix ===== */
+
+.nav-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0 0.8rem;
+  line-height: 3rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-title:hover {
+  transform: scale(1.05);
+}
   .nav-links > ul {
     flex-direction: column;
   }
@@ -582,11 +602,11 @@ header {
 
 }
 
-.nav-btn {
+/* .nav-btn {
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.65s, opacity 0.65s;
-}
+} */
 
 #check:checked ~ .nav-btn {
   transform: translateX(0);

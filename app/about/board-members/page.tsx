@@ -27,9 +27,9 @@ export default function ProgramAgriculture() {
         />
 
         <div className="w-full h-auto flex flex-col gap-6 justify-center md:ml-12">
-          <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
-            <span className="block poppins-font">BOARD OF DIRECTORS</span>
-          </h2>
+          <h2 className="font-medium text-[#1B2F7C] font-poppins text-lg sm:text-sml md:text-xl lg:text-2xl">
+  <span className="block poppins-font">BOARD OF DIRECTORS</span>
+</h2>
 
           <p className="poppins-font font-normal text-[#101010] text-justify text-sm">
             At Imaigal Trust, our leadership team comprises visionary
@@ -43,12 +43,12 @@ export default function ProgramAgriculture() {
 
       <section className="py-10 px-4">
         <div className="md:hidden max-w-[600px] mx-auto flex flex-col items-center gap-6">
-          <h2 className="font-medium text-[#096412] font-poppins text-center text-2xl">
-            Founder’s Vision:
-          </h2>
-          <h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-xl">
-            Leading Change for a Sustainable Future
-          </h3>
+          <h2 className="font-medium text-[#096412] font-poppins text-center text-lg sm:text-xl md:text-2xl">
+  Founder’s Vision:
+</h2>
+          <h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-base sm:text-lg md:text-xl">
+  Leading Change for a Sustainable Future
+</h3>
           <div className="flex-shrink-0 w-full mb-6">
             <div className="bg-gray-100 p-8 rounded-xl flex flex-col items-center border border-gray-200">
               <div className="relative w-full aspect-square overflow-hidden rounded-lg shadow-sm bg-white p-2 max-w-[360px]">
@@ -199,12 +199,13 @@ export default function ProgramAgriculture() {
       <section className="py-10 px-4">
         {/* ========== MOBILE ONLY ========== */}
         <div className="md:hidden max-w-[600px] mx-auto flex flex-col items-center gap-6">
-          <h2 className="font-poppins font-medium text-[#096412] text-xl">
-            Cultivating Growth:
-          </h2>
-          <h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-xl">
-            Leadership in Agriculture & Rural Development
-          </h3>
+          <h2 className="font-poppins font-medium text-[#096412] text-base sm:text-lg md:text-xl">
+  Cultivating Growth:
+</h2>
+
+<h3 className="font-poppins font-semibold text-[#1B2F7C] text-center text-base sm:text-lg md:text-xl lg:text-2xl">
+  Leadership in Agriculture & Rural Development
+</h3>
 
           <div className="flex-shrink-0 w-full mb-6">
             <div className="bg-gray-100 p-8 rounded-xl flex flex-col items-center border border-gray-200">

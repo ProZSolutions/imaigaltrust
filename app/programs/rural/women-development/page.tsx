@@ -21,11 +21,11 @@ export default function ProgramAgriculture() {
       <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
         {/* TEXT */}
         <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-6 justify-center">
-          <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
-            Building Stronger Communities Through Women’s Empowerment
-          </h2>
+          <h2 className="font-medium text-[#1B2F7C] font-poppins text-lg sm:text-xl md:text-xl lg:text-2xl leading-[1.2] mb-2">
+  Building Stronger Communities Through Women’s Empowerment
+</h2>
 
-          <p className="font-poppins text-[#101010] text-sm">
+          <p className="font-poppins text-[#101010] text-sm leading-relaxed">
             Imaigal Trust is committed to uplifting rural women by providing
             them with the necessary skills, resources, and opportunities to
             achieve financial independence and social empowerment. Our Women
@@ -50,49 +50,50 @@ export default function ProgramAgriculture() {
 <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
-          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
-            Core Empowerment
-          </h2>
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Core Empowerment
+</h2>
 
           {/* CONTENT */}
           <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">
             {/* LEFT CONTENT */}
             <div className="w-full md:w-1/2 flex flex-col mt-2 md:mt-6 font-poppins text-[#101010] gap-6 md:gap-8">
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-xl">
-                  Livelihood & Skill Development
-                </h3>
-                <p className="text-sm">
-                  Training programs in tailoring, handicrafts, food processing,
-                  and other income-generating activities.
-                </p>
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
+  Livelihood & Skill Development
+</h3>
+
+<p className="text-xs sm:text-sm md:text-base leading-relaxed">
+  Training programs in tailoring, handicrafts, food processing,
+  and other income-generating activities.
+</p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Education & Financial Literacy
                 </h3>
-                <p className="text-sm">
+                <p className="text-xs sm:text-sm md:text-base leading-relaxed">
                   Workshops on entrepreneurship, savings, and self-help group
                   (SHG) formation.
                 </p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Employment & Entrepreneurship Support
                 </h3>
-                <p className="text-sm">
+                <p className="text-xs sm:text-sm md:text-base leading-relaxed">
                   Encouraging eco-friendly production methods and waste
                   utilization.
                 </p>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
-                <h3 className="font-medium text-xl">
+                <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
                   Health & Well-being
                 </h3>
-                <p className="text-sm">
+                <p className="text-xs sm:text-sm md:text-base leading-relaxed">
                   Awareness programs on maternal health, nutrition, hygiene, and
                   mental well-being.
                 </p>
@@ -117,9 +118,9 @@ export default function ProgramAgriculture() {
 <section className="pt-8 sm:pt-10 md:pt-12 pb-2 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
-          <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
-            Impact & Achievements
-          </h2>
+          <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
+  Impact & Achievements
+</h2>
 
           {/* CONTENT */}
           <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">

@@ -25,11 +25,11 @@ export default function ProgramAgriculture() {
 
     {/* LEFT CONTENT */}
     <div className="w-full flex flex-col gap-6 justify-center">
-      <h2 className="font-medium text-[#1B2F7C] font-poppins text-2xl">
+      <h2 className="font-medium text-[#1B2F7C]  leading-[1.2] font-poppins text-2xl">
         Reviving Traditional Industries, Empowering Rural Communities
       </h2>
 
-      <p className="font-poppins font-normal text-[#101010] text-sm">
+      <p className="font-poppins leading-relaxed text-[#101010] text-sm">
         The Scheme of Fund for Regeneration of Traditional Industries
         (SFURTI) is a government-backed initiative aimed at revitalizing
         India’s traditional industries by promoting cluster-based
@@ -57,9 +57,9 @@ export default function ProgramAgriculture() {
       <section className="py-2 px-4 md:px-10">
         
         <div className="max-w-[1600px] mx-auto">
-           <h3 className="sfurti-heading text-center">
-    SFURTI Goals & Objectives
-  </h3>
+        <h3 className="sfurti-heading text-center">
+  SFURTI Goals & Objectives
+</h3>
           <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
             {/* Left: Image */}
             <div className="w-full md:w-1/2">
@@ -134,9 +134,9 @@ export default function ProgramAgriculture() {
   <div className="max-w-[1600px] mx-auto flex flex-col gap-10">
 
     {/* Centered Heading */}
-    <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
-      Core Industry Sectors
-    </h2>
+    <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-2xl lg:text-2xl">
+  Core Industry Sectors
+</h2>
 
     {/* Two Column Layout */}
     <div className="flex flex-col md:flex-row items-center gap-12">
@@ -146,21 +146,22 @@ export default function ProgramAgriculture() {
 
         {/* Coir */}
         <div className="space-y-3">
-          <h3 className="font-medium text-xl">
-            Coir Industry Development
-          </h3>
-          <p className="text-sm">
-            Strengthening coir-based enterprises through improved
-            processing techniques and market expansion.
-          </p>
+         <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
+  Coir Industry Development
+</h3>
+
+<p className="text-xs sm:text-sm md:text-base leading-relaxed">
+  Strengthening coir-based enterprises through improved
+  processing techniques and market expansion.
+</p>
         </div>
 
         {/* Handicrafts */}
         <div className="space-y-3">
-          <h3 className="font-medium text-xl">
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
             Handicrafts & Handloom
           </h3>
-          <p className="text-sm">
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed">
             Preserving and modernizing traditional weaving and craft
             industries.
           </p>
@@ -168,10 +169,10 @@ export default function ProgramAgriculture() {
 
         {/* Agro */}
         <div className="space-y-3">
-          <h3 className="font-medium text-xl">
+          <h3 className="font-medium text-base sm:text-lg md:text-xl mb-2">
             Agro-based & Rural Industries
           </h3>
-          <p className="text-sm">
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed">
             Supporting small-scale food processing, herbal products,
             and organic farming initiatives.
           </p>
