@@ -172,26 +172,26 @@ export default function AnnualReportFormPage() {
   // };
 
   const handleDelete = async () => {
-  if (!deleteId) return;
+    if (!deleteId) return;
 
-  try {
-    const res = await fetch(`/api/annual-report/${deleteId}`, {
-      method: "DELETE",
-    });
+    try {
+      const res = await fetch(`/api/annual-report/${deleteId}`, {
+        method: "DELETE",
+      });
 
-    if (res.ok) {
-      toast.success("Deleted successfully");
-      fetchReports();
-    } else {
-      toast.error("Delete failed");
+      if (res.ok) {
+        toast.success("Deleted successfully");
+        fetchReports();
+      } else {
+        toast.error("Delete failed");
+      }
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      setDeleteOpen(false);
+      setDeleteId(null);
     }
-  } catch {
-    toast.error("Something went wrong");
-  } finally {
-    setDeleteOpen(false);
-    setDeleteId(null);
-  }
-};
+  };
 
   const getAcceptType = () => {
     switch (formData.type) {
@@ -269,18 +269,25 @@ export default function AnnualReportFormPage() {
 
                   {/* Year */}
                   <div className="space-y-2.5">
-                    <label className="block font-bold text-gray-700 ml-1 text-xs">
-                      Year
-                    </label>
-                    <input
-                      type="text"
-                      name="year"
+                    <label className="block font-bold text-gray-700 ml-1 text-xs">Year</label>
+                    <select
                       value={formData.year}
-                      onChange={handleChange}
-                      placeholder="e.g. 2023-2024"
+                      onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                       required
-                      className="w-full px-5 py-3.5 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold shadow-sm text-xs"
-                    />
+                      className="w-full px-5 py-3 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all font-semibold text-sm shadow-sm bg-white"
+                    >
+                      <option value="">Select Year</option>
+                      {(() => {
+                        const currentYear = new Date().getFullYear();
+                        const years = [];
+                        for (let y = 2017; y <= currentYear; y++) {
+                          years.push(`${y}-${y + 1}`);
+                        }
+                        return years.map((y) => (
+                          <option key={y} value={y}>{y}</option>
+                        ));
+                      })()}
+                    </select>
                   </div>
 
                   {/* Language */}
@@ -302,23 +309,23 @@ export default function AnnualReportFormPage() {
 
                   {/* File */}
                   <div className="space-y-2.5">
-  <label className="block font-bold text-gray-700 ml-1 text-xs">
-    Upload Report File ({formData.type.toUpperCase()})
-  </label>
+                    <label className="block font-bold text-gray-700 ml-1 text-xs">
+                      Upload Report File ({formData.type.toUpperCase()})
+                    </label>
 
-  <input
-    type="file"
-    accept={getAcceptType()}
-    onChange={handleFileChange}
-    required
-    className="w-full px-5 py-3 border border-gray-200 rounded-2xl 
+                    <input
+                      type="file"
+                      accept={getAcceptType()}
+                      onChange={handleFileChange}
+                      required
+                      className="w-full px-5 py-3 border border-gray-200 rounded-2xl 
     focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none 
     file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 
     file:text-xs file:font-bold file:bg-[#096412]/10 file:text-[#096412] 
     hover:file:bg-[#096412]/20 transition-all font-semibold text-sm 
     bg-gray-50/50 cursor-pointer file:cursor-pointer"
-  />
-</div>
+                    />
+                  </div>
                 </div>
 
                 <div className="pt-8 flex gap-4">
@@ -376,21 +383,20 @@ export default function AnnualReportFormPage() {
                     <td className="px-12 py-4 text-gray-600 capitalize">{r.language}</td>
                     <td className="px-8 py-4">
                       <a
-  href={`/api/annual-report/file/${r.file_path}`} 
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold rounded-lg transition text-xs"
->
-  <FileText size={16} />
-  View
-</a>
+                        href={`/api/annual-report/file/${r.file_path}`}
+                        download
+                        className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold rounded-lg transition text-xs"
+                      >
+                        <FileText size={16} />
+                        View
+                      </a>
                     </td>
                     <td className="px-8 py-4 text-right">
                       <button
-                       onClick={() => {
-                        setDeleteId(r.id);
-                        setDeleteOpen(true);
-                      }}
+                        onClick={() => {
+                          setDeleteId(r.id);
+                          setDeleteOpen(true);
+                        }}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         title="Delete"
                       >
@@ -402,12 +408,12 @@ export default function AnnualReportFormPage() {
               </tbody>
             </table>
             <ConfirmDeleteModal
-  isOpen={deleteOpen}
-  onClose={() => setDeleteOpen(false)}
-  onConfirm={handleDelete}
-  title="Confirm Delete"
-  message="Are you sure you want to delete this report?"
-/>
+              isOpen={deleteOpen}
+              onClose={() => setDeleteOpen(false)}
+              onConfirm={handleDelete}
+              title="Confirm Delete"
+              message="Are you sure you want to delete this report?"
+            />
           </div>
         )}
       </div>

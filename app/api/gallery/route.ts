@@ -61,9 +61,12 @@ export async function POST(request: Request) {
             const buffer = Buffer.from(bytes);
             const galleryDir = path.join(process.cwd(), "public", "gallery");
             await mkdir(galleryDir, { recursive: true });
-            const filename = `${Date.now()}-${file.name.replaceAll(" ", "_")}`;
+            const sanitizedName = file.name
+                .replaceAll(" ", "_")
+                .replace(/\.(jpg|jpeg|png)\.(jpg|jpeg|png)$/i, '.$2');
+            const filename = `${Date.now()}-${sanitizedName}`;
             const fullPath = path.join(galleryDir, filename);
-            file_path = `/gallery/${filename}`;
+            file_path = filename;
             await writeFile(fullPath, buffer);
         }
 

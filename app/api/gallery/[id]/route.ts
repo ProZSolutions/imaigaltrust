@@ -19,24 +19,50 @@ export async function PUT(
 
     try {
         const { prisma } = await import("@/lib/prisma");
+        const { writeFile, mkdir } = await import("fs/promises");
+        const path = await import("path");
         const { id: idParam } = await params;
         const id = parseInt(idParam);
-        const body = await req.json();
-        const { year, month, title, mediaType, description, videoUrl, programId, categoryId, status } = body;
+        
+        const formData = await req.formData();
+        const year = formData.get("year") as string;
+        const month = formData.get("month") as string || null;
+        const title = formData.get("title") as string;
+        const media_type = formData.get("mediaType") as string;
+        const description = formData.get("description") as string || null;
+        const video_url = formData.get("videoUrl") as string || null;
+        const program_id = parseInt(formData.get("programId") as string);
+        const category_id = parseInt(formData.get("categoryId") as string);
+        const file = formData.get("file") as File | null;
+
+        let data: any = {
+            year,
+            month,
+            title,
+            media_type,
+            description,
+            video_url,
+            program_id,
+            category_id,
+        };
+
+        if (media_type === "image" && file) {
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            const galleryDir = path.join(process.cwd(), "public", "gallery");
+            await mkdir(galleryDir, { recursive: true });
+            const sanitizedName = file.name
+                .replaceAll(" ", "_")
+                .replace(/\.(jpg|jpeg|png)\.(jpg|jpeg|png)$/i, '.$2');
+            const filename = `${Date.now()}-${sanitizedName}`;
+            const fullPath = path.join(galleryDir, filename);
+            data.file_path = filename; // Store only filename
+            await writeFile(fullPath, buffer);
+        }
 
         const updated = await prisma.gallery.update({
             where: { id },
-            data: {
-                year,
-                month,
-                title,
-                media_type: mediaType,
-                description,
-                video_url: videoUrl,
-                program_id: parseInt(programId),
-                category_id: parseInt(categoryId),
-                status: typeof status === 'string' ? parseInt(status) : status,
-            },
+            data,
         });
 
         return NextResponse.json(updated);
