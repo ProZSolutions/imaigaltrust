@@ -69,6 +69,24 @@ export async function POST(request: Request) {
       event_id: Number(registration.event_id),
     };
 
+    // Send received mail
+    try {
+      const eventDetails = await prisma.event.findUnique({
+        where: { id: parseInt(event_id.toString()) },
+        select: { title: true }
+      });
+      if (email && eventDetails?.title) {
+        const { sendEventRegistrationMail } = await import("@/lib/sendMail");
+        await sendEventRegistrationMail(
+          email, 
+          first_name + (last_name ? " " + last_name : ""), 
+          eventDetails.title
+        );
+      }
+    } catch (mailError) {
+      console.error("Failed to send event registration email:", mailError);
+    }
+
     return NextResponse.json({
       message: "Registration successful!",
       registration: formattedRegistration,

@@ -32,6 +32,30 @@ export async function POST(req: Request) {
       [status, reason || null, ids]
     );
 
+    if (status === 1 || status === 2) {
+      const { sendMembershipApprovalMail, sendMembershipRejectionMail } = await import("@/lib/sendMail");
+      const [members] = await db.query(
+        `SELECT email, name FROM memberships WHERE id IN (?)`,
+        [ids]
+      ) as any;
+
+      if (Array.isArray(members)) {
+        for (const member of members) {
+          if (member.email) {
+            try {
+              if (status === 1) {
+                await sendMembershipApprovalMail(member.email, member.name || "Member");
+              } else if (status === 2) {
+                await sendMembershipRejectionMail(member.email, member.name || "Member");
+              }
+            } catch (error) {
+              console.error(`Failed to send mail to ${member.email}:`, error);
+            }
+          }
+        }
+      }
+    }
+
     return NextResponse.json({ success: true });
 
   } catch (error) {

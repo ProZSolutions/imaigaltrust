@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
     try {
         await headers();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
         const { prisma } = await import("@/lib/prisma");
@@ -104,7 +104,7 @@ export async function GET() {
 
     try {
         await headers();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
         const { prisma } = await import("@/lib/prisma");

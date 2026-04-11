@@ -19,7 +19,7 @@ export default function AdminProgramPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [editingId, setEditingId] = useState<number | null>(null);
-   const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     programs: "",
     status: "1",
   });
@@ -32,28 +32,28 @@ export default function AdminProgramPage() {
   const endIndex = startIndex + perPage;
   const currentData = programs.slice(startIndex, endIndex);
 
- //model delete
- const [deleteId, setDeleteId] = useState<number | null>(null);
+  //model delete
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-// error handling
+  // error handling
   const [errors, setErrors] = useState<{ programs?: string }>({});
 
   useEffect(() => {
     fetchPrograms();
   }, []);
 
-const fetchPrograms = async () => {
-  try {
-    const res = await fetch("/api/gallery/program");
-    const data = await res.json();
+  const fetchPrograms = async () => {
+    try {
+      const res = await fetch("/api/gallery/program");
+      const data = await res.json();
       setPrograms(data.programs || []);
-  } catch (error) {
-    console.error("Error fetching programs:", error);
-  } finally {
-    setFetching(false);
-  }
-};
+    } catch (error) {
+      console.error("Error fetching programs:", error);
+    } finally {
+      setFetching(false);
+    }
+  };
 
   const handleEdit = (prog: Program) => {
     setEditingId(prog.id);
@@ -81,28 +81,28 @@ const fetchPrograms = async () => {
   //   }
   // };
 
- const handleDelete = async () => {
-  if (!deleteId) return;
+  const handleDelete = async () => {
+    if (!deleteId) return;
 
-  try {
-    const res = await fetch(`/api/gallery/program/${deleteId}`, {
-      method: "DELETE",
-    });
+    try {
+      const res = await fetch(`/api/gallery/program/${deleteId}`, {
+        method: "DELETE",
+      });
 
-    if (res.ok) {
-      setPrograms((prev) => prev.filter((p) => p.id !== deleteId));
-      toast.success("Program deleted successfully");
-    } else {
-      toast.error("Failed to delete program");
+      if (res.ok) {
+        setPrograms((prev) => prev.filter((p) => p.id !== deleteId));
+        toast.success("Program deleted successfully");
+      } else {
+        toast.error("Failed to delete program");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    } finally {
+      setDeleteModalOpen(false);
+      setDeleteId(null);
     }
-  } catch (error) {
-    console.error(error);
-    toast.error("Something went wrong");
-  } finally {
-    setDeleteModalOpen(false);
-    setDeleteId(null);
-  }
-};
+  };
 
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
@@ -133,66 +133,66 @@ const fetchPrograms = async () => {
   //     setLoading(false);
   //   }
   // };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const newErrors: { programs?: string } = {};
+    const newErrors: { programs?: string } = {};
 
-  // validation
-  if (!formData.programs.trim()) {
-    newErrors.programs = "Program name is required";
-  }
-
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors);
-    toast.error("Please fix the errors before submitting.");
-    return;
-  }
-
-  setErrors({});
-  setLoading(true);
-
-  const toastId = toast.loading(
-    editingId ? "Updating program..." : "Creating program..."
-  );
-
-  try {
-    const url = editingId
-      ? `/api/gallery/program/${editingId}`
-      : "/api/gallery/program";
-
-    const response = await fetch(url, {
-      method: editingId ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...formData,
-        status: Number(formData.status),
-      }),
-    });
-
-    if (response.ok) {
-      toast.success(
-        editingId
-          ? "Program updated successfully"
-          : "Program created successfully",
-        { id: toastId }
-      );
-
-      setIsModalOpen(false);
-      setEditingId(null);
-      setFormData({ programs: "", status: "1" });
-      fetchPrograms();
-    } else {
-      toast.error("Failed to save program", { id: toastId });
+    // validation
+    if (!formData.programs.trim()) {
+      newErrors.programs = "Program name is required";
     }
-  } catch (error) {
-    console.error("Error saving program:", error);
-    toast.error("Something went wrong", { id: toastId });
-  } finally {
-    setLoading(false);
-  }
-};
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.error("Please fix the errors before submitting.");
+      return;
+    }
+
+    setErrors({});
+    setLoading(true);
+
+    const toastId = toast.loading(
+      editingId ? "Updating program..." : "Creating program..."
+    );
+
+    try {
+      const url = editingId
+        ? `/api/gallery/program/${editingId}`
+        : "/api/gallery/program";
+
+      const response = await fetch(url, {
+        method: editingId ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          status: Number(formData.status),
+        }),
+      });
+
+      if (response.ok) {
+        toast.success(
+          editingId
+            ? "Program updated successfully"
+            : "Program created successfully",
+          { id: toastId }
+        );
+
+        setIsModalOpen(false);
+        setEditingId(null);
+        setFormData({ programs: "", status: "1" });
+        fetchPrograms();
+      } else {
+        toast.error("Failed to save program", { id: toastId });
+      }
+    } catch (error) {
+      console.error("Error saving program:", error);
+      toast.error("Something went wrong", { id: toastId });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const openAddModal = () => {
     setEditingId(null);
@@ -201,30 +201,30 @@ const fetchPrograms = async () => {
   };
 
   return (
-    
+
     <div className="space-y-6">
- <Toaster
-      position="top-right"
-      toastOptions={{
-        duration: 3000,
-        style: {
-          borderRadius: "10px",
-          background: "#1a4d2e",
-          color: "#fff",
-          fontWeight: "600",
-        },
-        success: {
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
           style: {
+            borderRadius: "10px",
             background: "#1a4d2e",
+            color: "#fff",
+            fontWeight: "600",
           },
-        },
-        error: {
-          style: {
-            background: "#dc2626",
+          success: {
+            style: {
+              background: "#1a4d2e",
+            },
           },
-        },
-      }}
-    />      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+          error: {
+            style: {
+              background: "#dc2626",
+            },
+          },
+        }}
+      />      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="font-bold text-gray-800 text-xl">Gallery Programs</h1>
           <p className="text-gray-500 text-xs">
@@ -286,20 +286,18 @@ const fetchPrograms = async () => {
                     {prog.programs}
                   </td>
                   <td className="px-6 py-4">
-                   <span
-  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
-    Number(prog.status) === 1
-      ? "bg-green-100 text-green-700 border border-green-200"
-      : "bg-gray-100 text-gray-600 border border-gray-200"
-  }`}
->
-  <span
-    className={`w-1.5 h-1.5 rounded-full mr-2 ${
-      Number(prog.status) === 1 ? "bg-green-600" : "bg-gray-500"
-    }`}
-  ></span>
-  {Number(prog.status) === 1 ? "Active" : "Inactive"}
-</span>
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${Number(prog.status) === 1
+                          ? "bg-green-100 text-green-700 border border-green-200"
+                          : "bg-gray-100 text-gray-600 border border-gray-200"
+                        }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full mr-2 ${Number(prog.status) === 1 ? "bg-green-600" : "bg-gray-500"
+                          }`}
+                      ></span>
+                      {Number(prog.status) === 1 ? "Active" : "Inactive"}
+                    </span>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">
@@ -329,12 +327,12 @@ const fetchPrograms = async () => {
         </table>
       </div>
       <Pagination
-  currentPage={currentPage}
-  totalItems={totalItems}
-  defaultPerPage={perPage}
-  onPageChange={(page) => setCurrentPage(page)}
-  onPerPageChange={(value) => setPerPage(value)}
-/>
+        currentPage={currentPage}
+        totalItems={totalItems}
+        defaultPerPage={perPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        onPerPageChange={(value) => setPerPage(value)}
+      />
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[999999] p-4 animate-in fade-in duration-300">
@@ -367,25 +365,25 @@ const fetchPrograms = async () => {
                   Program Name
                 </label>
                 <input
-  type="text"
-  value={formData.programs}
-  onChange={(e) =>
-    setFormData({
-      ...formData,
-      programs: e.target.value
-        .replace(/[^a-zA-Z\s]/g, "")
-        .replace(/\b\w/g, (c) => c.toUpperCase()),
-    })
-  }
-  placeholder="e.g. Tree Plantation, Blood Donation"
-  className={`w-full px-5 py-4 border rounded-2xl outline-none
+                  type="text"
+                  value={formData.programs}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      programs: e.target.value
+                        .replace(/[^a-zA-Z\s]/g, "")
+                        .replace(/\b\w/g, (c) => c.toUpperCase()),
+                    })
+                  }
+                  placeholder="e.g. Tree Plantation, Blood Donation"
+                  className={`w-full px-5 py-4 border rounded-2xl outline-none
   ${errors.programs ? "border-red-500" : "border-gray-200"}`}
-/>
-{errors.programs && (
-  <p className="text-red-500 mt-1 ml-1 text-xs">
-    {errors.programs}
-  </p>
-)}
+                />
+                {errors.programs && (
+                  <p className="text-red-500 mt-1 ml-1 text-xs">
+                    {errors.programs}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2.5">
@@ -394,10 +392,10 @@ const fetchPrograms = async () => {
                 </label>
                 <div className="relative">
                   <select
-                   value={formData.status}
-  onChange={(e) =>
+                    value={formData.status}
+                    onChange={(e) =>
                       setFormData({ ...formData, status: e.target.value })
-  }
+                    }
                     className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-xs"
                   >
                     <option value="1">Active</option>
@@ -413,10 +411,10 @@ const fetchPrograms = async () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                 disabled={loading}
+                  disabled={loading}
                   className="flex-1 px-4 py-4 border border-[#096412]/20 text-[#096412]/70 rounded-2xl font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                Cancel
+                  Cancel
                 </button>
                 <button
                   type="submit"
@@ -431,18 +429,18 @@ const fetchPrograms = async () => {
                 </button>
               </div>
             </form>
-            
+
           </div>
         </div>
-        
+
       )}
       <ConfirmDeleteModal
-  isOpen={deleteModalOpen}
-  onClose={() => setDeleteModalOpen(false)}
-  onConfirm={handleDelete}
-  title="Confirm Delete"
-  message="Are you sure you want to delete this program?"
-/>
+        isOpen={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onConfirm={handleDelete}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this program?"
+      />
     </div>
   );
 }

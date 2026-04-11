@@ -1,5 +1,10 @@
 import { PrismaClient } from "@prisma/client"
 
+// Global BigInt serialization fix
+(BigInt.prototype as any).toJSON = function () {
+  return Number(this);
+};
+
 const globalForPrisma = global as unknown as {
   prisma: PrismaClient | undefined
 }

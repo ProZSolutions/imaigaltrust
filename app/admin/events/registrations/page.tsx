@@ -58,9 +58,15 @@ export default function EventRegistrationsPage() {
   const router = useRouter();
 
   const [registrations, setRegistrations] = useState<Registration[]>([]);
+  const [filteredRegistrations, setFilteredRegistrations] = useState<Registration[]>([]);
   const [eventInfo, setEventInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [selectedReg, setSelectedReg] = useState<Registration | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [rejectPopup, setRejectPopup] = useState(false);
+  const [rejectReason, setRejectReason] = useState("");
+  const [rejectingId, setRejectingId] = useState<number | null>(null);
 
   const fetchRegistrations = async () => {
     try {
@@ -77,6 +83,7 @@ export default function EventRegistrationsPage() {
       const data = await response.json();
       if (data.registrations) {
         setRegistrations(data.registrations);
+        setFilteredRegistrations(data.registrations);
       }
       if (data.event) {
         setEventInfo(data.event);
@@ -108,109 +115,182 @@ export default function EventRegistrationsPage() {
     }
   };
 
+  const handleRejectClick = (id: number, currentReason: string | null) => {
+    setRejectingId(id);
+    setRejectReason(currentReason || "");
+    setRejectPopup(true);
+  };
+
+  const confirmReject = async () => {
+    if (!rejectReason.trim()) {
+      toast.error("Reject reason is mandatory");
+      return;
+    }
+    if (rejectingId) {
+      await handleStatusUpdate(rejectingId, 2, rejectReason);
+      setRejectPopup(false);
+      setRejectReason("");
+      setRejectingId(null);
+    }
+  };
+
   useEffect(() => {
     fetchRegistrations();
   }, []);
 
+  useEffect(() => {
+    const query = searchQuery.toLowerCase();
+    const filtered = registrations.filter(reg => {
+      const matchesSearch = 
+        reg.first_name.toLowerCase().includes(query) ||
+        reg.last_name.toLowerCase().includes(query) ||
+        reg.email.toLowerCase().includes(query) ||
+        reg.phone.includes(query);
+      
+      const matchesStatus = 
+        statusFilter === "all" || 
+        reg.status.toString() === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
+    setFilteredRegistrations(filtered);
+  }, [searchQuery, statusFilter, registrations]);
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 mb-4 justify-end">
-        <button
-          onClick={() => router.push("/admin/events")}
-          className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded text-sml font-medium"
-        >
-          <IoArrowBack />
-          Back
-        </button>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4 mb-4">
+        <div className="relative w-full sm:w-64 max-w-full">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Users className="h-4 w-4 text-gray-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search registrations..."
+            className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] focus:border-[#1a4d2e] transition-all shadow-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
       {eventInfo && (
-        <div className="bg-[#1a4d2e] rounded-xl p-6 text-white shadow-lg overflow-hidden relative group">
-          <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
+        <div className="bg-white rounded-xl p-6 text-gray-900 shadow-md border border-gray-100 overflow-hidden relative group">
+          <div className="absolute top-0 right-0 p-8 text-[#1a4d2e]/10 group-hover:scale-110 transition-transform">
             <Calendar size={120} />
           </div>
           <div className="relative z-10 space-y-4">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-green-200 text-[10px] uppercase font-bold tracking-widest mb-1">Event Title</p>
-                <h2 className="text-2xl font-black tracking-tight">{eventInfo.title}</h2>
+                <p className="text-gray-500 text-[10px] uppercase font-bold tracking-widest mb-1">Event Title</p>
+                <h2 className="text-2xl font-black tracking-tight text-[#1a4d2e]">{eventInfo.title}</h2>
               </div>
-              {/* Note: Assuming status exists in event info or is passed down */}
-              <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+              <span className="bg-green-50 text-[#1a4d2e] border border-green-100 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                 {registrations.length > 0 ? "Active Event" : "No Registrations"}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-2">
               <div className="space-y-1">
-                <p className="text-green-200/60 text-[10px] uppercase font-bold">Program</p>
-                <p className="font-bold text-sm truncate">{eventInfo.program?.programs || "N/A"}</p>
+                <p className="text-gray-400 text-[10px] uppercase font-bold">Program</p>
+                <p className="font-bold text-xs sm:text-sm truncate text-gray-700">{eventInfo.program?.programs || "N/A"}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-green-200/60 text-[10px] uppercase font-bold">Start Date</p>
-                <p className="font-bold text-sm">
+                <p className="text-gray-400 text-[10px] uppercase font-bold">Start Date</p>
+                <p className="font-bold text-xs sm:text-sm text-gray-700">
                   {new Date(eventInfo.start_date)
                     .toLocaleDateString("en-GB")
                     .replace(/\//g, "-")}
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-green-200/60 text-[10px] uppercase font-bold">Start Time</p>
-                <p className="font-bold text-sm">
-                  {new Date(`1970-01-01T${eventInfo.start_time}`)
-                    .toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
+                <p className="text-gray-400 text-[10px] uppercase font-bold">Start Time</p>
+                <p className="font-bold text-xs sm:text-sm text-gray-700">
+                  {eventInfo.start_time ?
+                    (() => {
+                      const [hours, minutes] = eventInfo.start_time.split(':');
+                      const h = parseInt(hours);
+                      const m = minutes || '00';
+                      const ampm = h >= 12 ? 'PM' : 'AM';
+                      const h12 = h % 12 || 12;
+                      return `${h12}:${m} ${ampm}`;
+                    })()
+                    : "N/A"}
                 </p>
               </div>
-              <div className="text-right">
-                <p className="text-green-200/60 text-[10px] uppercase font-bold">Participants</p>
-                <p className="font-black text-2xl">{registrations.length}</p>
+              <div className="text-left sm:text-right">
+                <p className="text-gray-400 text-[10px] uppercase font-bold">Participants</p>
+                <p className="font-black text-xl sm:text-2xl text-[#1a4d2e]">{registrations.length}</p>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 mt-6 overflow-x-auto custom-scrollbar">
-        <table className="w-full min-w-[1400px] text-left border-collapse table-auto">
+      {/* Status Filter Tabs */}
+      <div className="flex flex-wrap items-center gap-2 bg-white p-1.5 rounded-xl border border-gray-100 w-fit shadow-sm">
+        {[
+          { id: "all", label: "All", count: registrations.length },
+          { id: "0", label: "Pending", count: registrations.filter(r => r.status === 0).length },
+          { id: "1", label: "Approved", count: registrations.filter(r => r.status === 1).length },
+          { id: "2", label: "Rejected", count: registrations.filter(r => r.status === 2).length },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setStatusFilter(tab.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+              statusFilter === tab.id
+                ? "bg-white text-[#1a4d2e] shadow-sm border border-gray-100"
+                : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
+            }`}
+          >
+            {tab.label}
+            <span className={`px-1.5 py-0.5 rounded-full text-[9px] ${
+              statusFilter === tab.id ? "bg-[#1a4d2e] text-white" : "bg-gray-200 text-gray-600"
+            }`}>
+              {tab.count}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-6 border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full min-w-[1000px] md:min-w-[1100px] text-left border-collapse table-auto">
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 w-[60px] text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 w-[60px] text-center text-[10px]">
                   S.No
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-xs">
-                  Name
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-[10px]">
+                  Full Name
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider text-center border-r border-white/10 text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider text-center border-r border-white/10 text-[10px] w-[80px]">
                   Age
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider text-center border-r border-white/10 text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider text-center border-r border-white/10 text-[10px] w-[100px]">
                   Gender
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-xs">
-                  Email
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-[10px] min-w-[180px]">
+                  Email Address
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-center text-[10px] w-[110px]">
                   Phone
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-center text-[10px] w-[100px]">
                   Start Date
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-center text-[10px] w-[100px]">
                   End Date
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-center text-[10px] w-[100px]">
                   Reg. Date
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-center text-[10px] w-[100px]">
                   Status
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider border-r border-white/10 text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider border-r border-white/10 text-[10px] w-[100px]">
                   Source
                 </th>
-                <th className="p-4 font-bold uppercase tracking-wider w-[120px] text-center text-xs">
+                <th className="p-3 font-bold uppercase tracking-wider w-[140px] text-center text-[10px]">
                   Action
                 </th>
               </tr>
@@ -227,101 +307,93 @@ export default function EventRegistrationsPage() {
                     </div>
                   </td>
                 </tr>
-              ) : registrations.length > 0 ? (
-                registrations.map((reg, index) => (
+              ) : filteredRegistrations.length > 0 ? (
+                filteredRegistrations.map((reg, index) => (
                   <tr
                     key={reg.id}
-                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                    className="border-b border-gray-100 hover:bg-gray-50/80 transition-colors"
                   >
-                    <td className="p-4 text-gray-500 font-medium border-r border-gray-100 text-center text-xs">
+                    <td className="p-3 text-gray-500 font-medium border-r border-gray-100 text-center text-[11px]">
                       {index + 1}
                     </td>
-                    <td className="p-4 border-r border-gray-100">
-                      <div className="font-bold text-gray-900 text-nowrap text-xs">
+                    <td className="p-3 border-r border-gray-100">
+                      <div className="font-bold text-gray-900 whitespace-nowrap text-[11px]">
                         {reg.first_name} {reg.last_name}
                       </div>
                     </td>
-                    <td className="p-4 text-center border-r border-gray-100">
-                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded font-bold text-xs">
-                        {reg.age}
-                      </span>
+                    <td className="p-3 text-center border-r border-gray-100 text-gray-600 font-bold text-[11px]">
+                      {reg.age}
                     </td>
-                    <td className="p-4 text-center border-r border-gray-100">
-                      <span className="text-gray-600 font-bold uppercase tracking-wider text-xs">
-                        {reg.gender}
-                      </span>
+                    <td className="p-3 text-center border-r border-gray-100 text-gray-500 font-bold uppercase tracking-wider text-[11px]">
+                      {reg.gender}
                     </td>
                     <td
-                      className="p-4 text-[#1a4d2e] font-semibold border-r border-gray-100 truncate max-w-[150px] text-xs"
+                      className="p-3 text-[#1a4d2e] font-semibold border-r border-gray-100 whitespace-nowrap text-[11px]"
                       title={reg.email}
                     >
                       {reg.email}
                     </td>
-                    <td className="p-4 text-gray-700 font-mono border-r border-gray-100 text-center text-xs">
+                    <td className="p-3 text-gray-700 font-mono border-r border-gray-100 text-center text-[11px]">
                       {reg.phone}
                     </td>
-                    <td className="p-4 text-gray-600 whitespace-nowrap border-r border-gray-100 text-center font-medium text-xs">
+                    <td className="p-3 text-gray-600 whitespace-nowrap border-r border-gray-100 text-center font-medium text-[11px]">
                       {new Date(reg.event.start_date)
                         .toLocaleDateString("en-GB")
                         .replace(/\//g, "-")}
                     </td>
-                    <td className="p-4 text-gray-600 whitespace-nowrap border-r border-gray-100 text-center font-medium text-xs">
+                    <td className="p-3 text-gray-600 whitespace-nowrap border-r border-gray-100 text-center font-medium text-[11px]">
                       {reg.event.end_date
                         ? new Date(reg.event.end_date)
                           .toLocaleDateString("en-GB")
                           .replace(/\//g, "-")
                         : "-"}
                     </td>
-                    <td className="p-4 text-gray-500 whitespace-nowrap border-r border-gray-100 text-center font-medium text-xs">
+                    <td className="p-3 text-gray-500 whitespace-nowrap border-r border-gray-100 text-center font-medium text-[11px]">
                       {new Date(reg.created_at)
                         .toLocaleDateString("en-GB")
                         .replace(/\//g, "-")}
                     </td>
-                    <td className="p-4 text-center border-r border-gray-100">
-                      <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
-                        reg.status === 1 ? "bg-green-100 text-green-700" :
-                        reg.status === 2 ? "bg-red-100 text-red-700" :
-                        "bg-yellow-100 text-yellow-700"
-                      }`}>
+                    <td className="p-3 text-center border-r border-gray-100">
+                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${reg.status === 1 ? "bg-green-50 text-green-700 border-green-100" :
+                          reg.status === 2 ? "bg-red-50 text-red-700 border-red-100" :
+                            "bg-yellow-50 text-yellow-700 border-yellow-100"
+                        }`}>
                         {reg.status === 1 ? "Approved" : reg.status === 2 ? "Rejected" : "Pending"}
                       </span>
                     </td>
-                    <td className="p-4 text-gray-600 italic whitespace-nowrap border-r border-gray-100 text-xs">
+                    <td className="p-3 text-gray-500 italic whitespace-nowrap border-r border-gray-100 text-[10px]">
                       {reg.source || "-"}
                     </td>
-                    <td className="p-4 text-center">
-                      <div className="flex items-center justify-center gap-1">
+                    <td className="p-3 text-center">
+                      <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => setSelectedReg(reg)}
-                          className="p-2 hover:bg-[#1a4d2e]/10 text-[#1a4d2e] rounded-full transition-colors group"
+                          className="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-all group border border-blue-100"
                           title="View Details"
                         >
                           <Eye
-                            size={18}
+                            size={14}
                             className="group-hover:scale-110 transition-transform"
                           />
                         </button>
-                        <button
-                          onClick={() => handleStatusUpdate(reg.id, 1)}
-                          className={`p-2 rounded-full transition-colors ${reg.status === 1 ? "bg-green-100 text-green-600" : "hover:bg-green-100 text-green-600"}`}
-                          title="Approve"
-                          disabled={reg.status === 1}
-                        >
-                          <Check size={18} />
-                        </button>
-                        <button
-                          onClick={() => {
-                            const reason = prompt("Enter rejection reason:", reg.reject_reason || "");
-                            if (reason !== null) {
-                              handleStatusUpdate(reg.id, 2, reason);
-                            }
-                          }}
-                          className={`p-2 rounded-full transition-colors ${reg.status === 2 ? "bg-red-100 text-red-600" : "hover:bg-red-100 text-red-600"}`}
-                          title="Reject"
-                          disabled={reg.status === 2}
-                        >
-                          <Ban size={18} />
-                        </button>
+                        {reg.status === 0 && (
+                          <>
+                            <button
+                              onClick={() => handleStatusUpdate(reg.id, 1)}
+                              className="p-1.5 bg-green-50 hover:bg-green-100 text-green-600 rounded-lg transition-all border border-green-100"
+                              title="Approve"
+                            >
+                              <Check size={14} />
+                            </button>
+                            <button
+                              onClick={() => handleRejectClick(reg.id, reg.reject_reason)}
+                              className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-all border border-red-100"
+                              title="Reject"
+                            >
+                              <Ban size={14} />
+                            </button>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -329,16 +401,13 @@ export default function EventRegistrationsPage() {
               ) : (
                 <tr>
                   <td
-                    colSpan={11}
-                    className="p-12 text-center text-gray-500 border-x border-gray-100"
+                    colSpan={12}
+                    className="p-12 text-center text-gray-300 border-x border-gray-50"
                   >
                     <div className="flex flex-col items-center gap-2">
-                      <Users size={48} className="text-gray-200" />
-                      <p className="font-medium text-base">
-                        No registrations yet
-                      </p>
-                      <p className="text-xs">
-                        When users register for events, they will appear here.
+                      <Users size={40} className="text-gray-200" />
+                      <p className="font-bold text-gray-400 text-xs">
+                        {searchQuery ? "No matching records found" : "No registrations yet"}
                       </p>
                     </div>
                   </td>
@@ -347,6 +416,7 @@ export default function EventRegistrationsPage() {
             </tbody>
           </table>
         </div>
+      </div>
 
       {/* Detail Modal Overlay */}
       {selectedReg && (
@@ -414,11 +484,10 @@ export default function EventRegistrationsPage() {
                       <DetailItem
                         label={<span className="text-black font-semibold text-xs">Status</span>}
                         value={
-                          <span className={`font-bold text-xs ${
-                            selectedReg.status === 1 ? "text-green-600" :
-                            selectedReg.status === 2 ? "text-red-600" :
-                            "text-yellow-600"
-                          }`}>
+                          <span className={`font-bold text-xs ${selectedReg.status === 1 ? "text-green-600" :
+                              selectedReg.status === 2 ? "text-red-600" :
+                                "text-yellow-600"
+                            }`}>
                             {selectedReg.status === 1 ? "Approved" : selectedReg.status === 2 ? "Rejected" : "Pending"}
                           </span>
                         }
@@ -487,12 +556,75 @@ export default function EventRegistrationsPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 bg-gray-50 border-t border-gray-100 flex justify-end">
+            <div className="p-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center gap-3">
+              <div className="flex gap-2">
+                {selectedReg.status === 0 && (
+                  <>
+                    <button
+                      onClick={() => {
+                        handleStatusUpdate(selectedReg.id, 1);
+                        setSelectedReg(null);
+                      }}
+                      className="px-4 py-2 bg-green-600 text-white text-xs font-bold rounded-xl hover:bg-green-700 transition-all shadow-md flex items-center gap-2"
+                    >
+                      <Check size={14} />
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleRejectClick(selectedReg.id, selectedReg.reject_reason);
+                        setSelectedReg(null);
+                      }}
+                      className="px-4 py-2 bg-red-600 text-white text-xs font-bold rounded-xl hover:bg-red-700 transition-all shadow-md flex items-center gap-2"
+                    >
+                      <Ban size={14} />
+                      Reject
+                    </button>
+                  </>
+                )}
+              </div>
               <button
                 onClick={() => setSelectedReg(null)}
-                className="px-6 py-2.5 bg-[#1a4d2e] text-white text-sml font-bold rounded-xl hover:bg-[#143d24] transition-all shadow-lg shadow-[#1a4d2e]/20"
+                className="px-6 py-2.5 bg-gray-200 text-gray-700 text-xs font-bold rounded-xl hover:bg-gray-300 transition-all"
               >
                 Close Details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reject Popup */}
+      {rejectPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] p-4">
+          <div className="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-sm border border-gray-100 animate-in fade-in zoom-in duration-200">
+            <div className="flex items-center gap-3 mb-4 text-red-600">
+              <Ban size={24} />
+              <h2 className="font-black uppercase tracking-widest text-sm">Reject Application</h2>
+            </div>
+            <p className="text-gray-500 text-[11px] mb-4">Please provide a reason for rejecting this registration. This will be visible to the admin team.</p>
+            <textarea
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="Enter rejection reason here..."
+              className="w-full border border-gray-200 rounded-xl p-3 mb-5 text-[11px] focus:ring-1 focus:ring-red-500 focus:border-red-500 outline-none h-32 resize-none transition-all placeholder:text-gray-300"
+            />
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => {
+                  setRejectPopup(false);
+                  setRejectReason("");
+                  setRejectingId(null);
+                }}
+                className="px-5 py-2 bg-gray-100 text-gray-600 rounded-xl text-[11px] font-bold hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmReject}
+                className="px-5 py-2 bg-red-600 text-white rounded-xl text-[11px] font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
+              >
+                Confirm Reject
               </button>
             </div>
           </div>

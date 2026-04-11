@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Membership {
-  id                 BigInt      @id @default(autoincrement())
+  id                 Int      @id @default(autoincrement())
   name               String      @db.VarChar(255)
   dob                DateTime    @db.Date
   email              String      @db.VarChar(255)
@@ -56,7 +56,7 @@ model AnnualReport {
 }
 
 model GalleryCategory {
-  id         BigInt       @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   category   String    @db.VarChar(255)
   status     Int       @default(1) @db.TinyInt
   created_at DateTime  @default(now()) @db.Timestamp(0)
@@ -67,7 +67,7 @@ model GalleryCategory {
 }
 
 model GalleryProgram {
-  id         BigInt       @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   programs   String    @db.VarChar(255)
   status     Int       @default(1) @db.TinyInt
   created_at DateTime  @default(now()) @db.Timestamp(0)
@@ -78,9 +78,9 @@ model GalleryProgram {
 }
 
 model Gallery {
-  id          BigInt          @id @default(autoincrement())
-  program_id  BigInt
-  category_id BigInt
+  id          Int          @id @default(autoincrement())
+  program_id  Int
+  category_id Int
   year        String          @db.VarChar(10)
   month       String?         @db.VarChar(20)
   title       String          @db.VarChar(255)
@@ -90,7 +90,7 @@ model Gallery {
   video_url   String?         @db.LongText
   created_at  DateTime        @default(now()) @db.Timestamp(0)
   updated_at  DateTime        @default(now()) @updatedAt @db.Timestamp(0)
-  status      BigInt          @default(1)
+  status      Int          @default(1)
   category    GalleryCategory @relation(fields: [category_id], references: [id], onDelete: Cascade)
   program     GalleryProgram  @relation(fields: [program_id], references: [id], onDelete: Cascade)
 
@@ -100,10 +100,10 @@ model Gallery {
 }
 
 model Event {
-  id                      BigInt              @id @default(autoincrement())
+  id                      Int              @id @default(autoincrement())
   title                   String              @db.VarChar(255)
-  program_id              BigInt
-  category_id             BigInt
+  program_id              Int
+  category_id             Int
   status                  EventStatus
   start_date              DateTime            @db.Date
   start_time              DateTime            @db.Time(0)
@@ -132,8 +132,8 @@ model Event {
 }
 
 model EventRegistration {
-  id                   BigInt                         @id @default(autoincrement())
-  event_id             BigInt
+  id                   Int                         @id @default(autoincrement())
+  event_id             Int
   first_name           String                      @db.VarChar(100)
   last_name            String                      @db.VarChar(100)
   age                  Int
