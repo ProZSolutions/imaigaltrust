@@ -37,7 +37,47 @@ export default function NewsEventsPage() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
    
-  const {
+ 
+
+  const handleRegisterClick = (event: Event) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  };
+
+  // interface RegistrationFormData {
+  //   firstName: string;
+  //   lastName: string;
+  //   age: string;
+  //   gender: string;
+  //   email: string;
+  //   phone: string;
+  //   source: string;
+  //   motivation: string;
+  //   specialRequirements: string;
+  //   consent: boolean;
+  // }
+
+  interface RegistrationFormData {
+  firstName: string;
+  lastName: string;
+  age: string;
+  gender: string;
+  email: string;
+  phone: string;
+  source?: string;
+  motivation: string;
+  specialRequirements?: string;
+  consent: boolean;
+}
+
+// const {
+//   register,
+//   handleSubmit,
+//   reset,
+//   formState: { errors, isSubmitting },
+// } = useForm<RegistrationFormData>();
+
+ const {
     register,
     handleSubmit,
     reset,
@@ -45,60 +85,58 @@ export default function NewsEventsPage() {
    
   } = useForm<RegistrationFormData>();
 
-  const handleRegisterClick = (event: Event) => {
-    setSelectedEvent(event);
-    setIsModalOpen(true);
-  };
-
-  interface RegistrationFormData {
-    firstName: string;
-    lastName: string;
-    age: string;
-    gender: string;
-    email: string;
-    phone: string;
-    source: string;
-    motivation: string;
-    specialRequirements: string;
-    consent: boolean;
-  }
-
-  const onSubmit = async (data: RegistrationFormData) => {
+ const onSubmit = async (data: RegistrationFormData) => {
   try {
-    if (!selectedEvent) return;
+    if (!selectedEvent?.id) {
+      toast.error("Event not selected");
+      return;
+    }
 
-    const response = await fetch("/api/events/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-  event_id: selectedEvent.id, // keep as number
+    const payload = {
+  event_id: Number(selectedEvent.id),
 
   first_name: data.firstName.trim(),
   last_name: data.lastName.trim(),
 
-  age: Number(data.age),
+  age: parseInt(data.age, 10), // FORCE SAFE INT
 
-  gender: data.gender ? data.gender.toLowerCase().trim() : "male",
+  gender: data.gender.toLowerCase(), // FORCE ENUM MATCH
 
   email: data.email.trim(),
   phone: data.phone.trim(),
 
-  source: data.source?.trim() || "",
+  source: data.source?.trim() || null,
+  motivation: data.motivation.trim(),
 
-  motivation: data.motivation?.trim() || "",
+  special_requirements: data.specialRequirements?.trim() || null,
 
-  // IMPORTANT: match Prisma field exactly
-  special_requirements: data.specialRequirements?.trim() || "",
+  consent: Boolean(data.consent),
+};
 
-  consent: data.consent === true,
-})
-    });
+   const response = await fetch("/api/events/register", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
+});
 
-    const resData = await response.json();
+const rawText = await response.text();
 
-    if (!response.ok) {
-      throw new Error(resData.message || "Failed to register");
-    }
+console.log("STATUS:", response.status);
+console.log("RAW RESPONSE:", rawText);
+
+let resData;
+try {
+  resData = JSON.parse(rawText);
+} catch {
+  resData = { message: rawText };
+}
+
+if (!response.ok) {
+  console.error("API Error:", resData);
+  throw new Error(resData?.message || "Failed to register");
+}
 
     toast.success("Registration submitted successfully!");
     setIsModalOpen(false);
@@ -112,7 +150,7 @@ export default function NewsEventsPage() {
         : "Something went wrong. Please try again."
     );
   }
-  }
+};
 
   const filters = ["All Events", "Upcoming", "Ongoing", "Past"];
 

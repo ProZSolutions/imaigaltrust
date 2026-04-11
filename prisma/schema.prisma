@@ -9,23 +9,23 @@ datasource db {
 
 model Membership {
   id                 Int      @id @default(autoincrement())
-  name               String      @db.VarChar(255)
-  dob                DateTime    @db.Date
-  email              String      @db.VarChar(255)
-  mobile             String      @db.VarChar(20)
-  address            String      @db.LongText
-  city               String      @db.VarChar(255)
-  pincode            String      @db.VarChar(6)
-  state              String      @db.VarChar(255)
-  membership_type    String      @db.VarChar(255)
-  interest           String      @db.VarChar(255)
-  membership_fee     Float       @default(0.00) @db.Double
-  voluntary_donation Float       @default(0.00) @db.Double
+  name               String   @db.VarChar(255)
+  dob                DateTime @db.Date
+  email              String   @db.VarChar(255)
+  mobile             String   @db.VarChar(20)
+  address            String   @db.LongText
+  city               String   @db.VarChar(255)
+  pincode            String   @db.VarChar(6)
+  state              String   @db.VarChar(255)
+  membership_type    String   @db.VarChar(255)
+  interest           String   @db.VarChar(255)
+  membership_fee     Float    @default(0)
+  voluntary_donation Float    @default(0)
   status             Int
   is_active          Int
-  created_at         DateTime    @default(now()) @db.Timestamp(0)
-  updated_at         DateTime    @default(now()) @updatedAt @db.Timestamp(0)
-  reject_reason      String?     @db.LongText
+  created_at         DateTime @default(now()) @db.Timestamp(0)
+  updated_at         DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  reject_reason      String?  @db.LongText
 
   @@map("memberships")
 }
@@ -39,7 +39,8 @@ model User {
   is_active  Int      @default(1)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  otp       String? 
+  otp        String?
+
   @@map("users")
 }
 
@@ -78,19 +79,19 @@ model GalleryProgram {
 }
 
 model Gallery {
-  id          Int          @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   program_id  Int
   category_id Int
   year        String          @db.VarChar(10)
   month       String?         @db.VarChar(20)
   title       String          @db.VarChar(255)
-  media_type  String          @default("image") @db.VarChar(191)
+  media_type  String          @default("image")
   description String?         @db.Text
   file_path   String?         @db.LongText
   video_url   String?         @db.LongText
   created_at  DateTime        @default(now()) @db.Timestamp(0)
   updated_at  DateTime        @default(now()) @updatedAt @db.Timestamp(0)
-  status      Int          @default(1)
+  status      Int             @default(1)
   category    GalleryCategory @relation(fields: [category_id], references: [id], onDelete: Cascade)
   program     GalleryProgram  @relation(fields: [program_id], references: [id], onDelete: Cascade)
 
@@ -100,7 +101,7 @@ model Gallery {
 }
 
 model Event {
-  id                      Int              @id @default(autoincrement())
+  id                      Int                 @id @default(autoincrement())
   title                   String              @db.VarChar(255)
   program_id              Int
   category_id             Int
@@ -144,15 +145,24 @@ model EventRegistration {
   motivation           String?                     @db.Text
   special_requirements String?                     @db.Text
   consent              Boolean                     @default(false)
-  created_at           DateTime                   @default(now()) @db.Timestamp(0)
-  status               Int                         @default(0) @db.TinyInt
-  updated_at           DateTime                   @default(now()) @updatedAt @db.Timestamp(0)
+  created_at           DateTime                    @default(now()) @db.Timestamp(0)
   reject_reason        String?                     @db.LongText
+  status               Int                         @default(0) @db.TinyInt
+  updated_at           DateTime                    @default(now()) @updatedAt @db.Timestamp(0)
   event                Event                       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "event_registrations_ibfk_1")
-
 
   @@index([event_id], map: "event_id")
   @@map("event_registrations")
+}
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("otps")
 }
 
 enum EventStatus {
