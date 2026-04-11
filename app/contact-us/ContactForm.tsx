@@ -57,38 +57,74 @@ export default function ContactForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
+ const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
+  const { name, value } = e.target;
 
-    if (name === "fullName") {
-      const nameRegex = /^[A-Za-z\s]*$/;
+  // FULL NAME VALIDATION
+  if (name === "fullName") {
+    const nameRegex = /^[A-Za-z\s]*$/;
 
-      if (!nameRegex.test(value)) return;
+    if (!nameRegex.test(value)) return;
 
-      if (value.length > 15) {
-        setErrors((prev) => ({
-          ...prev,
-          fullName: "Name cannot exceed 15 characters",
-        }));
-        return;
-      } else {
-        setErrors((prev) => ({ ...prev, fullName: "" }));
-      }
-
-      setFormData((prev) => ({ ...prev, [name]: value }));
+    if (value.length > 15) {
+      setErrors((prev) => ({
+        ...prev,
+        fullName: "Name cannot exceed 15 characters",
+      }));
+      return;
+    } else {
+      setErrors((prev) => ({ ...prev, fullName: "" }));
     }
 
-    else if (name === "phone") {
-      const numericValue = value.replace(/\D/g, "");
-      setFormData((prev) => ({ ...prev, [name]: numericValue }));
+    setFormData((prev) => ({ ...prev, fullName: value }));
+  }
+
+  // PHONE NUMBER VALIDATION
+  else if (name === "phone") {
+    const numericValue = value.replace(/\D/g, "");
+
+    if (numericValue.length <= 10) {
+      setFormData((prev) => ({ ...prev, phone: numericValue }));
     }
 
-    else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+    if (numericValue.length > 10) {
+      setErrors((prev) => ({
+        ...prev,
+        phone: "Phone number must be 10 digits",
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, phone: "" }));
     }
-  };
+  }
+
+  // EMAIL VALIDATION
+  else if (name === "email") {
+    setFormData((prev) => ({ ...prev, email: value }));
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (value.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        email: "Email is required",
+      }));
+    } else if (!emailRegex.test(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        email: "Enter a valid email address",
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, email: "" }));
+    }
+  }
+
+  // OTHER FIELDS
+  else {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -284,26 +320,28 @@ export default function ContactForm() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-black block mb-2">
-                  PHONE NUMBER <span className="text-red-500">*</span>
-                </label>
+  <label className="text-xs font-semibold text-black block mb-2">
+    PHONE NUMBER <span className="text-red-500">*</span>
+  </label>
 
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Mobile Number"
-                  className={`w-full px-4 text-sm py-3 border rounded-lg bg-[#fffdf4]
-                  ${errors.phone ? "border-red-500" : "border-gray-300"}`}
-                />
+  <input
+    type="tel"
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    placeholder="Mobile Number"
+    maxLength={10}
+    pattern="[0-9]{10}"
+    className={`w-full px-4 text-sm py-3 border rounded-lg bg-[#fffdf4]
+    ${errors.phone ? "border-red-500" : "border-gray-300"}`}
+  />
 
-                {errors.phone && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors.phone}
-                  </p>
-                )}
-              </div>
+  {errors.phone && (
+    <p className="text-red-500 text-xs mt-1">
+      {errors.phone}
+    </p>
+  )}
+</div>
 
             </div>
 

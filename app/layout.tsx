@@ -6,6 +6,7 @@ import LayoutWrapper from "./LayoutWrapper";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://imagialtrust.org"),
   title: "Imaigal Trust | Empowering Communities",
   description:
     "Imaigal Trust is a non-profit organization dedicated to rural development, women's empowerment, sustainable agriculture, healthcare, and social welfare.",

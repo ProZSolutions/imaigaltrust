@@ -64,49 +64,54 @@ export default function NewsEventsPage() {
   }
 
   const onSubmit = async (data: RegistrationFormData) => {
-    try {
-      if (!selectedEvent) return;
+  try {
+    if (!selectedEvent) return;
 
-      const response = await fetch("/api/events/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          event_id: selectedEvent.id,
-          first_name: data.firstName,
-          last_name: data.lastName,
-          age: parseInt(data.age),
-          gender: data.gender,
-          email: data.email,
-          phone: data.phone,
-          source: data.source,
-          motivation: data.motivation,
-          special_requirements: data.specialRequirements,
-          consent: data.consent,
-        }),
-      });
+    const response = await fetch("/api/events/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+  event_id: selectedEvent.id, // keep as number
 
-      const resData = await response.json();
+  first_name: data.firstName.trim(),
+  last_name: data.lastName.trim(),
 
-if (!response.ok) {
-  throw new Error(resData.message || "Failed to register");
-}
+  age: Number(data.age),
 
+  gender: data.gender ? data.gender.toLowerCase().trim() : "male",
 
-toast.success("Registration submitted successfully!");
+  email: data.email.trim(),
+  phone: data.phone.trim(),
 
-setIsModalOpen(false);
-reset();
+  source: data.source?.trim() || "",
 
-} catch (error) {
-  console.error("Registration failed:", error);
+  motivation: data.motivation?.trim() || "",
 
-  
-  toast.error(
-    error instanceof Error
-      ? error.message
-      : "Something went wrong. Please try again."
-  );
-}
+  // IMPORTANT: match Prisma field exactly
+  special_requirements: data.specialRequirements?.trim() || "",
+
+  consent: data.consent === true,
+})
+    });
+
+    const resData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(resData.message || "Failed to register");
+    }
+
+    toast.success("Registration submitted successfully!");
+    setIsModalOpen(false);
+    reset();
+  } catch (error) {
+    console.error("Registration failed:", error);
+
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again."
+    );
+  }
   }
 
   const filters = ["All Events", "Upcoming", "Ongoing", "Past"];
@@ -439,20 +444,32 @@ reset();
   <label className="font-semibold text-gray-600 text-xs">
     First Name <span className="text-red-500">*</span>
   </label>
+
   <input
     {...register("firstName", {
       required: "First Name is required",
+      maxLength: {
+        value: 20,
+        message: "First Name cannot exceed 20 characters",
+      },
       pattern: {
-        value: /^[A-Za-z\s]+$/, // letters + spaces only
-        message: "First Name can contain letters and spaces only, no numbers",
+        value: /^[A-Za-z\s]+$/,
+        message: "First Name can contain letters and spaces only",
       },
     })}
+
+    maxLength={20}
+
     onInput={(e) => {
-      e.currentTarget.value = e.currentTarget.value.replace(/[^A-Za-z\s]/g, '');
+      e.currentTarget.value = e.currentTarget.value
+        .replace(/[^A-Za-z\s]/g, "")
+        .slice(0, 20);
     }}
+
     placeholder="Enter first name"
     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
   />
+
   {errors.firstName && (
     <p className="text-red-500 text-xs">{errors.firstName.message}</p>
   )}
@@ -492,11 +509,15 @@ reset();
             Age <span className="text-red-500">*</span>
           </label>
           <input
-            type="number"
-            {...register("age", {
-              required: "Age is required",
-              min: { value: 1, message: "Enter valid age" },
-            })}
+  type="number"
+  {...register("age", {
+    required: "Age is required",
+    valueAsNumber: true,
+    min: { value: 1, message: "Enter valid age" },
+    max: { value: 120, message: "Enter valid age" },
+  })}
+
+
             placeholder="e.g. 18"
             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
           />
@@ -511,13 +532,13 @@ reset();
           <div className="relative">
             <select
               {...register("gender", { required: "Gender is required" })}
-              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
-            >
+  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
+>
               <option value="">— Select —</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
-            </select>
+</select>
             {/* <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} /> */}
           </div>
           {errors.gender && <p className="text-red-500 text-xs">{errors.gender.message}</p>}
@@ -536,23 +557,37 @@ reset();
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label className="font-semibold text-gray-600 text-xs">
-            Email Address <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^\S+@\S+\.\S+$/,
-                message: "Enter valid email",
-              },
-            })}
-            placeholder="you@email.com"
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
-          />
-          {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
-        </div>
+  <label className="font-semibold text-gray-600 text-xs">
+    Email Address <span className="text-red-500">*</span>
+  </label>
+  <input
+    type="email"
+    {...register("email", {
+      required: "Email is required",
+
+      maxLength: {
+        value: 50,
+        message: "Email cannot exceed 50 characters",
+      },
+
+      pattern: {
+        value: /^\S+@\S+\.\S+$/,
+        message: "Enter valid email",
+      },
+    })}
+
+    maxLength={50}
+
+    placeholder="you@email.com"
+    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
+  />
+
+  {errors.email && (
+    <p className="text-red-500 text-xs">
+      {errors.email.message}
+    </p>
+  )}
+</div>
 
         {/* Phone */}
         <div className="space-y-1.5">
@@ -567,13 +602,13 @@ reset();
         message: "Enter valid 10-digit number",
       },
     })}
-    onInput={(e) => {
+   onInput={(e) => {
     
       let value = e.currentTarget.value.replace(/[^0-9]/g, '');
-     
-      if (value.length > 10) value = value.slice(0, 10);
-      e.currentTarget.value = value;
-    }}
+
+  if (value.length > 10) value = value.slice(0, 10);
+  e.currentTarget.value = value;
+}}
     placeholder="e.g. 9876543210"
     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs"
   />
