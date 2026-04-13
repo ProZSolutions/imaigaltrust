@@ -174,7 +174,7 @@ export default function AdminMembershipsPage() {
       {/* Desktop Table - Hidden on mobile */}
       <div className="hidden md:block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full min-w-[1200px] text-left border-collapse text-xs">
+          <table className="w-full min-w-[900px] text-left border-collapse text-xs">
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
                 <th className="px-4 py-3 font-bold uppercase tracking-wider">S.No</th>
