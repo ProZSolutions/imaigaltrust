@@ -5,6 +5,7 @@ import { ChevronDown, Upload, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
 export default function EditEventPage({
   params,
@@ -153,7 +154,7 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
       }),
       {
         loading: isDraft ? "Saving draft..." : "Updating event...",
-        success: isDraft ? "Draft saved successfully!" : "Event updated successfully!",
+        success: isDraft ? "Draft saved successfully!" : "Draft updated successfully!",
         error: (err) => err.message,
       },
       { duration: 2000 }

@@ -64,7 +64,7 @@ export default function DraftsPage() {
       const response = await fetch(`/api/events/${publishData.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ is_draft: false }),
+        body: JSON.stringify({ is_draft: true }),
       });
 
       if (response.ok) {

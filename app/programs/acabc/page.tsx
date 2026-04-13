@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
+import "./page.css";
+
 import {
   FaCheckCircle,
   FaSeedling,
@@ -117,7 +119,7 @@ export default function ACABCProgram() {
       />
 
 <div className="max-w-[1600px] mx-auto px-4 md:px-10 py-16">        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-10">
 
   {/* TEXT */}
   <div className="space-y-4 sm:space-y-5 md:space-y-6 inter-font">
@@ -179,7 +181,7 @@ export default function ACABCProgram() {
 </div>
 
         {/* Objectives Section */}
-        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-10 shadow-sm border border-gray-100">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
   Objectives
 </h2>
@@ -201,7 +203,7 @@ export default function ACABCProgram() {
         </div>
 
         {/* Key Services Grid */}
-        <div className="mb-20">
+        <div className="mb-10">
                     <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
 
             Key Services
@@ -226,7 +228,7 @@ export default function ACABCProgram() {
         </div>
 
         {/* Implementation Process */}
-<div className="mb-20">
+<div className="mb-10">
   <div className="text-center mb-12">
 <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">      Implementation Process
     </h2>

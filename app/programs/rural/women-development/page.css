@@ -102,3 +102,7 @@
   margin-bottom: 16px; /* space between each row */
 }
 
+.page-banner {
+  position: relative;
+  overflow: hidden;
+}

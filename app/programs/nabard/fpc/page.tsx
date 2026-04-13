@@ -81,11 +81,11 @@ export default function FPC() {
         ]}
       />
 
-      <div className="max-w-[1700px] mx-auto px-6 py-5 lg:px-16">
+     <div  className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-16 space-y-20">
         {/* FPC Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-start space-y-20">
           <div className="space-y-6 inter-font">
-           <h2 className="josefin-font font-bold text-[#1B2F7C] uppercase pt-25 text-lg sm:text-xl md:text-xl lg:text-2xl">
+           <h2 className="josefin-font font-bold text-[#1B2F7C] uppercase leading-tight text-lg sm:text-xl md:text-xl lg:text-2xl">
   Farmer Producer Companies (FPC)
 </h2>
             
@@ -106,22 +106,25 @@ export default function FPC() {
               bargaining power, and gain better market opportunities.
             </p>
           </div>
-          <div className="relative group">
-  <div className="absolute -inset-4 bg-primary/10 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform"></div>
+       <div className="relative group ">
+  <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2 group-hover:rotate-1 transition-transform"></div>
 
-  <div className="relative h-[220px] sm:h-[300px] md:h-[380px] lg:h-[450px] w-full rounded-2xl overflow-hidden shadow-lg">
-    <Image
-      src="/assets/images/programs/fpc.png"
-      alt="Farmer Producer Companies"
-      fill
-      className="object-cover"
-    />
-  </div>
+ <div className="relative w-full h-[220px] sm:h-[300px] md:h-[380px] lg:h-[450px] overflow-hidden rounded-3xl">
+
+  <Image
+    src="/assets/images/programs/fpc.png"
+    alt="Farmer Producer Companies"
+    fill
+    className="object-contain"
+    sizes="(max-width: 768px) 100vw, 50vw"
+  />
+
 </div>
-        </div>
+</div>
+</div>
 
         {/* Objectives Section */}
-        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 space-y-20 shadow-sm border border-gray-100">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
   Objectives
 </h2>
@@ -143,7 +146,7 @@ export default function FPC() {
         </div>
 
         {/* Key Activities Grid */}
-        <div className="mb-20">
+        <div className="space-y-20">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>

@@ -156,46 +156,46 @@ export async function PUT(
 }
 
 export async function PATCH(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
     if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
-        return NextResponse.json({ message: "Build phase" });
-    }
+    return NextResponse.json({ message: "Build phase" });
+  }
 
-    try {
-        await headers();
+  try {
+    await headers();
     } catch (e) { }
 
-    try {
-        const { prisma } = await import("@/lib/prisma");
-        const resolvedParams = await params;
-        const id = parseInt(resolvedParams.id);
-        const body = await request.json();
+  try {
+    const { prisma } = await import("@/lib/prisma");
+    const resolvedParams = await params;
+    const id = parseInt(resolvedParams.id);
+    const body = await request.json();
 
-        const event = await prisma.event.update({
-            where: { id },
+    const event = await prisma.event.update({
+      where: { id },
             data: body,
-        });
+    });
 
-        const formattedEvent = {
-            ...event,
-            id: Number(event.id),
-            program_id: Number(event.program_id),
-            category_id: Number(event.category_id),
-        };
+    const formattedEvent = {
+      ...event,
+      id: Number(event.id),
+      program_id: Number(event.program_id),
+      category_id: Number(event.category_id),
+    };
 
-        return NextResponse.json({
-            message: "Event updated successfully!",
-            event: formattedEvent,
-        });
-    } catch (error) {
-        console.error("Error patching event:", error);
-        return NextResponse.json(
-            { message: "Failed to update event" },
-            { status: 500 }
-        );
-    }
+    return NextResponse.json({
+      message: "Event updated successfully!",
+      event: formattedEvent,
+    });
+  } catch (error) {
+    console.error("Error patching event:", error);
+    return NextResponse.json(
+      { message: "Failed to update event" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function DELETE(
