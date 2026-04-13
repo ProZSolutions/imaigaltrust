@@ -1,6 +1,26 @@
-"use client";
-import React from 'react';
+import type { Metadata } from "next";
+import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | Imaigal Trust",
+  description:
+    "Read the Terms and Conditions for using the Imaigal Trust website and membership guidelines. Understand the policies governing website usage and participation in Imaigal Trust activities.",
+  keywords: [
+    "Imaigal Trust Terms",
+    "NGO Terms and Conditions",
+    "Website Usage Policy",
+    "Imaigal Trust Membership Rules",
+    "NGO Website Terms"
+  ],
+  openGraph: {
+    title: "Terms & Conditions | Imaigal Trust",
+    description:
+      "Guidelines and policies for using the Imaigal Trust website and becoming a member of the organization.",
+    url: "https://www.imaigaltrust.org/terms-and-conditions",
+    siteName: "Imaigal Trust",
+  },
+};
 
 export default function TermsAndConditions() {
     return (

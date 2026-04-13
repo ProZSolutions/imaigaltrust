@@ -119,6 +119,9 @@ export async function GET(request: Request) {
             programs: true,
           },
         },
+        _count: {
+          select: { registrations: true },
+        },
       },
       orderBy: {
         id: "desc",
@@ -176,6 +179,7 @@ export async function GET(request: Request) {
             hour12: true,
           })
         : null,
+      registrationsCount: event._count?.registrations || 0,
     }));
 
     return NextResponse.json({ events: formattedEvents });

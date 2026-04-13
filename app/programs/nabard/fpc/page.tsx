@@ -1,4 +1,4 @@
-"use client";
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
@@ -8,6 +8,33 @@ import {
   FaMoneyCheckAlt,
   FaBuilding,
 } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Farmer Producer Companies (FPC) | Imaigal Trust",
+  description:
+    "Imaigal Trust supports the formation of Farmer Producer Companies (FPCs) to strengthen farmers' collective power, improve market access, and increase rural agricultural income.",
+  keywords: [
+    "Farmer Producer Companies",
+    "FPC Program",
+    "Farmer Collective Organizations",
+    "Agriculture Market Linkages",
+    "Rural Farmer Empowerment",
+    "Imaigal Trust Programs"
+  ],
+  openGraph: {
+    title: "Farmer Producer Companies | Imaigal Trust",
+    description:
+      "Empowering farmers through collective institutions, financial access, and improved agricultural market opportunities.",
+    images: [
+      {
+        url: "/assets/images/programs/fpc.png",
+        width: 1200,
+        height: 630,
+        alt: "Farmer Producer Companies",
+      },
+    ],
+  },
+};
 
 export default function FPC() {
   const objectives = [

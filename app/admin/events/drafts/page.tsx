@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Edit, Trash2, FileText, Send } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
+import ConfirmPublishModal from "@/app/component/PublishModal/ConfirmPublishModal";
 import toast from "react-hot-toast";
 
 
@@ -19,6 +20,10 @@ export default function DraftsPage() {
   //delete model 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // publish modal
+  const [publishData, setPublishData] = useState<{ id: string; title: string } | null>(null);
+  const [showPublishModal, setShowPublishModal] = useState(false);
 
   const fetchDrafts = async () => {
     try {
@@ -52,11 +57,11 @@ export default function DraftsPage() {
 
     return `${day}-${month}-${year}`;
   };
-  const handlePublish = async (id: string, title: string) => {
-    if (!confirm(`Are you sure you want to publish "${title}"?`)) return;
+  const handlePublish = async () => {
+    if (!publishData) return;
 
     try {
-      const response = await fetch(`/api/events/${id}`, {
+      const response = await fetch(`/api/events/${publishData.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ is_draft: false }),
@@ -71,6 +76,9 @@ export default function DraftsPage() {
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
+    } finally {
+      setShowPublishModal(false);
+      setPublishData(null);
     }
   };
   const handleDelete = async () => {
@@ -188,7 +196,10 @@ export default function DraftsPage() {
                       <td className="p-2 flex">
                         <div className="flex gap-1 justify-center w-full">
                           <button
-                            onClick={() => handlePublish(event.id, event.title)}
+                            onClick={() => {
+                              setPublishData({ id: event.id, title: event.title });
+                              setShowPublishModal(true);
+                            }}
                             className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 border border-transparent hover:border-blue-100"
                             title="Publish Now"
                           >
@@ -254,6 +265,14 @@ export default function DraftsPage() {
         onConfirm={handleDelete}
         title="Delete Draft"
         message="Are you sure you want to delete this draft event?"
+      />
+
+      <ConfirmPublishModal
+        isOpen={showPublishModal}
+        onClose={() => setShowPublishModal(false)}
+        onConfirm={handlePublish}
+        title="Publish Draft"
+        message={publishData ? `Are you sure you want to publish "${publishData.title}"?` : "Are you sure you want to publish this event?"}
       />
     </div>
   );

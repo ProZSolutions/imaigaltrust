@@ -1,7 +1,38 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "Erode Kongu Coir Cluster | Imaigal Trust",
+  description:
+    "The Erode Kongu Coir Cluster initiative under the SFURTI scheme strengthens the coir industry by empowering rural artisans, improving production quality, and promoting sustainable coir-based businesses.",
+  keywords: [
+    "Erode Kongu Coir Cluster",
+    "SFURTI Coir Cluster",
+    "Coir Industry Development",
+    "Rural Artisan Support",
+    "Coir Products Tamil Nadu",
+    "Imaigal Trust Cluster Development",
+  ],
+  openGraph: {
+    title: "Erode Kongu Coir Cluster | Imaigal Trust",
+    description:
+      "Revitalizing the coir industry in Erode through technology, training, and sustainable development under the SFURTI cluster initiative.",
+    url: "https://imaigaltrust.org/programs/cluster-development/erode-kongu-coir-cluster",
+    siteName: "Imaigal Trust",
+    type: "website",
+    images: [
+      {
+        url: "/assets/images/coir/agriculture.png",
+        width: 1200,
+        height: 630,
+        alt: "Erode Kongu Coir Cluster",
+      },
+    ],
+  },
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [
@@ -9,7 +40,7 @@ export default function ProgramAgriculture() {
     { id: 2, name: "Cluster Development", link: "" },
     {
       id: 3,
-      name: "  Erode Kongu Coir Cluster",
+      name: "Erode Kongu Coir Cluster",
     },
   ];
 

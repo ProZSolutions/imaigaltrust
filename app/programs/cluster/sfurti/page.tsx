@@ -1,7 +1,39 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "SFURTI Program | Imaigal Trust",
+  description:
+    "Explore the SFURTI (Scheme of Fund for Regeneration of Traditional Industries) initiative by Imaigal Trust supporting rural artisans, cluster development, handicrafts, coir industries, and sustainable traditional industries.",
+  keywords: [
+    "SFURTI Scheme",
+    "Imaigal Trust SFURTI",
+    "Cluster Development Program",
+    "Traditional Industries India",
+    "Rural Artisan Support",
+    "Handicrafts Development",
+    "Coir Industry Development",
+  ],
+  openGraph: {
+    title: "SFURTI Program | Imaigal Trust",
+    description:
+      "Reviving traditional industries and empowering rural communities through the SFURTI cluster development initiative.",
+    url: "https://imaigaltrust.org/programs/cluster-development/sfurti",
+    siteName: "Imaigal Trust",
+    type: "website",
+    images: [
+      {
+        url: "/assets/images/sfurti/sfurti.png",
+        width: 1200,
+        height: 630,
+        alt: "SFURTI Program - Imaigal Trust",
+      },
+    ],
+  },
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [
@@ -12,6 +44,8 @@ export default function ProgramAgriculture() {
       name: "SFURTI",
     },
   ];
+
+ 
 
   return (
     <div>

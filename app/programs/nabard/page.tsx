@@ -1,7 +1,34 @@
-"use client";
-import React from 'react';
+import type { Metadata } from "next";
+import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "NABARD Projects | Imaigal Trust",
+  description:
+    "Imaigal Trust collaborates with NABARD to implement sustainable rural development programs including climate proofing, farmer producer companies, and watershed development initiatives.",
+  keywords: [
+    "NABARD Projects",
+    "Rural Development Programs",
+    "Climate Proofing Agriculture",
+    "Farmer Producer Companies",
+    "Watershed Development",
+    "Imaigal Trust NABARD Programs"
+  ],
+  openGraph: {
+    title: "NABARD Supported Projects | Imaigal Trust",
+    description:
+      "Explore NABARD supported initiatives by Imaigal Trust focused on climate resilience, farmer empowerment, and sustainable water resource management.",
+    images: [
+      {
+        url: "/assets/images/programs/nabard.png",
+        width: 1200,
+        height: 630,
+        alt: "NABARD Projects",
+      },
+    ],
+  },
+};
 
 export default function NabardProjects() {
     return (

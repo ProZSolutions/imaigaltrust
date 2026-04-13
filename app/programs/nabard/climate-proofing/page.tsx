@@ -1,4 +1,4 @@
-"use client";
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
@@ -7,6 +7,33 @@ import {
   FaShieldAlt,
   FaLeaf,
 } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Climate Proofing of Agriculture | Imaigal Trust",
+  description:
+    "The Climate Proofing of Agriculture project by Imaigal Trust helps farmers adapt to climate change through climate-smart agriculture practices, resilient crops, and sustainable farming techniques.",
+  keywords: [
+    "Climate Proofing Agriculture",
+    "Climate Smart Farming",
+    "Sustainable Agriculture",
+    "Farmer Climate Adaptation",
+    "NABARD Climate Project",
+    "Imaigal Trust Programs"
+  ],
+  openGraph: {
+    title: "Climate Proofing of Agriculture | Imaigal Trust",
+    description:
+      "Supporting farmers with climate-resilient agriculture practices, drought-resistant crops, and sustainable resource management.",
+    images: [
+      {
+        url: "/assets/images/programs/climate.png",
+        width: 1200,
+        height: 630,
+        alt: "Climate Proofing Agriculture",
+      },
+    ],
+  },
+};
 
 export default function ClimateProofing() {
   const objectives = [
@@ -138,7 +165,7 @@ export default function ClimateProofing() {
             {activities.map((activity, index) => (
               <div
                 key={index}
-                className="p-8 bg-white border-1 border-black rounded-3xl hover:border-primary/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full bg-gradient-to-br from-white to-gray-50/30"
+                className="p-8 bg-white border border-black rounded-3xl hover:border-primary/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full bg-gradient-to-br from-white to-gray-50/30"
               >
                 <div className="mb-4 w-10 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
                 <h3 className="josefin-font font-bold secondary-text-900 group-hover:primary-text transition-colors mb-4 text-base">

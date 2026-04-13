@@ -1,7 +1,38 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "Agriculture Programs | Imaigal Trust",
+  description:
+    "Explore Imaigal Trust agriculture initiatives including farmer producer organizations, organic farming, water conservation, climate resilience, and sustainable agricultural development.",
+  keywords: [
+    "Imaigal Trust Agriculture",
+    "Organic Farming NGO",
+    "Farmer Producer Organization",
+    "Sustainable Agriculture India",
+    "Rural Agriculture Development",
+    "Water Conservation Farming",
+  ],
+  openGraph: {
+    title: "Agriculture Programs | Imaigal Trust",
+    description:
+      "Empowering farmers through sustainable agriculture, organic farming, and climate-resilient agricultural practices.",
+    url: "https://imaigaltrust.org/programs/agriculture",
+    siteName: "Imaigal Trust",
+    type: "website",
+    images: [
+      {
+        url: "/assets/images/agriculture.png",
+        width: 1200,
+        height: 630,
+        alt: "Agriculture Programs - Imaigal Trust",
+      },
+    ],
+  },
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [
@@ -9,6 +40,7 @@ export default function ProgramAgriculture() {
     { id: 2, name: "Agriculture" },
   ];
 
+ 
   return (
     <div>
       <PageBanner title="Agriculture" list={breadrumbs} />

@@ -209,7 +209,7 @@ export default function AnnualReportFormPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center">
+      <div className="bg-white p-4 md:p-6 rounded-xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
           <h1 className="font-bold text-gray-800 text-xl">Annual Report</h1>
           <p className="text-gray-500 text-xs">
@@ -219,7 +219,7 @@ export default function AnnualReportFormPage() {
 
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 px-6 py-2.5 bg-[#096412] text-white rounded-xl hover:bg-[#074d0e] transition-all duration-300 shadow-lg shadow-green-900/10 font-bold active:scale-95"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-[#096412] text-white rounded-xl hover:bg-[#074d0e] transition-all duration-300 shadow-lg shadow-green-900/10 font-bold active:scale-95"
         >
           <Plus size={20} /> Add Annual Report
         </button>
@@ -354,59 +354,95 @@ export default function AnnualReportFormPage() {
             No reports found
           </div>
         ) : (
-          <div className="overflow-hidden rounded-xl border border-gray-100">
-            <table className="w-full text-left">
-              <thead className="bg-[#1a4d2e] text-white">
-                <tr>
-                  <th className="px-10 py-4 font-bold uppercase tracking-wider text-xs">
-                    Year
-                  </th>
-                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
-                    Type
-                  </th>
-                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
-                    Language
-                  </th>
-                  <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
-                    File
-                  </th>
-                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-right text-xs">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {paginatedReports.map((r) => (
-                  <tr key={r.id} className="hover:bg-green-50/30 transition-colors">
-                    <td className="px-10 py-4 text-gray-700 font-semibold">{r.year}</td>
-                    <td className="px-12 py-4 text-gray-600 capitalize">{r.type}</td>
-                    <td className="px-12 py-4 text-gray-600 capitalize">{r.language}</td>
-                    <td className="px-8 py-4">
-                      <a
+          <>
+            {/* Mobile Card View */}
+            <div className="md:hidden divide-y divide-gray-50 px-4">
+              {paginatedReports.map((r) => (
+                <div key={r.id} className="py-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-gray-800 text-sm">{r.year}</span>
+                    <span className="text-[10px] uppercase font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">{r.type}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-gray-500 capitalize">{r.language}</span>
+                    <div className="flex gap-2">
+                       <a
                         href={`/api/annual-report/file/${r.file_path}`}
                         download
-                        className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold rounded-lg transition text-xs"
+                        className="p-2 text-blue-600 bg-blue-50 rounded-lg"
                       >
                         <FileText size={16} />
-                        View
                       </a>
-                    </td>
-                    <td className="px-8 py-4 text-right">
                       <button
                         onClick={() => {
                           setDeleteId(r.id);
                           setDeleteOpen(true);
                         }}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                        title="Delete"
+                        className="p-2 text-red-500 bg-red-50 rounded-lg"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </button>
-                    </td>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto w-full">
+              <table className="w-full text-left min-w-[800px] whitespace-nowrap">
+                <thead className="bg-[#1a4d2e] text-white">
+                  <tr>
+                    <th className="px-10 py-4 font-bold uppercase tracking-wider text-xs">
+                      Year
+                    </th>
+                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                      Type
+                    </th>
+                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                      Language
+                    </th>
+                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                      File
+                    </th>
+                    <th className="px-6 py-4 font-bold uppercase tracking-wider text-right text-xs">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {paginatedReports.map((r) => (
+                    <tr key={r.id} className="hover:bg-green-50/30 transition-colors">
+                      <td className="px-10 py-4 text-gray-700 font-semibold">{r.year}</td>
+                      <td className="px-12 py-4 text-gray-600 capitalize">{r.type}</td>
+                      <td className="px-12 py-4 text-gray-600 capitalize">{r.language}</td>
+                      <td className="px-8 py-4">
+                        <a
+                          href={`/api/annual-report/file/${r.file_path}`}
+                          download
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-blue-700 font-semibold rounded-lg transition text-xs"
+                        >
+                          <FileText size={16} />
+                          View
+                        </a>
+                      </td>
+                      <td className="px-8 py-4 text-right">
+                        <button
+                          onClick={() => {
+                            setDeleteId(r.id);
+                            setDeleteOpen(true);
+                          }}
+                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <ConfirmDeleteModal
               isOpen={deleteOpen}
               onClose={() => setDeleteOpen(false)}
@@ -414,7 +450,7 @@ export default function AnnualReportFormPage() {
               title="Confirm Delete"
               message="Are you sure you want to delete this report?"
             />
-          </div>
+          </>
         )}
       </div>
 

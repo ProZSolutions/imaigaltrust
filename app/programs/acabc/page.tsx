@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
+import React from "react";
 import {
   FaCheckCircle,
   FaSeedling,
@@ -11,6 +11,34 @@ import {
   FaGlobeAmericas,
   FaChartLine,
 } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "ACABC Program | Imaigal Trust",
+  description:
+    "The ACABC program by Imaigal Trust empowers agricultural graduates to establish Agri-Clinics and Agri-Business Centres that provide professional advisory services to farmers and improve rural agricultural productivity.",
+  keywords: [
+    "ACABC Program",
+    "Agri Clinics",
+    "Agri Business Centres",
+    "Agriculture Advisory Services",
+    "Farmer Support Programs",
+    "Agricultural Entrepreneurship",
+    "Imaigal Trust Programs"
+  ],
+  openGraph: {
+    title: "ACABC – Agri Clinics & Agri Business Centres",
+    description:
+      "Supporting agricultural graduates to become agri-entrepreneurs and provide professional services to farmers.",
+    images: [
+      {
+        url: "/assets/images/programs/acabc.png",
+        width: 1200,
+        height: 630,
+        alt: "ACABC Program",
+      },
+    ],
+  },
+};
 
 export default function ACABCProgram() {
   const steps = [

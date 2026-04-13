@@ -279,11 +279,8 @@ export default function AddEventPage() {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success("Event saved successfully");
-
-        setTimeout(() => {
-          router.push("/admin/events");
-        }, 1500);
+        sessionStorage.setItem("eventAdded", "true");
+        router.push("/admin/events");
       } else {
         toast.error(result.message || "Failed to save event");
       }

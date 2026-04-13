@@ -1,6 +1,27 @@
-"use client";
-import React from 'react';
+import type { Metadata } from "next";
+import Link from "next/link";
+import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Imaigal Trust",
+  description:
+    "Read the Privacy Policy of Imaigal Trust to understand how we collect, use, and protect personal information of our website visitors, members, and donors.",
+  keywords: [
+    "Imaigal Trust Privacy Policy",
+    "NGO Privacy Policy",
+    "Donation Privacy Policy",
+    "Website Data Protection",
+    "Imaigal Trust Data Policy"
+  ],
+  openGraph: {
+    title: "Privacy Policy | Imaigal Trust",
+    description:
+      "Learn how Imaigal Trust protects personal information and ensures transparency in donations and membership data.",
+    url: "https://www.imaigaltrust.org/privacy-policy",
+    siteName: "Imaigal Trust",
+  },
+};
 
 export default function PrivacyPolicy() {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -17,7 +38,7 @@ export default function PrivacyPolicy() {
             />
 
             {/* Main Content */}
-            <div className="max-w-4xl mx-auto px-4 py-16">
+            <div className="max-w-5xl mx-auto px-4 py-16">
                 <div className="text-right text-gray-500 mb-8 inter-font text-xs">
                     Last Updated: {currentDate}
                 </div>
@@ -183,7 +204,9 @@ export default function PrivacyPolicy() {
                     <div className="bg-red-50 p-6 border-l-4 border-red-500 rounded">
                         <h3 className="josefin-font font-bold text-red-800 mb-2 uppercase text-base">Refund Policy</h3>
                         <p className="text-red-700 text-xs">
-                            Donations are generally non-refundable. However, in case of a duplicate transaction or technical error, donors may contact the trust within <strong>7 days</strong> of the transaction.
+                            Donations are generally non-refundable. However, in case of a duplicate transaction or technical error, donors may <Link href="/contact-us" className="text-primary underline">
+  contact the trust
+</Link> within <strong>7 days</strong> of the transaction.
                         </p>
                     </div>
                 </section>

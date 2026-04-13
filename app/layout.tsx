@@ -1,13 +1,48 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
 import NavigationLoader from "./component/NavigationLoader/NavigationLoader";
 import LayoutWrapper from "./LayoutWrapper";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Imaigal Trust",
+  metadataBase: new URL("https://imagialtrust.org"),
+  title: "Imaigal Trust | Empowering Communities",
   description:
-    "Imaigal Trust is a Tamil Nadu-based NGO dedicated to empowering communities through education, health, women’s welfare, rural development, and skill training initiatives across Erode, Salem, and nearby districts.",
+    "Imaigal Trust is a non-profit organization dedicated to rural development, women's empowerment, sustainable agriculture, healthcare, and social welfare.",
+  keywords: [
+    "Imaigal Trust",
+    "NGO",
+    "Women Empowerment",
+    "Rural Development",
+    "Organic Farming",
+    "Social Welfare",
+  ],
+  authors: [{ name: "Imaigal Trust" }],
+  creator: "Imaigal Trust",
+  publisher: "Imaigal Trust",
+
+  openGraph: {
+    title: "Imaigal Trust | Transforming Lives",
+    description:
+      "Empowering rural communities through education, agriculture, healthcare and social welfare.",
+    url: "https://imaigaltrust.org",
+    siteName: "Imaigal Trust",
+    images: [
+      {
+        url: "/assets/images/home/mission/woman-with-smile-her.png",
+        width: 1200,
+        height: 630,
+        alt: "Imaigal Trust",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

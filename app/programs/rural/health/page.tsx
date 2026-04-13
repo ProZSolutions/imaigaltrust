@@ -1,7 +1,35 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "Rural Health Program | Imaigal Trust",
+  description:
+    "Imaigal Trust works to strengthen healthcare access in rural communities through medical camps, preventive healthcare awareness, maternal care, and partnerships with healthcare professionals.",
+  keywords: [
+    "Rural Health Program",
+    "Imaigal Trust Healthcare",
+    "Free Medical Camps",
+    "Rural Healthcare India",
+    "Preventive Healthcare Awareness",
+    "Maternal and Child Health Programs"
+  ],
+  openGraph: {
+    title: "Rural Health Program | Imaigal Trust",
+    description:
+      "Improving healthcare access for rural communities through awareness programs, medical camps, and healthcare initiatives.",
+    images: [
+      {
+        url: "/assets/images/health/RuralHealth1.png",
+        width: 1200,
+        height: 630,
+        alt: "Rural Health Program",
+      },
+    ],
+  },
+};
 
 export default function ProgramHealthcare() {
   const breadrumbs = [
@@ -9,6 +37,7 @@ export default function ProgramHealthcare() {
     { id: 2, name: "Rural Development / Rural Health" },
   ];
 
+ 
   return (
     <div>
       <PageBanner
