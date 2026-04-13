@@ -15,6 +15,7 @@ interface EventItem {
   start_date: string;
   start_time: string;
   location: string;
+  registrationsCount: number;
 }
 
 export default function EventsPage() {
@@ -40,6 +41,10 @@ export default function EventsPage() {
 
   useEffect(() => {
     fetchEvents();
+    if (typeof window !== "undefined" && sessionStorage.getItem("eventAdded")) {
+      toast.success("Event added successfully");
+      sessionStorage.removeItem("eventAdded");
+    }
   }, []);
 
   const formatDateIST = (date: any) => {
@@ -120,8 +125,8 @@ export default function EventsPage() {
             <div className="flex justify-between items-start">
               <h3 className="font-bold text-gray-800 text-sm flex-1 mr-2">{event.title}</h3>
               <span className={`px-2 py-0.5 text-[10px] rounded-full font-medium ${event.status === "upcoming" ? "bg-blue-100 text-blue-700" :
-                  event.status === "ongoing" ? "bg-green-100 text-green-700" :
-                    "bg-gray-100 text-gray-700"
+                event.status === "ongoing" ? "bg-green-100 text-green-700" :
+                  "bg-gray-100 text-gray-700"
                 }`}>
                 {event.status}
               </span>
@@ -135,9 +140,22 @@ export default function EventsPage() {
                 <span className="font-semibold text-gray-400 w-16">Date:</span>
                 <span>{formatDateIST(event.start_date)} at {formatTimeIST(event.start_time)}</span>
               </div>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-gray-400 w-16">Members:</span>
+                {event.registrationsCount > 0 ? (
+                  <Link
+                    href={`/admin/events/registrations?eventId=${event.id}`}
+                    className="text-[#096412] font-bold hover:underline"
+                    title="View Registered Members"
+                  >
+                    {event.registrationsCount}
+                  </Link>
+                ) : (
+                  <span title="No registered members">0</span>
+                )}
+              </div>
             </div>
             <div className="pt-3 border-t border-gray-100 flex items-center gap-2">
-              <Link href={`/admin/events/registrations?eventId=${event.id}`} className="p-2 text-[#096412] bg-green-50 rounded-lg"><Users size={16} /></Link>
               <Link href={`/admin/events/edit-event/${event.id}`} className="p-2 text-[#096412] bg-green-50 rounded-lg"><Edit size={16} /></Link>
               <button onClick={() => { setDeleteId(event.id); setShowDeleteModal(true); }} className="p-2 text-red-500 bg-red-50 rounded-lg"><Trash2 size={16} /></button>
             </div>
@@ -180,7 +198,11 @@ export default function EventsPage() {
                   Location
                 </th>
 
-                <th className="px-3 py-3 w-[120px] uppercase text-center text-xs">
+                <th className="px-3 py-3 w-[100px] uppercase text-center text-xs">
+                  Members
+                </th>
+
+                <th className="px-3 py-3 w-[100px] uppercase text-center text-xs">
                   Actions
                 </th>
 
@@ -236,14 +258,21 @@ export default function EventsPage() {
                   </td>
 
                   <td className="px-2 py-3 text-center align-middle">
-                    <div className="flex items-center justify-center gap-2">
-
+                    {event.registrationsCount > 0 ? (
                       <Link
                         href={`/admin/events/registrations?eventId=${event.id}`}
-                        className="p-2 text-[#096412] hover:bg-green-50 rounded-lg"
+                        className="text-[#096412] hover:underline font-bold"
+                        title="View Registered Members"
                       >
-                        <Users size={18} />
+                        {event.registrationsCount}
                       </Link>
+                    ) : (
+                      <span className="text-gray-600" title="No registered members">0</span>
+                    )}
+                  </td>
+
+                  <td className="px-2 py-3 text-center align-middle">
+                    <div className="flex items-center justify-center gap-2">
 
                       <Link
                         href={`/admin/events/edit-event/${event.id}`}

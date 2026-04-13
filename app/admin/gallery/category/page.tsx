@@ -175,8 +175,40 @@ const validate = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
-        <table className="w-full text-left">
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {fetching ? (
+          <div className="p-12 text-center bg-white rounded-xl border border-gray-100">
+            <div className="w-8 h-8 border-4 border-[#1a4d2e] border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <p className="text-gray-500 text-xs font-medium">Loading categories...</p>
+          </div>
+        ) : categories.length === 0 ? (
+          <div className="p-12 text-center bg-white rounded-xl border border-gray-100 italic text-gray-400 text-xs">
+            No categories found.
+          </div>
+        ) : (
+          paginatedCategories.map((cat) => (
+            <div key={cat.id} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm space-y-3">
+              <div className="flex justify-between items-start">
+                <h3 className="font-bold text-gray-800 text-sm truncate">{cat.category}</h3>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${Number(cat.status) === 1 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"}`}>
+                  {Number(cat.status) === 1 ? "Active" : "Inactive"}
+                </span>
+              </div>
+              <div className="pt-3 border-t border-gray-50 flex justify-end gap-2">
+                <button onClick={() => handleEdit(cat)} className="p-2 text-[#096412] bg-green-50 rounded-lg"><Edit size={16} /></button>
+                <button onClick={() => { setDeleteId(cat.id); setDeleteModalOpen(true); }} className="p-2 text-red-500 bg-red-50 rounded-lg"><Trash2 size={16} /></button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left min-w-[800px] whitespace-nowrap">
           <thead className="bg-[#1a4d2e] text-white">
             <tr>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">
@@ -262,6 +294,7 @@ const validate = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
       {/* PAGINATION */}
       {!fetching && activeCategories.length > 0 && (

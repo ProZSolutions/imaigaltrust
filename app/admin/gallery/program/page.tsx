@@ -288,8 +288,8 @@ export default function AdminProgramPage() {
                   <td className="px-6 py-4">
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${Number(prog.status) === 1
-                          ? "bg-green-100 text-green-700 border border-green-200"
-                          : "bg-gray-100 text-gray-600 border border-gray-200"
+                        ? "bg-green-100 text-green-700 border border-green-200"
+                        : "bg-gray-100 text-gray-600 border border-gray-200"
                         }`}
                     >
                       <span
