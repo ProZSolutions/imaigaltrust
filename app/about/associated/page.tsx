@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import React from "react";
 import { Factory } from "lucide-react"; 
@@ -16,6 +17,12 @@ import {
   Dna,
   TrendingUp
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Associated Organizations | Imaigal Trust",
+  description:
+    "Explore the partner organizations, government collaborations, training programmes, and advisory committees associated with Imaigal Trust.",
+};
 
 export default function ProgramAgriculture() {
   const breadcrumbs = [

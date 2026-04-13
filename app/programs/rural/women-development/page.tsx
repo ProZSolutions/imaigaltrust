@@ -1,7 +1,35 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "Women Development Program | Imaigal Trust",
+  description:
+    "Imaigal Trust empowers rural women through skill development, entrepreneurship training, financial literacy, and health awareness programs to build self-reliant communities.",
+  keywords: [
+    "Women Development Program",
+    "Rural Women Empowerment",
+    "Women Skill Development",
+    "Self Help Groups SHG",
+    "Women Entrepreneurship Training",
+    "Imaigal Trust Women Programs"
+  ],
+  openGraph: {
+    title: "Women Development Program | Imaigal Trust",
+    description:
+      "Empowering rural women through education, livelihood training, entrepreneurship support, and healthcare awareness.",
+    images: [
+      {
+        url: "/assets/images/women/women.png",
+        width: 1200,
+        height: 630,
+        alt: "Women Development Program",
+      },
+    ],
+  },
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [
@@ -9,7 +37,7 @@ export default function ProgramAgriculture() {
     { id: 2, name: "Rural Development" },
     { id: 3, name: "Women Development" },
   ];
-
+  
   return (
     <div>
       <PageBanner

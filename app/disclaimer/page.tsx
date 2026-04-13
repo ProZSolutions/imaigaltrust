@@ -1,4 +1,4 @@
-"use client";
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import {
@@ -8,13 +8,29 @@ import {
   FaGlobe,
   FaExclamationTriangle,
   FaHistory,
- 
   FaMapMarkerAlt,
-  
 } from "react-icons/fa";
+import { IoMailOutline, IoCall } from "react-icons/io5";
 
-import { IoMailOutline } from "react-icons/io5";
-import { IoCall } from "react-icons/io5";
+export const metadata: Metadata = {
+  title: "Disclaimer | Imaigal Trust",
+  description:
+    "Read the official disclaimer of Imaigal Trust regarding website information, external links, donations, and limitation of liability.",
+  keywords: [
+    "Imaigal Trust Disclaimer",
+    "NGO Website Disclaimer",
+    "Donation Disclaimer",
+    "External Links Policy",
+    "Website Liability Disclaimer"
+  ],
+  openGraph: {
+    title: "Disclaimer | Imaigal Trust",
+    description:
+      "Important information about website usage, donations, and liability policies of Imaigal Trust.",
+    url: "https://www.imaigaltrust.org/disclaimer",
+    siteName: "Imaigal Trust",
+  },
+};
 export default function DisclaimerPage() {
   const sections = [
     {
@@ -84,7 +100,7 @@ export default function DisclaimerPage() {
           {sections.map((section, index) => (
             <div
               key={index}
-              className="bg-white border-1 border-black rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white border border-black rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300"
             >
               <div className="flex items-center space-x-4 mb-4">
                 <div className="p-3 bg-primary/10 rounded-2xl text-primary text-lg">

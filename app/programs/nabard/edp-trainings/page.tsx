@@ -1,4 +1,4 @@
-"use client";
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
@@ -9,6 +9,33 @@ import {
   FaUsers,
   FaChartPie,
 } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Entrepreneurship Development Programme (EDP) | Imaigal Trust",
+  description:
+    "Imaigal Trust conducts Entrepreneurship Development Programme (EDP) trainings to empower rural youth and women with business skills, financial literacy, and enterprise development.",
+  keywords: [
+    "EDP Training",
+    "Entrepreneurship Development Programme",
+    "Rural Entrepreneurship",
+    "Women Entrepreneurship Training",
+    "Agri Business Training",
+    "Imaigal Trust Programs"
+  ],
+  openGraph: {
+    title: "EDP Trainings | Imaigal Trust",
+    description:
+      "Empowering rural youth and women through entrepreneurship training, business planning, and financial literacy programs.",
+    images: [
+      {
+        url: "/assets/images/programs/edp(1).jpeg",
+        width: 1200,
+        height: 630,
+        alt: "EDP Training Program",
+      },
+    ],
+  },
+};
 
 export default function EDPTrainings() {
   const objectives = [

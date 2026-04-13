@@ -1,8 +1,35 @@
-"use client";
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import { FaWater, FaUsers, FaMountain } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Watershed Development | Imaigal Trust",
+  description:
+    "Imaigal Trust implements watershed development programs to conserve soil and water, improve groundwater recharge, and support sustainable agriculture in rural communities.",
+  keywords: [
+    "Watershed Development",
+    "Soil and Water Conservation",
+    "Rural Water Management",
+    "Sustainable Agriculture",
+    "Rainwater Harvesting Projects",
+    "Imaigal Trust Programs"
+  ],
+  openGraph: {
+    title: "Watershed Development Program | Imaigal Trust",
+    description:
+      "Restoring degraded land, conserving water resources, and strengthening rural agricultural sustainability through watershed development initiatives.",
+    images: [
+      {
+        url: "/assets/images/programs/water.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Watershed Development Project",
+      },
+    ],
+  },
+};
 
 export default function WatershedDevelopment() {
   const objectives = [
@@ -53,7 +80,7 @@ export default function WatershedDevelopment() {
         {/* Watershed Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
           <div className="space-y-6 inter-font">
-           <h2 className="josefin-font pt-25 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl">
+           <h2 className="josefin-font pt-24 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl">
   Watershed Development
 </h2>
             {/* <div className="w-20 h-2 bg-[#1B2F7C] rounded-full"></div> */}
@@ -118,7 +145,7 @@ export default function WatershedDevelopment() {
             {activities.map((activity, index) => (
               <div
                 key={index}
-                className="p-8 bg-white border-1 border-black-100 rounded-3xl hover:border-primary/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full bg-gradient-to-br from-white to-gray-50/30"
+                className="p-8 bg-white border-1 border-black rounded-3xl hover:border-primary/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full bg-gradient-to-br from-white to-gray-50/30"
               >
                 <div className="mb-4 w-10 h-1 bg-primary/20 group-hover:w-full transition-all duration-500 rounded-full"></div>
                 <h3 className="josefin-font font-bold secondary-text-900 group-hover:primary-text transition-colors mb-4 text-base">

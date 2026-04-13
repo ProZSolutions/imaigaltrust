@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef } from "react";
 import { states } from "@/app/content/StateList";
 import { toast } from "react-hot-toast";
@@ -199,47 +200,65 @@ if (!form.interest) newErrors.interest = "Please select an Area of Interest";
 }
 
   try {
-    const res = await fetch("/api/membership", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    ...form,
-    donation_type: isPaidDonation ? "Paid" : "Free",
-    voluntaryDonation: isPaidDonation ? Number(form.voluntaryDonation) : 0,
-    approved: false,
-    dob: convertDOB(form.dob),
-  }),
-});
+  const payload = {
+  name: form.name,
+  dob: convertDOB(form.dob),
+  email: form.email,
+  mobile: form.mobile,
+  address: form.address,
+  city: form.city,
+  pincode: form.pincode,
+  state: form.state,
 
-    const data = await res.json();
+  // membership_type: form.membershipType,
+  membership: form.membershipType, 
+  interest: form.interest,
 
-    if (data.success) {
-      toast.success(" Membership application submitted successfully! We'll review your application and get back to you soon.");
-      setForm({
-        name: "",
-        dob: "",
-        email: "",
-        mobile: "",
-        address: "",
-        city: "",
-        pincode: "",
-        state: "",
-        voluntaryDonation: "",
-        membershipType: "",
-        interest: "",
-        fee: "",
-      });
-      setIsPaidDonation(false);
-      setErrors({});
-    } else {
-      toast.error(" Something went wrong. Please try again.");
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error(" Server error. Please check your connection and try again.");
-  } finally {
-    setIsSubmitting(false); // Re-enable button
+  donation_type: isPaidDonation ? "Paid" : "Free",
+  voluntaryDonation: isPaidDonation ? Number(form.voluntaryDonation) : 0,
+
+  approved: false,
+};
+
+  const res = await fetch("/api/membership", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    toast.success(
+      "Membership application submitted successfully! We'll review your application and get back to you soon."
+    );
+
+    setForm({
+      name: "",
+      dob: "",
+      email: "",
+      mobile: "",
+      address: "",
+      city: "",
+      pincode: "",
+      state: "",
+      voluntaryDonation: "",
+      membershipType: "",
+      interest: "",
+      fee: "",
+    });
+
+    setIsPaidDonation(false);
+    setErrors({});
+  } else {
+    toast.error("Something went wrong. Please try again.");
   }
+} catch (error) {
+  console.error(error);
+  toast.error("Server error. Please check your connection and try again.");
+} finally {
+  setIsSubmitting(false);
+}
 };
   // function validate(vals: Partial<typeof form> = form) {
   //   const tmp = { ...errors };

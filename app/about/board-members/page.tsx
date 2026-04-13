@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 
@@ -5,6 +7,11 @@ import React from "react";
 import "./page.css";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaBriefcase } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Board Members | Imaigal Trust",
+  description: "Leadership team and board of directors of Imaigal Trust.",
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [

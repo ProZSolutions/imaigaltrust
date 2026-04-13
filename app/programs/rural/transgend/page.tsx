@@ -1,7 +1,37 @@
+import type { Metadata } from "next";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
 import React from "react";
 import "./page.css";
+
+export const metadata: Metadata = {
+  title: "Transgender & Others | Imaigal Trust",
+  description:
+    "Imaigal Trust supports transgender individuals and other marginalized communities through skill development, healthcare support, social inclusion, and livelihood opportunities.",
+
+  keywords: [
+    "Transgender Empowerment",
+    "Rural LGBTQ+ Support",
+    "Inclusive Development Programs",
+    "Transgender Skill Development",
+    "Community Empowerment NGO",
+    "Imaigal Trust Programs"
+  ],
+
+  openGraph: {
+    title: "Transgender & Others | Imaigal Trust",
+    description:
+      "Empowering transgender individuals and marginalized communities through education, livelihood training, healthcare access, and advocacy programs.",
+    images: [
+      {
+        url: "/assets/images/Transgend/Transgend.png",
+        width: 1200,
+        height: 630,
+        alt: "Transgender Empowerment Program",
+      },
+    ],
+  },
+};
 
 export default function ProgramAgriculture() {
   const breadrumbs = [

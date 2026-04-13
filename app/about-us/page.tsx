@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import { Compass } from "lucide-react";
@@ -24,6 +25,26 @@ import {
   Home
   
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About Us | Imagial Trust",
+  description:
+    "Learn about Imagial Trust – a grassroots organization in Tamil Nadu empowering rural communities through sustainable agriculture, farmer institutions, and inclusive development.",
+  keywords: [
+    "Imagial Trust",
+    "About Imagial Trust",
+    "Tamil Nadu NGO",
+    "Sustainable Agriculture",
+    "Farmer Development",
+    "Rural Development India",
+  ],
+  openGraph: {
+    title: "About Us | Imagial Trust",
+    description:
+      "Imagial Trust works with farming communities in Tamil Nadu to promote sustainable agriculture, livelihoods, and inclusive rural growth.",
+    type: "website",
+  },
+};
 
 export default function AboutUs() {
   return (
