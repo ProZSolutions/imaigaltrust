@@ -51,6 +51,9 @@ function GalleryContent() {
   const currentYear = new Date().getFullYear();
   const years = ["All Years", ...Array.from({ length: currentYear - 2017 + 1 }, (_, i) => (currentYear - i).toString())];
 
+ const [imgSrc, setImgSrc] = useState(
+  lightbox?.file_path ? `/api/gallery/${lightbox.file_path}` : "/defaultImages1.jpg"
+);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -241,11 +244,13 @@ function GalleryContent() {
                   {/* Media Container */}
                   {item.media_type === "image" ? (
                     <div className="relative w-full overflow-hidden">
-                    <Image
+                    <img
   src={item.file_path ? `/api/gallery-image/${item.file_path}` : "/defaultImages1.jpg"}
   alt={item.title}
-  width={600}
-  height={400}
+  className="w-full h-auto object-cover"
+  onError={(e) => {
+    (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";
+  }}
 />
                       {/* Zoom Overlay */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
@@ -315,11 +320,12 @@ function GalleryContent() {
             {/* Media */}
            {lightbox.media_type === "image" && lightbox.file_path ? (
   <Image
-  src={lightbox.file_path ? `/api/gallery/${lightbox.file_path}` : "/defaultImages1.jpg"}
-  alt={lightbox.title}
+  src={imgSrc}
+  alt={lightbox?.title || "Gallery Image"}
   width={900}
   height={600}
   className="w-full object-contain max-h-[65vh]"
+  onError={() => setImgSrc("/defaultImages1.jpg")}
 />
 ) : lightbox.media_type === "video" ? (
               <div className="aspect-video w-full bg-black">

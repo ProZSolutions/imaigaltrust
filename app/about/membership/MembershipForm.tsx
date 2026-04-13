@@ -211,7 +211,7 @@ if (!form.interest) newErrors.interest = "Please select an Area of Interest";
   state: form.state,
 
   // membership_type: form.membershipType,
-  membership: form.membershipType, 
+  membershipType: form.membershipType, 
   interest: form.interest,
 
   donation_type: isPaidDonation ? "Paid" : "Free",

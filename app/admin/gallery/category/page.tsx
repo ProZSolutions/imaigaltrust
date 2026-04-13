@@ -175,7 +175,7 @@ const validate = () => {
         </button>
       </div>
 
-      </div>
+      
 
       {/* Mobile Card View */}
       <div className="md:hidden space-y-4">
@@ -295,7 +295,11 @@ const validate = () => {
           </tbody>
         </table>
         </div>
+      
       </div>
+  
+      
+  
       {/* PAGINATION */}
       {!fetching && activeCategories.length > 0 && (
         <Pagination
