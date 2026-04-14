@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Plus, Search, X, Upload, ChevronDown, Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Pagination from "@/app/component/Pagination/Pagination";
+// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Program {
@@ -240,17 +241,31 @@ export default function GalleryPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!validateForm()) return;
+  if (!validateForm()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    const toastId = toast.loading(
-      editItem ? "Updating gallery..." : "Creating gallery..."
+  const toastId = toast.loading(
+    editItem ? "Updating gallery..." : "Creating gallery..."
+  );
+
+  try {
+    
+    const existingGallery = galleryItems.find(
+      (g) =>
+        g.title.toLowerCase() === formData.title.trim().toLowerCase() &&
+        g.program_id === Number(formData.programId) &&
+        g.category_id === Number(formData.categoryId) &&
+        g.year === formData.year &&
+        (g.month || "") === (formData.month || "")
     );
 
-    try {
+    let response;
+
+    
+    if (editItem) {
       const data = new FormData();
       data.append("programId", formData.programId);
       data.append("categoryId", formData.categoryId);
@@ -266,35 +281,94 @@ export default function GalleryPage() {
         data.append("videoUrl", formData.videoUrl);
       }
 
-      const url = editItem ? `/api/gallery/${editItem.id}` : "/api/gallery";
-      const method = editItem ? "PUT" : "POST";
-
-      const response = await fetch(url, { method, body: data });
+      response = await fetch(`/api/gallery/${editItem.id}`, {
+        method: "PUT",
+        body: data,
+      });
 
       if (response.ok) {
-        toast.success(
-          editItem
-            ? "Gallery item updated successfully"
-            : "Gallery item created successfully",
-          { id: toastId }
-        );
-
-        closeForm();
-        fetchGalleryItems();
+        toast.success("Gallery item updated successfully", { id: toastId });
       } else {
         const result = await response.json();
-        toast.error(result.message || "Failed to save gallery item", {
+        toast.error(result.message || "Failed to update gallery", {
           id: toastId,
         });
+        return;
       }
-    } catch (error) {
-      console.error("Error saving gallery item:", error);
-      toast.error("An error occurred while saving", { id: toastId });
-    } finally {
-      setLoading(false);
     }
-  };
 
+    
+    else {
+      if (existingGallery) {
+        // already active
+        if (existingGallery.status === 1) {
+          toast("Gallery feilds already exists", { id: toastId });
+          return;
+        }
+
+        // reactivate gallery
+        const data = new FormData();
+        data.append("status", "1");
+
+        response = await fetch(`/api/gallery/${existingGallery.id}`, {
+          method: "PUT",
+          body: data,
+        });
+
+        if (response.ok) {
+          toast.success("Gallery reactivated successfully", { id: toastId });
+        } else {
+          const result = await response.json();
+          toast.error(result.message || "Failed to reactivate gallery", {
+            id: toastId,
+          });
+          return;
+        }
+      }
+
+      else {
+        const data = new FormData();
+        data.append("programId", formData.programId);
+        data.append("categoryId", formData.categoryId);
+        data.append("year", formData.year);
+        data.append("month", formData.month);
+        data.append("title", formData.title);
+        data.append("mediaType", formData.mediaType);
+        data.append("description", formData.description);
+
+        if (formData.mediaType === "image" && selectedFile) {
+          data.append("file", selectedFile);
+        } else if (formData.mediaType === "video") {
+          data.append("videoUrl", formData.videoUrl);
+        }
+
+        response = await fetch("/api/gallery", {
+          method: "POST",
+          body: data,
+        });
+
+        if (response.ok) {
+          toast.success("Gallery item created successfully", { id: toastId });
+        } else {
+          const result = await response.json();
+          toast.error(result.message || "Failed to save gallery item", {
+            id: toastId,
+          });
+          return;
+        }
+      }
+    }
+
+  
+    closeForm();
+    fetchGalleryItems();
+  } catch (error) {
+    console.error("Error saving gallery item:", error);
+    toast.error("An error occurred while saving", { id: toastId });
+  } finally {
+    setLoading(false);
+  }
+};
   const handleDelete = async () => {
     if (!selectedId) return;
 

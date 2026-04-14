@@ -60,17 +60,31 @@ export default function RootLayout({
         <LayoutWrapper>{children}</LayoutWrapper>
 
       
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              borderRadius: "10px",
-              background: "#1a4d2e",
-              color: "#fff",
-              zIndex: 9999999,
-            },
-          }}
-        />
+       <Toaster
+  position="top-right"
+  containerStyle={{
+    zIndex: 9999999,
+  }}
+  toastOptions={{
+    duration: 3000,
+    style: {
+      borderRadius: "10px",
+      background: "#1a4d2e",
+      color: "#fff",
+      fontWeight: "600",
+    },
+    success: {
+      style: {
+        background: "#1a4d2e",
+      },
+    },
+    error: {
+      style: {
+        background: "#dc2626",
+      },
+    },
+  }}
+/>
         
       </body>
     </html>
