@@ -74,6 +74,7 @@ export default function ProgramAgriculture() {
       width={600}
       height={400}
       alt="Transgend"
+      loading="lazy"
       className="w-full max-w-[550px] md:max-w-full h-auto object-cover rounded-lg"
     />
   </div>
@@ -134,6 +135,7 @@ export default function ProgramAgriculture() {
         width={565}
         height={374}
         alt="Transgend2"
+        loading="lazy"
         className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
       />
     </div>
@@ -157,6 +159,7 @@ export default function ProgramAgriculture() {
         width={565}
         height={374}
         alt="Transgend3"
+        loading="lazy"
         className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
       />
     </div>

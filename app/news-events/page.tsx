@@ -279,6 +279,7 @@ if (!response.ok) {
   alt={event.title}
   width={400}
   height={250}
+  loading="lazy"
   className="w-full object-contain" // changed from object-cover
   onError={(e) => {
     (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";

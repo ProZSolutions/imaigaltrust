@@ -68,6 +68,7 @@ export default function ProgramHealthcare() {
       width={565}
       height={374}
       alt="RuralHealth"
+      loading="lazy"
       className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
     />
 
@@ -133,6 +134,7 @@ export default function ProgramHealthcare() {
           width={565}
           height={374}
           alt="RuralHealth2"
+          loading="lazy"
           className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
         />
       </div>
@@ -157,6 +159,7 @@ export default function ProgramHealthcare() {
           width={565}
           height={374}
           alt="RuralHealth3"
+          loading="lazy"
           className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
         />
       </div>

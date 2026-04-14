@@ -30,6 +30,7 @@ export default function ProgramAgriculture() {
           width={480}
           height={354}
           alt="agriculture"
+          loading="lazy"
           className="object-cover w-[320px] h-auto sm:w-[260px] sm:h-auto md:w-[320px] md:h-auto lg:w-[480px] lg:h-auto mx-auto rounded-lg shadow-[0_0_8px_rgba(0,0,0,0.7),0_0_3px_rgba(255,255,255,1)]"
         />
 
@@ -63,6 +64,7 @@ export default function ProgramAgriculture() {
                   src="/assets/images/about/board-members/member_5.png"
                   alt="Mr. Prabhu R"
                   fill
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>
@@ -132,6 +134,7 @@ export default function ProgramAgriculture() {
                   src="/assets/images/about/board-members/member_5.png"
                   alt="Mr. Prabhu R"
                   fill
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>
@@ -221,6 +224,7 @@ export default function ProgramAgriculture() {
                   src="/assets/images/about/board-members/member_1.png"
                   alt="Mrs. A. Poongodi"
                   fill
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>
@@ -294,6 +298,7 @@ export default function ProgramAgriculture() {
                   src="/assets/images/about/board-members/member_1.png"
                   alt="Mrs. A. Poongodi"
                   fill
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>
@@ -371,6 +376,7 @@ export default function ProgramAgriculture() {
                 src="/assets/images/about/board-members/member_2.png"
                 alt="A. Appachigounder"
                 fill
+                loading="lazy"
                 className="object-cover object-top"
               />
             </div>
@@ -405,6 +411,7 @@ export default function ProgramAgriculture() {
                 src="/assets/images/about/board-members/member_4.png"
                 alt="N. Senthikumar"
                 fill
+                loading="lazy"
                 className="object-cover object-top"
               />
             </div>
@@ -444,6 +451,7 @@ export default function ProgramAgriculture() {
                 src="/assets/images/about/board-members/member_6.png"
                 alt="P. Gowrishankar"
                 fill
+                loading="lazy"
                 className="object-cover object-top"
               />
             </div>

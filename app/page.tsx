@@ -126,18 +126,20 @@ export default function Home() {
     <div className="grid grid-cols-2 gap-2 grid-rows-2">
 
       <Image
-        src={"/assets/images/home/mission/woman-with-smile-her.png"}
-        alt="women"
-        width={100}
-        height={100}
-        className="w-full h-full object-cover col-span-1 border-blue-900 rounded shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"
-      />
+  src="/assets/images/home/mission/woman-with-smile-her.png"
+  alt="women"
+  width={100}
+  height={100}
+  loading="lazy"
+  className="w-full h-full object-cover col-span-1 border-blue-900 rounded shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"
+/>
 
       <Image
         src={"/assets/images/home/mission/animal.png"}
         alt="women"
         width={100}
         height={100}
+        loading="lazy"
         className="w-full h-full object-cover col-span-1 row-start-2 border-blue-900 rounded shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"
       />
 
@@ -146,6 +148,7 @@ export default function Home() {
         alt="women"
         width={100}
         height={100}
+        loading="lazy"
         className="w-full h-full object-cover row-span-2 border-blue-900 rounded shadow-[0_0_8px_rgba(0,0,0,0.6),0_0_3px_rgba(255,255,255,0.9)]"
       />
 
@@ -243,6 +246,7 @@ export default function Home() {
               alt="Suganth Farmer"
               width={700}
               height={500}
+              loading="lazy"
         className="object-cover w-[90%] md:w-[600px] lg:w-[700px] h-auto rounded-lg shadow-[0_0_12px_rgba(0,0,0,0.7),0_0_5px_rgba(255,255,255,1)]"
             />
 

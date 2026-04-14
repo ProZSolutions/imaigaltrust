@@ -325,6 +325,7 @@ function GalleryContent() {
   alt={lightbox?.title || "Gallery Image"}
   width={900}
   height={600}
+  loading="lazy"
   className="w-full object-contain max-h-[65vh]"
   onError={() => setImgSrc("/defaultImages1.jpg")}
 />

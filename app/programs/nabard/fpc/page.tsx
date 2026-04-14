@@ -116,6 +116,7 @@ export default function FPC() {
     alt="Farmer Producer Companies"
     fill
     className="object-contain"
+    loading="lazy"
     sizes="(max-width: 768px) 100vw, 50vw"
   />
 

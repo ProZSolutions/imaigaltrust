@@ -167,6 +167,7 @@ export default function ACABCProgram() {
       alt="ACABC Program Interaction"
       width={565}
       height={374}
+      loading="lazy"
       className="w-full max-w-[665px] h-auto object-cover rounded-lg"
     />
   </div>

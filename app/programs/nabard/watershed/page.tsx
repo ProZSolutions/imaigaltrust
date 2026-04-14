@@ -108,6 +108,7 @@ export default function WatershedDevelopment() {
       src="/assets/images/programs/water.jpeg"
       alt="Watershed Development Project"
       fill
+      loading="lazy"
                 className="object-contain-xl"
     />
   </div>

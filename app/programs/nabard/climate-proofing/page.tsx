@@ -122,6 +122,7 @@ export default function ClimateProofing() {
           src="/assets/images/programs/climate.png"
           alt="Climate Proofing Agriculture"
           fill
+          loading="lazy"
           className="object-cover-xl transition-transform duration-500"
         />
       </div>

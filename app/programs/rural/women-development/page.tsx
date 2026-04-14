@@ -69,6 +69,7 @@ export default function ProgramAgriculture() {
             width={565}
             height={374}
             alt="women"
+            loading="lazy"
             className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
           />
         </div>
@@ -135,6 +136,7 @@ export default function ProgramAgriculture() {
                 width={565}
                 height={374}
                 alt="core"
+                loading="lazy"
                 className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
               />
             </div>
@@ -192,6 +194,7 @@ export default function ProgramAgriculture() {
                 width={565}
                 height={374}
                 alt="impact"
+                loading="lazy"
                 className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
               />
             </div>

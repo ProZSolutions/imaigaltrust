@@ -132,6 +132,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 1"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -141,6 +142,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 2"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -155,6 +157,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 3"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -164,6 +167,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 4"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 

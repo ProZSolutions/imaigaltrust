@@ -54,6 +54,7 @@ export default function ProgramAgriculture() {
     alt="agriculture"
     width={400}
     height={400}
+    loading="lazy"
     className="w-full h-full object-contain"
   />
 </div>
@@ -125,6 +126,7 @@ export default function ProgramAgriculture() {
     width={565}
     height={374}
     alt="agriculture"
+    loading="lazy"
     className="w-full max-w-[420px] h-auto object-contain rounded-xl"
   />
 </div>

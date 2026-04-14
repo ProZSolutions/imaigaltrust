@@ -71,6 +71,7 @@ export default function ProgramAgriculture() {
       width={565}
       height={374}
       alt="agriculture"
+      loading="lazy"
       className="w-full h-auto object-cover rounded-lg"
     />
   </div>
@@ -89,6 +90,7 @@ Cluster Development Goals</h2>
           width={565.25}
           height={374}
           alt="agriculture2"
+          loading="lazy"
           className="w-full h-auto object-cover rounded-lg"
         />
       </div>
@@ -208,6 +210,7 @@ Cluster Development Goals</h2>
           width={565}
           height={374}
           alt="agriculture3"
+          loading="lazy"
           className="w-full h-auto object-cover rounded-lg"
         />
       </div>

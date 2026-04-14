@@ -81,6 +81,7 @@ export default function ProgramAgriculture() {
         width={565}
         height={374}
         alt="SFURTI Program"
+        loading="lazy"
         className="w-full h-auto object-cover rounded-lg"
       />
     </div>
@@ -102,6 +103,7 @@ export default function ProgramAgriculture() {
                 width={565.25}
                 height={374}
                 alt="agriculture"
+                loading="lazy"
                  className="w-full h-auto object-cover rounded-lg"
               />
             </div>
@@ -212,6 +214,7 @@ export default function ProgramAgriculture() {
           width={565}
           height={374}
           alt="agriculture"
+          loading="lazy"
           className="w-full max-w-[565px] h-auto object-cover rounded-lg"
         />
       </div>
