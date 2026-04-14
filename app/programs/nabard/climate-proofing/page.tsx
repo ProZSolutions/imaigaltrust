@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import React from "react";
 import PageBanner from "@/app/component/Banner/PageBanner/PageBanner";
 import Image from "next/image";
-import {
-  FaUsers,
-  FaShieldAlt,
-  FaLeaf,
-} from "react-icons/fa";
+import "./page.css";
+
+import { FaUsers, FaShieldAlt, FaLeaf } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Climate Proofing of Agriculture | Imaigal Trust",
@@ -80,7 +78,7 @@ export default function ClimateProofing() {
         ]}
       />
 
-      <div className="max-w-[1800px] mx-auto px-6 py-10 lg:px-16">
+     <div className="w-full max-w-[1600px] mx-auto px-4 md:px-10 py-16">
         {/* Main Content Section */}
         <section className="py-10 max-w-[1700px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8 mb-10">
 
@@ -124,6 +122,7 @@ export default function ClimateProofing() {
           src="/assets/images/programs/climate.png"
           alt="Climate Proofing Agriculture"
           fill
+          loading="lazy"
           className="object-cover-xl transition-transform duration-500"
         />
       </div>
@@ -135,7 +134,7 @@ export default function ClimateProofing() {
 </section>
 
        {/* Objectives Section */}
-<div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+<div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-10 shadow-sm border border-gray-100">
   <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
   Objectives
 </h2>
@@ -157,7 +156,7 @@ export default function ClimateProofing() {
 </div>
 
         {/* Key Activities Grid */}
-        <div className="mb-20">
+        <div className="mb-10">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>

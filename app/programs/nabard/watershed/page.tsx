@@ -76,9 +76,9 @@ export default function WatershedDevelopment() {
         ]}
       />
 
-      <div className="max-w-[1700px] mx-auto px-6 py-5 lg:px-16">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-10 py-16 space-y-20">
         {/* Watershed Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mb-10">
           <div className="space-y-6 inter-font">
            <h2 className="josefin-font pt-24 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl">
   Watershed Development
@@ -108,6 +108,7 @@ export default function WatershedDevelopment() {
       src="/assets/images/programs/water.jpeg"
       alt="Watershed Development Project"
       fill
+      loading="lazy"
                 className="object-contain-xl"
     />
   </div>
@@ -115,7 +116,7 @@ export default function WatershedDevelopment() {
         </div>
 
         {/* Objectives Section */}
-        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-10 shadow-sm border border-gray-100">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Objectives
           </h2>
@@ -137,7 +138,7 @@ export default function WatershedDevelopment() {
         </div>
 
         {/* Key Activities Grid */}
-        <div className="mb-20">
+        <div className="mb-10">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>
@@ -160,7 +161,7 @@ export default function WatershedDevelopment() {
         </div>
 
         {/* Beneficiaries & Impact */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20 px-4">
+        <div className="grid md:grid-cols-3 gap-8 mb-1 px-4">
           <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 md:col-span-1 flex flex-col items-center text-center space-y-4">
             <div className="text-primary text-2xl">
               <FaUsers />

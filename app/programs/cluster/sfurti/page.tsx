@@ -81,6 +81,7 @@ export default function ProgramAgriculture() {
         width={565}
         height={374}
         alt="SFURTI Program"
+        loading="lazy"
         className="w-full h-auto object-cover rounded-lg"
       />
     </div>
@@ -91,10 +92,10 @@ export default function ProgramAgriculture() {
       <section className="py-2 px-4 md:px-10">
         
         <div className="max-w-[1600px] mx-auto">
-        <h3 className="sfurti-heading text-center">
+        <h3 className="sfurti-heading text-center mb-4">
   SFURTI Goals & Objectives
 </h3>
-          <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
+          <div className="pt-2 pb-4 flex flex-col md:flex-row items-center gap-8">
             {/* Left: Image */}
             <div className="w-full md:w-1/2">
              <Image
@@ -102,6 +103,7 @@ export default function ProgramAgriculture() {
                 width={565.25}
                 height={374}
                 alt="agriculture"
+                loading="lazy"
                  className="w-full h-auto object-cover rounded-lg"
               />
             </div>
@@ -110,55 +112,46 @@ export default function ProgramAgriculture() {
             <div className="w-full md:w-1/2 flex flex-col">
               {/* <h3 className="sfurti-heading">SFURTI Goals &amp; Objectives</h3> */}
 
-              <ul className="mt-8 space-y-6">
-                <li className="flex items-start gap-3">
-                  <span className="h-[24px] flex items-center text-green-600 text-sm">
-                    &raquo;
-                  </span>
-                  <p className="font-poppins text-[#101010] text-sm">
-                    Organizing artisans into{" "}
-                    <span className="font-semibold">
-                      self-sustaining clusters
-                    </span>{" "}
-                    to enhance collective growth.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="h-[24px] flex items-center text-green-600 text-sm">
-                    &raquo;
-                  </span>
-                  <p className="font-poppins text-[#101010] text-sm">
-                    Providing{" "}
-                    <span className="font-semibold">
-                      modern infrastructure, skill development, and
-                      technological support
-                    </span>{" "}
-                    to traditional industries.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="h-[24px] flex items-center text-green-600 text-sm">
-                    &raquo;
-                  </span>
-                  <p className="font-poppins text-[#101010] text-sm">
-                    Enhancing{" "}
-                    <span className="font-semibold">market linkages</span> to
-                    increase income opportunities for rural artisans.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="h-[24px] flex items-center text-green-600 text-sm">
-                    &raquo;
-                  </span>
-                  <p className="font-poppins text-[#101010] text-sm">
-                    Promoting{" "}
-                    <span className="font-semibold">
-                      sustainable and eco-friendly practices
-                    </span>{" "}
-                    in traditional manufacturing.
-                  </p>
-                </li>
-              </ul>
+              <ul className="mt-2 space-y-6">
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-[#101010] text-sm">
+      Organizing artisans into{" "}
+      <span className="font-semibold">self-sustaining clusters</span>{" "}
+      to enhance collective growth.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-[#101010] text-sm">
+      Providing{" "}
+      <span className="font-semibold">
+        modern infrastructure, skill development, and technological support
+      </span>{" "}
+      to traditional industries.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-[#101010] text-sm">
+      Enhancing <span className="font-semibold">market linkages</span> to
+      increase income opportunities for rural artisans.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-[#101010] text-sm">
+      Promoting{" "}
+      <span className="font-semibold">
+        sustainable and eco-friendly practices
+      </span>{" "}
+      in traditional manufacturing.
+    </p>
+  </li>
+</ul>
             </div>
           </div>
         </div>
@@ -221,6 +214,7 @@ export default function ProgramAgriculture() {
           width={565}
           height={374}
           alt="agriculture"
+          loading="lazy"
           className="w-full max-w-[565px] h-auto object-cover rounded-lg"
         />
       </div>

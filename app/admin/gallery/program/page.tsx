@@ -134,36 +134,43 @@ export default function AdminProgramPage() {
   //   }
   // };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const newErrors: { programs?: string } = {};
+  const newErrors: { programs?: string } = {};
 
-    // validation
-    if (!formData.programs.trim()) {
-      newErrors.programs = "Program name is required";
-    }
+  // validation
+  if (!formData.programs.trim()) {
+    newErrors.programs = "Program name is required";
+  }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      toast.error("Please fix the errors before submitting.");
-      return;
-    }
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    toast.error("Please fix the errors before submitting.");
+    return;
+  }
 
-    setErrors({});
-    setLoading(true);
+  setErrors({});
+  setLoading(true);
 
-    const toastId = toast.loading(
-      editingId ? "Updating program..." : "Creating program..."
-    );
+  const programName = formData.programs.trim().toLowerCase();
 
-    try {
-      const url = editingId
-        ? `/api/gallery/program/${editingId}`
-        : "/api/gallery/program";
+  // check existing program
+  const existingProgram = programs.find(
+    (p) => p.programs.toLowerCase() === programName
+  );
 
-      const response = await fetch(url, {
-        method: editingId ? "PUT" : "POST",
+  const toastId = toast.loading(
+    editingId ? "Updating program..." : "Creating program..."
+  );
+
+  try {
+    let response;
+
+    // EDIT PROGRAM
+    if (editingId) {
+      response = await fetch(`/api/gallery/program/${editingId}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
@@ -171,29 +178,72 @@ export default function AdminProgramPage() {
         }),
       });
 
-      if (response.ok) {
-        toast.success(
-          editingId
-            ? "Program updated successfully"
-            : "Program created successfully",
-          { id: toastId }
-        );
-
-        setIsModalOpen(false);
-        setEditingId(null);
-        setFormData({ programs: "", status: "1" });
-        fetchPrograms();
-      } else {
-        toast.error("Failed to save program", { id: toastId });
+      if (!response.ok) {
+        toast.error("Failed to update program", { id: toastId });
+        return;
       }
-    } catch (error) {
-      console.error("Error saving program:", error);
-      toast.error("Something went wrong", { id: toastId });
-    } finally {
-      setLoading(false);
-    }
-  };
 
+      toast.success("Program updated successfully", { id: toastId });
+    }
+
+    // CREATE PROGRAM
+    else {
+      if (existingProgram) {
+        // if already active → block duplicate
+        if (existingProgram.status === 1) {
+  toast("Program name already exists", { id: toastId });
+  return;
+}
+
+        
+        response = await fetch(`/api/gallery/program/${existingProgram.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            programs: existingProgram.programs,
+            status: 1,
+          }),
+        });
+
+        if (!response.ok) {
+          toast.error("Failed to reactivate program", { id: toastId });
+          return;
+        }
+
+        toast.success("Program reactivated successfully", { id: toastId });
+      } else {
+        // create new program
+        response = await fetch("/api/gallery/program", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            status: Number(formData.status),
+          }),
+        });
+
+        if (!response.ok) {
+          toast.error("Failed to create program", { id: toastId });
+          return;
+        }
+
+        toast.success("Program created successfully", { id: toastId });
+      }
+    }
+
+    // reset form
+    setIsModalOpen(false);
+    setEditingId(null);
+    setFormData({ programs: "", status: "1" });
+
+    fetchPrograms();
+  } catch (error) {
+    console.error("Error saving program:", error);
+    toast.error("Something went wrong", { id: toastId });
+  } finally {
+    setLoading(false);
+  }
+};
   const openAddModal = () => {
     setEditingId(null);
     setFormData({ programs: "", status: "1" });

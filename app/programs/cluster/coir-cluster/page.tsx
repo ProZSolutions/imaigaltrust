@@ -71,6 +71,7 @@ export default function ProgramAgriculture() {
       width={565}
       height={374}
       alt="agriculture"
+      loading="lazy"
       className="w-full h-auto object-cover rounded-lg"
     />
   </div>
@@ -78,7 +79,8 @@ export default function ProgramAgriculture() {
 </section>
       <section className="py-1 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto">
-<h3 className="sfurti-heading text-center">Cluster Development Goals</h3>
+    <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
+Cluster Development Goals</h2>
     <div className="p-3 md:p-5 flex flex-col md:flex-row md:items-center gap-5">
       
       {/* Left: Image */}
@@ -88,6 +90,7 @@ export default function ProgramAgriculture() {
           width={565.25}
           height={374}
           alt="agriculture2"
+          loading="lazy"
           className="w-full h-auto object-cover rounded-lg"
         />
       </div>
@@ -147,7 +150,7 @@ export default function ProgramAgriculture() {
     </div>
   </div>
 </section>
-      <section className="pt-4 pb-5 px-4 md:px-10">
+     <section className="pt-4 pb-5 px-4 md:px-10">
   <div className="max-w-[1600px] mx-auto flex flex-col gap-8">
     
     {/* Centered Heading */}
@@ -207,6 +210,7 @@ export default function ProgramAgriculture() {
           width={565}
           height={374}
           alt="agriculture3"
+          loading="lazy"
           className="w-full h-auto object-cover rounded-lg"
         />
       </div>
@@ -218,9 +222,9 @@ export default function ProgramAgriculture() {
 
       <section className="py-6 px-4 md:px-10">
   <div className="max-w-[1700px] mx-auto">
-    <h3 className="sfurti-heading mt-10 text-center">
+    <h2 className="font-poppins font-medium text-[#101010] text-center text-2xl">
           Benefits
-        </h3>
+        </h2>
     <div className="p-3 md:p-5 flex flex-col md:flex-row items-center gap-8">
       
       {/* Left: Image */}

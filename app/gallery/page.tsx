@@ -244,10 +244,11 @@ function GalleryContent() {
                   {/* Media Container */}
                   {item.media_type === "image" ? (
                     <div className="relative w-full overflow-hidden">
-                    <img
+                   <img
   src={item.file_path ? `/api/gallery-image/${item.file_path}` : "/defaultImages1.jpg"}
   alt={item.title}
-  className="w-full h-auto object-cover"
+  className="w-full h-auto object-contain block"
+  
   onError={(e) => {
     (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";
   }}
@@ -324,6 +325,7 @@ function GalleryContent() {
   alt={lightbox?.title || "Gallery Image"}
   width={900}
   height={600}
+  loading="lazy"
   className="w-full object-contain max-h-[65vh]"
   onError={() => setImgSrc("/defaultImages1.jpg")}
 />

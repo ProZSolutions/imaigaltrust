@@ -5,6 +5,7 @@ import { ChevronDown, Upload, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
 export default function EditEventPage({
   params,
@@ -127,44 +128,70 @@ export default function EditEventPage({
     }
   };
 
-const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
+const handleSubmit = async (
+  e: React.FormEvent | React.MouseEvent<HTMLButtonElement>,
+  isDraft: boolean
+) => {
   e.preventDefault();
 
   try {
     const data = new FormData();
+
+    // Append all form fields
     Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
+      if (value !== null && value !== undefined) {
+        data.append(key, String(value));
+      }
     });
+
+    // Draft flag
     data.append("isDraft", String(isDraft));
 
-    if (coverImage) data.append("coverImage", coverImage);
+    // Cover image upload
+    if (coverImage) {
+      data.append("coverImage", coverImage);
+    }
 
-    // Show toast for update
+    // API request with toast
     await toast.promise(
       fetch(`/api/events/${id}`, {
         method: "PUT",
         body: data,
       }).then(async (res) => {
         const json = await res.json();
+
         const errorMessage =
           json?.message || json?.error || "Failed to update event";
-        if (!res.ok) throw new Error(errorMessage);
+
+        if (!res.ok) {
+          throw new Error(errorMessage);
+        }
+
         return json;
       }),
       {
         loading: isDraft ? "Saving draft..." : "Updating event...",
-        success: isDraft ? "Draft saved successfully!" : "Event updated successfully!",
-        error: (err) => err.message,
+        success: isDraft
+          ? "Draft saved successfully!"
+          : "Event updated successfully!",
+        error: (err: any) => err.message,
       },
       { duration: 2000 }
     );
 
-    // Navigate after success
-    router.push("/admin/events");
+    // Redirect after success
+    if (isDraft) {
+      router.push("/admin/events/drafts");
+    } else {
+      router.push("/admin/events");
+    }
+
   } catch (error) {
     console.error("Error updating event:", error);
+    toast.error("Something went wrong");
   }
 };
+
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       {/* Header */}
@@ -563,21 +590,22 @@ const handleSubmit = async (e: React.FormEvent, isDraft: boolean) => {
 
         {/* ACTIONS */}
         <div className="pt-6 border-t border-gray-200 flex justify-end gap-4">
-          <button
-            type="button"
-            onClick={(e) => handleSubmit(e, true)}
-            className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
-          >
-            Save as Draft
-          </button>
-          <button
-            type="button"
-            onClick={(e) => handleSubmit(e, false)}
-            className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
-          >
-            Update Event
-          </button>
-        </div>
+  <button
+    type="button"
+    onClick={(e) => handleSubmit(e, true)}
+    className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-xl transition-colors disabled:opacity-50"
+  >
+    Save as Draft
+  </button>
+
+  <button
+    type="button"
+    onClick={(e) => handleSubmit(e, false)}
+    className="px-8 py-3 bg-[#1a4d2e] hover:bg-[#133922] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50 flex items-center gap-2"
+  >
+    Update Event
+  </button>
+</div>
       </div>
     </div>
   );

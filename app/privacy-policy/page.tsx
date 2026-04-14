@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
             {/* Main Content */}
             <div className="max-w-5xl mx-auto px-4 py-16">
                 <div className="text-right text-gray-500 mb-8 inter-font text-xs">
-                    Last Updated: {currentDate}
+                    {/* Last Updated: {currentDate} */}
                 </div>
 
                 <section className="inter-font mb-12">

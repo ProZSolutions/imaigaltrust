@@ -63,7 +63,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
         {/* Description */}
         {description && (
-          <p className="text-gray-600 mt-3 max-w-[600px] text-sm">
+          <p className="text-gray-600 mt-3 max-w-[500px]  text-sm">
             {description}
           </p>
         )}

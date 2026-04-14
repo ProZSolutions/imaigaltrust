@@ -46,7 +46,7 @@ export default function ProgramAgriculture() {
       />
 
       {/* SECTION 1 */}
-      <section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
+      <section className="py-10 md:py-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
         {/* TEXT */}
         <div className="w-full md:w-1/2 flex flex-col gap-4 sm:gap-6 justify-center">
           <h2 className="font-medium text-[#1B2F7C] font-poppins text-lg sm:text-xl md:text-xl lg:text-2xl leading-[1.2] mb-2">
@@ -69,13 +69,14 @@ export default function ProgramAgriculture() {
             width={565}
             height={374}
             alt="women"
+            loading="lazy"
             className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
           />
         </div>
       </section>
 
       {/* SECTION 2 */}
-<section className="pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
+<section className="py-10 md:py-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
           <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
@@ -135,6 +136,7 @@ export default function ProgramAgriculture() {
                 width={565}
                 height={374}
                 alt="core"
+                loading="lazy"
                 className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
               />
             </div>
@@ -143,7 +145,7 @@ export default function ProgramAgriculture() {
       </section>
 
       {/* SECTION 3 */}
-<section className="pt-8 sm:pt-10 md:pt-12 pb-2 sm:pb-4 md:pb-6 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
+<section className="py-10 md:py-14 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="max-w-[1600px] mx-auto flex flex-col gap-6 md:gap-10">
           {/* HEADING */}
           <h2 className="font-poppins font-medium text-[#101010] text-center text-lg sm:text-xl md:text-xl lg:text-2xl">
@@ -155,31 +157,34 @@ export default function ProgramAgriculture() {
             {/* LEFT CONTENT */}
             <div className="w-full md:w-1/2 flex flex-col mt-2 md:mt-6 font-poppins text-[#101010] gap-6 md:gap-8 order-1 md:order-1">
               <ul className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
-                  <p className="font-poppins text-sm">
-                    Trained over [Number] women in skill development programs.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
-                  <p className="font-poppins text-sm">
-                    Established multiple SHGs for financial independence.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
-                  <p className="font-poppins text-sm">
-                    Enabled women entrepreneurs to access markets and financial aid.
-                  </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 text-sm">&raquo;</span>
-                  <p className="font-poppins text-sm">
-                    Improved health awareness and access to medical facilities for women.
-                  </p>
-                </li>
-              </ul>
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-sm">
+      Trained over [Number] women in skill development programs.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-sm">
+      Established multiple SHGs for financial independence.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-sm">
+      Enabled women entrepreneurs to access markets and financial aid.
+    </p>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <span className="text-green-600 text-sm">&raquo;</span>
+    <p className="font-poppins text-sm">
+      Improved health awareness and access to medical facilities for women.
+    </p>
+  </li>
+</ul>
             </div>
 
             {/* RIGHT IMAGE */}
@@ -189,6 +194,7 @@ export default function ProgramAgriculture() {
                 width={565}
                 height={374}
                 alt="impact"
+                loading="lazy"
                 className="w-full max-w-[500px] md:max-w-full h-auto object-cover rounded-lg"
               />
             </div>

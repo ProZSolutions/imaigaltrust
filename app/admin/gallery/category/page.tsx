@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
+// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Category {
@@ -68,7 +69,6 @@ const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     });
 
     if (res.ok) {
-      // remove deleted category from UI immediately
       setCategories((prev) => prev.filter((cat) => cat.id !== deleteId));
 
       toast.success("Category deleted successfully");
@@ -91,44 +91,101 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   setLoading(true);
 
+  const categoryName = formData.category.trim().toLowerCase();
+
+  const existingCategory = categories.find(
+    (c) => c.category.toLowerCase() === categoryName
+  );
+
   const toastId = toast.loading(
     editingId ? "Updating category..." : "Creating category..."
   );
 
   try {
-    const url = editingId
-      ? `/api/gallery/category/${editingId}`
-      : "/api/gallery/category";
+    let response;
 
-    const response = await fetch(url, {
-      method: editingId ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+    
+    if (editingId) {
+      response = await fetch(`/api/gallery/category/${editingId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          status: Number(formData.status),
+        }),
+      });
+
+      if (!response.ok) {
+        toast.error("Failed to update category", { id: toastId });
+        return;
+      }
+
+      toast.success("Category updated successfully", { id: toastId });
+    }
+
+    
+    else {
+      if (existingCategory) {
+        if (existingCategory.status === 1) {
+          toast("Category name already exists", { id: toastId });
+          return;
+        }
+
+        response = await fetch(
+          `/api/gallery/category/${existingCategory.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              category: existingCategory.category,
+              status: 1,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          toast.error("Failed to reactivate category", { id: toastId });
+          return;
+        }
+
+        toast.success("Category reactivated successfully", { id: toastId });
+      } else {
+        
+        response = await fetch("/api/gallery/category", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            status: Number(formData.status),
+          }),
+        });
+
+        if (!response.ok) {
+          toast.error("Failed to create category", { id: toastId });
+          return;
+        }
+
+        toast.success("Category created successfully", { id: toastId });
+      }
+    }
+
+    
+    setIsModalOpen(false);
+    setEditingId(null);
+    setFormData({
+      category: "",
+      status: "1",
     });
 
-    if (response.ok) {
-      toast.success(
-        editingId
-          ? "Category updated successfully "
-          : "Category created successfully ",
-        { id: toastId }
-      );
-
-      setIsModalOpen(false);
-      setEditingId(null);
-      setFormData({ category: "", status: "1" });
-      fetchCategories();
-    } else {
-      toast.error("Failed to save category ", { id: toastId });
-    }
+    
+    fetchCategories();
   } catch (error) {
     console.error("Error saving category:", error);
-    toast.error("Something went wrong ", { id: toastId });
+    toast.error("Something went wrong", { id: toastId });
   } finally {
     setLoading(false);
   }
 };
-
 
 const validate = () => {
   const newErrors: { category?: string } = {};

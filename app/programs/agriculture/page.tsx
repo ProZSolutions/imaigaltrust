@@ -48,15 +48,16 @@ export default function ProgramAgriculture() {
       <section className="py-10 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center gap-8 justify-center">
 
   {/* Image */}
-  <div className="w-[220px] sm:w-[260px] md:w-[300px] aspect-square rounded-full overflow-hidden flex-shrink-0">
-    <Image
-      src="/assets/images/agriculture.png"
-      alt="agriculture"
-      width={400}
-      height={400}
-      className="w-full h-full object-cover"
-    />
-  </div>
+  <div className="w-[220px] sm:w-[260px] md:w-[300px] aspect-square rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center">
+  <Image
+    src="/assets/images/agriculture.png"
+    alt="agriculture"
+    width={400}
+    height={400}
+    loading="lazy"
+    className="w-full h-full object-contain"
+  />
+</div>
 
   {/* Content */}
   <div className="w-full flex flex-col gap-6 justify-center md:ml-12 text-center md:text-left">
@@ -120,14 +121,15 @@ export default function ProgramAgriculture() {
   </div>
 
   <div className="w-full lg:w-1/3 flex justify-center">
-    <Image
-      src="/assets/images/agriculture.png"
-      width={565.25}
-      height={374}
-      alt="agriculture"
-      className="w-full max-w-[420px] h-auto"
-    />
-  </div>
+  <Image
+    src="/assets/images/agriculture.png"
+    width={565}
+    height={374}
+    alt="agriculture"
+    loading="lazy"
+    className="w-full max-w-[420px] h-auto object-contain rounded-xl"
+  />
+</div>
 </section>
 
 <section className="w-full max-w-[1600px] mx-auto pt-0 px-4 md:px-10 mb-10">

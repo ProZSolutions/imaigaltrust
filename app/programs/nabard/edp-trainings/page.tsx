@@ -86,9 +86,9 @@ export default function EDPTrainings() {
         ]}
       />
 
-      <div className="max-w-[1700px] mx-auto px-6 py-10 lg:px-16">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-16 space-y-20">
   {/* Main Section */}
-  <div className="grid lg:grid-cols-12 gap-12 items-center mb-20">
+  <div className="grid lg:grid-cols-12 gap-12 items-center mb-10">
 
     {/* Content */}
     <div className="lg:col-span-7 space-y-6 inter-font order-1 text-center lg:text-left">
@@ -132,6 +132,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 1"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -141,6 +142,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 2"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -155,6 +157,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 3"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -164,6 +167,7 @@ export default function EDPTrainings() {
               alt="EDP Training session 4"
               fill
               className="object-contain"
+              loading="lazy"
             />
           </div>
 
@@ -176,7 +180,7 @@ export default function EDPTrainings() {
 
 
         {/* Objectives Section */}
-        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-20 shadow-sm border border-gray-100">
+        <div className="bg-secondary-50 rounded-3xl p-8 md:p-12 mb-10 shadow-sm border border-gray-100">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Objectives
           </h2>
@@ -198,7 +202,7 @@ export default function EDPTrainings() {
         </div>
 
         {/* Key Activities - Cleaner, more uniform grid */}
-        <div className="mb-20">
+        <div className="mb-10">
           <h2 className="josefin-font font-bold secondary-text-900 uppercase text-center mb-12 text-lg sm:text-xl md:text-xl lg:text-2xl">
             Key Activities
           </h2>
