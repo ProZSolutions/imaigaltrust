@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import "./registration.css";
 import toast from "react-hot-toast";
-
 interface Event {
   id: number;
   title: string;
@@ -44,6 +43,12 @@ export default function NewsEventsPage() {
     setIsModalOpen(true);
   };
 
+
+//   const [imgSrc, setImgSrc] = useState(
+//   event.cover_image
+//     ? `/api/events/images/${event.cover_image.split("/").pop()}`
+//     : "/defaultImages1.jpg"
+// );
   // interface RegistrationFormData {
   //   firstName: string;
   //   lastName: string;
@@ -264,13 +269,24 @@ if (!response.ok) {
                 className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full"
               >
                 {/* Image & Status Tag */}
-                <div className="relative h-48 overflow-hidden">
-               <Image
-  src={`/api/events/images/${event.cover_image?.split("/").pop()}`}
+               <div className="relative h-48 overflow-hidden">
+ <Image
+  src={
+    event.cover_image
+      ? `/api/events/images/${event.cover_image.split("/").pop()}`
+      : "/defaultImages1.jpg"
+  }
   alt={event.title}
-  fill
-  className="object-cover group-hover:scale-105 transition-transform duration-500"
+  width={400}
+  height={250}
+  className="w-full object-contain" // changed from object-cover
+  onError={(e) => {
+    (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";
+  }}
 />
+
+
+  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className="px-3 py-1 bg-yellow-400/90 backdrop-blur-sm font-bold text-gray-800 uppercase tracking-widest rounded-md text-xs">
                       {event.status}

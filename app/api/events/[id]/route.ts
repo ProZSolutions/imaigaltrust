@@ -50,11 +50,17 @@ export async function GET(
   }
 }
 
+
+
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL === '1' && !process.env.DATABASE_URL) {
+
+  if (
+    process.env.NEXT_PHASE === "phase-production-build" ||
+    (process.env.VERCEL === "1" && !process.env.DATABASE_URL)
+  ) {
     return NextResponse.json({ message: "Build phase" });
   }
 
@@ -64,65 +70,109 @@ export async function PUT(
 
   try {
     const { prisma } = await import("@/lib/prisma");
+
     const resolvedParams = await params;
-    const id = parseInt(resolvedParams.id);
+    const id = Number(resolvedParams.id);
+
     const formData = await request.formData();
 
-    const title = formData.get("title") as string;
-    const programId = parseInt(formData.get("programId") as string);
-    const categoryId = parseInt(formData.get("categoryId") as string);
-    const status = formData.get("status") as "upcoming" | "ongoing" | "past";
-    const startDate = formData.get("startDate") as string;
-    const startTime = formData.get("startTime") as string;
-    const endDate = formData.get("endDate") as string || null;
-    const endTime = formData.get("endTime") as string || null;
-    const location = formData.get("location") as string;
-    const shortDescription = formData.get("shortDescription") as string;
-    const fullDescription = formData.get("fullDescription") as string || null;
-    const contactPerson = formData.get("contactPerson") as string || null;
-    const contactEmail = formData.get("contactEmail") as string || null;
-    const videoUrl = formData.get("videoUrl") as string || null;
-    const registrationStartDate = formData.get("registrationStartDate") as string || null;
-    const registrationEndDate = formData.get("registrationEndDate") as string || null;
+    // ⭐ Draft flag
     const isDraft = formData.get("isDraft") === "true";
 
-    const coverImageFile = formData.get("coverImage") as File | string | null;
-    let coverImagePath = undefined;
+    // ⭐ Basic fields
+    const title = formData.get("title") as string;
+    const programId = Number(formData.get("programId"));
+    const categoryId = Number(formData.get("categoryId"));
+    const status = formData.get("status") as "upcoming" | "ongoing" | "past";
 
-    if (coverImageFile instanceof File) {
+    const startDate = formData.get("startDate") as string;
+    const startTime = formData.get("startTime") as string;
+
+    const endDate = formData.get("endDate") as string | null;
+    const endTime = formData.get("endTime") as string | null;
+
+    const location = formData.get("location") as string;
+
+    const shortDescription = formData.get("shortDescription") as string;
+    const fullDescription = formData.get("fullDescription") as string | null;
+
+    const contactPerson = formData.get("contactPerson") as string | null;
+    const contactEmail = formData.get("contactEmail") as string | null;
+
+    const videoUrl = formData.get("videoUrl") as string | null;
+
+    const registrationStartDate =
+      formData.get("registrationStartDate") as string | null;
+
+    const registrationEndDate =
+      formData.get("registrationEndDate") as string | null;
+
+    // ⭐ Cover image upload
+    const coverImageFile = formData.get("coverImage") as File | null;
+    let coverImagePath: string | undefined;
+
+    if (coverImageFile && coverImageFile.size > 0) {
       const bytes = await coverImageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const uploadDir = path.join(process.cwd(), "public/assets/images/events");
+
+      const uploadDir = path.join(
+        process.cwd(),
+        "public/assets/images/events"
+      );
+
       await mkdir(uploadDir, { recursive: true });
-      const fileName = `${Date.now()}-${coverImageFile.name.replace(/\s+/g, "-")}`;
-      coverImagePath = `/assets/images/events/${fileName}`;
+
+      const fileName = `${Date.now()}-${coverImageFile.name.replace(
+        /\s+/g,
+        "-"
+      )}`;
+
       const fullPath = path.join(uploadDir, fileName);
+
       await writeFile(fullPath, buffer);
+
+      coverImagePath = `/assets/images/events/${fileName}`;
     }
 
+    // ⭐ Convert Date + Time
     const formatToDateTime = (dateStr: string, timeStr: string | null) => {
       if (!dateStr) return null;
       const time = timeStr ? timeStr : "00:00";
       return new Date(`${dateStr}T${time}:00`);
     };
 
+    // ⭐ Prisma Update Data
     const updateData: any = {
       title,
       program_id: programId,
       category_id: categoryId,
       status,
-      start_date: new Date(startDate),
-      start_time: formatToDateTime(startDate, startTime)!,
+
+      start_date: startDate ? new Date(startDate) : null,
+      start_time: formatToDateTime(startDate, startTime),
+
       end_date: endDate ? new Date(endDate) : null,
-      end_time: (endDate && endTime) ? formatToDateTime(endDate, endTime) : null,
+      end_time: endDate ? formatToDateTime(endDate, endTime) : null,
+
       location,
+
       short_description: shortDescription,
       full_description: fullDescription,
+
       contact_person: contactPerson,
       contact_email: contactEmail,
+
       video_url: videoUrl,
-      registration_start_date: registrationStartDate ? new Date(registrationStartDate) : null,
-      registration_end_date: registrationEndDate ? new Date(registrationEndDate) : null,
+
+      registration_start_date: registrationStartDate
+        ? new Date(registrationStartDate)
+        : null,
+
+      registration_end_date: registrationEndDate
+        ? new Date(registrationEndDate)
+        : null,
+
+      // ⭐ IMPORTANT
       is_draft: isDraft,
     };
 
@@ -143,18 +193,21 @@ export async function PUT(
     };
 
     return NextResponse.json({
-      message: "Event updated successfully!",
+      message: isDraft
+        ? "Draft updated successfully"
+        : "Event updated successfully",
       event: formattedEvent,
     });
+
   } catch (error) {
     console.error("Error updating event:", error);
+
     return NextResponse.json(
       { message: "Failed to update event" },
       { status: 500 }
     );
   }
 }
-
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
