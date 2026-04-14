@@ -43,6 +43,13 @@ export default function NewsEventsPage() {
     setIsModalOpen(true);
   };
 
+  const getImageSrc = (cover_image: string | null) => {
+  const filename = cover_image?.split("/").pop();
+
+  return filename && filename !== ""
+    ? `/api/events/images/${filename}`
+    : "/defaultImages1.jpg";
+};
 
 //   const [imgSrc, setImgSrc] = useState(
 //   event.cover_image
@@ -270,7 +277,7 @@ if (!response.ok) {
               >
                 {/* Image & Status Tag */}
                <div className="relative h-48 overflow-hidden">
- <Image
+ {/* <Image
   src={
     event.cover_image
       ? `/api/events/images/${event.cover_image.split("/").pop()}`
@@ -279,13 +286,22 @@ if (!response.ok) {
   alt={event.title}
   width={400}
   height={250}
-  loading="lazy"
-  className="w-full object-contain" // changed from object-cover
+  onError={(e) => {
+    (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";
+  }}
+/> */}
+<Image
+  src={getImageSrc(event.cover_image)}
+  alt={event.title}
+  width={400}
+  height={250}
+  
+   loading="lazy"
+  className="w-full object-contain"
   onError={(e) => {
     (e.currentTarget as HTMLImageElement).src = "/defaultImages1.jpg";
   }}
 />
-
 
   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
                   <div className="absolute top-4 left-4 flex gap-2">

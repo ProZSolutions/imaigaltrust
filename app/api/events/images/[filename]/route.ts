@@ -9,29 +9,57 @@ export async function GET(
   try {
     const { filename } = await params;
 
-    const filePath = path.join(process.cwd(), "events", filename); // events folder in project root
-
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json({ error: "File not found" }, { status: 404 });
+    if (!filename) {
+      return NextResponse.json(
+        { error: "No filename" },
+        { status: 400 }
+      );
     }
 
-    const fileBuffer = fs.readFileSync(filePath);
+    const filePath = path.join(
+      process.cwd(),
+      "public",
+      "assets",
+      "images",
+      "events",
+      filename
+    );
+
+    const safePath = decodeURIComponent(filePath);
+
+    if (!fs.existsSync(safePath)) {
+      return NextResponse.json(
+        { error: "File not found" },
+        { status: 404 }
+      );
+    }
+
+    const fileBuffer = fs.readFileSync(safePath);
+
     const ext = path.extname(filename).toLowerCase();
 
-    let contentType = "application/octet-stream";
-    if (ext === ".jpg" || ext === ".jpeg") contentType = "image/jpeg";
-    if (ext === ".png") contentType = "image/png";
-    if (ext === ".webp") contentType = "image/webp";
-    if (ext === ".gif") contentType = "image/gif";
-    if (ext === ".jfif") contentType = "image/jpeg";
+    const contentTypeMap: Record<string, string> = {
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".png": "image/png",
+      ".webp": "image/webp",
+      ".gif": "image/gif",
+      ".jfif": "image/jpeg",
+    };
 
     return new NextResponse(fileBuffer, {
       status: 200,
       headers: {
-        "Content-Type": contentType,
+        "Content-Type": contentTypeMap[ext] || "application/octet-stream",
+        "Cache-Control": "public, max-age=31536000",
       },
     });
-  } catch {
-  return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
-}
+  } catch (error) {
+    console.error("IMAGE API ERROR:", error);
+
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
