@@ -130,20 +130,20 @@ export default function DraftsPage() {
 
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
-                <th className="p-4 font-bold w-16 uppercase text-xs">S.No</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">Event Title</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">Program</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">Status</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">Start Date</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">End Date</th>
-                <th className="p-4 font-bold text-left uppercase text-xs">Location</th>
-                <th className="p-4 font-bold text-left uppercase text-center text-xs">Actions</th>
+                <th className="p-2 font-bold w-16 uppercase text-xs">S.No</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">Event Title</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">Program</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">Status</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">Start Date</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">End Date</th>
+                <th className="p-2 font-bold text-left uppercase text-xs">Location</th>
+                <th className="p-2 font-bold text-center uppercase  text-xs">Actions</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={10} className="p-4 text-center text-gray-500">
+                  <td colSpan={10} className="p-2 text-center text-gray-500">
                     <div className="flex justify-center items-center h-20">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1a4d2e]"></div>
                     </div>
@@ -167,12 +167,12 @@ export default function DraftsPage() {
                       key={event.id}
                       className="border-b border-gray-100 hover:bg-gray-50 bg-gray-50/50"
                     >
-                      <td className="p-4">{startIndex + index + 1}</td>
-                      <td className="p-4 font-medium text-gray-800">
+                      <td className="p-2">{startIndex + index + 1}</td>
+                      <td className="p-2 font-medium text-gray-800">
                         {event.title}
                       </td>
-                      <td className="p-4 text-gray-600">{event.program}</td>
-                      <td className="p-4">
+                      <td className="p-2 text-gray-600">{event.program}</td>
+                      <td className="p-2">
                         <span
                           className={`px-2 py-1 text-xs rounded-full font-medium ${event.status === "upcoming"
                             ? "bg-blue-100 text-blue-700"
@@ -184,15 +184,15 @@ export default function DraftsPage() {
                           {event.status}
                         </span>
                       </td>
-                      <td className="p-4 text-gray-600 whitespace-nowrap text-xs">
+                      <td className="p-2 text-gray-600 whitespace-nowrap text-xs">
                         {formatDateIST(event.start_date)}
                       </td>
 
-                      <td className="p-4 text-gray-600 whitespace-nowrap text-xs">
+                      <td className="p-2 text-gray-600 whitespace-nowrap text-xs">
                         {event.end_date ? formatDateIST(event.end_date) : "-"}
                       </td>
 
-                      <td className="p-4 text-gray-600">{event.location}</td>
+                      <td className="p-2 text-gray-600">{event.location}</td>
                       <td className="p-2 flex">
                         <div className="flex gap-1 justify-center w-full">
                           <button

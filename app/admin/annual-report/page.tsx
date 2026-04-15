@@ -390,22 +390,22 @@ export default function AnnualReportFormPage() {
 
             {/* Desktop Table View */}
             <div className="hidden md:block overflow-x-auto w-full">
-              <table className="w-full text-left min-w-[800px] whitespace-nowrap">
+              <table className="w-full text-left min-w-[650px] whitespace-nowrap">
                 <thead className="bg-[#1a4d2e] text-white">
                   <tr>
-                    <th className="px-10 py-4 font-bold uppercase tracking-wider text-xs">
+                    <th className="px-3 py-4 font-bold uppercase tracking-wider text-xs">
                       Year
                     </th>
-                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                    <th className="px-4 py-4 font-bold uppercase tracking-wider text-xs">
                       Type
                     </th>
-                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                    <th className="px-4 py-4 font-bold uppercase tracking-wider text-xs">
                       Language
                     </th>
-                    <th className="px-12 py-4 font-bold uppercase tracking-wider text-xs">
+                    <th className="px-4 py-4 font-bold uppercase tracking-wider text-xs">
                       File
                     </th>
-                    <th className="px-6 py-4 font-bold uppercase tracking-wider text-right text-xs">
+                    <th className="px-3 py-4 font-bold uppercase tracking-wider  text-xs">
                       Actions
                     </th>
                   </tr>
@@ -413,10 +413,10 @@ export default function AnnualReportFormPage() {
                 <tbody className="divide-y divide-gray-50">
                   {paginatedReports.map((r) => (
                     <tr key={r.id} className="hover:bg-green-50/30 transition-colors">
-                      <td className="px-10 py-4 text-gray-700 font-semibold">{r.year}</td>
-                      <td className="px-12 py-4 text-gray-600 capitalize">{r.type}</td>
-                      <td className="px-12 py-4 text-gray-600 capitalize">{r.language}</td>
-                      <td className="px-8 py-4">
+                      <td className="px-3 py-4 text-gray-700 font-semibold">{r.year}</td>
+                      <td className="px-4 py-4 text-gray-600 capitalize">{r.type}</td>
+                      <td className="px-4 py-4 text-gray-600 capitalize">{r.language}</td>
+                      <td className="px-4 py-4">
                         <a
                           href={`/api/annual-report/file/${r.file_path}`}
                           download
@@ -426,7 +426,7 @@ export default function AnnualReportFormPage() {
                           View
                         </a>
                       </td>
-                      <td className="px-8 py-4 text-right">
+                      <td className="px-4 py-4 ">
                         <button
                           onClick={() => {
                             setDeleteId(r.id);

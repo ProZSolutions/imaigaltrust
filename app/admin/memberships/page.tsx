@@ -130,11 +130,11 @@ export default function AdminMembershipsPage() {
   };
 
   return (
-    <div className="w-full px-4 md:px-6 lg:px-8 mx-auto">
-      <Toaster position="top-right" />
+    <div className="space-y-6 w-full min-w-0">
+     <Toaster position="top-right" />
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 bg-white p-4 md:p-6 rounded-xl border border-gray-100 shadow-sm mb-6 w-full">
+      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="font-bold text-gray-800 text-xl">Membership Data</h1>
           <p className="text-gray-500 text-xs">View and manage organization members</p>
@@ -171,28 +171,30 @@ export default function AdminMembershipsPage() {
       </div>
 
 
-      {/* Desktop Table - Hidden on mobile */}
-      <div className="hidden md:block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full min-w-[900px] text-left border-collapse text-xs">
+      {/* Desktop Table */}
+
+
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="w-full overflow-x-auto">
+          <table className="w-full min-w-[500px] table-auto text-xs">
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">S.No</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Select</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Name</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Location</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Membership</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Donation</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-center">Status</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider">Applied Date</th>
+                <th className="px-0.5 py-3  uppercase font-normal text-[11px] ">S.No</th>
+                <th className=" py-3  uppercase  text-[11px] font-normal text-left">Select</th>
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Name</th>
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Contact</th>
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Location</th>
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Membership</th>
+                <th className="px-1 py-3 uppercase text-[11px] font-normal text-left">Donation</th>                
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Status</th>
+                <th className="px-1 py-3  uppercase  text-[11px] font-normal text-left">Applied Date</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-50">
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-gray-400">
+                  <td colSpan={9} className="py-6 text-center text-gray-400">
                     <div className="flex flex-col items-center gap-2">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1a4d2e]"></div>
                       <span>Loading memberships...</span>
@@ -201,7 +203,7 @@ export default function AdminMembershipsPage() {
                 </tr>
               ) : currentData.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-20 text-center text-gray-500 font-bold">
+                  <td colSpan={9} className="py-6 text-center text-gray-500 font-bold">
                     <p className="text-lg mb-1">No registrations found</p>
                     <p className="text-gray-400 font-normal">There are no records matching your criteria.</p>
                   </td>
@@ -209,8 +211,8 @@ export default function AdminMembershipsPage() {
               ) : (
                 currentData.map((m, i) => (
                   <tr key={m.id} className="hover:bg-green-50/30 transition-colors group">
-                    <td className="px-4 py-4 text-gray-500 font-medium">{startIndex + i + 1}</td>
-                    <td className="px-4 py-4 text-xs">
+                    <td className="px-1 py-4 text-gray-500  text-xs">{startIndex + i + 1}</td>
+                    <td className="px-1 py-4 text-xs">
                       {m.status === "pending" && (
                         <input
                           type="checkbox"
@@ -222,30 +224,30 @@ export default function AdminMembershipsPage() {
                                 selectedMembers.filter((id) => id !== m.id)
                               )
                           }
-                          className="w-4 h-4 rounded border-gray-300 text-[#1a4d2e] focus:ring-[#1a4d2e] cursor-pointer"
+                          className="w-3 h-4 rounded border-gray-300 text-xs text-[#1a4d2e] focus:ring-[#1a4d2e] cursor-pointer"
                         />
                       )}
                     </td>
-                    <td className="px-4 py-4 font-bold text-gray-800">{m.name}</td>
-                    <td className="px-4 py-4">
-                      <div className="font-medium text-gray-700">{m.email}</div>
+                    <td className="px-1 py-4 text-[13px] text-gray-800">{m.name}</td>
+                    <td className="px-1 py-4">
+                      <div className="text-xs text-gray-700">{m.email}</div>
                       <div className="text-gray-400 text-[11px] mt-0.5">{m.mobile}</div>
                     </td>
-                    <td className="px-4 py-4">
-                      <div className="text-gray-700 font-medium">{m.city}</div>
-                      <div className="text-gray-400 text-[11px] mt-0.5">{m.state}</div>
+                    <td className="px-1 py-4">
+                      <div className="text-gray-700 text-xs">{m.city}</div>
+                      <div className="text-gray-400 text-[10px] mt-0.5">{m.state}</div>
                     </td>
-                    <td className="px-4 py-4">
-                      <span className="text-gray-700 font-medium">
+                    <td className="px-1 py-4">
+                      <span className="text-gray-700 text-[11px]">
                         {m.membership_type}
                       </span>
                     </td>
-                    <td className="px-4 py-4 font-bold text-gray-800">
-                      {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}
-                    </td>
-                    <td className="px-4 py-4 text-center">
+                    <td className="px-1 py-4 text-[13px] text-gray-800 text-left">
+  {m.voluntaryDonation > 0 ? `₹${m.voluntaryDonation}` : "Free"}
+</td>
+                    <td className="px-1 py-4 text-xs text-left">
                       <span
-                        className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${m.status === "approved"
+                        className={` py-1 rounded-full text-[11px]   uppercase tracking-wider ${m.status === "approved"
                           ? "bg-green-100 text-green-700 border border-green-200"
                           : m.status === "rejected"
                             ? "bg-red-100 text-red-700 border border-red-200"
@@ -255,14 +257,14 @@ export default function AdminMembershipsPage() {
                         {m.status}
                       </span>
                     </td>
-                    <td className="px-4 py-4 text-gray-500 font-medium italic min-w-[120px]">
+                    <td className=" py-1 text-gray-500 text-[12px] italic ">
                       <div className="flex flex-col">
                         <span className="text-gray-700">
                           {new Date(m.created_at)
                             .toLocaleDateString("en-GB")
                             .replace(/\//g, "-")}
                         </span>
-                        <span className="text-[10px] text-gray-400 not-italic">
+                        <span className="text-[9px] text-gray-400 not-italic">
                           {new Date(m.created_at).toLocaleTimeString("en-GB", {
                             hour: "2-digit",
                             minute: "2-digit",
@@ -278,8 +280,11 @@ export default function AdminMembershipsPage() {
         </div>
       </div>
 
-      {/* Mobile Cards - Shown only on mobile */}
-      <div className="md:hidden space-y-4">
+
+
+              
+      {/* Mobile Cards */}
+<div className="lg:hidden space-y-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center p-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1a4d2e]"></div>
@@ -309,13 +314,13 @@ export default function AdminMembershipsPage() {
                     >
                       {m.status}
                     </span>
-                    <span className="text-[10px] text-gray-400 font-medium">
+                    <span className="text-[8px] text-gray-400 ">
                       {new Date(m.created_at).toLocaleDateString("en-GB").replace(/\//g, "-")}
                     </span>
                   </div>
                 </div>
                 {m.status === "pending" && (
-                  <div className="ml-4 pt-1">
+                  <div className="ml-4 pt-1 ">
                     <input
                       type="checkbox"
                       checked={selectedMembers.includes(m.id)}
@@ -347,7 +352,7 @@ export default function AdminMembershipsPage() {
 
               <div className="flex justify-between items-center mt-4">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-gray-400 uppercase font-medium">Membership</span>
+                  <span className="text-[9px] text-gray-400 uppercase font-medium">Membership</span>
                   <span className="font-bold text-gray-800 text-xs">{m.membership_type}</span>
                 </div>
                 <div className="text-right">
@@ -362,7 +367,7 @@ export default function AdminMembershipsPage() {
                 <div className="flex gap-2 mt-4 pt-4 border-t border-gray-50">
                   <button
                     onClick={() => handleApprove([m.id])}
-                    className="flex-1 py-2 bg-green-50 text-green-700 rounded-lg font-bold text-[10px] uppercase tracking-wider hover:bg-green-100 transition-colors flex items-center justify-center gap-1.5"
+                    className="flex-1 py-1 bg-green-50 text-green-700 rounded-lg font-bold text-[10px] uppercase  hover:bg-green-100 transition-colors flex items-center justify-center gap-1.5"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     Approve
@@ -372,7 +377,7 @@ export default function AdminMembershipsPage() {
                       setSelectedMembers([m.id]);
                       setRejectPopup(true);
                     }}
-                    className="flex-1 py-2 bg-red-50 text-red-700 rounded-lg font-bold text-[10px] uppercase tracking-wider hover:bg-red-100 transition-colors flex items-center justify-center gap-1.5"
+                    className="flex-1 py-1 bg-red-50 text-red-700 rounded-lg font-bold text-[10px] uppercase tracking-wider hover:bg-red-100 transition-colors flex items-center justify-center gap-1.5"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     Reject

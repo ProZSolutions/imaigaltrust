@@ -49,7 +49,7 @@ function Card({ icon, title, count, color }: CardProps) {
     <div className={`p-6 rounded-xl bg-gradient-to-br ${bgColors[color]} shadow-lg transform hover:-translate-y-1 transition-all`}>
       <div className="flex items-center justify-between mb-3 text-xl">{icon}</div>
       <h3 className="font-semibold text-gray-700 text-xs">{title}</h3>
-      <p className={`text-2xl font-bold ${textColors[color]} mt-1`}>{count}</p>
+      <p className={`text-xl font-bold ${textColors[color]} mt-1`}>{count}</p>
     </div>
   );
 }

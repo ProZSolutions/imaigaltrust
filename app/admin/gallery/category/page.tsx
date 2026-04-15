@@ -265,7 +265,7 @@ const validate = () => {
 
       <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
         <div className="overflow-x-auto w-full">
-          <table className="w-full text-left min-w-[800px] whitespace-nowrap">
+          <table className="w-full text-left min-w-[600px] whitespace-nowrap">
           <thead className="bg-[#1a4d2e] text-white">
             <tr>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">

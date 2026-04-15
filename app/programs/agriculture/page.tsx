@@ -145,7 +145,7 @@ export default function ProgramAgriculture() {
 </p>
     </div>
 
-    <div className="section-box-lg w-full">
+    {/* <div className="section-box-lg w-full">
       <h3 className="font-poppins font-medium text-[#101010] text-base sm:text-lg md:text-xl mb-2">
   Technology &amp; Innovation in Agriculture
 </h3>
@@ -154,7 +154,7 @@ export default function ProgramAgriculture() {
   Implementing rainwater harvesting, drip irrigation, and sustainable
   water management strategies to combat climate change effects on farming.
 </p>
-    </div>
+    </div> */}
 
     <div className="section-box-lg w-full">
       <h3 className="font-poppins font-medium text-[#101010] text-base sm:text-lg md:text-xl mb-2">
