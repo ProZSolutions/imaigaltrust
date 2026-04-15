@@ -72,6 +72,17 @@ export default function AdminMembershipsPage() {
   const endIndex = startIndex + perPage;
   const currentData = filteredMemberships.slice(startIndex, endIndex);
 
+//Free approve disable & Enable 
+  const hasPendingSelection = filteredMemberships.some(
+  (m) => selectedMembers.includes(m.id) && m.status === "pending"
+);
+
+const hasPaidPendingSelection = filteredMemberships.some(
+  (m) =>
+    selectedMembers.includes(m.id) &&
+    m.status === "pending" &&
+    m.voluntaryDonation > 0
+);
   // Approve members
   const handleApprove = async (ids?: string[]) => {
     const targetIds = ids || selectedMembers;
@@ -142,10 +153,11 @@ export default function AdminMembershipsPage() {
         <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full md:w-auto">
           <select
             value={statusFilter}
-            onChange={(e) => {
-              setStatusFilter(e.target.value);
-              setCurrentPage(1);
-            }}
+           onChange={(e) => {
+  setStatusFilter(e.target.value);
+  setCurrentPage(1);
+  setSelectedMembers([]); 
+}}
             className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold focus:ring-2 focus:ring-green-500 outline-none cursor-pointer"
           >
             <option value="all">All Status</option>
@@ -153,16 +165,16 @@ export default function AdminMembershipsPage() {
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
           </select>
-          <button
-            onClick={() => handleApprove()}
-            disabled={selectedMembers.length === 0}
+      <button
+  onClick={() => handleApprove()}
+  disabled={!hasPaidPendingSelection}
             className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-800 disabled:opacity-50 disabled:cursor-not-allowed font-semibold w-full md:w-auto text-xs transition-all"
           >
             Approve
           </button>
-          <button
-            onClick={() => setRejectPopup(true)}
-            disabled={selectedMembers.length === 0}
+       <button
+  onClick={() => setRejectPopup(true)}
+  disabled={!hasPendingSelection}
             className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold w-full md:w-auto text-xs transition-all"
           >
             Reject
@@ -214,16 +226,17 @@ export default function AdminMembershipsPage() {
                     <td className="px-1 py-4 text-gray-500  text-xs">{startIndex + i + 1}</td>
                     <td className="px-1 py-4 text-xs">
                       {m.status === "pending" && (
-                        <input
-                          type="checkbox"
-                          checked={selectedMembers.includes(m.id)}
-                          onChange={(e) =>
-                            e.target.checked
-                              ? setSelectedMembers([...selectedMembers, m.id])
-                              : setSelectedMembers(
-                                selectedMembers.filter((id) => id !== m.id)
-                              )
-                          }
+  <input
+    type="checkbox"
+    checked={selectedMembers.includes(m.id)}
+    onChange={(e) => {
+  if (e.target.checked) {
+    setSelectedMembers((prev) => [...prev, m.id]);
+  } else {
+    setSelectedMembers((prev) => prev.filter((id) => id !== m.id));
+  }
+}}
+
                           className="w-3 h-4 rounded border-gray-300 text-xs text-[#1a4d2e] focus:ring-[#1a4d2e] cursor-pointer"
                         />
                       )}
