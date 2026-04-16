@@ -103,7 +103,10 @@ Installation:
 
 Environment Variables:
     Create .env file in the root folder.
-    DATABASE_URL="mysql://root:password@localhost:3306/imaigal_trust" NEXTAUTH_SECRET=your_secret_key 
+    
+    EMAIL_USER=mugilnilavan11@gmail.com
+    EMAIL_PASS=yknv wond hfvd qapz
+    DATABASE_URL="mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:3306/${DB_NAME}"
 
 Prisma Setup:
     Generate Prisma Client

@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
-// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
+
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Category {
   id: number;
@@ -216,6 +216,7 @@ const validate = () => {
   
   return (
     <div className="space-y-6">
+       
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="font-bold text-gray-800 text-xl">Gallery Categories</h1>
@@ -265,7 +266,7 @@ const validate = () => {
 
       <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
         <div className="overflow-x-auto w-full">
-          <table className="w-full text-left min-w-[800px] whitespace-nowrap">
+          <table className="w-full text-left min-w-[600px] whitespace-nowrap">
           <thead className="bg-[#1a4d2e] text-white">
             <tr>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">

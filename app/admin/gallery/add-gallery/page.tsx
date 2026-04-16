@@ -10,11 +10,13 @@ import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Program {
   id: number;
   programs: string;
+  status: number;
 }
 
 interface Category {
   id: number;
   category: string;
+  status: number;
 }
 
 interface GalleryItem {
@@ -431,20 +433,20 @@ export default function GalleryPage() {
           <table className="w-full min-w-[620px] text-left border-collapse">
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   S.No</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   PROGRAM
                 </th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   Category</th>
                 <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
                   Title</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   Year</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   Type</th>
-                <th className="px-4 py-3 font-bold uppercase tracking-wider text-xs">
+                <th className="px-1 py-3 font-bold uppercase tracking-wider text-xs">
                   Actions</th>
               </tr>
             </thead>
@@ -469,24 +471,24 @@ export default function GalleryPage() {
                 paginatedData.map((item, idx) => (
 
                   <tr key={item.id} className="hover:bg-green-50/30 transition-colors">
-                    <td className="px-4 py-3 whitespace-nowrap">{startIndex + idx + 1}</td>
+                    <td className="px-2 py-3 whitespace-nowrap text-xs">{startIndex + idx + 1}</td>
 
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    <td className="px-2 py-3 whitespace-nowrap text-xs">
                       {item.program.programs}
                     </td>
 
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    <td className="px-2 py-3 whitespace-nowrap text-xs">
                       {item.category.category}
                     </td>
 
-                    <td className="px-4 py-3 whitespace-nowrap capitalize">
+                    <td className="px-2 py-3 whitespace-nowrap capitalize text-xs ">
                       {item.title}
                     </td>
 
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    <td className="px-2 py-3 whitespace-nowrap text-xs">
                       {item.year}
                     </td>
-                    <td className="px-4 py-3 text-sml whitespace-nowrap">
+                    <td className="px-2 py-3 text-sm whitespace-nowrap">
                       {item.media_type === "image" && item.file_path ? (
                         <button
                           onClick={() => setPreviewItem(item)}
@@ -508,7 +510,7 @@ export default function GalleryPage() {
                       )}
                     </td>
 
-                    <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <td className="px-2 py-3 text-gray-600 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEditForm(item)}
@@ -618,11 +620,13 @@ export default function GalleryPage() {
                           } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm`}
                       >
                         <option value="">Select Program</option>
-                        {programs.map((p) => (
-                          <option key={p.id} value={p.id}>
-                            {p.programs}
-                          </option>
-                        ))}
+                        {programs
+  .filter((p) => p.status === 1)
+  .map((p) => (
+    <option key={p.id} value={p.id}>
+      {p.programs}
+    </option>
+))}
                       </select>
                       {errors.programId && (
                         <p className="text-red-500 mt-1 ml-1 text-xs">
@@ -647,11 +651,13 @@ export default function GalleryPage() {
                       >
                         <option value="">Select Category</option>
 
-                        {categories.map((c) => (
-                          <option key={c.id} value={c.id}>
-                            {c.category}
-                          </option>
-                        ))}
+                        {categories
+    .filter((c) => c.status === 1) // only active categories
+    .map((c) => (
+      <option key={c.id} value={c.id}>
+        {c.category}
+      </option>
+    ))}
                       </select>
 
                       {errors.categoryId && (

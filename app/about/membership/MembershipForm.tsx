@@ -194,7 +194,7 @@ if (!form.interest) newErrors.interest = "Please select an Area of Interest";
 
   if (!isValid || Object.keys(newErrors).length > 0) {
   setErrors((prev) => ({ ...prev, ...newErrors }));
-  toast.error(" Please fix the errors before submitting the form.");
+  toast.error(" Please fill all required fields correctly.");
   setIsSubmitting(false);
   return;
 }
@@ -826,29 +826,31 @@ const handleCheckboxChange = (name: keyof typeof form, value: string) => {
     {isPaidDonation && (
       <>
         <input
-          name="voluntaryDonation"
-          type="number"
-          min="1000"
-          required={isPaidDonation}
-          value={form.voluntaryDonation}
-          onChange={(e) => {
-            let value = e.target.value;
+  name="voluntaryDonation"
+  type="text"
+  inputMode="numeric"
+  min="1000"
+  required={isPaidDonation}
+  value={form.voluntaryDonation}
+  onChange={(e) => {
+    let value = e.target.value;
 
-            // remove leading 0
-            if (value === "0") value = "";
+    // allow only numbers
+    value = value.replace(/[^0-9]/g, "");
 
-            setForm((prev) => ({
-              ...prev,
-              voluntaryDonation: value,
-            }));
-          }}
-          placeholder="₹1000"
-          className={`mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border focus:outline-none ${
-            errors.voluntaryDonation
-              ? "border-red-500"
-              : "border-gray-300"
-          }`}
-        />
+    // remove leading 0
+    if (value === "0") value = "";
+
+    setForm((prev) => ({
+      ...prev,
+      voluntaryDonation: value,
+    }));
+  }}
+  placeholder="₹1000"
+  className={`mt-1 w-full max-w-[386px] h-[56px] px-3 rounded-md border focus:outline-none ${
+    errors.voluntaryDonation ? "border-red-500" : "border-gray-300"
+  }`}
+/>
 
         {errors.voluntaryDonation && (
           <p className="mt-1 text-red-600 text-xs">

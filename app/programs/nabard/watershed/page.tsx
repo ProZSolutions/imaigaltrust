@@ -76,15 +76,15 @@ export default function WatershedDevelopment() {
         ]}
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 md:px-10 py-16 space-y-20">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-10  py-16 space-y-20">
         {/* Watershed Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mt-[-30px]">
           <div className="space-y-6 inter-font">
-           <h2 className="josefin-font pt-24 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl">
+           <h2 className="josefin-font pt-24 font-bold text-[#1B2F7C] uppercase text-lg sm:text-xl md:text-xl lg:text-2xl mt-[-40px]">
   Watershed Development
 </h2>
             {/* <div className="w-20 h-2 bg-[#1B2F7C] rounded-full"></div> */}
-            <p className="text-black text-sm font-medium leading-relaxed">
+            <p className="text-black text-sm font-medium leading-relaxed ">
               Restoring degraded land and securing water resources for
               sustainable rural agriculture.
             </p>

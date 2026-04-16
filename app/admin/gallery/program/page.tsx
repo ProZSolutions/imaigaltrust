@@ -297,7 +297,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">
                 Program Name
               </th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">
+              <th className="px-15 py-4 font-bold uppercase tracking-wider text-center text-xs">
                 Status
               </th>
               <th className="px-8 py-4 font-bold uppercase tracking-wider text-right text-xs">
@@ -335,7 +335,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <td className="px-6 py-4 text-gray-800 font-semibold">
                     {prog.programs}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-10 text-center py-4">
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${Number(prog.status) === 1
                         ? "bg-green-100 text-green-700 border border-green-200"

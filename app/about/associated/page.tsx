@@ -199,14 +199,12 @@ export default function ProgramAgriculture() {
                 <div className="p-8">
                   <ul className="space-y-4">
                     {org.points.map((point, pIdx) => (
-                      <li key={pIdx} className="flex items-start gap-4">
-                        <span className="text-[#89C541] mt-1 shrink-0 font-bold">
-                          ››
-                        </span>
-                        <p className="text-[#555555] italic text-sm">
-                          {point}
-                        </p>
-                      </li>
+                      <li key={pIdx} className="flex gap-2">
+  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
+  <p className="text-[#555555] italic text-sm leading-relaxed">
+    {point}
+  </p>
+</li>
                     ))}
                   </ul>
                 </div>
@@ -232,20 +230,20 @@ export default function ProgramAgriculture() {
             <div className="p-10 bg-white grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 items-center">
               <ul className="space-y-5">
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     Collaborate in healthcare, education, women empowerment, and
                     poverty alleviation.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     Help implement policies and schemes for rural welfare.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     Department of Horticulture, Erode
                   </p>
@@ -253,20 +251,20 @@ export default function ProgramAgriculture() {
               </ul>
               <ul className="space-y-5">
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     Support climate-proofing and sustainability projects in
                     rural areas.
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     ATMA, Department of Agriculture, Govt. of Tamil Nadu
                   </p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#89C541] font-bold">››</span>
+                  <span className="text-[#89C541] font-bold mt-[-2px]">››</span>
                   <p className="text-[#555555] italic text-sm">
                     NSDC – Ministry of Skill Development, Govt. of India
                   </p>

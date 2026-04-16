@@ -164,45 +164,45 @@ export default function EventsPage() {
       </div>
 
       {/* Desktop Table Section */}
-      <div className="hidden md:block bg-white rounded-xl border border-gray-200 shadow-sm w-full min-w-0">
+      <div className="hidden md:block bg-white rounded-xl border border-gray-200 shadow-xs w-full min-w-0">
         <div className="w-full overflow-x-auto">
 
-          <table className="w-full min-w-[650px] table-auto text-xs">
+          <table className="w-full min-w-[550px] table-auto text-xs">
 
             <thead className="bg-[#1a4d2e] text-white">
               <tr>
 
-                <th className="px-3 py-3 w-[50px] uppercase text-xs">S.No</th>
+                <th className="px-1 py-3 w-[30px] uppercase text-xs">S.No</th>
 
-                <th className="px-3 py-3 w-[160px] uppercase text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase text-xs">
                   Event Title
                 </th>
 
-                <th className="px-3 py-3 w-[120px] uppercase hidden md:table-cell text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase hidden md:table-cell text-xs">
                   Program
                 </th>
 
-                <th className="px-3 py-3 w-[100px] uppercase text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase text-xs">
                   Status
                 </th>
 
-                <th className="px-3 py-3 w-[110px] uppercase text-xs">
+                <th className="px-1 py-3 w-[110px] uppercase text-xs">
                   Start Date
                 </th>
 
-                <th className="px-3 py-3 w-[100px] uppercase hidden md:table-cell text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase hidden md:table-cell text-xs">
                   Start Time
                 </th>
 
-                <th className="px-3 py-3 w-[150px] uppercase hidden lg:table-cell text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase hidden lg:table-cell text-xs">
                   Location
                 </th>
 
-                <th className="px-3 py-3 w-[100px] uppercase text-center text-xs">
+                <th className="px-1 py-3 w-[50px] uppercase text-center text-xs">
                   Members
                 </th>
 
-                <th className="px-3 py-3 w-[100px] uppercase text-center text-xs">
+                <th className="px-1 py-3 w-[100px] uppercase text-center text-xs">
                   Actions
                 </th>
 
@@ -220,21 +220,21 @@ export default function EventsPage() {
                   className="border-b border-gray-100 hover:bg-gray-50"
                 >
 
-                  <td className="px-4 py-3 text-center align-middle">
+                  <td className=" py-1 text-center align-middle">
                     {startIndex + index + 1}
                   </td>
 
-                  <td className="px-2 py-3 font-medium truncate text-center align-middle">
+                  <td className="px-1 py-3 font-medium truncate text-center align-middle">
                     {event.title}
                   </td>
 
-                  <td className="px-2 py-3 hidden md:table-cell text-center align-middle">
+                  <td className="px-1 py-3 hidden md:table-cell text-center align-middle">
                     {event.program}
                   </td>
 
-                  <td className="px-2 py-3 text-center align-middle">
+                  <td className="px-1 py-3 text-center align-middle">
                     <span
-                      className={`px-2 py-1 text-xs rounded-full ${event.status === "upcoming"
+                      className={`px-1 py-1 text-xs rounded-full ${event.status === "upcoming"
                         ? "bg-blue-100 text-blue-700"
                         : event.status === "ongoing"
                           ? "bg-green-100 text-green-700"
@@ -245,19 +245,19 @@ export default function EventsPage() {
                     </span>
                   </td>
 
-                  <td className="px-2 py-3 text-center align-middle">
+                  <td className="px-1 py-3 text-center align-middle">
                     {formatDateIST(event.start_date)}
                   </td>
 
-                  <td className="px-2 py-3 hidden md:table-cell text-center align-middle">
+                  <td className="px-1 py-3 hidden md:table-cell text-center align-middle">
                     {formatTimeIST(event.start_time)}
                   </td>
 
-                  <td className="px-2 py-3 truncate hidden lg:table-cell text-center align-middle">
+                  <td className="px-1 py-3 truncate hidden lg:table-cell text-center align-middle">
                     {event.location}
                   </td>
 
-                  <td className="px-2 py-3 text-center align-middle">
+                  <td className="px-1 py-3 text-center align-middle">
                     {event.registrationsCount > 0 ? (
                       <Link
                         href={`/admin/events/registrations?eventId=${event.id}`}
