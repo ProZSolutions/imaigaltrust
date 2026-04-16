@@ -101,7 +101,7 @@ const hasPaidPendingSelection = filteredMemberships.some(
           targetIds.includes(m.id) ? { ...m, status: "approved" } : m
         )
       );
-      toast.success("Member(s) approved successfully!");
+      toast.success("Members approved successfully!");
       if (!ids) setSelectedMembers([]);
     } catch (error) {
       console.error(error);

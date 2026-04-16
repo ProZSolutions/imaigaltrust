@@ -57,8 +57,8 @@ export default function AboutUs() {
           { id: 2, name: "About Us" },
         ]}
         //subtitle="WHO WE ARE"
-        title={`Rooted in the Soil.
-Growing with the Community.`}
+        title={`Rooted in the Soil
+Growing with the Community`}
         description="For over a decade, Imagial Trust has been walking alongside farming families in Tamil Nadu — building resilience, enabling opportunity, and transforming rural lives from the ground up."
       />
 
