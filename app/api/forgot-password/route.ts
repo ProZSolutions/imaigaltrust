@@ -47,7 +47,36 @@ export async function POST(req: Request) {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Password Reset OTP",
-      html: `<h2>Your OTP is: ${otp}</h2>`,
+     
+      html: `
+  <div style="font-family: Arial, sans-serif; padding:20px; background:#f9f9f9;">
+    <div style="max-width:500px; margin:auto; background:white; padding:25px; border-radius:8px; border:1px solid #eee;">
+      
+      <h2 style="text-align:center; color:#333;">Password Reset Request</h2>
+
+      <p>Hello,</p>
+
+      <p>You requested to reset your password. Use the OTP below to continue:</p>
+
+      <div style="text-align:center; margin:25px 0;">
+        <span style="font-size:32px; font-weight:bold; letter-spacing:6px; color:#2E7D32;">
+          ${otp}
+        </span>
+      </div>
+
+      <p>This OTP is valid for <b>1 minute 30 seconds</b>. Please do not share it with anyone.</p>
+
+      <p>If you did not request a password reset, you can safely ignore this email.</p>
+
+      <hr style="margin:20px 0;" />
+
+      <p style="font-size:12px; color:#777; text-align:center;">
+        This is an automated email. Please do not reply.
+      </p>
+
+    </div>
+  </div>
+`,
     });
 
     return NextResponse.json({

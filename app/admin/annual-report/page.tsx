@@ -402,7 +402,7 @@ export default function AnnualReportFormPage() {
                     <th className="px-4 py-4 font-bold uppercase tracking-wider text-xs">
                       Language
                     </th>
-                    <th className="px-4 py-4 font-bold uppercase tracking-wider text-xs">
+                    <th className="px-8 py-4 font-bold uppercase tracking-wider text-xs">
                       File
                     </th>
                     <th className="px-3 py-4 font-bold uppercase tracking-wider  text-xs">

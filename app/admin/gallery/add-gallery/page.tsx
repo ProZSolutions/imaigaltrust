@@ -10,11 +10,13 @@ import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Program {
   id: number;
   programs: string;
+  status: number;
 }
 
 interface Category {
   id: number;
   category: string;
+  status: number;
 }
 
 interface GalleryItem {
@@ -618,11 +620,13 @@ export default function GalleryPage() {
                           } focus:ring-4 focus:ring-[#096412]/5 focus:border-[#096412] outline-none transition-all appearance-none bg-white font-semibold text-sm shadow-sm`}
                       >
                         <option value="">Select Program</option>
-                        {programs.map((p) => (
-                          <option key={p.id} value={p.id}>
-                            {p.programs}
-                          </option>
-                        ))}
+                        {programs
+  .filter((p) => p.status === 1)
+  .map((p) => (
+    <option key={p.id} value={p.id}>
+      {p.programs}
+    </option>
+))}
                       </select>
                       {errors.programId && (
                         <p className="text-red-500 mt-1 ml-1 text-xs">
@@ -647,11 +651,13 @@ export default function GalleryPage() {
                       >
                         <option value="">Select Category</option>
 
-                        {categories.map((c) => (
-                          <option key={c.id} value={c.id}>
-                            {c.category}
-                          </option>
-                        ))}
+                        {categories
+    .filter((c) => c.status === 1) // only active categories
+    .map((c) => (
+      <option key={c.id} value={c.id}>
+        {c.category}
+      </option>
+    ))}
                       </select>
 
                       {errors.categoryId && (

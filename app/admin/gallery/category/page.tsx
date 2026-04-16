@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Plus, X, Trash2, ChevronDown, Edit } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
-// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
+
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Category {
   id: number;
@@ -216,6 +216,7 @@ const validate = () => {
   
   return (
     <div className="space-y-6">
+       
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>
           <h1 className="font-bold text-gray-800 text-xl">Gallery Categories</h1>

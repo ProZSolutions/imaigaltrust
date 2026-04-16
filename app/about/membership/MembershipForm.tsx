@@ -194,7 +194,7 @@ if (!form.interest) newErrors.interest = "Please select an Area of Interest";
 
   if (!isValid || Object.keys(newErrors).length > 0) {
   setErrors((prev) => ({ ...prev, ...newErrors }));
-  toast.error(" Please fix the errors before submitting the form.");
+  toast.error(" Please fill all required fields correctly.");
   setIsSubmitting(false);
   return;
 }
