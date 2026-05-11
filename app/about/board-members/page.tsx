@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ProgramAgriculture() {
   const breadrumbs = [
-    { id: 1, name: "Programs", link: "/" },
+    { id: 1, name: "About us", link: "/" },
     { id: 2, name: "Board Members" },
   ];
 

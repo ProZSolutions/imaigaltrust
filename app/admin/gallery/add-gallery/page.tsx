@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Plus, Search, X, Upload, ChevronDown, Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Pagination from "@/app/component/Pagination/Pagination";
-// import toast from "react-hot-toast";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 interface Program {
   id: number;
@@ -399,6 +398,28 @@ export default function GalleryPage() {
   };
   return (
     <div className="space-y-6">
+       <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: "10px",
+                  background: "#1a4d2e",
+                  color: "#fff",
+                  fontWeight: "600",
+                },
+                success: {
+                  style: {
+                    background: "#1a4d2e",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#dc2626",
+                  },
+                },
+              }}
+            /> 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div>

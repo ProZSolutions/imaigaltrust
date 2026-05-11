@@ -51,9 +51,11 @@ function GalleryContent() {
   const currentYear = new Date().getFullYear();
   const years = ["All Years", ...Array.from({ length: currentYear - 2017 + 1 }, (_, i) => (currentYear - i).toString())];
 
- const [imgSrc, setImgSrc] = useState(
-  lightbox?.file_path ? `/api/gallery/${lightbox.file_path}` : "/defaultImages1.jpg"
-);
+ //  const [imgSrc, setImgSrc] = useState(
+//   lightbox?.file_path ? `/api/gallery/${lightbox.file_path}` : "/defaultImages1.jpg"
+// );
+const [imgSrc, setImgSrc] = useState("/defaultImages1.jpg");
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -82,6 +84,14 @@ function GalleryContent() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
+
+  useEffect(() => {
+  if (lightbox?.file_path) {
+    setImgSrc(`/api/gallery-image/${lightbox.file_path}`);
+  } else {
+    setImgSrc("/defaultImages1.jpg");
+  }
+}, [lightbox]);
 
   const handleTabChange = (tab: "all" | "image" | "video") => {
     setActiveTab(tab);
@@ -319,16 +329,17 @@ function GalleryContent() {
             </button>
 
             {/* Media */}
-           {lightbox.media_type === "image" && lightbox.file_path ? (
+           {lightbox.media_type === "image" ? (
   <Image
-  src={imgSrc}
-  alt={lightbox?.title || "Gallery Image"}
-  width={900}
-  height={600}
-  loading="lazy"
-  className="w-full object-contain max-h-[65vh]"
-  onError={() => setImgSrc("/defaultImages1.jpg")}
-/>
+    src={imgSrc}
+    alt={lightbox.title || "Gallery Image"}
+    width={900}
+    height={600}
+    className="w-full object-contain max-h-[65vh]"
+    onError={() => {
+      setImgSrc("/defaultImages1.jpg");
+    }}
+  />
 ) : lightbox.media_type === "video" ? (
               <div className="aspect-video w-full bg-black">
                 {lightbox.video_url && getYouTubeId(lightbox.video_url) ? (
