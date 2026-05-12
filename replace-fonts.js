@@ -67,5 +67,5 @@ walk(path.join(__dirname, 'app'), (filePath) => {
   }
 });
 
-// console.log('Modified TSX files:', modifiedTsxCount);
-// console.log('Modified CSS files:', modifiedCssCount);
+console.log('Modified TSX files:', modifiedTsxCount);
+console.log('Modified CSS files:', modifiedCssCount);
