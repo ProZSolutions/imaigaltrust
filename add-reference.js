@@ -26,4 +26,4 @@ walk(path.join(__dirname, 'app'), (filePath) => {
   }
 });
 
-console.log('Added @reference to CSS files:', modifiedCssCount);
+// console.log('Added @reference to CSS files:', modifiedCssCount);

@@ -42,4 +42,4 @@ walk(path.join(__dirname, 'app'), (filePath) => {
   }
 });
 
-console.log('Fixed CSS files:', modifiedCssCount);
+// console.log('Fixed CSS files:', modifiedCssCount);

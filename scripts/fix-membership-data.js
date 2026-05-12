@@ -23,15 +23,15 @@ async function fixMembershipData() {
       WHERE membership_fee NOT REGEXP '^[0-9]+(\\.[0-9]{2})?$'
     `;
 
-    console.log('Running migration query...');
+    // console.log('Running migration query...');
     const result = await connection.execute(updateSQL);
-    console.log(`Updated ${result[0].affectedRows} rows`);
+    // console.log(`Updated ${result[0].affectedRows} rows`);
     
     // Verify the update
     const [rows] = await connection.execute('SELECT DISTINCT membership_fee FROM memberships');
-    console.log('Distinct membership_fee values after update:', rows);
+    // console.log('Distinct membership_fee values after update:', rows);
     
-    console.log('Migration completed successfully!');
+    // console.log('Migration completed successfully!');
   } catch (error) {
     console.error('Error running migration:', error.message);
   } finally {

@@ -106,4 +106,4 @@ walk(path.join(__dirname, 'app'), (filePath) => {
   }
 });
 
-console.log('Refactored classes in TSX files:', modifiedTsxCount);
+// console.log('Refactored classes in TSX files:', modifiedTsxCount);

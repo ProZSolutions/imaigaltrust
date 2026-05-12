@@ -18,7 +18,7 @@ async function main() {
     },
   });
 
-  console.log({ admin });
+  // console.log({ admin });
 }
 
 main()
