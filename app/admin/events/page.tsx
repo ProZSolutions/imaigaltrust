@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Plus, Edit, Trash2, Users, Calendar } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 
 interface EventItem {
@@ -92,6 +92,28 @@ export default function EventsPage() {
 
   return (
     <div className="space-y-6 w-full min-w-0">
+      <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: "10px",
+                  background: "#1a4d2e",
+                  color: "#fff",
+                  fontWeight: "600",
+                },
+                success: {
+                  style: {
+                    background: "#1a4d2e",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#dc2626",
+                  },
+                },
+              }}
+            /> 
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">

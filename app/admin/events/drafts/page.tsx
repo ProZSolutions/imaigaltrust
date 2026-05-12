@@ -6,7 +6,7 @@ import { Edit, Trash2, FileText, Send } from "lucide-react";
 import Pagination from "@/app/component/Pagination/Pagination";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
 import ConfirmPublishModal from "@/app/component/PublishModal/ConfirmPublishModal";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export default function DraftsPage() {
@@ -109,6 +109,29 @@ export default function DraftsPage() {
   };
   return (
     <div className="space-y-6 w-full min-w-0">
+      <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: "10px",
+                  background: "#1a4d2e",
+                  color: "#fff",
+                  fontWeight: "600",
+                },
+                success: {
+                  style: {
+                    background: "#1a4d2e",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#dc2626",
+                  },
+                },
+              }}
+            />
+      
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-[#096412]/10 rounded-lg text-[#096412]">

@@ -60,7 +60,7 @@ export default function RootLayout({
         <LayoutWrapper>{children}</LayoutWrapper>
 
       
-       <Toaster
+       {/* <Toaster
   position="top-right"
   containerStyle={{
     zIndex: 999999999,
@@ -84,7 +84,7 @@ export default function RootLayout({
       },
     },
   }}
-/>
+/> */}
         
       </body>
     </html>

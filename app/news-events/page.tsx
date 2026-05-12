@@ -135,8 +135,8 @@ export default function NewsEventsPage() {
 
 const rawText = await response.text();
 
-console.log("STATUS:", response.status);
-console.log("RAW RESPONSE:", rawText);
+// console.log("STATUS:", response.status);
+// console.log("RAW RESPONSE:", rawText);
 
 let resData;
 try {

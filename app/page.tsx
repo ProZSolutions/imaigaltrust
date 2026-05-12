@@ -259,7 +259,7 @@ export default function Home() {
       {/* EVENTS */}
       <div className="my-1 py-2 md:px-10 max-w-[1700px] mx-auto">
 
-        <SectionHeading title="NEW & EVENTS" />
+        <SectionHeading title="NEWS & EVENTS" />
 
         <div className="grid lg:grid-cols-2 gap-10 grid-cols-1">
 

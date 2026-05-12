@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+
+import toast, { Toaster } from "react-hot-toast";
+
 import {
   Users,
   FileText,
@@ -70,10 +73,33 @@ export default function AdminLayout({
 
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
+    toast.success("Logout Successfully");
     router.push("/login");
   };
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
+      <Toaster
+                    position="top-right"
+                    toastOptions={{
+                      duration: 3000,
+                      style: {
+                        borderRadius: "10px",
+                        background: "#1a4d2e",
+                        color: "#fff",
+                        fontWeight: "600",
+                      },
+                      success: {
+                        style: {
+                          background: "#1a4d2e",
+                        },
+                      },
+                      error: {
+                        style: {
+                          background: "#dc2626",
+                        },
+                      },
+                    }}
+                  /> 
       {/* Sidebar */}
       <aside className="w-72 bg-[#112e1a] text-white flex flex-col flex-shrink-0 h-screen">
         {/* Logo */}

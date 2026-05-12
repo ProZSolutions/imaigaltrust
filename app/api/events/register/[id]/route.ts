@@ -14,7 +14,7 @@ export async function PATCH(
     const body = await request.json();
     const { status, reject_reason } = body;
 
-    console.log(`Updating registration ${resolvedParams.id} with status ${status}`);
+    // console.log(`Updating registration ${resolvedParams.id} with status ${status}`);
 
     // @ts-ignore - status exists in DB but Prisma types might be out of sync
     const updatedRegistration = await prisma.eventRegistration.update({

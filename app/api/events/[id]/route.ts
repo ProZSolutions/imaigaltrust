@@ -76,10 +76,10 @@ export async function PUT(
 
     const formData = await request.formData();
 
-    // ⭐ Draft flag
+    //  Draft flag
     const isDraft = formData.get("isDraft") === "true";
 
-    // ⭐ Basic fields
+    //  Basic fields
     const title = formData.get("title") as string;
     const programId = Number(formData.get("programId"));
     const categoryId = Number(formData.get("categoryId"));
@@ -107,7 +107,7 @@ export async function PUT(
     const registrationEndDate =
       formData.get("registrationEndDate") as string | null;
 
-    // ⭐ Cover image upload
+    //  Cover image upload
     const coverImageFile = formData.get("coverImage") as File | null;
     let coverImagePath: string | undefined;
 
@@ -134,14 +134,14 @@ export async function PUT(
       coverImagePath = `/assets/images/events/${fileName}`;
     }
 
-    // ⭐ Convert Date + Time
+    //  Convert Date + Time
     const formatToDateTime = (dateStr: string, timeStr: string | null) => {
       if (!dateStr) return null;
       const time = timeStr ? timeStr : "00:00";
       return new Date(`${dateStr}T${time}:00`);
     };
 
-    // ⭐ Prisma Update Data
+    //  Prisma Update Data
     const updateData: any = {
       title,
       program_id: programId,
@@ -172,7 +172,7 @@ export async function PUT(
         ? new Date(registrationEndDate)
         : null,
 
-      // ⭐ IMPORTANT
+      //  IMPORTANT
       is_draft: isDraft,
     };
 

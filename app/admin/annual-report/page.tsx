@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Trash2, X, Plus, FileText } from "lucide-react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 import Pagination from "@/app/component/Pagination/Pagination";
 import ConfirmDeleteModal from "@/app/component/DeleteModal/ConfirmDeleteModal";
@@ -208,6 +209,28 @@ export default function AnnualReportFormPage() {
 
   return (
     <div className="space-y-6">
+      <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: "10px",
+                  background: "#1a4d2e",
+                  color: "#fff",
+                  fontWeight: "600",
+                },
+                success: {
+                  style: {
+                    background: "#1a4d2e",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#dc2626",
+                  },
+                },
+              }}
+            />
       {/* Header */}
       <div className="bg-white p-4 md:p-6 rounded-xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>

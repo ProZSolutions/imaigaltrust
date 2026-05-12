@@ -5,7 +5,7 @@ import { ChevronDown, Upload, X, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 interface Program {
@@ -296,6 +296,28 @@ export default function AddEventPage() {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
+      <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: "10px",
+                  background: "#1a4d2e",
+                  color: "#fff",
+                  fontWeight: "600",
+                },
+                success: {
+                  style: {
+                    background: "#1a4d2e",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#dc2626",
+                  },
+                },
+              }}
+            />  
       {/* Header */}
       <div className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <Link

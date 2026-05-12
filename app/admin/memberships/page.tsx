@@ -142,7 +142,29 @@ const hasPaidPendingSelection = filteredMemberships.some(
 
   return (
     <div className="space-y-6 w-full min-w-0">
-     <Toaster position="top-right" />
+
+     <Toaster
+             position="top-right"
+             toastOptions={{
+               duration: 3000,
+               style: {
+                 borderRadius: "10px",
+                 background: "#1a4d2e",
+                 color: "#fff",
+                 fontWeight: "600",
+               },
+               success: {
+                 style: {
+                   background: "#1a4d2e",
+                 },
+               },
+               error: {
+                 style: {
+                   background: "#dc2626",
+                 },
+               },
+             }}
+           />
 
       {/* Header */}
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">

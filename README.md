@@ -124,3 +124,23 @@ Run the Project
 Live Demo
     Deployment Link: https://imaigaltrust.vercel.app/
 
+--------------------------------------------------------------------------------------------------
+i) Production URL
+   https://imaigaltrust.proz.in/
+
+ii) Testing URL
+   https://imaigaltrust.proz.in/
+
+iii) Tech Stack
+    - Backend: Node.js
+        
+    - Frontend: Next.js, React, TypeScript, Tailwind CSS, React Hot Toast, Lucide Icons
+
+    - Database: MySql, Prisma ORM
+
+    - Reporting: Excel
+
+    - Utilities: Postman, GitHub, VS Code, npm
+
+iv) Defect List Link
+   https://prozsolutionsllp-my.sharepoint.com/:x:/g/personal/work_proz_in/IQC83GUcha4jRacG-UKXSlhgASZmopelWYp9_e9fBQs1-xM?rtime=j_QZAGqc3kg
